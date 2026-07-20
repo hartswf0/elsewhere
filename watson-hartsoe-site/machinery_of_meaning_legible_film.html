@@ -1,0 +1,990 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>The Machinery of Meaning — Procedural Film Engine</title>
+  <style>
+    :root {
+      --paper:#efe9dd;
+      --ink:#11100e;
+      --red:#df3d2e;
+      --blue:#2f5c8a;
+      --muted:#7d766d;
+      --panel:rgba(239,233,221,.94);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#050505;color:var(--ink);font-family:Arial,Helvetica,sans-serif}
+    body{display:grid;place-items:center}
+    #stage{position:relative;width:100vw;height:100vh;background:#050505;display:grid;place-items:center}
+    canvas{display:block;max-width:100vw;max-height:100vh;width:auto;height:auto;background:var(--paper);box-shadow:0 0 0 1px #000,0 24px 80px rgba(0,0,0,.45)}
+    #ui{position:fixed;left:0;right:0;bottom:0;z-index:4;padding:max(10px,env(safe-area-inset-bottom)) 14px 14px;background:linear-gradient(transparent,rgba(0,0,0,.78) 25%,rgba(0,0,0,.95));color:white;display:grid;gap:9px}
+    #row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+    button,select,input{font:700 12px/1.1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+    button,select{border:1px solid white;background:#0c0c0c;color:white;padding:9px 11px;text-transform:uppercase;letter-spacing:.04em}
+    button:hover,select:hover{background:white;color:black}
+    button:disabled{opacity:.35}
+    #scrub{width:100%;accent-color:white}
+    #time{margin-left:auto;white-space:nowrap;font:700 12px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+    #status{position:fixed;top:10px;left:10px;z-index:5;color:white;background:#000;padding:7px 9px;border:1px solid #777;font:700 11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.05em}
+    .render-mode #ui,.render-mode #status{display:none!important}
+    @media(max-width:700px){
+      #ui{padding:10px 8px}
+      button,select{padding:8px 9px;font-size:10px}
+      #time{width:100%;margin:0}
+    }
+  </style>
+</head>
+<body>
+<div id="stage">
+  <canvas id="film" width="1920" height="1080" aria-label="Procedural film canvas"></canvas>
+</div>
+<div id="status">READY / CODED FILM / NO SOURCE VIDEO</div>
+<div id="ui">
+  <input id="scrub" type="range" min="0" max="1000" value="0" aria-label="film timeline" />
+  <div id="row">
+    <button id="play">Play</button>
+    <button id="restart">Restart</button>
+    <button id="prev">Prev</button>
+    <button id="next">Next</button>
+    <select id="sceneSelect" aria-label="Select chapter"></select>
+    <button id="recordScene">Record Chapter</button>
+    <button id="recordFull">Record Full Film</button>
+    <button id="mute">Sound: On</button>
+    <span id="time">00:00 / 00:00</span>
+  </div>
+</div>
+<script>
+(() => {
+  'use strict';
+
+  const canvas = document.getElementById('film');
+  const ctx = canvas.getContext('2d', { alpha: false, desynchronized: true });
+  const W = canvas.width;
+  const H = canvas.height;
+  const DPR = 1;
+
+  const PAPER = '#efe9dd';
+  const INK = '#11100e';
+  const RED = '#df3d2e';
+  const BLUE = '#2f5c8a';
+  const MUTED = '#7d766d';
+  const WHITE = '#fffdf7';
+
+  const query = new URLSearchParams(location.search);
+  const renderMode = query.get('render') === '1';
+  if (renderMode) document.documentElement.classList.add('render-mode');
+
+  const scenes = [
+      {
+        id: "boot",
+        number: "00",
+        title: "THE MACHINERY OF MEANING",
+        kicker: "A PROCEDURAL R&D FILM",
+        thesis: "CULTURE HAS MECHANISMS. CULTURE IS NOT A MACHINE.",
+        prototype: "A CODED PRESENTATION THAT PERFORMS ITS ARGUMENT.",
+        question: "CAN A PRESENTATION SHOW HOW ITS CLAIMS ARE MADE?",
+        plain: "The film exposes its own method: every diagram, transition, and claim comes from one inspectable timeline.",
+        example: "Instead of hiding an argument behind decorative slides, the code shows the sequence: source → example → test → consequence.",
+        quote: "Culture has mechanisms, but culture is not a machine.",
+        source: "THE MACHINERY OF MEANING — PROSPECTUS, PREFACE",
+        lineage: "WEBER · DEWEY · WITTGENSTEIN · RYLE · GEERTZ",
+        duration: 16,
+        style: "boot",
+        seed: 11
+      },
+      {
+        id: "circuit",
+        number: "01",
+        title: "CULTURE HAS MECHANISMS",
+        kicker: "THE CULTURAL CIRCUIT",
+        thesis: "A SIGN BECOMES CONSEQUENTIAL THROUGH PUBLICLY DISTRIBUTED PROCESSES.",
+        prototype: "FIELDNOTE → SALIENCE → CLASSIFICATION → AUTHORIZATION → CONSEQUENCE",
+        question: "HOW DOES A SIGN BECOME A SOCIALLY CONSEQUENTIAL ACTION?",
+        plain: "Meaning does not jump directly from a sign into a private mind. Public roles and institutions make it actionable.",
+        example: "A red card is only colored paper until a referee displays it inside a game, authorizing a penalty everyone must recognize.",
+        quote: "Public meanings are carried, selected, combined, transformed, authorized, resisted, enacted, and repaired through investigable processes.",
+        source: "PROSPECTUS, PREFACE — “CULTURE HAS MECHANISMS”",
+        lineage: "WEBER · MEAD · DEWEY · PEIRCE · GEERTZ",
+        duration: 24,
+        style: "circuit",
+        seed: 23
+      },
+      {
+        id: "thick-mechanism",
+        number: "02",
+        title: "THICK MECHANISM",
+        kicker: "SAME TRACE / DIFFERENT ACT",
+        thesis: "THE PHYSICAL TRACE DOES NOT DETERMINE THE SOCIAL ACTION.",
+        prototype: "CHANGE AUDIENCE OR HISTORY. KEEP THE MOVEMENT. TEST THE ACT.",
+        question: "WHAT CHANGES AN EYELID MOVEMENT INTO A WINK?",
+        plain: "The visible motion can stay identical while audience, shared code, and history change what action occurred.",
+        example: "A co-conspirator reads the movement as a secret signal. A doctor reads the same movement as an involuntary spasm.",
+        quote: "A thick description establishes what kind of action occurred.",
+        source: "PROSPECTUS, CH. 1 — THICK MECHANISM",
+        lineage: "RYLE · GEERTZ · AUSTIN · GOFFMAN",
+        duration: 24,
+        style: "wink",
+        seed: 31
+      },
+      {
+        id: "features",
+        number: "03",
+        title: "FEATURES WITHOUT NEURONS",
+        kicker: "FEATURE ≠ CARRIER",
+        thesis: "AUTHORITY, PURITY, DANGER, AND HONOR MOVE ACROSS MULTIPLE CARRIERS.",
+        prototype: "A CONTESTABLE MULTIVOCALITY WORKBENCH, NOT A CULTURAL DICTIONARY.",
+        question: "DOES “AUTHORITY” LIVE INSIDE A CROWN?",
+        plain: "A cultural feature is not identical to any single word, object, person, or institution that carries it.",
+        example: "A crown, judicial robe, badge, seal, or government building can each carry authority—yet none permanently owns the feature.",
+        quote: "Cultural feature ≠ cultural carrier.",
+        source: "PROSPECTUS, CH. 2 — FEATURES WITHOUT NEURONS",
+        lineage: "PEIRCE · CASSIRER · TURNER · DOUGLAS",
+        duration: 24,
+        style: "features",
+        seed: 43
+      },
+      {
+        id: "attention",
+        number: "04",
+        title: "ATTENTION IN PUBLIC",
+        kicker: "THE INSTITUTIONAL SIEVE",
+        thesis: "INSTITUTIONS DO NOT ONLY FILTER REALITY. THEY HELP PRODUCE WHAT COUNTS.",
+        prototype: "MAP AVAILABLE CUES, AUTHORITY, OMISSIONS, AND DOWNSTREAM CONSEQUENCES.",
+        question: "WHO DECIDES WHAT COUNTS AS THE EVENT?",
+        plain: "Forms, cameras, professions, and databases route attention toward some cues and away from others.",
+        example: "A hospital chart records blood pressure but not a patient’s fear. The record then helps define what the institution treats as the case.",
+        quote: "Institutions are salience-routing systems.",
+        source: "PROSPECTUS, CH. 3 — ATTENTION IN PUBLIC",
+        lineage: "GOFFMAN · GOODWIN · FOUCAULT · BOWKER & STAR",
+        duration: 24,
+        style: "attention",
+        seed: 59
+      },
+      {
+        id: "patching",
+        number: "05",
+        title: "PATCHING THE WINK",
+        kicker: "COUNTERFACTUAL ETHNOGRAPHY",
+        thesis: "AN INTERPRETATION SHOULD STATE WHAT MAY CHANGE WITHOUT CHANGING THE ACT.",
+        prototype: "SUBSTITUTE AUDIENCE, CODE, GENRE, HISTORY, OR MATERIAL STAKE.",
+        question: "WHICH CONTEXTUAL DETAIL ACTUALLY CHANGES THE INTERPRETATION?",
+        plain: "A strong interpretation names the substitutions it can survive and the substitutions that should defeat it.",
+        example: "Keep the words “Nice work.” Change boss to friend, public to private, or praise to sarcasm. Does the act remain praise?",
+        quote: "Cultural interpretations become stronger when they specify what should change under substitutions of audience, actor, code, institution, genre, history, or material stake.",
+        source: "PROSPECTUS, CH. 4 — PATCHING THE WINK",
+        lineage: "J. S. MILL · WEBER · QCA · PROCESS TRACING",
+        duration: 24,
+        style: "patching",
+        seed: 71
+      },
+      {
+        id: "hydra",
+        number: "06",
+        title: "THE INSTITUTIONAL HYDRA",
+        kicker: "FUNCTION MIGRATION",
+        thesis: "FORMAL ABOLITION DOES NOT GUARANTEE FUNCTIONAL SUBTRACTION.",
+        prototype: "TRACK WHERE A REMOVED FUNCTION REAPPEARS THROUGH PROXIES AND REPAIR.",
+        question: "WHAT SURVIVES AFTER A RULE OR OFFICE IS REMOVED?",
+        plain: "A visible component may disappear while its function migrates into informal roles, proxy categories, sanctions, or memory.",
+        example: "A gatekeeping title is abolished, but the same approval power returns through credentials, exceptions, and unofficial sign-off.",
+        quote: "Formal abolition ≠ functional subtraction.",
+        source: "PROSPECTUS, CH. 5 — THE INSTITUTIONAL HYDRA",
+        lineage: "S. F. MOORE · S. E. MERRY · NORTH · THELEN",
+        duration: 24,
+        style: "hydra",
+        seed: 83
+      },
+      {
+        id: "steering",
+        number: "07",
+        title: "MODELS OF / MODELS FOR",
+        kicker: "CULTURAL STEERING",
+        thesis: "SYMBOLS DESCRIBE AN ORDER AND ALSO MAKE ACTIONS CREDIBLE OR FORBIDDEN.",
+        prototype: "TEST SPONTANEOUS RECURRENCE, CARRIER INVARIANCE, AND COUNTER-FRAMES.",
+        question: "WHEN DOES A SYMBOL DESCRIBE THE WORLD—AND WHEN DOES IT DIRECT ACTION?",
+        plain: "A model can represent an experienced order and simultaneously orient what people consider possible, proper, or forbidden.",
+        example: "A border map depicts territory. At a checkpoint, the same map helps decide where bodies may move and who may pass.",
+        quote: "Symbols do not merely represent an experienced order. They participate in making some actions credible, obligatory, imaginable, or forbidden.",
+        source: "PROSPECTUS, CH. 6 — MODELS OF / MODELS FOR",
+        lineage: "GEERTZ · CASSIRER · BURKE · GRAMSCI · HALL",
+        duration: 24,
+        style: "steering",
+        seed: 97
+      },
+      {
+        id: "grokking",
+        number: "08",
+        title: "CULTURAL GROKKING",
+        kicker: "CONVERSION STRATIGRAPHY",
+        thesis: "SURFACE PERFORMANCE CAN STAY STABLE WHILE JUSTIFICATION REORGANIZES.",
+        prototype: "TRACK PERFORMANCE, REASONS, TRANSFER, EXCEPTIONS, AND PHASE CHANGE.",
+        question: "WHEN DOES FOLLOWING A RULE BECOME STRUCTURAL UNDERSTANDING?",
+        plain: "Correct behavior can appear before a learner can explain, transfer, or recognize exceptions to the practice.",
+        example: "A novice repeats a greeting correctly. Later they know when not to use it, can explain why, and transfer the pattern to a new setting.",
+        quote: "Cultural learning may involve long periods of stable surface performance while the organization of justification, classification, and transfer changes beneath it.",
+        source: "PROSPECTUS, CH. 7 — CULTURAL GROKKING",
+        lineage: "MEAD · VYGOTSKY · BOURDIEU · LAVE",
+        duration: 24,
+        style: "grokking",
+        seed: 109
+      },
+      {
+        id: "editing",
+        number: "09",
+        title: "EDITING CULTURE",
+        kicker: "REFORM AFTERMATH",
+        thesis: "A NEW RULE CAN BECOME LOUDER WITHOUT BECOMING DEEPER.",
+        prototype: "FOLLOW LOCALITY, GENERALIZATION, PROXY RECONSTRUCTION, AND SPILLOVER.",
+        question: "DID THE REFORM CHANGE THE MECHANISM OR ONLY ITS OFFICIAL LABEL?",
+        plain: "Official adoption can coexist with proxy reconstruction, local workarounds, unequal burdens, and off-template spillover.",
+        example: "A category is deleted from a form. Staff recreate it through free-text notes, exceptions, and unofficial shorthand.",
+        quote: "A new language, policy, or ritual may become louder without becoming deeper.",
+        source: "PROSPECTUS, CH. 8 — EDITING CULTURE",
+        lineage: "AUSTIN · MACKENZIE · IMPLEMENTATION SCIENCE",
+        duration: 24,
+        style: "editing",
+        seed: 127
+      },
+      {
+        id: "illusions",
+        number: "10",
+        title: "ILLUSIONS OF UNDERSTANDING",
+        kicker: "EXPLANATION RED TEAM",
+        thesis: "AN EXPLANATION EARNS VALUE BY SURVIVING TESTS CAPABLE OF DEFEATING IT.",
+        prototype: "RIVAL → NEGATIVE CONTROL → SOURCE TEST → EXPLICIT KILL CRITERION",
+        question: "WHAT EVIDENCE WOULD MAKE US ABANDON THE EXPLANATION?",
+        plain: "An explanation is not strong because it fits everything. It is strong when rivals and negative controls can genuinely defeat it.",
+        example: "If the same outcome appears when the proposed mechanism is absent, the claim fails—or must be narrowed.",
+        quote: "Interpretations become scientifically valuable when they survive challenges capable of defeating them, not when they become too flexible to fail.",
+        source: "PROSPECTUS, CH. 9 — ILLUSIONS OF UNDERSTANDING",
+        lineage: "ARGUMENT MAPPING · PREREGISTRATION · RED TEAMING",
+        duration: 24,
+        style: "redteam",
+        seed: 139
+      },
+      {
+        id: "deep-play",
+        number: "11",
+        title: "DEEP PLAY",
+        kicker: "A CULTURAL CIRCUIT",
+        thesis: "RIVALRY, WAGER, PUBLIC RISK, AND MEMORY CONDENSE A DRAMA OF STATUS.",
+        prototype: "RECONSTRUCT EVENT SEQUENCES, NETWORKS, STAKES, AND MISSING EVIDENCE.",
+        question: "WHY CAN THE SAME WAGER MEAN MORE THAN THE SAME AMOUNT OF MONEY?",
+        plain: "Public stakes are transformed by kinship, rivalry, audience, status, danger, and the memory of previous encounters.",
+        example: "Two equal bets differ when one is private and casual while the other publicly stages a rivalry between closely connected groups.",
+        quote: "Social proximity and status rivalry help determine wager intensity, while public risk transforms the fight into a condensed drama.",
+        source: "PROSPECTUS, CH. 10 — DEEP PLAY",
+        lineage: "GEERTZ · BATESON · BENTHAM · GOFFMAN",
+        duration: 24,
+        style: "deepplay",
+        seed: 151
+      },
+      {
+        id: "interpretive-machine",
+        number: "12",
+        title: "THE INTERPRETIVE MACHINE",
+        kicker: "A FEDERATED RESEARCH SYSTEM",
+        thesis: "INFRASTRUCTURE FOR INTERPRETATION — NOT AN AUTOMATED CULTURE ENGINE.",
+        prototype: "PROVENANCE, RIVALS, REFUSAL, PARTICIPATORY GOVERNANCE, DUAL-USE GATES.",
+        question: "WHAT SHOULD THE SYSTEM AUTOMATE—AND WHAT MUST REMAIN CONTESTABLE?",
+        plain: "The system may retrieve contrasts, preserve provenance, and expose rivals. It must not decide what a culture “really means.”",
+        example: "Automate finding comparable episodes. Keep interpretation, refusal, participant veto, and publication risk under human governance.",
+        quote: "A cultural circuit is a context-bounded, publicly distributed configuration through which signs become salient, distinctions become active, and consequences alter the field.",
+        source: "PROSPECTUS, CONCLUSION — THE INTERPRETIVE MACHINE",
+        lineage: "ETHNOGRAPHY · COMPUTATION · CAUSAL INQUIRY · HISTORY",
+        duration: 26,
+        style: "axioms",
+        seed: 163
+      },
+      {
+        id: "roadmap",
+        number: "13",
+        title: "PROTOTYPE → PILOT → FEDERATION",
+        kicker: "THE PROGRAM ROADMAP",
+        thesis: "BUILD BOUNDED TOOLS. TEST THEM IN CASES. FEDERATE ONLY AFTER GOVERNANCE.",
+        prototype: "THE MACHINERY OF MEANING",
+        question: "WHAT IS THE SMALLEST CREDIBLE RESEARCH PROGRAM?",
+        plain: "Begin with one benchmark, one bounded archive, and one red-team protocol. Expand only after the method and governance survive contact.",
+        example: "Prototype: Same-Trace benchmark. Pilot: one field case. Federation: multiple sites with shared provenance, refusal, and dual-use rules.",
+        quote: "Infrastructure for interpretation, not an automated culture engine.",
+        source: "R&D SLIDES, BOOK-LEVEL ROADMAP + PROSPECTUS CONCLUSION",
+        lineage: "PROTOTYPE · PILOT · GOVERNANCE · FEDERATION",
+        duration: 28,
+        style: "roadmap",
+        seed: 179
+      }
+    ];
+
+  let totalDuration = 0;
+  for (const s of scenes) { s.start = totalDuration; totalDuration += s.duration; s.end = totalDuration; }
+
+  const axioms = [
+    'FEATURE ≠ CARRIER', 'RECOVERABILITY ≠ USE', 'INTERVENTION ≠ ORDINARY MECHANISM',
+    'COHERENCE ≠ CAUSAL EFFICACY', 'EFFICACY ≠ SYMBOLIC SIGNIFICANCE',
+    'FEATURES AND CARRIERS ARE MANY-TO-MANY', 'MECHANISMS DRIFT HISTORICALLY',
+    'REMOVAL CAN ACTIVATE COMPENSATION', 'MEANINGS ARE UNEQUALLY AUTHORIZED',
+    'INTERPRETATIONS REQUIRE PROVENANCE + RIVALS', 'FORMAL MODELS RETURN TO ACTION',
+    'PUBLISHED MECHANISMS ALTER THE FIELD'
+  ];
+
+  const state = {
+    playing:false,
+    currentTime:0,
+    lastNow:performance.now(),
+    muted:false,
+    selectedScene:0,
+    recording:false,
+    recordingStopAt:null,
+    recorder:null,
+    chunks:[],
+    recordName:'film'
+  };
+
+  const ui = {
+    play:document.getElementById('play'), restart:document.getElementById('restart'),
+    prev:document.getElementById('prev'), next:document.getElementById('next'),
+    select:document.getElementById('sceneSelect'), scrub:document.getElementById('scrub'),
+    recordScene:document.getElementById('recordScene'), recordFull:document.getElementById('recordFull'),
+    mute:document.getElementById('mute'), time:document.getElementById('time'), status:document.getElementById('status')
+  };
+
+  scenes.forEach((s,i) => {
+    const o=document.createElement('option');
+    o.value=String(i); o.textContent=`${s.number} — ${s.title}`; ui.select.appendChild(o);
+  });
+
+  function clamp(v,a=0,b=1){ return Math.max(a,Math.min(b,v)); }
+  function lerp(a,b,t){ return a+(b-a)*t; }
+  function invLerp(a,b,v){ return clamp((v-a)/(b-a)); }
+  function smooth(t){ t=clamp(t); return t*t*(3-2*t); }
+  function easeOut(t){ t=clamp(t); return 1-Math.pow(1-t,3); }
+  function easeInOut(t){ t=clamp(t); return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2; }
+  function pulse(t, center, width){ return Math.max(0,1-Math.abs(t-center)/width); }
+  function hash(n){ const x=Math.sin(n*12.9898+78.233)*43758.5453; return x-Math.floor(x); }
+  function rand(seed,i=0){ return hash(seed*1009+i*9176.17); }
+  function map(v,a,b,c,d){ return c+(d-c)*((v-a)/(b-a)); }
+  function fmt(sec){ const m=Math.floor(sec/60); const s=Math.floor(sec%60); return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`; }
+
+  function sceneAt(t){
+    const tt = clamp(t,0,totalDuration-.0001);
+    let lo=0,hi=scenes.length-1;
+    while(lo<=hi){ const mid=(lo+hi)>>1; const s=scenes[mid]; if(tt<s.start) hi=mid-1; else if(tt>=s.end) lo=mid+1; else return {scene:s,index:mid,local:tt-s.start,p:(tt-s.start)/s.duration}; }
+    return {scene:scenes[scenes.length-1],index:scenes.length-1,local:scenes.at(-1).duration,p:1};
+  }
+
+  function clear(color=PAPER){ ctx.fillStyle=color; ctx.fillRect(0,0,W,H); }
+  function line(x1,y1,x2,y2,width=4,color=INK,alpha=1){ ctx.save();ctx.globalAlpha=alpha;ctx.strokeStyle=color;ctx.lineWidth=width;ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();ctx.restore(); }
+  function rect(x,y,w,h,fill=null,stroke=INK,lw=4,alpha=1){ ctx.save();ctx.globalAlpha=alpha;if(fill){ctx.fillStyle=fill;ctx.fillRect(x,y,w,h);}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw;ctx.strokeRect(x,y,w,h);}ctx.restore(); }
+  function circle(x,y,r,fill=null,stroke=INK,lw=4,alpha=1){ ctx.save();ctx.globalAlpha=alpha;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);if(fill){ctx.fillStyle=fill;ctx.fill();}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw;ctx.stroke();}ctx.restore(); }
+  function poly(points,fill=null,stroke=INK,lw=4,alpha=1){ ctx.save();ctx.globalAlpha=alpha;ctx.beginPath();points.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.closePath();if(fill){ctx.fillStyle=fill;ctx.fill();}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw;ctx.stroke();}ctx.restore(); }
+  function text(txt,x,y,size=36,weight=700,color=INK,align='left',font='Arial',alpha=1){ ctx.save();ctx.globalAlpha=alpha;ctx.fillStyle=color;ctx.textAlign=align;ctx.textBaseline='alphabetic';ctx.font=`${weight} ${size}px ${font}`;ctx.fillText(txt,x,y);ctx.restore(); }
+  function mono(txt,x,y,size=22,color=INK,align='left',alpha=1){ text(txt,x,y,size,700,color,align,'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace',alpha); }
+  function measure(txt,size=36,weight=700,font='Arial'){ctx.save();ctx.font=`${weight} ${size}px ${font}`;const w=ctx.measureText(txt).width;ctx.restore();return w;}
+  function wrap(txt,x,y,maxWidth,lineHeight,size=38,weight=700,color=INK,align='left',maxLines=4,alpha=1){
+    const words=txt.split(/\s+/);let lineText='';const lines=[];
+    ctx.save();ctx.font=`${weight} ${size}px Arial`;for(const word of words){const test=lineText?lineText+' '+word:word;if(ctx.measureText(test).width>maxWidth&&lineText){lines.push(lineText);lineText=word;}else lineText=test;}if(lineText)lines.push(lineText);ctx.restore();
+    lines.slice(0,maxLines).forEach((ln,i)=>text(ln,x,y+i*lineHeight,size,weight,color,align,'Arial',alpha));
+    return Math.min(lines.length,maxLines)*lineHeight;
+  }
+  function arrow(x1,y1,x2,y2,width=5,color=INK,alpha=1){
+    line(x1,y1,x2,y2,width,color,alpha);const a=Math.atan2(y2-y1,x2-x1),s=18+width*2;
+    poly([[x2,y2],[x2-Math.cos(a-.55)*s,y2-Math.sin(a-.55)*s],[x2-Math.cos(a+.55)*s,y2-Math.sin(a+.55)*s]],color,null,0,alpha);
+  }
+  function typeText(txt,x,y,size,progress,color=INK,align='left'){ const count=Math.floor(txt.length*clamp(progress)); mono(txt.slice(0,count),x,y,size,color,align); }
+
+  function drawFrameChrome(scene,index,globalP){
+    const top=54;
+    line(70,top,W-70,top,3,INK,.9);
+    mono(`MOM / CH ${scene.number}`,72,39,17,INK);
+    mono(scene.kicker,W-72,39,17,INK,'right');
+    const barW=W-140;
+    rect(70,H-44,barW,8,'#d2cabc',null,0);
+    rect(70,H-44,barW*globalP,8,INK,null,0);
+    mono(`${String(index+1).padStart(2,'0')}/${String(scenes.length).padStart(2,'0')}`,W-72,H-61,15,INK,'right');
+  }
+
+
+  function phaseAlpha(p, holdStart, holdEnd, fade=.025){
+    const fadeIn=smooth(invLerp(holdStart-fade,holdStart,p));
+    const fadeOut=1-smooth(invLerp(holdEnd,holdEnd+fade,p));
+    return clamp(fadeIn*fadeOut);
+  }
+  function citationStrip(scene,dark=false,alpha=1){
+    const y=H-92;
+    rect(0,y,W,92,dark?INK:WHITE,null,0,alpha);
+    line(0,y,W,y,6,RED,alpha);
+    mono(`SOURCE  ${scene.source}`,76,y+34,16,dark?WHITE:INK,'left',alpha);
+    mono(`LINEAGE  ${scene.lineage}`,76,y+66,15,dark?'#c8c1b5':MUTED,'left',alpha);
+  }
+  function readingHeader(scene,step,label,dark=false,alpha=1){
+    mono(`READ ${step}/3`,88,105,20,RED,'left',alpha);
+    mono(label,88,144,18,dark?WHITE:INK,'left',alpha);
+    mono(`CH ${scene.number}  ${scene.title}`,W-88,105,18,dark?WHITE:INK,'right',alpha);
+    line(88,172,W-88,172,4,dark?WHITE:INK,alpha*.9);
+  }
+  function questionCard(scene,alpha){
+    if(alpha<=0)return;
+    ctx.save();ctx.globalAlpha=alpha;ctx.fillStyle=INK;ctx.fillRect(0,0,W,H);ctx.restore();
+    readingHeader(scene,'1','THE QUESTION',true,alpha);
+    wrap(scene.question,110,330,W-220,86,72,900,WHITE,'left',4,alpha);
+    line(110,730,330,730,10,RED,alpha);
+    wrap(scene.plain,370,705,W-500,48,32,700,'#d8d1c6','left',3,alpha);
+    citationStrip(scene,true,alpha);
+  }
+  function exampleCard(scene,alpha){
+    if(alpha<=0)return;
+    ctx.save();ctx.globalAlpha=alpha;ctx.fillStyle=PAPER;ctx.fillRect(0,0,W,H);ctx.restore();
+    readingHeader(scene,'2','CONCRETE EXAMPLE',false,alpha);
+    rect(88,230,22,520,RED,null,0,alpha);
+    wrap(scene.example,165,325,W-310,69,56,900,INK,'left',5,alpha);
+    mono('WHAT THIS TESTS',165,775,18,RED,'left',alpha);
+    wrap(scene.prototype,165,825,W-310,38,27,800,MUTED,'left',3,alpha);
+    citationStrip(scene,false,alpha);
+  }
+  function quoteCard(scene,alpha){
+    if(alpha<=0)return;
+    ctx.save();ctx.globalAlpha=alpha;ctx.fillStyle=INK;ctx.fillRect(0,0,W,H);ctx.restore();
+    readingHeader(scene,'3','SOURCE PROPOSITION',true,alpha);
+    text('“',105,430,210,900,RED,'left','Georgia',alpha);
+    wrap(scene.quote,260,350,W-430,68,51,700,WHITE,'left',6,alpha);
+    text('”',W-130,720,210,900,RED,'right','Georgia',alpha);
+    citationStrip(scene,true,alpha);
+  }
+  function persistentCaption(scene,p){
+    const alpha=phaseAlpha(p,.385,.595,.02);
+    if(alpha<=0)return;
+    const y=H-222;
+    rect(70,y,W-140,132,WHITE,INK,4,alpha*.96);
+    rect(70,y,18,132,RED,null,0,alpha);
+    mono('PLAIN-LANGUAGE CLAIM',110,y+35,15,RED,'left',alpha);
+    wrap(scene.plain,110,y+79,W-250,36,27,800,INK,'left',2,alpha);
+    mono(scene.source,W-96,y+116,14,MUTED,'right',alpha);
+  }
+  function drawReadingLayer(scene,p){
+    questionCard(scene,phaseAlpha(p,.025,.155,.025));
+    exampleCard(scene,phaseAlpha(p,.185,.355,.025));
+    persistentCaption(scene,p);
+    quoteCard(scene,phaseAlpha(p,.625,.775,.025));
+  }
+
+  function finalTitle(scene,p){
+    const a=smooth(invLerp(.795,.845,p));
+    if(a<=0)return;
+    const curtain=smooth(invLerp(.88,.95,p));
+    ctx.save();ctx.globalAlpha=a;ctx.fillStyle=PAPER;ctx.fillRect(0,0,W,H);ctx.restore();
+    const x=140;
+    mono(`CHAPTER ${scene.number}`,x,245,23,RED,'left',a);
+    const titleSize=scene.title.length>27?72:94;
+    wrap(scene.title,x,355,W-280,titleSize*1.03,titleSize,900,INK,'left',3,a);
+    line(x,595,W-140,595,8,INK,a);
+    wrap(scene.thesis,x,675,W-310,50,34,800,INK,'left',3,a);
+    mono(scene.prototype,x,H-157,20,MUTED,'left',a);
+    mono(`SOURCE  ${scene.source}`,x,H-116,16,RED,'left',a);
+    mono(`LINEAGE  ${scene.lineage}`,x,H-84,15,MUTED,'left',a);
+    if(curtain>0){
+      ctx.save();ctx.globalAlpha=curtain*.09;ctx.fillStyle=INK;
+      for(let i=0;i<18;i++)ctx.fillRect(0,i*60+(i%2)*14,W,10);
+      ctx.restore();
+    }
+  }
+
+  function drawBoot(s,p,t){
+    clear(INK);
+    const a=smooth(invLerp(0,.12,p));
+    const scan=(t*90)%H;
+    ctx.save();ctx.globalAlpha=.16;ctx.fillStyle=WHITE;ctx.fillRect(0,scan,W,4);ctx.restore();
+    for(let i=0;i<9;i++){
+      const r=80+i*72+Math.sin(t*.7+i)*15;
+      circle(W*.66,H*.47,r,null,i%3===0?RED:WHITE,Math.max(2,8-i*.55),a*(1-i*.06));
+    }
+    const bars=10;
+    for(let i=0;i<bars;i++){
+      const on=p>i*.035;
+      rect(130+i*64,240,42,42,on?WHITE:null,WHITE,3,a);
+    }
+    typeText('BOOTING CULTURAL CIRCUIT FORGE',130,180,24,invLerp(.03,.25,p),WHITE);
+    typeText('PROVENANCE ............ ONLINE',130,340,22,invLerp(.18,.35,p),WHITE);
+    typeText('RIVAL HYPOTHESES ...... ARMED',130,382,22,invLerp(.25,.42,p),WHITE);
+    typeText('REFUSAL GATE .......... OPEN',130,424,22,invLerp(.32,.49,p),WHITE);
+    const titleA=smooth(invLerp(.38,.55,p));
+    text('THE',130,635,90,900,WHITE,'left','Arial',titleA);
+    text('MACHINERY',130,740,122,900,RED,'left','Arial',titleA);
+    text('OF MEANING',130,845,104,900,WHITE,'left','Arial',titleA);
+    mono('NO SOURCE VIDEO // ALL FRAMES GENERATED BY CODE',134,905,20,WHITE,'left',titleA);
+    finalTitle(s,p);
+  }
+
+  function drawCircuit(s,p,t){
+    clear(PAPER);
+    const names=['SIGN','SALIENCE','CLASSIFY','AUTHORIZE','CONSEQUENCE'];
+    const xs=[190,520,855,1190,1545],y=510;
+    for(let i=0;i<xs.length;i++){
+      const appear=smooth(invLerp(.05+i*.05,.18+i*.05,p));
+      const rr=i===4?88:70;
+      circle(xs[i],y,rr,i===4?RED:WHITE,INK,6,appear);
+      mono(names[i],xs[i],y+8,i===4?19:17,i===4?WHITE:INK,'center',appear);
+      if(i<xs.length-1)arrow(xs[i]+rr+12,y,xs[i+1]-rr-12,y,5,INK,appear);
+    }
+    for(let k=0;k<11;k++){
+      const z=(p*3.3+k/11)%1;
+      const seg=z*4;const i=Math.min(3,Math.floor(seg));const q=seg-i;
+      const x=lerp(xs[i]+75,xs[i+1]-75,q);const yy=y+Math.sin((k+1)*2.7+t*2)*26;
+      circle(x,yy,10,k%3===0?BLUE:RED,null,0,.9);
+    }
+    const publicA=smooth(invLerp(.28,.48,p));
+    for(let i=0;i<7;i++){
+      const xx=250+i*235;const yy=760+Math.sin(i*1.5)*44;
+      rect(xx,yy,120,80,null,INK,4,publicA);
+      mono(['ACTOR','MEDIA','LAW','ARCHIVE','RITUAL','TOOL','MEMORY'][i],xx+60,yy+47,15,INK,'center',publicA);
+      line(xx+60,yy,lerp(xs[0],xs[4],i/6),y+90,2,MUTED,publicA*.6);
+    }
+    mono('PUBLICLY DISTRIBUTED, CONTEXT-BOUNDED, CONSEQUENCE-BEARING',W/2,970,22,INK,'center',publicA);
+    finalTitle(s,p);
+  }
+
+  function drawEye(cx,cy,scale,blink=0){
+    ctx.save();ctx.translate(cx,cy);ctx.scale(scale,scale);ctx.strokeStyle=INK;ctx.lineWidth=6;ctx.beginPath();ctx.moveTo(-140,0);ctx.quadraticCurveTo(0,-95,140,0);ctx.quadraticCurveTo(0,95,-140,0);ctx.stroke();
+    const ry=lerp(42,3,blink);ctx.beginPath();ctx.ellipse(0,0,42,ry,0,0,Math.PI*2);ctx.fillStyle=RED;ctx.fill();ctx.restore();
+  }
+  function drawWink(s,p,t){
+    clear(PAPER);
+    const split=smooth(invLerp(.08,.22,p));
+    line(W/2,120,W/2,H-110,7,INK,split);
+    mono('SAME PHYSICAL TRACE',W/2,125,22,RED,'center',split);
+    drawEye(W*.27,390,1.25,pulse((t*.65)%1,.5,.22));
+    drawEye(W*.73,390,1.25,pulse((t*.65)%1,.5,.22));
+    const cardA=smooth(invLerp(.22,.42,p));
+    rect(135,600,760,205,WHITE,INK,5,cardA);
+    rect(1025,600,760,205,WHITE,INK,5,cardA);
+    mono('CONTEXT A',175,648,20,RED,'left',cardA);
+    mono('CONTEXT B',1065,648,20,BLUE,'left',cardA);
+    wrap('CO-CONSPIRATORS SHARE A PUBLIC CODE',175,710,660,42,31,900,INK,'left',2,cardA);
+    wrap('UNINVOLUNTARY MUSCLE SPASM',1065,710,660,42,31,900,INK,'left',2,cardA);
+    const result=smooth(invLerp(.43,.63,p));
+    rect(230,845,560,98,INK,null,0,result); text('WINK / SOCIAL ACT',510,910,31,900,WHITE,'center','Arial',result);
+    rect(1130,845,560,98,RED,null,0,result); text('TWITCH / OCCURRENCE',1410,910,31,900,WHITE,'center','Arial',result);
+    finalTitle(s,p);
+  }
+
+  function drawFeatures(s,p,t){
+    clear(PAPER);
+    const cx=W/2,cy=530;
+    const feats=['AUTHORITY','PURITY','DANGER','HONOR','CONTINUITY','SACRIFICE'];
+    const carriers=['CROWN','FLAG','UNIFORM','BORDER','ALTAR','ARCHIVE'];
+    const reveal=smooth(invLerp(.05,.23,p));
+    for(let i=0;i<feats.length;i++){
+      const a=i/feats.length*Math.PI*2+t*.12;
+      const r=330;
+      const x=cx+Math.cos(a)*r,y=cy+Math.sin(a)*r*.7;
+      rect(x-95,y-32,190,64,i%2?WHITE:INK,INK,4,reveal);
+      mono(feats[i],x,y+7,16,i%2?INK:WHITE,'center',reveal);
+    }
+    for(let i=0;i<carriers.length;i++){
+      const a=i/carriers.length*Math.PI*2-t*.18;
+      const r=185;
+      const x=cx+Math.cos(a)*r,y=cy+Math.sin(a)*r*.65;
+      circle(x,y,58,i%2?RED:BLUE,INK,4,reveal);
+      mono(carriers[i],x,y+6,14,WHITE,'center',reveal);
+    }
+    const links=smooth(invLerp(.24,.52,p));
+    for(let i=0;i<18;i++){
+      const a=(i%6)/6*Math.PI*2+t*.12,b=((i*5+2)%6)/6*Math.PI*2-t*.18;
+      const x1=cx+Math.cos(a)*275,y1=cy+Math.sin(a)*275*.7;
+      const x2=cx+Math.cos(b)*140,y2=cy+Math.sin(b)*140*.65;
+      line(x1,y1,x2,y2,2,i%3===0?RED:INK,links*.55);
+    }
+    circle(cx,cy,92,WHITE,INK,6,reveal); mono('MANY ↔ MANY',cx,cy+8,20,INK,'center',reveal);
+    mono('THE FEATURE DOES NOT LIVE INSIDE A SINGLE WORD, OBJECT, OR PERSON.',W/2,980,22,INK,'center',links);
+    finalTitle(s,p);
+  }
+
+  function drawAttention(s,p,t){
+    clear(PAPER);
+    const cols=16,rows=8;
+    const reveal=smooth(invLerp(.03,.18,p));
+    const focusX=200+((Math.sin(t*.55)+1)/2)*(W-400);
+    const focusY=230+((Math.cos(t*.39)+1)/2)*470;
+    for(let y=0;y<rows;y++)for(let x=0;x<cols;x++){
+      const px=120+x*108,py=200+y*93;
+      const d=Math.hypot(px-focusX,py-focusY);
+      const selected=d<190;
+      const suppressed=(x+y*2)%7===0;
+      circle(px,py,selected?17:9,selected?(suppressed?MUTED:RED):INK,null,0,reveal*(selected?1:.3));
+      if(selected&&!suppressed)line(px,py,W-170,520,2,RED,.25);
+    }
+    ctx.save();ctx.strokeStyle=INK;ctx.lineWidth=10;ctx.setLineDash([22,14]);ctx.strokeRect(focusX-210,focusY-150,420,300);ctx.restore();
+    rect(W-430,360,300,320,WHITE,INK,7,reveal);
+    mono('INSTITUTION',W-280,410,18,RED,'center',reveal);
+    const labels=['VISIBLE','RECORDABLE','ACTIONABLE'];
+    labels.forEach((v,i)=>{rect(W-390,455+i*67,220,42,i===2?INK:null,INK,3,reveal);mono(v,W-280,483+i*67,14,i===2?WHITE:INK,'center',reveal);});
+    const omit=smooth(invLerp(.35,.58,p));
+    mono('SUPPRESSED CUES DO NOT DISAPPEAR. THEY BECOME HARDER TO CONTEST.',120,940,22,INK,'left',omit);
+    finalTitle(s,p);
+  }
+
+  function drawPatching(s,p,t){
+    clear(PAPER);
+    const labels=['AUDIENCE','CODE','GENRE','HISTORY','STAKE'];
+    const baseY=220;
+    for(let i=0;i<labels.length;i++){
+      const a=smooth(invLerp(.04+i*.035,.17+i*.035,p));
+      const x=120+i*350;
+      rect(x,baseY,285,120,i===Math.floor((t*.55)%5)?RED:WHITE,INK,5,a);
+      mono(labels[i],x+142,baseY+70,19,i===Math.floor((t*.55)%5)?WHITE:INK,'center',a);
+    }
+    const cardA=smooth(invLerp(.24,.39,p));
+    rect(230,470,560,310,WHITE,INK,7,cardA);
+    rect(1130,470,560,310,WHITE,INK,7,cardA);
+    mono('OBSERVED EPISODE',510,520,18,RED,'center',cardA);
+    mono('PATCHED EPISODE',1410,520,18,BLUE,'center',cardA);
+    const swap=(Math.floor(t*.55)%5);
+    labels.forEach((v,i)=>{
+      const yy=580+i*38;
+      mono(v,300,yy,14,MUTED,'left',cardA);
+      mono(i===swap?'REPLACED':'HELD',720,yy,14,i===swap?RED:INK,'right',cardA);
+      mono(v,1200,yy,14,MUTED,'left',cardA);
+      mono(i===swap?'ALTERNATE':'SAME',1620,yy,14,i===swap?BLUE:INK,'right',cardA);
+    });
+    arrow(820,625,1095,625,8,INK,cardA);
+    const verdict=smooth(invLerp(.46,.65,p));
+    rect(610,850,700,92,INK,null,0,verdict);mono(swap%2===0?'ACTION IDENTITY CHANGES':'INTERPRETATION SURVIVES',960,908,23,WHITE,'center',verdict);
+    finalTitle(s,p);
+  }
+
+  function branch(x,y,len,angle,depth,t,seed){
+    if(depth<=0)return;
+    const sway=Math.sin(t*.8+seed+depth)*.08;
+    const x2=x+Math.cos(angle+sway)*len,y2=y+Math.sin(angle+sway)*len;
+    line(x,y,x2,y2,Math.max(2,depth*3),depth===4?RED:INK,1);
+    circle(x2,y2,depth*5,depth===1?RED:WHITE,INK,3,1);
+    branch(x2,y2,len*.73,angle-.52,depth-1,t,seed+1.3);
+    branch(x2,y2,len*.73,angle+.46,depth-1,t,seed+2.1);
+  }
+  function drawHydra(s,p,t){
+    clear(PAPER);
+    const a=smooth(invLerp(.04,.20,p));
+    branch(W/2,920,210,-Math.PI/2,5,t,1);
+    const cut=smooth(invLerp(.28,.38,p))*(1-smooth(invLerp(.52,.62,p)));
+    if(cut>0){
+      line(1040,440,1200,355,26,PAPER,cut);
+      line(1010,420,1220,330,7,RED,cut);
+      mono('FORMALLY REMOVED',1215,300,18,RED,'right',cut);
+    }
+    const regrow=smooth(invLerp(.50,.68,p));
+    if(regrow>0){
+      ctx.save();ctx.globalAlpha=regrow;branch(990,545,125,-.55,3,t,5);branch(940,575,120,-2.55,3,t,7);ctx.restore();
+      mono('FUNCTION MIGRATES',W/2,160,25,RED,'center',regrow);
+    }
+    const labels=['LAW','ROLE','SANCTION','MEMORY','PROXY','DEPENDENCY'];
+    labels.forEach((v,i)=>{const x=180+i*300;rect(x,955,230,55,i>3?RED:INK,null,0,a);mono(v,x+115,991,15,WHITE,'center',a);});
+    finalTitle(s,p);
+  }
+
+  function drawSteering(s,p,t){
+    clear(PAPER);
+    const reveal=smooth(invLerp(.04,.18,p));
+    const field=smooth(invLerp(.18,.52,p));
+    const center={x:W*.62,y:H*.5};
+    for(let y=170;y<900;y+=86){
+      for(let x=120;x<1810;x+=95){
+        const dx=center.x-x,dy=center.y-y,dist=Math.hypot(dx,dy)+1;
+        const bend=field*Math.exp(-dist/650);
+        const ang=Math.atan2(dy,dx)*bend + Math.sin(x*.004+y*.003+t*.5)*.08;
+        const len=30+55*bend;
+        arrow(x,y,x+Math.cos(ang)*len,y+Math.sin(ang)*len,2.5,bend>.35?RED:INK,reveal*.75);
+      }
+    }
+    rect(130,190,380,150,WHITE,INK,6,reveal);mono('MODEL OF',320,245,21,BLUE,'center',reveal);wrap('DESCRIBES AN EXPERIENCED ORDER',180,300,290,29,20,800,INK,'left',2,reveal);
+    rect(1410,690,380,150,INK,INK,6,reveal);mono('MODEL FOR',1600,745,21,RED,'center',reveal);wrap('ORIENTS WHAT MAY BE DONE',1460,800,290,29,20,800,WHITE,'left',2,reveal);
+    circle(center.x,center.y,95,RED,INK,7,field);mono('SYMBOL',center.x,center.y+8,22,WHITE,'center',field);
+    finalTitle(s,p);
+  }
+
+  function graphLine(points,color,width=6,alpha=1){ctx.save();ctx.globalAlpha=alpha;ctx.strokeStyle=color;ctx.lineWidth=width;ctx.beginPath();points.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.stroke();ctx.restore();}
+  function drawGrokking(s,p,t){
+    clear(PAPER);
+    const a=smooth(invLerp(.04,.17,p));
+    const x0=180,y0=860,x1=1740,y1=190;
+    line(x0,y0,x1,y0,6,INK,a);line(x0,y0,x0,y1,6,INK,a);
+    mono('TIME',x1,y0+42,18,INK,'right',a);mono('STRUCTURAL TRANSFER',x0-25,y1-25,18,INK,'left',a);
+    const perf=[],just=[];
+    for(let i=0;i<=60;i++){
+      const q=i/60,x=lerp(x0,x1,q);
+      const plateau=.62+Math.sin(i*.55)*.015;
+      const jump=1/(1+Math.exp(-(q-.68)*34));
+      perf.push([x,lerp(y0,y1,.35+q*.2)]);
+      just.push([x,lerp(y0,y1,plateau*.15+jump*.78)]);
+    }
+    const revealCount=Math.floor(61*clamp(invLerp(.18,.64,p)));
+    graphLine(perf.slice(0,revealCount),BLUE,8,a);
+    graphLine(just.slice(0,revealCount),RED,8,a);
+    const jumpX=lerp(x0,x1,.68);
+    line(jumpX,y0,jumpX,y1,3,MUTED,a*.7);
+    mono('PHASE CHANGE',jumpX+18,250,20,RED,'left',smooth(invLerp(.45,.62,p)));
+    rect(260,250,380,100,WHITE,INK,4,a);mono('SURFACE PERFORMANCE',450,310,17,BLUE,'center',a);
+    rect(260,380,380,100,WHITE,INK,4,a);mono('JUSTIFICATION / TRANSFER',450,440,17,RED,'center',a);
+    finalTitle(s,p);
+  }
+
+  function drawEditing(s,p,t){
+    clear(PAPER);
+    const a=smooth(invLerp(.04,.18,p));
+    rect(120,180,760,650,WHITE,INK,7,a);rect(1040,180,760,650,WHITE,INK,7,a);
+    mono('BEFORE',500,235,22,INK,'center',a);mono('OFFICIAL AFTER',1420,235,22,RED,'center',a);
+    const old=['RULE A','ROLE B','CATEGORY C','RITUAL D','SANCTION E'];
+    old.forEach((v,i)=>{const yy=300+i*92;rect(210,yy,580,56,i===2?RED:INK,null,0,a);mono(v,500,yy+36,17,WHITE,'center',a);});
+    old.forEach((v,i)=>{const yy=300+i*92;const removed=i===2;rect(1130,yy,580,56,removed?PAPER:INK,removed?RED:null,removed?5:0,a);mono(removed?'REMOVED':v,1420,yy+36,17,removed?RED:WHITE,'center',a);});
+    const proxy=smooth(invLerp(.33,.58,p));
+    rect(1210,680,420,72,BLUE,INK,4,proxy);mono('PROXY C′',1420,726,19,WHITE,'center',proxy);
+    arrow(1420,660,1420,590,7,BLUE,proxy);
+    const spill=smooth(invLerp(.48,.67,p));
+    for(let i=0;i<5;i++){const x=1060+i*160,y=875+Math.sin(i*2+t)*18;circle(x,y,25,i%2?RED:BLUE,INK,3,spill);line(1420,752,x,y,2,MUTED,spill*.55);}
+    mono('LOCAL EDITS PRODUCE OFF-TEMPLATE CONSEQUENCES.',W/2,980,22,INK,'center',spill);
+    finalTitle(s,p);
+  }
+
+  function drawRedTeam(s,p,t){
+    clear(PAPER);
+    const a=smooth(invLerp(.04,.16,p));
+    rect(650,385,620,260,WHITE,INK,9,a);
+    mono('INTERPRETIVE CLAIM',960,455,23,RED,'center',a);
+    wrap('THIS EXPLANATION FITS THE EPISODE',960,535,500,46,33,900,INK,'center',2,a);
+    const attacks=[
+      ['STRONGEST RIVAL',240,240,490,110],['NEGATIVE CONTROL',1190,210,500,110],
+      ['SOURCE INDEPENDENCE',190,730,560,110],['KILL CRITERION',1190,745,500,110]
+    ];
+    attacks.forEach((it,i)=>{
+      const aa=smooth(invLerp(.16+i*.07,.31+i*.07,p));
+      rect(it[1],it[2],it[3],it[4],i===3?RED:INK,INK,4,aa);
+      mono(it[0],it[1]+it[3]/2,it[2]+67,18,WHITE,'center',aa);
+      arrow(it[1]+it[3]/2,it[2]+it[4]/2,960,515,5,i===3?RED:INK,aa*.8);
+    });
+    const verdict=smooth(invLerp(.54,.69,p));
+    const survives=Math.sin(t*.6)>-.2;
+    rect(710,700,500,100,survives?INK:RED,null,0,verdict);
+    mono(survives?'NARROWED — SURVIVES':'DEFEATED — REVISE',960,762,24,WHITE,'center',verdict);
+    mono('FLEXIBILITY IS NOT ROBUSTNESS.',960,920,22,INK,'center',verdict);
+    finalTitle(s,p);
+  }
+
+  function drawDeepPlay(s,p,t){
+    clear(PAPER);
+    const a=smooth(invLerp(.04,.18,p));
+    const cx=W/2,cy=520;
+    circle(cx,cy,250,WHITE,INK,10,a);circle(cx,cy,135,null,RED,10,a);
+    const nodes=[];
+    for(let i=0;i<14;i++){
+      const ang=i/14*Math.PI*2,rr=390+(i%3)*55;
+      nodes.push([cx+Math.cos(ang)*rr,cy+Math.sin(ang)*rr*.78]);
+    }
+    nodes.forEach((n,i)=>{
+      const b=nodes[(i*5+3)%nodes.length];
+      line(n[0],n[1],b[0],b[1],2,MUTED,a*.35);
+    });
+    nodes.forEach((n,i)=>circle(n[0],n[1],24,i%3===0?RED:INK,INK,3,a));
+    for(let i=0;i<8;i++){
+      const q=(p*2+i/8)%1;const n=nodes[i],x=lerp(n[0],cx,q),y=lerp(n[1],cy,q);
+      circle(x,y,10,RED,null,0,a);
+    }
+    const words=['RIVALRY','KINSHIP','WAGER','PUBLIC RISK','STATUS','MEMORY'];
+    words.forEach((v,i)=>{const ang=i/words.length*Math.PI*2-.4;const x=cx+Math.cos(ang)*650,y=cy+Math.sin(ang)*390;mono(v,x,y,18,i%2?INK:RED,'center',a);});
+    const drama=smooth(invLerp(.34,.60,p));
+    poly([[cx,320],[cx+150,520],[cx,720],[cx-150,520]],RED,INK,7,drama);
+    mono('STAGED DRAMA',cx,530,20,WHITE,'center',drama);
+    finalTitle(s,p);
+  }
+
+  function drawAxioms(s,p,t){
+    clear(INK);
+    const a=smooth(invLerp(.03,.16,p));
+    const cols=3,rows=4;
+    axioms.forEach((v,i)=>{
+      const x=90+(i%cols)*610,y=145+Math.floor(i/cols)*195;
+      const aa=smooth(invLerp(.05+i*.025,.18+i*.025,p));
+      rect(x,y,530,140,i%4===0?RED:WHITE,WHITE,3,aa);
+      wrap(v,x+25,y+48,480,31,20,900,i%4===0?WHITE:INK,'left',3,aa);
+    });
+    const methods=smooth(invLerp(.45,.63,p));
+    const labels=['ETHNOGRAPHY','COMPUTATION','CAUSAL INQUIRY','HISTORY'];
+    labels.forEach((v,i)=>{const x=180+i*420;rect(x,930,330,64,i===0?RED:WHITE,WHITE,3,methods);mono(v,x+165,970,16,i===0?WHITE:INK,'center',methods);});
+    finalTitle(s,p);
+  }
+
+  function drawRoadmap(s,p,t){
+    clear(PAPER);
+    const a=smooth(invLerp(.04,.18,p));
+    const stages=[
+      {x:140,w:480,n:'01',t:'PROTOTYPE',d:'SCHEMAS, BENCHMARKS, PAPER TOOLS'},
+      {x:720,w:480,n:'02',t:'PILOT',d:'BOUNDED CASES, FIELD TESTS, RED TEAM'},
+      {x:1300,w:480,n:'03',t:'FEDERATION',d:'MULTI-SITE GOVERNANCE, REFUSAL GATES'}
+    ];
+    stages.forEach((st,i)=>{
+      const aa=smooth(invLerp(.06+i*.10,.24+i*.10,p));
+      rect(st.x,250,st.w,430,i===1?INK:WHITE,INK,7,aa);
+      mono(st.n,st.x+40,315,28,i===1?RED:INK,'left',aa);
+      text(st.t,st.x+40,430,55,900,i===1?WHITE:INK,'left','Arial',aa);
+      wrap(st.d,st.x+40,515,st.w-80,38,25,800,i===1?WHITE:INK,'left',4,aa);
+      if(i<2)arrow(st.x+st.w+25,465,stages[i+1].x-25,465,8,RED,aa);
+    });
+    const ask=smooth(invLerp(.48,.64,p));
+    rect(270,770,1380,130,RED,null,0,ask);
+    mono('BUILD LESS. TEST HARDER. PUBLISH WITH GOVERNANCE.',960,850,32,WHITE,'center',ask);
+    const end=smooth(invLerp(.70,.82,p));
+    if(end>0){
+      clear(INK);
+      const ringP=(t*.15)%1;
+      for(let i=0;i<8;i++){const r=130+i*75+ringP*50;circle(W/2,H/2,r,null,i%2?RED:WHITE,4,end*(1-i*.07));}
+      text('THE MACHINERY',W/2,470,112,900,WHITE,'center','Arial',end);
+      text('OF MEANING',W/2,590,112,900,RED,'center','Arial',end);
+      mono('CULTURE HAS MECHANISMS. CULTURE IS NOT A MACHINE.',W/2,690,24,WHITE,'center',end);
+      mono('END OF CODED FILM',W/2,930,18,MUTED,'center',end);
+    }
+  }
+
+  const renderers = {
+    boot:drawBoot,circuit:drawCircuit,wink:drawWink,features:drawFeatures,attention:drawAttention,
+    patching:drawPatching,hydra:drawHydra,steering:drawSteering,grokking:drawGrokking,
+    editing:drawEditing,redteam:drawRedTeam,deepplay:drawDeepPlay,axioms:drawAxioms,roadmap:drawRoadmap
+  };
+
+  function renderAtAbsolute(seconds){
+    state.currentTime=clamp(seconds,0,totalDuration);
+    const info=sceneAt(state.currentTime>=totalDuration?totalDuration-.0001:state.currentTime);
+    state.selectedScene=info.index;
+    const globalP=state.currentTime/totalDuration;
+    const renderer=renderers[info.scene.style]||drawCircuit;
+    renderer(info.scene,info.p,state.currentTime);
+    if(info.p<.795) drawFrameChrome(info.scene,info.index,globalP);
+    drawReadingLayer(info.scene,info.p);
+    updateUI(info);
+    return info;
+  }
+
+  function updateUI(info=sceneAt(state.currentTime)){
+    if(renderMode)return;
+    ui.scrub.value=String(Math.round(state.currentTime/totalDuration*1000));
+    ui.time.textContent=`${fmt(state.currentTime)} / ${fmt(totalDuration)}`;
+    ui.select.value=String(info.index);
+    ui.play.textContent=state.playing?'Pause':'Play';
+    ui.status.textContent=`${state.recording?'RECORDING':'READY'} / CH ${info.scene.number} / ${info.scene.title}`;
+  }
+
+  function tick(now){
+    const dt=Math.min(.1,(now-state.lastNow)/1000);state.lastNow=now;
+    if(state.playing){
+      state.currentTime+=dt;
+      if(state.recordingStopAt!==null&&state.currentTime>=state.recordingStopAt){state.currentTime=state.recordingStopAt;stopRecording();}
+      if(state.currentTime>=totalDuration){state.currentTime=totalDuration;state.playing=false;}
+    }
+    renderAtAbsolute(state.currentTime);
+    requestAnimationFrame(tick);
+  }
+
+  function selectScene(index,play=false){
+    const i=clamp(index,0,scenes.length-1);state.selectedScene=i;state.currentTime=scenes[i].start;state.playing=play;audioCue(i);renderAtAbsolute(state.currentTime);
+  }
+
+  ui.play.addEventListener('click',async()=>{await ensureAudio();state.playing=!state.playing;state.lastNow=performance.now();});
+  ui.restart.addEventListener('click',()=>{state.currentTime=0;state.playing=true;audioCue(0);});
+  ui.prev.addEventListener('click',()=>selectScene(sceneAt(state.currentTime).index-1,false));
+  ui.next.addEventListener('click',()=>selectScene(sceneAt(state.currentTime).index+1,false));
+  ui.select.addEventListener('change',()=>selectScene(Number(ui.select.value),false));
+  ui.scrub.addEventListener('input',()=>{state.currentTime=Number(ui.scrub.value)/1000*totalDuration;state.playing=false;renderAtAbsolute(state.currentTime);});
+  ui.mute.addEventListener('click',()=>{state.muted=!state.muted;ui.mute.textContent=`Sound: ${state.muted?'Off':'On'}`;if(masterGain)masterGain.gain.value=state.muted?0:.16;});
+  ui.recordScene.addEventListener('click',()=>recordScope('scene'));
+  ui.recordFull.addEventListener('click',()=>recordScope('full'));
+
+  document.addEventListener('keydown',(e)=>{
+    if(['INPUT','SELECT','TEXTAREA'].includes(e.target.tagName))return;
+    if(e.code==='Space'){e.preventDefault();state.playing=!state.playing;}
+    else if(e.key==='ArrowRight')selectScene(sceneAt(state.currentTime).index+1,false);
+    else if(e.key==='ArrowLeft')selectScene(sceneAt(state.currentTime).index-1,false);
+    else if(e.key.toLowerCase()==='r')recordScope('scene');
+    else if(e.key.toLowerCase()==='f')recordScope('full');
+  });
+
+  // Minimal procedural audio. The browser recorder captures it with the canvas stream.
+  let audioCtx=null,masterGain=null,recordDest=null,droneA=null,droneB=null;
+  async function ensureAudio(){
+    if(audioCtx){if(audioCtx.state==='suspended')await audioCtx.resume();return;}
+    audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+    masterGain=audioCtx.createGain();masterGain.gain.value=state.muted?0:.16;
+    recordDest=audioCtx.createMediaStreamDestination();
+    masterGain.connect(audioCtx.destination);masterGain.connect(recordDest);
+    droneA=audioCtx.createOscillator();droneB=audioCtx.createOscillator();
+    const ga=audioCtx.createGain(),gb=audioCtx.createGain();ga.gain.value=.12;gb.gain.value=.05;
+    droneA.type='sine';droneB.type='triangle';droneA.frequency.value=48;droneB.frequency.value=72;
+    droneA.connect(ga).connect(masterGain);droneB.connect(gb).connect(masterGain);droneA.start();droneB.start();
+  }
+  function audioCue(index){
+    if(!audioCtx||state.muted)return;
+    const now=audioCtx.currentTime;
+    [0,1,2].forEach((k)=>{
+      const o=audioCtx.createOscillator(),g=audioCtx.createGain();
+      o.type=k===2?'square':'sine';o.frequency.value=90+index*7+k*55;
+      g.gain.setValueAtTime(0,now+k*.07);g.gain.linearRampToValueAtTime(.12,now+k*.07+.01);g.gain.exponentialRampToValueAtTime(.0001,now+k*.07+.22);
+      o.connect(g).connect(masterGain);o.start(now+k*.07);o.stop(now+k*.07+.24);
+    });
+    droneA.frequency.setTargetAtTime(42+index*2.5,now,.35);
+    droneB.frequency.setTargetAtTime(63+index*3.25,now,.4);
+  }
+
+  async function recordScope(scope){
+    if(state.recording){stopRecording();return;}
+    await ensureAudio();
+    const info=sceneAt(state.currentTime);
+    let start=0,end=totalDuration,name='machinery_of_meaning_full_film';
+    if(scope==='scene'){start=info.scene.start;end=info.scene.end;name=`machinery_of_meaning_${info.scene.number}_${info.scene.id}`;}
+    state.currentTime=start;state.recordingStopAt=end;state.recordName=name;state.playing=true;state.recording=true;
+    const videoStream=canvas.captureStream(60);
+    const tracks=[...videoStream.getVideoTracks(),...recordDest.stream.getAudioTracks()];
+    const stream=new MediaStream(tracks);
+    const options=[
+      {mimeType:'video/webm;codecs=vp9,opus',videoBitsPerSecond:18000000},
+      {mimeType:'video/webm;codecs=vp8,opus',videoBitsPerSecond:14000000},
+      {mimeType:'video/webm',videoBitsPerSecond:12000000}
+    ].find(o=>MediaRecorder.isTypeSupported(o.mimeType))||{};
+    state.chunks=[];state.recorder=new MediaRecorder(stream,options);
+    state.recorder.ondataavailable=e=>{if(e.data&&e.data.size)state.chunks.push(e.data);};
+    state.recorder.onstop=()=>{
+      const blob=new Blob(state.chunks,{type:'video/webm'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`${state.recordName}.webm`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),30000);
+    };
+    state.recorder.start(1000);audioCue(scope==='scene'?info.index:0);
+    ui.recordScene.textContent='Stop Recording';ui.recordFull.textContent='Stop Recording';
+  }
+  function stopRecording(){
+    if(!state.recording)return;
+    state.recording=false;state.playing=false;state.recordingStopAt=null;
+    if(state.recorder&&state.recorder.state!=='inactive')state.recorder.stop();
+    ui.recordScene.textContent='Record Chapter';ui.recordFull.textContent='Record Full Film';
+  }
+
+  function resizeCanvasCSS(){
+    const aspect=W/H;let vw=innerWidth,vh=innerHeight;
+    if(vw/vh>aspect){canvas.style.height=vh+'px';canvas.style.width=(vh*aspect)+'px';}
+    else{canvas.style.width=vw+'px';canvas.style.height=(vw/aspect)+'px';}
+  }
+  addEventListener('resize',resizeCanvasCSS);resizeCanvasCSS();
+
+  const requestedScene=query.get('scene');
+  if(requestedScene){
+    const idx=/^\d+$/.test(requestedScene)?Number(requestedScene):scenes.findIndex(s=>s.id===requestedScene);
+    if(idx>=0)state.currentTime=scenes[clamp(idx,0,scenes.length-1)].start;
+  }
+  if(query.get('autoplay')==='1'&&!renderMode)state.playing=true;
+
+  window.MOM_FILM_API={
+    scenes,totalDuration,
+    renderAtAbsolute,
+    selectScene,
+    sceneAt,
+    metadata(){return {width:W,height:H,totalDuration,scenes:scenes.map(({id,number,title,start,end,duration})=>({id,number,title,start,end,duration}))};}
+  };
+
+  renderAtAbsolute(state.currentTime);
+  requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1207 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Can a Language Model Build With LEGO? LDraw and the difference between making an image and making an assembly, by Watson Hartsoe.">
+<meta name="author" content="Watson Hartsoe">
+<meta name="citation_title" content="Can a Language Model Build With LEGO?">
+<meta name="citation_author" content="Hartsoe, Watson">
+<meta name="citation_publication_date" content="2026/07">
+<title>Can a Language Model Build With LEGO?</title>
+
+<style>
+:root{
+  --paper:#f7f3ea;
+  --ink:#171611;
+  --muted:#6e685e;
+  --line:#c9c0b3;
+  --red:#a72f24;
+  --blue:#255c83;
+  --green:#2f704c;
+  --yellow:#d6a51f;
+  --panel:#ece5d8;
+  --dark:#11130f;
+  --code:#e8f0df;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --sans:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --mono:"SFMono-Regular",Consolas,Menlo,monospace;
+  --measure:45rem;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  color:var(--ink);
+  background:var(--paper);
+  font-family:var(--serif);
+  font-size:clamp(17px,1.03vw,19.5px);
+  line-height:1.62;
+  text-rendering:optimizeLegibility;
+}
+a{
+  color:inherit;
+  text-decoration-color:var(--red);
+  text-decoration-thickness:.08em;
+  text-underline-offset:.18em;
+}
+a:hover{color:var(--red)}
+#progress{
+  position:fixed;
+  inset:0 auto auto 0;
+  width:0;
+  height:3px;
+  z-index:90;
+  background:var(--red);
+}
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:80;
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+  padding:.55rem max(1rem,calc((100vw - 82rem)/2));
+  border-bottom:1px solid var(--line);
+  background:color-mix(in srgb,var(--paper) 95%,transparent);
+  backdrop-filter:blur(12px);
+  font-family:var(--sans);
+}
+.brand{
+  margin-right:auto;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  font-size:.62rem;
+  font-weight:850;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+}
+.topbar a,.topbar button{
+  padding:.42rem .65rem;
+  border:1px solid var(--line);
+  border-radius:999px;
+  color:var(--ink);
+  background:transparent;
+  font:750 .6rem/1 var(--sans);
+  letter-spacing:.07em;
+  text-decoration:none;
+  text-transform:uppercase;
+  cursor:pointer;
+}
+.page{
+  width:min(100%,82rem);
+  margin:0 auto;
+  padding:0 clamp(1rem,4vw,4rem) 6rem;
+}
+.hero{
+  padding:clamp(4.8rem,10vw,8.8rem) 0 2.7rem;
+}
+.kicker{
+  margin:0 0 1rem;
+  color:var(--red);
+  font:850 .66rem/1.2 var(--sans);
+  letter-spacing:.17em;
+  text-transform:uppercase;
+}
+h1{
+  max-width:13ch;
+  margin:0;
+  font-size:clamp(3.5rem,9.1vw,8.2rem);
+  line-height:.87;
+  letter-spacing:-.065em;
+  font-weight:560;
+}
+.deck{
+  max-width:45rem;
+  margin:2.2rem 0 0;
+  font-size:clamp(1.17rem,1.85vw,1.55rem);
+  line-height:1.38;
+}
+.byline{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:2rem;
+  max-width:64rem;
+  margin-top:2.8rem;
+  color:var(--muted);
+  font:.73rem/1.5 var(--sans);
+}
+.byline strong{
+  display:block;
+  color:var(--ink);
+  font-size:.96rem;
+}
+.byline .date{text-align:right}
+.hero-image{
+  position:relative;
+  width:100%;
+  min-height:clamp(20rem,54vw,43rem);
+  margin:0 0 1rem;
+  overflow:hidden;
+  border-top:1px solid var(--ink);
+  border-bottom:1px solid var(--ink);
+  background:#ddd5c8;
+}
+.hero-image img{
+  width:100%;
+  height:100%;
+  min-height:inherit;
+  display:block;
+  object-fit:cover;
+}
+.hero-image::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,transparent 58%,rgba(0,0,0,.74));
+  pointer-events:none;
+}
+.hero-caption{
+  position:absolute;
+  z-index:2;
+  left:clamp(1rem,4vw,3rem);
+  right:clamp(1rem,4vw,3rem);
+  bottom:1.15rem;
+  max-width:48rem;
+  color:white;
+  font:.72rem/1.45 var(--sans);
+}
+.hero-caption strong{
+  display:block;
+  margin-bottom:.18rem;
+  font-size:.85rem;
+}
+.opening,.section{
+  display:grid;
+  grid-template-columns:minmax(0,var(--measure)) minmax(14rem,19rem);
+  gap:clamp(2.1rem,5vw,5.5rem);
+  align-items:start;
+}
+.opening{
+  padding:3.1rem 0;
+  border-bottom:1px solid var(--line);
+}
+.lede{
+  font-size:1.17em;
+  line-height:1.52;
+}
+.side{
+  position:sticky;
+  top:4.15rem;
+  color:var(--muted);
+  font:.68rem/1.48 var(--sans);
+}
+.side h2{
+  margin:0 0 .7rem;
+  color:var(--ink);
+  font-size:.63rem;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+}
+.side .note,.side a{
+  display:block;
+  padding:.75rem 0;
+  border-top:1px solid var(--line);
+  text-decoration:none;
+}
+.side > :last-child{border-bottom:1px solid var(--line)}
+.side strong{
+  display:block;
+  margin-bottom:.15rem;
+  color:var(--ink);
+  font-size:.72rem;
+}
+.toc{
+  padding:2rem 0;
+  border-bottom:1px solid var(--line);
+  font-family:var(--sans);
+}
+.toc ol{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  max-width:var(--measure);
+  gap:.4rem 2rem;
+  margin:0;
+  padding:0;
+  list-style:none;
+  counter-reset:toc;
+}
+.toc li{counter-increment:toc}
+.toc a{
+  display:grid;
+  grid-template-columns:1.8rem 1fr;
+  gap:.25rem;
+  color:var(--muted);
+  text-decoration:none;
+  font-size:.72rem;
+}
+.toc a::before{
+  content:counter(toc,decimal-leading-zero);
+  color:#9a9185;
+  font-family:var(--mono);
+  font-size:.61rem;
+}
+.section{
+  padding:clamp(4.5rem,8vw,7rem) 0 0;
+}
+.section-no{
+  display:block;
+  margin:0 0 .5rem;
+  color:var(--red);
+  font:850 .63rem/1.2 var(--sans);
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+h2{
+  margin:0 0 1.7rem;
+  font-size:clamp(2.2rem,4.8vw,3.7rem);
+  line-height:.98;
+  letter-spacing:-.049em;
+  font-weight:560;
+}
+h3{
+  margin:2.3rem 0 .65rem;
+  font-size:1.26rem;
+  line-height:1.25;
+  letter-spacing:-.015em;
+}
+p{margin:0 0 1.12rem}
+.dropcap::first-letter{
+  float:left;
+  padding:.1em .08em 0 0;
+  color:var(--red);
+  font-size:4.35em;
+  line-height:.77;
+}
+.pull{
+  margin:2.2rem 0;
+  padding:1.15rem 1.3rem;
+  border-top:1px solid var(--ink);
+  border-bottom:1px solid var(--ink);
+  background:rgba(167,47,36,.045);
+  font-size:1.18em;
+  line-height:1.42;
+}
+.figure-wide{
+  width:min(100vw - 2rem,74rem);
+  margin:2.7rem 0 2.7rem calc((var(--measure) - min(100vw - 2rem,74rem))/2);
+}
+figure{margin:2.5rem 0}
+figure img{
+  width:100%;
+  display:block;
+  background:#ddd6ca;
+}
+.image-frame{
+  overflow:hidden;
+  border:1px solid var(--line);
+  background:white;
+}
+.image-frame img{
+  width:100%;
+  height:auto;
+  display:block;
+}
+figcaption{
+  margin-top:.72rem;
+  color:var(--muted);
+  font:.67rem/1.46 var(--sans);
+}
+figcaption strong{color:var(--ink)}
+.photo-pair{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:.75rem;
+}
+.photo-pair figure{margin:0}
+.code-line{
+  margin:2.2rem 0;
+  padding:1rem;
+  overflow:auto;
+  border:1px solid #30342d;
+  background:var(--dark);
+  color:var(--code);
+  white-space:nowrap;
+  font:.72rem/1.55 var(--mono);
+}
+.anatomy{
+  margin:2.6rem 0;
+  padding:1rem;
+  border:1px solid var(--line);
+  background:white;
+}
+.anatomy-line{
+  display:grid;
+  grid-template-columns:.6fr .7fr repeat(3,.7fr) 2fr 1.2fr;
+  gap:.3rem;
+  align-items:stretch;
+}
+.token{
+  display:flex;
+  min-height:5.5rem;
+  flex-direction:column;
+  justify-content:center;
+  padding:.55rem .4rem;
+  border-top:4px solid var(--red);
+  background:var(--panel);
+  text-align:center;
+  font-family:var(--sans);
+}
+.token:nth-child(2){border-color:#985217}
+.token:nth-child(3),.token:nth-child(4),.token:nth-child(5){border-color:var(--blue)}
+.token:nth-child(6){border-color:var(--green)}
+.token:nth-child(7){border-color:#69518a}
+.token b{
+  font:.83rem/1 var(--mono);
+}
+.token span{
+  margin-top:.35rem;
+  color:var(--muted);
+  font:.57rem/1.35 var(--sans);
+}
+.brick-illustration{
+  position:relative;
+  min-height:17rem;
+  margin-top:1rem;
+  overflow:hidden;
+  background:linear-gradient(180deg,#f7f5ee,#e7e0d4);
+}
+.brick{
+  position:absolute;
+  left:50%;
+  top:52%;
+  width:15rem;
+  height:7rem;
+  transform:translate(-50%,-50%) skewY(-10deg);
+  background:#c9382c;
+  border:2px solid #7e2019;
+  box-shadow:1.8rem 2rem 0 #8e251e;
+}
+.brick::before{
+  content:"";
+  position:absolute;
+  left:1.2rem;
+  right:1.2rem;
+  top:-2rem;
+  height:2.4rem;
+  background:
+    radial-gradient(circle at 1.1rem 1.1rem,#e44a3d 0 1rem,#8f251e 1.02rem 1.18rem,transparent 1.2rem) 0 0/3rem 2.4rem repeat-x;
+}
+.brick::after{
+  content:"3001.dat";
+  position:absolute;
+  right:.65rem;
+  bottom:.45rem;
+  color:#fff;
+  font:800 .7rem/1 var(--mono);
+}
+.arrow-label{
+  position:absolute;
+  left:50%;
+  top:1.2rem;
+  transform:translateX(-50%);
+  color:var(--muted);
+  font:.65rem/1.3 var(--sans);
+  text-align:center;
+}
+.ladder{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:.55rem;
+  margin:2.4rem 0;
+}
+.rung{
+  min-height:10.5rem;
+  padding:.85rem;
+  border-top:4px solid var(--red);
+  background:var(--panel);
+  font-family:var(--sans);
+}
+.rung:nth-child(2){border-color:#9d6418}
+.rung:nth-child(3){border-color:var(--blue)}
+.rung:nth-child(4){border-color:var(--green)}
+.rung:nth-child(5){border-color:#69518a}
+.rung .n{
+  display:grid;
+  place-items:center;
+  width:2rem;
+  height:2rem;
+  margin-bottom:.6rem;
+  border-radius:50%;
+  color:white;
+  background:var(--ink);
+  font:800 .68rem/1 var(--mono);
+}
+.rung b{
+  display:block;
+  margin-bottom:.35rem;
+  font-size:.74rem;
+}
+.rung span{
+  color:var(--muted);
+  font-size:.62rem;
+  line-height:1.43;
+}
+.collapse{
+  padding:1rem;
+  border:1px solid var(--line);
+  background:white;
+}
+.collapse-flow{
+  display:grid;
+  grid-template-columns:1fr 2.2rem 1fr 2.2rem 1fr;
+  gap:.35rem;
+  align-items:center;
+}
+.cbox{
+  min-height:8rem;
+  padding:.75rem;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  border:1px solid var(--line);
+  background:var(--paper);
+  text-align:center;
+  font-family:var(--sans);
+}
+.cbox.bad{border-color:var(--red)}
+.cbox.good{border-color:var(--green)}
+.cbox b{font-size:.73rem}
+.cbox span{
+  margin-top:.35rem;
+  color:var(--muted);
+  font-size:.61rem;
+  line-height:1.4;
+}
+.carrow{
+  text-align:center;
+  color:var(--red);
+  font:850 1rem/1 var(--sans);
+}
+.build-test{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:.5rem;
+  margin:2.4rem 0;
+}
+.test{
+  min-height:10rem;
+  padding:.8rem;
+  border:1px solid var(--line);
+  background:white;
+  font-family:var(--sans);
+}
+.test b{
+  display:block;
+  margin-bottom:.35rem;
+  font-size:.72rem;
+}
+.test span{
+  color:var(--muted);
+  font-size:.61rem;
+  line-height:1.43;
+}
+.test em{
+  display:block;
+  margin-top:.7rem;
+  color:var(--red);
+  font:800 .58rem/1.3 var(--sans);
+  letter-spacing:.04em;
+  text-transform:uppercase;
+}
+.table{
+  width:100%;
+  margin:2rem 0;
+  border-collapse:collapse;
+  font:.69rem/1.46 var(--sans);
+}
+.table th,.table td{
+  padding:.75rem .65rem;
+  border-bottom:1px solid var(--line);
+  text-align:left;
+  vertical-align:top;
+}
+.table th{
+  border-top:1px solid var(--ink);
+  font-size:.6rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.table td:first-child{
+  width:25%;
+  font-weight:780;
+}
+.references{
+  margin:1.3rem 0 0;
+  padding:0;
+  list-style:none;
+  counter-reset:refs;
+  font:.69rem/1.48 var(--sans);
+}
+.references li{
+  position:relative;
+  counter-increment:refs;
+  padding:.75rem 0 .75rem 2.3rem;
+  border-top:1px solid var(--line);
+}
+.references li:last-child{border-bottom:1px solid var(--line)}
+.references li::before{
+  content:counter(refs,decimal-leading-zero);
+  position:absolute;
+  left:0;
+  color:var(--red);
+  font-family:var(--mono);
+}
+footer{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:2rem;
+  margin-top:6rem;
+  padding:1.2rem 0 2rem;
+  border-top:1px solid var(--ink);
+  color:var(--muted);
+  font:.65rem/1.5 var(--sans);
+}
+.dark{
+  --paper:#171714;
+  --ink:#f0ebdf;
+  --muted:#bbb1a2;
+  --line:#4d493f;
+  --panel:#24221d;
+  --dark:#080907;
+  --code:#dfe9d6;
+}
+.dark .anatomy,.dark .collapse,.dark .test,.dark .image-frame{background:#1d1d19}
+.dark .brick-illustration{background:linear-gradient(180deg,#25251f,#191915)}
+@media(max-width:980px){
+  .opening,.section{grid-template-columns:1fr}
+  .side{position:static}
+  .figure-wide{width:100%;margin-left:0}
+  .ladder,.build-test{grid-template-columns:repeat(3,1fr)}
+  .anatomy-line{grid-template-columns:repeat(4,1fr)}
+}
+@media(max-width:720px){
+  .page{padding-inline:1rem}
+  .topbar .optional{display:none}
+  .brand{max-width:10rem}
+  .byline{grid-template-columns:1fr}
+  .byline .date{text-align:left}
+  .toc ol{grid-template-columns:1fr}
+  .photo-pair{grid-template-columns:1fr}
+  .anatomy-line,.ladder,.build-test{grid-template-columns:1fr}
+  .collapse-flow{grid-template-columns:1fr}
+  .carrow{transform:rotate(90deg);padding:.2rem}
+  footer{grid-template-columns:1fr}
+}
+@media print{
+  @page{size:letter;margin:.62in}
+  :root{--paper:white;--ink:black;--muted:#444;--line:#aaa;--red:black;--blue:#333;--green:#222;--panel:#f2f2f2}
+  body{font-size:10pt;background:white}
+  .topbar,#progress{display:none!important}
+  .page{width:auto;padding:0}
+  .hero{padding:0 0 .25in}
+  h1{font-size:40pt}
+  .opening,.section{grid-template-columns:1fr 1.65in;gap:.32in}
+  .side{position:static;font-size:7.2pt}
+  .figure-wide{width:100%;margin-left:0}
+  figure,.anatomy,.collapse,.ladder,.build-test,.pull{break-inside:avoid}
+  a{text-decoration:none}
+}
+</style>
+</head>
+
+<body>
+<div id="progress"></div>
+
+<nav class="topbar">
+  <div class="brand">Can a Language Model Build With LEGO?</div>
+  <a class="optional" href="#contents">Contents</a>
+  <a class="optional" href="#test">The test</a>
+  <button id="theme">Dark</button>
+  <button onclick="window.print()">Print</button>
+</nav>
+
+<div class="page">
+<header class="hero">
+  <p class="kicker">Essay and technical argument</p>
+  <h1>Can a Language Model Build With LEGO?</h1>
+  <p class="deck">
+    A picture is cheap. A build is a sequence of legal parts, exact placements, real connections,
+    and correctable decisions. LDraw lets us tell the difference.
+  </p>
+  <div class="byline">
+    <div>
+      <strong>Watson Hartsoe</strong>
+      Georgia Institute of Technology<br>
+      Digital Media
+    </div>
+    <div class="date">
+      July 2026<br>
+      Atlanta, Georgia
+    </div>
+  </div>
+</header>
+</div>
+
+<div class="hero-image">
+  <img src="https://kulits.github.io/BrickNet/assets/teaser_mosaic.jpg"
+       alt="A mosaic of complex digital LEGO models represented through LDraw">
+  <div class="hero-caption">
+    <strong>The seduction of the finished object.</strong>
+    A gallery of generated brick models makes the answer look obvious. The difficult question begins
+    when we ask whether each object can be parsed, assembled, tested, and revised as a build.
+    Image: Kulits and Schmid, BrickNet, 2026.
+  </div>
+</div>
+
+<div class="page">
+<section class="opening">
+  <div>
+    <p class="lede dropcap">
+      Put a language model in front of a box of LEGO bricks and it will sound like a builder almost
+      immediately. It knows the names of castles and hinges, spaceships and arches. It can describe a
+      cantilever. It can produce a charming picture of a red truck. None of this means that the truck
+      exists as an assembly.
+    </p>
+
+    <p>
+      LEGO makes an unusually honest test for artificial intelligence because the distance between
+      description and construction cannot be hidden for long. A brick is not a cloud of plausible
+      pixels. It has a catalog number, dimensions, connection points, orientation, and a place in a
+      sequence. Put it half a stud to the left and the model may not close. Rotate an axle incorrectly
+      and the next piece has nowhere to go. Add a beautiful roof before the interior is complete and a
+      human hand cannot finish the build.
+    </p>
+
+    <p>
+      LDraw turns these obligations into text. That is what makes it important. In an LDraw file, a model
+      is written as commands: this part, in this color, at this coordinate, under this transformation.
+      The format gives language models something rare—a way to produce a physical design in the medium
+      they already speak, while leaving every placement open to inspection.
+    </p>
+
+    <div class="pull">
+      LDraw does not make construction easy. It makes claims about construction falsifiable.
+    </div>
+  </div>
+
+  <aside class="side">
+    <h2>The answer</h2>
+    <div class="note">
+      <strong>Yes, under constraint</strong>
+      Language models can generate buildable brick structures when paired with restricted vocabularies,
+      validity checks, physical reasoning, and structured representations.
+    </div>
+    <div class="note">
+      <strong>No, not by fluency alone</strong>
+      Current general models remain unreliable at exact part selection, pose, connectivity, and long
+      assembly sequences.
+    </div>
+  </aside>
+</section>
+
+<nav class="toc" id="contents">
+  <ol>
+    <li><a href="#hard-test">The hardest toy in the room.</a></li>
+    <li><a href="#line">A brick written as a line.</a></li>
+    <li><a href="#models">What language models can build now.</a></li>
+    <li><a href="#relations">The coordinates are not the construction.</a></li>
+    <li><a href="#collapse">The model that looked right and forgot its bricks.</a></li>
+    <li><a href="#test">The LDraw Building Test.</a></li>
+  </ol>
+</nav>
+
+<main>
+
+<section class="section" id="hard-test">
+  <div>
+    <span class="section-no">01 · The object</span>
+    <h2>The hardest toy in the room.</h2>
+
+    <p>
+      The appeal of asking a language model to build with LEGO is easy to underestimate. The toy feels
+      finite. Every brick comes from a catalog. Every model is discrete. Unlike clay or a neural mesh,
+      there is no ambiguity about where one part ends and another begins.
+    </p>
+
+    <p>
+      But that neatness is exactly what makes the task severe. A convincing image can tolerate
+      uncertainty. A brick assembly cannot. The model must choose a legal part, place it on the LEGO
+      lattice, orient it correctly, avoid collision, connect it to the existing structure, and leave a
+      path by which later parts can be added. The build must survive gravity. It must also survive the
+      builder.
+    </p>
+
+    <figure class="figure-wide">
+      <div class="image-frame">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/LeoCAD_Screenshot_with_edge_lines_Flyer_from_LEGO_Masters_DK_S01E07.png"
+             alt="A complex LEGO flying mechanism displayed in the LeoCAD LDraw editor">
+      </div>
+      <figcaption>
+        <strong>A model is not one object.</strong>
+        In an LDraw editor, the finished mechanism remains a collection of selectable parts, submodels,
+        colors, coordinates, and build steps. Image: Wikimedia Commons, LeoCAD.
+      </figcaption>
+    </figure>
+
+    <p>
+      This is where LEGO separates symbolic competence from spatial competence. A language model can know
+      what an arch is and still place the two bricks beneath it at incompatible heights. It can know that
+      wheels belong on a car and still rotate an axle through the chassis. The nouns are familiar. The
+      relations are unforgiving.
+    </p>
+  </div>
+
+  <aside class="side">
+    <div class="note">
+      <strong>Why LEGO?</strong>
+      The parts are standardized, the errors are inspectable, and a digital result can be checked against
+      physical assembly.
+    </div>
+  </aside>
+</section>
+
+<section class="section" id="line">
+  <div>
+    <span class="section-no">02 · The language</span>
+    <h2>A brick written as a line.</h2>
+
+    <p class="dropcap">
+      LDraw was created in the nineteen-nineties, long before large language models. Its accidental gift
+      to contemporary AI is that a three-dimensional construction can be written as plain text without
+      ceasing to be a construction.
+    </p>
+
+    <p>
+      The central command is Line Type 1, a reference to a part or submodel. It names a color, a position,
+      a three-by-three transformation matrix, and a file from the parts library. A red two-by-four brick
+      at the origin can be written like this:
+    </p>
+
+    <div class="code-line">1 4 0 -24 0 1 0 0 0 1 0 0 0 1 3001.dat</div>
+
+    <div class="anatomy">
+      <div class="anatomy-line">
+        <div class="token"><b>1</b><span>Place a part</span></div>
+        <div class="token"><b>4</b><span>Red</span></div>
+        <div class="token"><b>0</b><span>X position</span></div>
+        <div class="token"><b>-24</b><span>Y position</span></div>
+        <div class="token"><b>0</b><span>Z position</span></div>
+        <div class="token"><b>1 0 0 0 1 0 0 0 1</b><span>Rotation and scale</span></div>
+        <div class="token"><b>3001.dat</b><span>Brick 2 by 4</span></div>
+      </div>
+      <div class="brick-illustration">
+        <div class="arrow-label">One line becomes one placed part.</div>
+        <div class="brick"></div>
+      </div>
+    </div>
+
+    <p>
+      The line is compact, but it is not vague. Change the part number and the brick changes. Change the
+      coordinates and it moves. Change the matrix and it turns. The instruction can be rendered, compared
+      with its neighbors, placed in a build step, and sent to another program. An MPD file can gather
+      several LDraw models and submodels into one document.
+    </p>
+
+    <p>
+      This gives language models a tractable output language, but not a free pass. Syntactic validity is
+      the lowest bar. A perfectly formatted line can still place a brick in midair or through another
+      brick. LDraw can state a build precisely while stating a bad build.
+    </p>
+
+    <div class="pull">
+      Grammar answers whether the machine wrote LDraw. Construction answers whether the LDraw describes
+      something that can stand, connect, and be assembled.
+    </div>
+  </div>
+
+  <aside class="side">
+    <a href="https://www.ldraw.org/article/218.html" target="_blank" rel="noreferrer">
+      <strong>Official specification</strong>
+      LDraw files contain one command per line. Type 1 places a referenced part using color, coordinates,
+      and a transformation matrix.
+    </a>
+  </aside>
+</section>
+
+<section class="section" id="models">
+  <div>
+    <span class="section-no">03 · The present</span>
+    <h2>What language models can build now.</h2>
+
+    <p>
+      The answer has changed quickly. In 2025, researchers introduced BrickGPT, an autoregressive system
+      that treats the next brick as a next-token prediction problem. The model does not act alone. Each
+      proposed brick passes through checks for valid type, collision, and physical stability. When a
+      sequence becomes unstable, the system rolls back and resumes from an earlier stable state.
+    </p>
+
+    <figure class="figure-wide">
+      <div class="image-frame">
+        <img src="https://ar5iv.labs.arxiv.org/html/2505.05469/assets/x1.png"
+             alt="Overview of a text-to-LEGO system showing a prompt, intermediate build steps, manual assembly, robotic assembly, and generated examples">
+      </div>
+      <figcaption>
+        <strong>A language model with a foreman.</strong>
+        BrickGPT generates one brick at a time, while validity checks and physical rollback reject
+        impossible or unstable continuations. The resulting models were assembled by people and by a
+        robotic arm. Image: Pun and colleagues, 2025.
+      </figcaption>
+    </figure>
+
+    <p>
+      This is real progress. It is also a revealing concession. The model becomes a builder by giving up
+      the fantasy that next-token fluency is enough. It needs a parts vocabulary, a coordinate system, a
+      collision checker, a stability test, and permission to undo its own predictions.
+    </p>
+
+    <p>
+      In 2026, Brick-Composer tested multimodal language models on brick selection and exact pose. The
+      baseline systems were poor builders: strict success at the individual assembly step was below one
+      percent. Targeted training raised it to about fifteen percent, and one trained eight-billion-
+      parameter model could complete as much as forty-two percent of the steps for a whole object. The
+      leap is significant. The remaining gap is larger.
+    </p>
+
+    <figure>
+      <div class="image-frame">
+        <img src="https://ar5iv.labs.arxiv.org/html/2505.05469/assets/x3.png"
+             alt="Diagram of LEGO design tokenization, language-model training, and inference with collision and stability checks">
+      </div>
+      <figcaption>
+        <strong>Next brick, then judgment.</strong>
+        The language model proposes a sequence; external checks enforce the conditions the language model
+        does not reliably maintain on its own. Image: Pun and colleagues, 2025.
+      </figcaption>
+    </figure>
+
+    <p>
+      So, can language models build? The strongest answer is yes, but only inside a larger machine. The
+      model proposes. The representation constrains. The checker rejects. The physics engine vetoes. A
+      language model can participate in building before it can be trusted as the whole builder.
+    </p>
+  </div>
+
+  <aside class="side">
+    <a href="https://arxiv.org/abs/2505.05469" target="_blank" rel="noreferrer">
+      <strong>BrickGPT, 2025</strong>
+      Text-conditioned, brick-by-brick generation with validity checks and physics-aware rollback.
+    </a>
+    <a href="https://arxiv.org/abs/2606.05445" target="_blank" rel="noreferrer">
+      <strong>Brick-Composer, 2026</strong>
+      A benchmark showing that general multimodal models remain weak at precise brick selection and pose.
+    </a>
+  </aside>
+</section>
+
+<section class="section" id="relations">
+  <div>
+    <span class="section-no">04 · The hard part</span>
+    <h2>The coordinates are not the construction.</h2>
+
+    <p>
+      Predicting an absolute position for the next brick works tolerably in a small, regular world. It
+      becomes brittle when the parts multiply: hinges, axles, clips, ball joints, plates, tires, decorated
+      elements, and assemblies nested inside assemblies. One small coordinate error can be carried
+      through every later placement.
+    </p>
+
+    <figure class="figure-wide">
+      <div class="image-frame">
+        <img src="https://kulits.github.io/BrickNet/assets/connectors.jpg"
+             alt="Five types of brick connectivity: stud, hinge, axle, ball, and fixed">
+      </div>
+      <figcaption>
+        <strong>Not every connection is a stud.</strong>
+        BrickNet models stud, hinge, axle, ball, and fixed connections, each with different freedoms and
+        constraints. Image: Kulits and Schmid, 2026.
+      </figcaption>
+    </figure>
+
+    <p>
+      BrickNet attacks this problem by changing what the language model predicts. Instead of asking for
+      every part as an isolated pose in three-dimensional space, it represents a build as a graph of
+      connections. A new part is placed relative to a part already in the assembly: this stud to that
+      hole, this axle through that connector, this hinge at this rotation.
+    </p>
+
+    <div class="photo-pair">
+      <figure>
+        <div class="image-frame">
+          <img src="https://kulits.github.io/BrickNet/assets/truck_object.jpg"
+               alt="A detailed LDraw truck model">
+        </div>
+        <figcaption>
+          <strong>The object.</strong> A finished truck represented with diverse LDraw parts.
+        </figcaption>
+      </figure>
+      <figure>
+        <div class="image-frame">
+          <img src="https://kulits.github.io/BrickNet/assets/truck_path.jpg"
+               alt="The same truck colored according to a graph-based build path">
+        </div>
+        <figcaption>
+          <strong>The path.</strong> The same truck colored by the relational route through which parts
+          are added. Images: Kulits and Schmid, 2026.
+        </figcaption>
+      </figure>
+    </div>
+
+    <p>
+      This is the deeper answer to the question. A pile of coordinates is not yet a construction. A
+      construction is a history of relationships that leaves the object connected after every step.
+      BrickNet trained on more than one hundred thousand human-designed LDraw objects and scenes because
+      LDraw preserves the diversity that simplified voxel bricks erase.
+    </p>
+
+    <div class="pull">
+      The language model does better when it speaks less like a surveyor and more like a builder:
+      attach this part to that part, through this connection, with this remaining freedom.
+    </div>
+  </div>
+
+  <aside class="side">
+    <a href="https://kulits.github.io/BrickNet/" target="_blank" rel="noreferrer">
+      <strong>BrickNet, 2026</strong>
+      A graph-backed language for generating assemblies from connectivity rather than absolute pose alone.
+    </a>
+  </aside>
+</section>
+
+<section class="section" id="collapse">
+  <div>
+    <span class="section-no">05 · The failure</span>
+    <h2>The model that looked right and forgot its bricks.</h2>
+
+    <p class="dropcap">
+      A separate experiment exposed a stranger failure. An LDraw model was loaded into a renderer as one
+      large document. The loader sorted geometry by material and merged it into efficient buffers. The
+      assembly appeared on screen. Then the software tried to answer a simple question: which source line
+      produced this visible stud?
+    </p>
+
+    <p>
+      It could not. Red triangles from different bricks had been combined into the same red mesh. The
+      surface survived; the assembly history did not. Many sampled studs appeared to come from the same
+      line, a symptom known in the project as the Line 22 collapse.
+    </p>
+
+    <div class="collapse">
+      <div class="collapse-flow">
+        <div class="cbox">
+          <b>Source</b>
+          <span>Line 1 places one brick.<br>Line 50 places another.<br>Line 100 places a third.</span>
+        </div>
+        <div class="carrow">→</div>
+        <div class="cbox bad">
+          <b>Renderer optimization</b>
+          <span>Sort triangles by color.<br>Merge them into shared buffers.</span>
+        </div>
+        <div class="carrow">→</div>
+        <div class="cbox bad">
+          <b>Visible but untraceable</b>
+          <span>The model looks correct.<br>The selected stud has lost its source address.</span>
+        </div>
+      </div>
+    </div>
+
+    <p>
+      The repair was blunt: load one source line into one explicit group and attach the line number before
+      geometry was added. Rendering became more expensive. Selection became truthful.
+    </p>
+
+    <div class="code-line">group.userData.lineNum = line.index;</div>
+
+    <p>
+      This bug matters because it reveals a hidden temptation in AI construction. We may judge a system
+      by the object at the end and ignore what had to be preserved to change the object later. A language
+      model can produce valid LDraw, and a renderer can display it, while the authoring system quietly
+      destroys the correspondence between instruction and part.
+    </p>
+
+    <div class="pull">
+      A build is not complete when it renders. It is complete when its parts can still be found, explained,
+      and changed.
+    </div>
+  </div>
+
+  <aside class="side">
+    <a href="https://github.com/hartswf0/core-age/blob/main/line-22-autopsy.html" target="_blank" rel="noreferrer">
+      <strong>Failure autopsy</strong>
+      The whole-file loader preserved appearance while erasing reliable source-line mappings.
+    </a>
+  </aside>
+</section>
+
+<section class="section" id="test">
+  <div>
+    <span class="section-no">06 · The proposal</span>
+    <h2>The LDraw Building Test.</h2>
+
+    <p>
+      The Turing test asks whether a machine can sustain the appearance of intelligence in conversation.
+      LEGO invites a less theatrical question. Can the machine leave behind a file that another system,
+      another researcher, and eventually another pair of hands can build?
+    </p>
+
+    <p>
+      The LDraw Building Test treats “can build” as a ladder rather than a yes-or-no performance. Each
+      level rules out a different kind of bluff.
+    </p>
+
+    <div class="build-test">
+      <div class="test">
+        <b>1. Parse</b>
+        <span>The file follows LDraw grammar and references legal parts.</span>
+        <em>No invented syntax</em>
+      </div>
+      <div class="test">
+        <b>2. Place</b>
+        <span>Parts have valid poses, do not collide, and respect the brick lattice.</span>
+        <em>No impossible geometry</em>
+      </div>
+      <div class="test">
+        <b>3. Connect</b>
+        <span>Each added part joins the existing structure through a legal connection.</span>
+        <em>No floating bricks</em>
+      </div>
+      <div class="test">
+        <b>4. Assemble</b>
+        <span>The order can be carried out by a hand or robot without blocked insertions.</span>
+        <em>No impossible sequence</em>
+      </div>
+      <div class="test">
+        <b>5. Repair</b>
+        <span>A selected brick can be traced to its source line and changed without losing accepted work.</span>
+        <em>No disposable world</em>
+      </div>
+    </div>
+
+    <p>
+      Recent systems have begun to clear different sections of this ladder. BrickGPT demonstrates stable,
+      manually and robotically assembled results inside a limited parts vocabulary. BrickNet expands the
+      problem to thousands of LDraw parts and richer connection types. Brick-Composer shows how far
+      multimodal models remain from reliable step-by-step assembly.
+    </p>
+
+    <p>
+      The final rung—repair—is where LDraw becomes more than an output format. It offers a record of the
+      build at the same granularity as the build itself. The machine’s claim can be checked line by line.
+      A wrong brick need not send the whole object back into the lottery of generation.
+    </p>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Question</th>
+          <th>Evidence</th>
+          <th>Failure</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Did it write a model?</td>
+          <td>The LDraw file parses and parts exist.</td>
+          <td>Malformed command or invented part.</td>
+        </tr>
+        <tr>
+          <td>Did it make a structure?</td>
+          <td>Parts are connected, collision-free, and stable.</td>
+          <td>Floating, intersecting, or collapsing assembly.</td>
+        </tr>
+        <tr>
+          <td>Can it be built?</td>
+          <td>A human or robot can follow the order.</td>
+          <td>A later part requires passing through an earlier one.</td>
+        </tr>
+        <tr>
+          <td>Can it be authored?</td>
+          <td>A visible brick maps back to a revisable source line.</td>
+          <td>The render survives after the edit boundary is gone.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="lede">
+      Can a language model build with LEGO? Yes—but not because it can imagine a castle. It can build when
+      its words become legal parts, when those parts enter a connected sequence, when the sequence survives
+      physical judgment, and when the finished object remembers enough of its making to be corrected.
+    </p>
+
+    <div class="pull">
+      The first render proves that the model can propose. The first successful repair proves that the
+      system can support building.
+    </div>
+  </div>
+
+  <aside class="side">
+    <div class="note">
+      <strong>The contribution</strong>
+      A five-level test that separates formatted text, valid geometry, connected structure, feasible
+      assembly, and repairable authorship.
+    </div>
+  </aside>
+</section>
+
+<section class="section" id="references">
+  <div>
+    <span class="section-no">Sources</span>
+    <h2>Research and technical artifacts</h2>
+    <ol class="references">
+      <li>LDraw.org Standards Board. <a href="https://www.ldraw.org/article/218.html" target="_blank" rel="noreferrer">LDraw File Format Specification.</a></li>
+      <li>LDraw.org Standards Board. <a href="https://www.ldraw.org/article/47.html" target="_blank" rel="noreferrer">Multi-Part Document Language Extension.</a></li>
+      <li>Pun, Ava, Kangle Deng, Ruixuan Liu, Deva Ramanan, Changliu Liu, and Jun-Yan Zhu. 2025. <a href="https://arxiv.org/abs/2505.05469" target="_blank" rel="noreferrer">“Generating Physically Stable and Buildable Brick Structures from Text.”</a> ICCV 2025.</li>
+      <li>Kulits, Peter, and Cordelia Schmid. 2026. <a href="https://arxiv.org/abs/2604.22984" target="_blank" rel="noreferrer">“BrickNet: Graph-Backed Generative Brick Assembly.”</a> CVPR 2026.</li>
+      <li>Liu, Jiateng, and colleagues. 2026. <a href="https://arxiv.org/abs/2606.05445" target="_blank" rel="noreferrer">“Brick-Composer: Using MLLMs for Assembly with Diverse Bricks.”</a></li>
+      <li>Hartsoe, Watson. 2025. <a href="https://github.com/hartswf0/core-age/blob/main/line-22-autopsy.html" target="_blank" rel="noreferrer">“Autopsy: Line 22 Collapse.”</a></li>
+    </ol>
+  </div>
+
+  <aside class="side">
+    <div class="note">
+      <strong>Trademark note</strong>
+      LEGO is a trademark of the LEGO Group, which does not sponsor or endorse this paper. LDraw is an
+      independent community format and tool ecosystem.
+    </div>
+  </aside>
+</section>
+
+</main>
+
+<footer>
+  <div>
+    Watson Hartsoe · Georgia Institute of Technology · Digital Media<br>
+    Can a Language Model Build With LEGO?
+  </div>
+  <div>Single-file illustrated web essay</div>
+</footer>
+</div>
+
+<script>
+const body = document.body;
+const theme = document.getElementById('theme');
+const progress = document.getElementById('progress');
+
+if (localStorage.getItem('ldraw-building-test-theme') === 'dark') {
+  body.classList.add('dark');
+  theme.textContent = 'Light';
+}
+
+theme.addEventListener('click', () => {
+  const dark = body.classList.toggle('dark');
+  theme.textContent = dark ? 'Light' : 'Dark';
+  localStorage.setItem('ldraw-building-test-theme', dark ? 'dark' : 'light');
+});
+
+function updateProgress() {
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  const ratio = max > 0 ? window.scrollY / max : 0;
+  progress.style.width = `${ratio * 100}%`;
+}
+window.addEventListener('scroll', updateProgress, { passive:true });
+window.addEventListener('resize', updateProgress);
+updateProgress();
+</script>
+</body>
+</html>

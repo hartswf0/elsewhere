@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="A visual essay on play, authorship, and the beautiful wrong answers produced by generative video.">
+<meta name="author" content="Watson Hartsoe; Cecile Yangminming Zhang">
+<meta name="theme-color" content="#f5f1e8">
+<title>Play, Freedom, and AI Films — The Image Arrives Before the Movie</title>
+<style>
+:root{
+  --paper:#f5f1e8; --ink:#171714; --muted:#6d675e; --rule:#c9c0b2;
+  --blue:#164f76; --red:#9b3f35; --cream:#fbf8f1; --shade:#ece6da;
+  --serif:Iowan Old Style,Palatino Linotype,Book Antiqua,Palatino,Georgia,serif;
+  --sans:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
+  --measure:43rem;
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:19px;line-height:1.65;text-rendering:optimizeLegibility}
+a{color:var(--blue);text-decoration-thickness:.07em;text-underline-offset:.15em}a:hover{color:var(--red)}img{display:block;max-width:100%}
+.progress{position:fixed;left:0;top:0;width:0;height:3px;background:var(--red);z-index:50}
+.masthead{width:min(92vw,78rem);margin:auto;padding:2rem 0 1.25rem;display:flex;justify-content:space-between;gap:2rem;border-bottom:1px solid var(--rule);font:700 .7rem/1.35 var(--sans);letter-spacing:.11em;text-transform:uppercase;color:var(--blue)}
+.hero{width:min(92vw,78rem);margin:auto;padding:5.2rem 0 2.2rem}.kicker{font:800 .72rem/1.35 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:1.3rem}.hero h1{font-weight:400;font-size:clamp(4rem,9vw,8.7rem);line-height:.88;letter-spacing:-.065em;max-width:10.5ch;margin:0}.dek{font-size:clamp(1.35rem,2.4vw,2rem);line-height:1.3;max-width:34ch;color:var(--muted);margin:1.6rem 0 2.2rem}.hook{font-size:clamp(1.3rem,2.2vw,1.75rem);line-height:1.4;max-width:31em;border-left:4px solid var(--red);padding-left:1.15rem;margin:2rem 0}.authors{display:flex;gap:1.2rem 4rem;flex-wrap:wrap;font: .82rem/1.45 var(--sans)}.authors strong{display:block}.authors span{color:var(--muted)}
+.hero-strip{width:min(96vw,90rem);margin:2.5rem auto 6rem;display:grid;grid-template-columns:1.2fr .8fr .8fr 1.2fr;gap:.35rem}.hero-frame{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--shade)}.hero-frame img{width:100%;height:100%;object-fit:cover;filter:saturate(.84) contrast(1.04);transition:transform .45s ease,filter .45s ease}.hero-frame:hover img{transform:scale(1.025);filter:saturate(1)}.hero-frame span{position:absolute;left:.7rem;right:.7rem;bottom:.55rem;color:white;text-shadow:0 1px 10px rgba(0,0,0,.85);font:800 .64rem/1.3 var(--sans);letter-spacing:.08em;text-transform:uppercase}
+.paper{width:min(91vw,74rem);margin:auto}.row{display:grid;grid-template-columns:minmax(0,var(--measure)) minmax(12rem,17rem);gap:4.5rem;align-items:start}.main{grid-column:1;min-width:0}.margin{grid-column:2;min-width:0}.sidenote{font: .76rem/1.48 var(--sans);color:var(--muted);border-top:1px solid var(--rule);padding-top:.65rem;margin:1rem 0 3rem}.sidenote strong{color:var(--ink)}
+section{margin:0 0 6.8rem;scroll-margin-top:2rem}.section-label{display:block;font:800 .69rem/1.35 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:.55rem}h2{font-weight:400;font-size:clamp(2.5rem,5.3vw,4.4rem);line-height:.98;letter-spacing:-.048em;max-width:12ch;margin:0 0 1.4rem}h3{font-weight:400;font-size:clamp(1.65rem,3.2vw,2.55rem);line-height:1.08;letter-spacing:-.03em;margin:0 0 .9rem}p{margin:.8rem 0 1.2rem}.lede{font-size:1.33rem;line-height:1.48}.dropcap:first-letter{float:left;font-size:5.2rem;line-height:.77;padding:.12rem .14rem 0 0;color:var(--red)}.abstract{font-size:1.04rem;border-top:2px solid var(--ink);border-bottom:1px solid var(--rule);padding:1.25rem 0}.abstract strong{font:800 .7rem/1.3 var(--sans);letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:.6rem}.keywords{font: .76rem/1.45 var(--sans);color:var(--muted)}
+.pull{width:min(92vw,67rem);margin:5rem auto;font-size:clamp(2rem,4.5vw,4rem);line-height:1.08;letter-spacing:-.045em;text-align:center}.pull em{font-style:normal;color:var(--red)}
+.plate{width:min(95vw,80rem);margin:4rem auto 5.5rem}.plate-inner{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(16rem,.75fr);gap:2rem;align-items:end}.video{position:relative;aspect-ratio:16/9;background:#161616;overflow:hidden}.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}.plate img{width:100%;aspect-ratio:16/9;object-fit:cover;background:var(--shade)}.plate-copy{padding:1.5rem 0 1rem;border-top:2px solid var(--ink)}.plate-no{font:800 .68rem/1.3 var(--sans);letter-spacing:.13em;text-transform:uppercase;color:var(--red)}.plate-copy h3{margin:.5rem 0 .8rem}.plate-copy p{font-size:.96rem;line-height:1.5;margin:.55rem 0}.caption{font: .74rem/1.45 var(--sans);color:var(--muted);margin-top:.7rem}.watch{display:inline-block;margin-top:.6rem;font:800 .68rem/1.3 var(--sans);letter-spacing:.09em;text-transform:uppercase;text-decoration:none}
+.interlude{width:min(92vw,70rem);margin:5.5rem auto;padding:2rem 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);display:grid;grid-template-columns:1fr 1fr;gap:3rem}.interlude b{font:800 .68rem/1.3 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--blue);display:block;margin-bottom:.55rem}.interlude p{font-size:1.08rem;line-height:1.48;margin:0}
+.smallcaps{font:800 .7rem/1.3 var(--sans);letter-spacing:.11em;text-transform:uppercase;color:var(--blue)}
+.memory-list{margin:2rem 0;border-top:1px solid var(--rule)}.memory-item{display:grid;grid-template-columns:9rem 1fr;gap:1.2rem;padding:1rem 0;border-bottom:1px solid var(--rule)}.memory-item strong{font:800 .72rem/1.4 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--blue)}.memory-item span{font-size:.96rem;line-height:1.48}
+.rule{font-size:clamp(1.45rem,3vw,2.25rem);line-height:1.25;padding:1.6rem 0;border-top:2px solid var(--ink);border-bottom:1px solid var(--rule);margin:2.4rem 0}.rule em{color:var(--red);font-style:normal}
+.references{font-size:.88rem}.references ol{padding-left:1.25rem}.references li{margin:.8rem 0}.notes{font-size:.78rem;color:var(--muted)}
+.appendix-wrap{width:min(91vw,74rem);margin:0 auto 7rem;border-top:1px solid var(--rule);padding-top:4rem}.appendix-intro{display:flex;justify-content:space-between;gap:1rem;align-items:flex-start;margin-bottom:1rem}.controls{display:flex;gap:.45rem;flex-wrap:wrap}.btn{border:1px solid var(--blue);background:transparent;color:var(--blue);font:700 .69rem/1 var(--sans);text-transform:uppercase;letter-spacing:.07em;padding:.65rem .75rem;cursor:pointer}.btn:hover{background:var(--blue);color:white}.prompt-group{border-top:1px solid var(--rule);padding:1rem 0}.prompt-group summary{cursor:pointer;font-size:1.12rem;font-weight:700;list-style:none}.prompt-group summary::-webkit-details-marker{display:none}.prompt-group summary:before{content:"+";display:inline-block;width:1.5rem;color:var(--red)}.prompt-group[open] summary:before{content:"–"}.prompt-head{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin:1rem 0 .5rem}.prompt-head strong{font:800 .7rem/1.3 var(--sans);text-transform:uppercase;letter-spacing:.09em;color:var(--muted)}pre{white-space:pre-wrap;word-break:break-word;background:#171714;color:#eee8dd;padding:1.1rem;border-radius:2px;font: .76rem/1.5 var(--mono);max-height:32rem;overflow:auto}.example-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}.small{font-size:.84rem;color:var(--muted)}
+footer{width:min(91vw,74rem);margin:auto;border-top:1px solid var(--rule);padding:2rem 0 4rem;font: .75rem/1.5 var(--sans);color:var(--muted)}
+@media(max-width:980px){.row{grid-template-columns:minmax(0,1fr)}.main,.margin{grid-column:1}.margin{display:none}.hero-strip{grid-template-columns:1fr 1fr}.plate-inner{grid-template-columns:1fr}.plate-copy{max-width:var(--measure)}.paper{width:min(91vw,47rem)}}
+@media(max-width:680px){body{font-size:17px}.masthead{padding-top:1.25rem}.masthead span:last-child{display:none}.hero{padding-top:3.6rem}.hero h1{font-size:clamp(3.5rem,18vw,5.5rem)}.hero-strip{width:100%;grid-template-columns:1fr 1fr;margin-bottom:4rem}.hero-frame{aspect-ratio:1}.hero-frame span{font-size:.55rem}.paper{width:88vw}.pull{width:88vw;text-align:left}.plate{width:100%;margin:3.2rem auto 4.5rem}.plate-copy{width:88vw;margin:auto}.interlude{width:88vw;grid-template-columns:1fr;gap:1.3rem}.memory-item{grid-template-columns:1fr;gap:.35rem}.appendix-wrap{width:88vw}.appendix-intro{display:block}.controls{margin-top:1rem}.example-grid{grid-template-columns:1fr}h2{max-width:14ch}}
+@media print{body{background:white;font-size:11pt}.progress,.controls{display:none!important}.hero-strip,.plate{break-inside:avoid}.paper,.appendix-wrap,footer{width:100%}.row{display:block}.main{width:68%}.margin{display:block;float:right;width:25%}.video iframe{display:none}.video:after{content:"Video available in digital edition";position:absolute;inset:0;display:grid;place-items:center;font:700 10pt var(--sans);color:white}a{color:inherit;text-decoration:none}pre{max-height:none;font-size:7pt}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="masthead"><span>Fifteenth International Conference on The Image</span><span>Images and Imaginaries of Artificial Intelligence · 2024</span></div>
+<header class="hero">
+  <div class="kicker">A visual essay on generative cinema</div>
+  <h1>Play, Freedom, and AI Films</h1>
+  <div class="dek">The image arrives before the movie.</div>
+  <div class="hook">In a forty-eight-hour film competition, the blank screen is not the enemy. The beautiful wrong answer is.</div>
+  <div class="authors">
+    <div><strong>Watson Hartsoe</strong><span>PhD Student · Georgia Institute of Technology · United States</span></div>
+    <div><strong>Cecile Yangminming Zhang</strong><span>PhD Student · Georgia Institute of Technology · United States</span></div>
+  </div>
+</header>
+<div class="hero-strip" aria-label="Four films in the Gen:48 corpus">
+  <a class="hero-frame" href="https://www.youtube.com/watch?v=dUK6lHpoMKY"><img src="https://img.youtube.com/vi/dUK6lHpoMKY/hqdefault.jpg" alt="Frame from Yago Arconada Alvarez's Gen:48 film"><span>Wonder</span></a>
+  <a class="hero-frame" href="https://www.youtube.com/watch?v=t48to-rwwB8"><img src="https://img.youtube.com/vi/t48to-rwwB8/hqdefault.jpg" alt="Frame from Namit Kapoor's Gen:48 film"><span>Fracture</span></a>
+  <a class="hero-frame" href="https://www.youtube.com/watch?v=39z8xpWx-sU"><img src="https://img.youtube.com/vi/39z8xpWx-sU/hqdefault.jpg" alt="Frame from Hannsue and Ali Huang's Gen:48 film"><span>Memory</span></a>
+  <a class="hero-frame" href="https://www.youtube.com/watch?v=ouWVwn-CSkc"><img src="https://img.youtube.com/vi/ouWVwn-CSkc/hqdefault.jpg" alt="Frame from Yemesrach Tadesse's Gen:48 film"><span>Ascent</span></a>
+</div>
+
+<main>
+<div class="paper">
+  <div class="row">
+    <div class="main">
+      <section id="abstract" class="abstract">
+        <strong>Abstract</strong>
+        Generative video is often described as an expansion of creative possibility. Under production pressure, however, possibility can contract around the images a model makes fluent: luminous wonder, fractured faces, nostalgic haze, triumphant ascent. This practice-based paper reads four films made for Runway’s Gen:48 challenge alongside four Blue Deli authoring experiments. It asks a narrow question: what happens when a compelling image arrives before the film has established what that image should mean? The cases show that authorship shifts away from obtaining images and toward delaying premature certainty—through comparison, refusal, recurrence, montage, sound, and the preservation of rejected generations. Play matters here not as abundance, but as the disciplined refusal of an attractive substitute. The paper proposes that AI-film criticism should study the images that did not survive the edit, because those rejected images reveal the negotiation between a model’s repertoire and a filmmaker’s judgment.
+        <div class="keywords"><strong>Keywords:</strong> AI film · generative video · play · authorship · prompting · montage · negative archive</div>
+      </section>
+    </div>
+    <aside class="margin"><div class="sidenote"><strong>Scope.</strong> The analysis stays close to four public films, their loglines, project materials, and practice reflections. It does not claim access to every filmmaker’s private intention or to a controlled comparison of tools.</div></aside>
+  </div>
+
+  <div class="row">
+    <div class="main">
+      <section id="wrong-answer">
+        <span class="section-label">The beautiful wrong answer</span>
+        <h2>Surface comes first now</h2>
+        <p class="lede dropcap">A clip appears. The face is luminous. The camera drifts with expensive calm. The emotion is legible before anyone has explained it. Under a deadline, this can feel like deliverance: the film has begun to exist.</p>
+        <p>It may also be the moment the film stops thinking.</p>
+        <p>Generative video reverses an old production sequence. Filmmakers once moved from premise to scene, from scene to coverage, from coverage to the image that survived the cut. A model can supply the surviving-looking image first. It offers finish before structure, atmosphere before cause, emotion before relation. The clip is not crude enough to reject and not specific enough to trust. It is the beautiful wrong answer.</p>
+        <p>The problem is easy to miss because the answer is rarely nonsensical. It is fluent. Glow means wonder. A mirror means divided identity. Haze means memory. Slow motion means importance. A low-angle rise means victory. Cinema built these conventions long before generative AI. The model’s power is to make them arrive with very little resistance.</p>
+        <p>That ease changes what survives a forty-eight-hour production. The intention that requires continuity, recurrence, causal detail, or a difficult performance must compete with the sign that already looks finished. The model does not erase the filmmaker. It changes the price of the filmmaker’s choices.</p>
+      </section>
+    </div>
+    <aside class="margin"><div class="sidenote"><strong>The production pressure.</strong> The cost is not only failed generation. It is the time spent repairing continuity, restating intention, and resisting images that are persuasive because they are familiar.</div></aside>
+  </div>
+</div>
+
+<div class="pull">The useful question is not whether the model can make the image. It is <em>what the image allows the film to stop thinking about.</em></div>
+
+<figure class="plate" id="film-one">
+  <div class="plate-inner">
+    <div class="video"><iframe loading="lazy" src="https://www.youtube.com/embed/dUK6lHpoMKY" title="Gen:48 film by Yago Arconada Alvarez" allowfullscreen></iframe></div>
+    <div class="plate-copy"><div class="plate-no">Film one · Yago Arconada Alvarez</div><h3>A forest can glow without becoming strange</h3><p>A mushroom’s journey offers the model an easy invitation: make the forest enchanted. Saturate the greens. Float spores through light. Lower the camera until ordinary leaves become architecture.</p><p>Yet discovery is not a look. It is a change in what the world permits us to notice. The film becomes specific when scale alters knowledge—when the mushroom’s position reveals a route, danger, relation, or hidden order that a human-height image would miss.</p><p><strong>The tactic:</strong> let each shot disclose something the previous shot could not know.</p><a class="watch" href="https://www.youtube.com/watch?v=dUK6lHpoMKY">Watch the film ↗</a></div>
+  </div>
+  <figcaption class="caption">Wonder is cheap when it is atmospheric. Discovery becomes cinematic when one image changes how the next image can be read.</figcaption>
+</figure>
+
+<figure class="plate" id="film-two">
+  <div class="plate-inner">
+    <div class="video"><iframe loading="lazy" src="https://www.youtube.com/embed/t48to-rwwB8" title="Gen:48 film by Namit Kapoor" allowfullscreen></iframe></div>
+    <div class="plate-copy"><div class="plate-no">Film two · Namit Kapoor</div><h3>A face can fracture before a character does</h3><p>Shattered identity has a ready-made visual vocabulary: broken mirrors, facial doubles, digital tearing, rooms drained of color. The image announces instability in a single glance.</p><p>But a fractured character is not a fractured surface. The question is what crosses the fracture. Does a gesture recur? Does an object belong to one version of the woman and then appear with another? Does the next shot obey the previous self—or betray it?</p><p><strong>The tactic:</strong> make recurrence carry evidence. Let the same thing return altered.</p><a class="watch" href="https://www.youtube.com/watch?v=t48to-rwwB8">Watch the film ↗</a></div>
+  </div>
+  <figcaption class="caption">A cracked image labels division. Continuity makes division consequential.</figcaption>
+</figure>
+
+<div class="interlude">
+  <div><b>What the model supplies</b><p>A sign that can be recognized immediately.</p></div>
+  <div><b>What the film must still build</b><p>A relation that changes across time.</p></div>
+</div>
+
+<figure class="plate" id="film-three">
+  <div class="plate-inner">
+    <div class="video"><iframe loading="lazy" src="https://www.youtube.com/embed/39z8xpWx-sU" title="Gen:48 film by Hannsue and Ali Huang" allowfullscreen></iframe></div>
+    <div class="plate-copy"><div class="plate-no">Film three · Hannsue and Ali Huang</div><h3>Memory is not a color grade</h3><p>Memory arrives easily as warm light, dust, dissolves, shallow focus, and slow motion. These images feel remembered even when nobody remembers anything in particular.</p><p>Actual recollection is less obedient. It returns through a sound that no longer belongs to its room, an object whose meaning has shifted, a gesture repeated imperfectly, an absence the image keeps circling. Memory is not softness. It is the pressure of one time upon another.</p><p><strong>The tactic:</strong> give memory a carrier, then let recurrence alter it.</p><a class="watch" href="https://www.youtube.com/watch?v=39z8xpWx-sU">Watch the film ↗</a></div>
+  </div>
+  <figcaption class="caption">Atmosphere can suggest a past. Only return, omission, and distortion make the past act on the present.</figcaption>
+</figure>
+
+<figure class="plate" id="film-four">
+  <div class="plate-inner">
+    <div class="video"><iframe loading="lazy" src="https://www.youtube.com/embed/ouWVwn-CSkc" title="Gen:48 film by Yemesrach Tadesse" allowfullscreen></iframe></div>
+    <div class="plate-copy"><div class="plate-no">Film four · Yemesrach Tadesse</div><h3>Triumph is not an upward camera move</h3><p>A child’s path toward becoming a soccer champion can collapse into the grammar of aspiration: training, fall, recovery, stadium light, arms raised. The sequence feels complete because culture has already edited it for us.</p><p>The harder question is what the obstacle teaches the body. A setback matters when it produces an adaptation that remains visible later—a changed rhythm, a new route, a different relation to the ball, the field, or another player.</p><p><strong>The tactic:</strong> require every obstacle to leave a trace in later action.</p><a class="watch" href="https://www.youtube.com/watch?v=ouWVwn-CSkc">Watch the film ↗</a></div>
+  </div>
+  <figcaption class="caption">Victory is an image. Transformation is a continuity problem.</figcaption>
+</figure>
+
+<div class="paper">
+  <div class="row">
+    <div class="main">
+      <section id="play">
+        <span class="section-label">Play after fluency</span>
+        <h2>Freedom begins with hesitation</h2>
+        <p class="lede">The first good image is where play becomes difficult.</p>
+        <p>Before that moment, experimentation is easy to celebrate. There are prompts to vary, styles to try, worlds to summon. Once an image becomes attractive, however, variation acquires a cost. The production has something it could use. The clock has begun arguing on the image’s behalf.</p>
+        <p>Play matters when it creates a pause between recognition and acceptance. That pause can be small: generate one controlled alternative; place two clips side by side; name what each one substitutes; keep the rejected version; move the emotion into sound; make an object return; let a cut rather than a prompt complete the thought.</p>
+        <p>Flusser located freedom inside the apparatus, in the effort to discover possibilities its program does not offer automatically.<sup><a href="#n4">4</a></sup> For AI filmmaking, this does not require heroic resistance to technology. It requires a practical suspicion of fluency. The attractive clip must be treated as a proposal, not a verdict.</p>
+        <div class="rule">Play is not the production of more images. It is the capacity to say, <em>this image is good, and it is still wrong.</em></div>
+        <p>This distinction also sharpens the ethical problem of synthetic emotion. Cinema has always fabricated feeling. What matters is whether the feeling has been attached to a relation the film has built. Tears without a loss, resilience without a material obstacle, suffering without a history: these images ask for response while releasing the film from the work that would make the response accountable.</p>
+      </section>
+    </div>
+    <aside class="margin"><div class="sidenote"><strong>Play as method.</strong> Change one variable, compare outputs, record the substitution, and move meaning into montage or sound when the isolated image cannot carry it.</div></aside>
+  </div>
+
+  <div class="row">
+    <div class="main">
+      <section id="archive">
+        <span class="section-label">The hidden film</span>
+        <h2>Keep the images you refuse</h2>
+        <p class="lede">The finished AI film is a poor record of how it was made.</p>
+        <p>The edit hides the repeated faces, the disappearing props, the impossible geography, the accidental stereotypes, the emotions that arrived too loudly, and the beautiful clips that would have bent the story around themselves. The polished film presents a decision. It conceals the field of alternatives against which that decision became meaningful.</p>
+        <p>That missing field is the negative archive: rejected generations, comparison grids, prompt revisions, continuity notes, and the reason an image was declined. The archive matters because it separates two things the final film folds together—the model’s repertoire and the filmmaker’s judgment.</p>
+        <p>For criticism, this changes the object. An AI image should not be read only as a finished synthetic artifact. It should be read as one survivor among possible images. Which alternatives arrived repeatedly? Which relations could not be stabilized? Which cliché looked so good that it nearly became the movie? Those questions reveal the apparatus more clearly than another taxonomy of visual style.</p>
+        <p>For production, the archive gives refusal a memory. A rejected image is no longer wasted computation. It becomes a boundary: not this face, not this sentiment, not this shortcut, not again.</p>
+      </section>
+    </div>
+    <aside class="margin"><div class="sidenote"><strong>A minimal record.</strong> Save the prompt, output, decision, and one sentence: “We rejected this because it replaced…” That sentence is often more informative than the successful prompt.</div></aside>
+  </div>
+
+  <div class="row">
+    <div class="main">
+      <section id="tools">
+        <span class="section-label">Four ways to remember a film</span>
+        <h2>The prompt cannot hold everything</h2>
+        <p>Longer prompts can improve compliance while making the production harder to reason about. Story purpose, world causality, temporal structure, camera behavior, sound, and ethical limits are different problems. When they are compressed into one paragraph, a revision to one can quietly erase another.</p>
+        <p>The Blue Deli tools began as modest attempts to keep those decisions outside the latest generation.</p>
+        <div class="memory-list">
+          <div class="memory-item"><strong>Matrix Editor</strong><span>remembers why a shot exists—its place in an act, beat, sequence, and world.</span></div>
+          <div class="memory-item"><strong>World Prompt</strong><span>remembers consequences—how a climate, technology, custom, or resource changes other parts of the world.</span></div>
+          <div class="memory-item"><strong>Cybernetic Cineosis</strong><span>remembers duration—past, present, future, sound, action, sensation, and recollection beyond the hero frame.</span></div>
+          <div class="memory-item"><strong>CinePrompt</strong><span>remembers what changed—subject, scene, camera, movement, light, and the qualities that must remain stable.</span></div>
+        </div>
+        <p>These are not proven solutions. They are production propositions. Their value depends on whether they reduce repeated failures, preserve consequential decisions, and help a team recover alternatives after an attractive generation pulls the film off course.</p>
+      </section>
+    </div>
+    <aside class="margin"><div class="sidenote"><strong>The modest claim.</strong> The tools do not make the model understand the film. They help the filmmakers remember what the model does not.</div></aside>
+  </div>
+
+  <div class="row">
+    <div class="main">
+      <section id="conclusion">
+        <span class="section-label">The interval</span>
+        <h2>The film begins when the image is not enough</h2>
+        <p class="lede">Generative video makes moving images abundant. It does not make their relations inevitable.</p>
+        <p>The four films considered here point toward a craft of withholding assent. Wonder must become discovery. Fracture must alter continuity. Memory must return through something. Obstacles must leave traces. None of this can be guaranteed by a richer adjective stack. It emerges across images, in the decisions that connect and refuse them.</p>
+        <p>The imaginary surrounding AI filmmaking equates freedom with access to more possible pictures. That freedom is real but incomplete. A filmmaker also needs the freedom to keep a question open after the model has offered a fluent answer.</p>
+        <p>The model offers an image. The filmmaker makes a film by deciding what the image has not yet earned.</p>
+      </section>
+    </div>
+    <aside class="margin"><div class="sidenote"><strong>Final proposition.</strong> Creative freedom is not the number of generations available. It is the interval in which an image can still be questioned, compared, rejected, and recomposed.</div></aside>
+  </div>
+
+  <section class="references" id="references">
+<span class="section-no">References and notes</span>
+<h2>Sources</h2>
+<ol>
+<li id="n1">The Image Research Network. “Fifteenth International Conference on The Image: Images and Imaginaries of Artificial Intelligence.” Conference history page, 2024. <a href="https://ontheimage.com/about/history/2024-conference">Conference record ↗</a></li>
+<li id="n2">Runway. “Gen:48 — 48-Hour AI Film Challenge.” <a href="https://runwayml.com/gen48">Official challenge page ↗</a></li>
+<li id="n3">Runway Research. “Introducing Gen-3 Alpha.” 17 June 2024. <a href="https://runwayml.com/research/introducing-gen-3-alpha">Model announcement ↗</a></li>
+<li id="n4">Flusser, Vilém. <em>Towards a Philosophy of Photography</em>. Reaktion Books, 2000.</li>
+<li id="n5">Oppenlaender, Jonas, Rhema Linder, and Johanna Silvennoinen. “Prompting AI Art: An Investigation into the Creative Skill of Prompt Engineering.” 2023. <a href="https://arxiv.org/abs/2303.13534">Preprint ↗</a></li>
+<li>Manovich, Lev. <em>AI Aesthetics</em>. Strelka Press, 2018.</li>
+<li>Zylinska, Joanna. <em>AI Art: Machine Visions and Warped Dreams</em>. Open Humanities Press, 2020.</li>
+<li>Baudrillard, Jean. <em>Simulacra and Simulation</em>. University of Michigan Press, 1994.</li>
+<li>Debord, Guy. <em>The Society of the Spectacle</em>. Zone Books, 1994.</li>
+<li>Runway. “Generating a Film in 48 Hours.” A production account that begins with concept and shot-list work before generation. <a href="https://runwayml.com/customers/48-hours-to-generate-a-film">Behind the scenes ↗</a></li>
+</ol>
+<p class="notes">The four film descriptions and Blue Deli tool language derive from the project materials supplied by the authors. Interpretive claims are limited to those public and practice-based materials.</p>
+</section>
+</div>
+
+<div class="appendix-wrap"><section id="appendix">
+<span class="section-no">Practice appendix</span>
+<div class="appendix-intro"><div><h2>Copy-ready production prompts</h2><p class="small">These are working instruments, not evidence that the framework has been validated. Each prompt now asks the team to preserve a negative archive and name what an attractive output replaced.</p></div><div class="controls"><button class="btn" data-copy-all="">Copy all</button><button class="btn" data-open-all="">Open all</button></div></div>
+<details class="prompt-group" open=""><summary>A · Matrix Editor — protect dramatic relations</summary><div class="prompt-head"><strong>Master prompt</strong><button class="btn" data-copy="matrix-master">Copy</button></div><pre id="matrix-master">You are the Matrix Editor Agent. Convert a film concept into a narratively governed production map that records what each generated image must not replace.
+
+PRIMARY RULE
+Generate Storymap.md first. Preserve a negative archive: for every rejected visual solution, record what it substituted for the film's actual relation.
+
+Generate Storymap.md first. Do not generate Shotlist.js or Chart.js unless the user explicitly asks for one of those files in a later message.
+
+CORE DISTINCTION
+Treat dramatic beat and cinematic syntagma as different analytical axes.
+A beat states the dramatic function of a passage.
+A syntagma states how shots organize time, space, continuity, ellipsis, simultaneity, or comparison.
+Never choose a syntagma only because its name sounds appropriate to the beat.
+
+INPUTS TO READ
+Film title:
+Premise or source material:
+Desired duration:
+Genre and tone:
+Central character or collective:
+Central desire:
+Primary opposition:
+Ethical risks or representational constraints:
+Visual references:
+Sound references:
+Available generated images or footage:
+
+WORKFLOW
+
+First, compile the diegesis.
+Define the world, historical moment, locations, characters, institutions, technologies, objects, rules, prior events, current conflicts, and what cannot occur in this world.
+Create a continuity ledger for identity, wardrobe, props, geography, weather, lighting, visual motifs, sound motifs, and causal facts.
+
+Second, organize three acts.
+Act One establishes the world, the governing lack, and the threshold into a changed situation.
+Act Two develops experimentation, complication, reversal, and increasing cost.
+Act Three reorganizes the story around a final choice and its consequences.
+
+Third, map the fifteen Save the Cat dramatic functions.
+Opening Image.
+Theme Stated.
+Setup.
+Catalyst.
+Debate.
+Break into Two.
+B Story.
+Fun and Games.
+Midpoint.
+Bad Guys Close In.
+All Is Lost.
+Dark Night of the Soul.
+Break into Three.
+Finale.
+Final Image.
+
+Do not force equal length or formulaic page timing. For every beat state its dramatic purpose, entering condition, transformation, exit condition, and relation to the theme.
+
+Fourth, assign one or more cinematic syntagmatic types to each beat.
+Available types are autonomous shot, parallel syntagma, bracket syntagma, descriptive syntagma, alternating syntagma, scene, episodic sequence, and ordinary sequence.
+For every assignment explain why its temporal and spatial logic serves the beat better than at least one plausible alternative.
+
+Fifth, design the shots.
+For every shot provide:
+Shot identifier.
+Beat identifier.
+Syntagma type.
+Narrative purpose.
+Visible content.
+Subject action.
+Environment action.
+Shot scale and angle.
+Lens or depth character when useful.
+Camera position and movement.
+Duration in seconds.
+Lighting and color logic.
+Sound, silence, dialogue, or music.
+Entry transition and exit transition.
+Continuity dependencies.
+AI generation risks such as identity drift, hand failure, impossible geography, unmotivated spectacle, or stereotype compression.
+Image reference path or link when available.
+
+Sixth, audit the film as a system.
+Check that every shot inherits a function from a syntagma, beat, act, and diegesis.
+Flag shots that are visually attractive but narratively unemployed.
+Flag repeated beats, missing causal transitions, discontinuities, unsupported emotional claims, and ethical risks.
+Identify where omission, sound, text, or live-action material would work better than another generated image.
+
+OUTPUT CONTRACT FOR STORYMAP.MD
+Use markdown headings in this order:
+Film title.
+Logline.
+Diegesis.
+Continuity ledger.
+Act One.
+Act Two.
+Act Three.
+For every act, nest beat, syntagma, and shot sections.
+End with a structural audit and a list of unresolved creative decisions.
+Include one fully developed Opening Image example as the model for all later shots.
+Do not include filler such as additional shots omitted.
+
+LATER FILE RULES
+Only when the user asks for Shotlist.js, extract the approved shot descriptions into a JavaScript array named prompts. Put one complete visual-generation prompt per shot and preserve shot numbers in comments.
+Only when the user asks for Chart.js, output a JavaScript object named data with the hierarchy Diegesis, Act, Beat, Syntagma, Shot. Include shot content and image paths where available.
+
+OPERATING STANCE
+Do not ask for clarification. Infer missing details, label every inference, and preserve contradictions as explicit design questions rather than smoothing them away.
+
+PROJECT MATERIAL BEGINS HERE
+Paste the film concept, source text, notes, or existing story map below this line.</pre></details>
+<details class="prompt-group"><summary>B · World Prompt — make images produce consequences</summary><div class="prompt-head"><strong>Master prompt</strong><button class="btn" data-copy="world-master">Copy</button></div><pre id="world-master">You are the World Prompt Systems Agent. Build a fictional or constructed world as a network of dependencies, boundaries, feedbacks, historical causes, and observable consequences. Refuse worldbuilding that functions only as visual decoration.
+
+THEORETICAL STATUS
+Use a Luhmann-inspired distinction between system and environment, but do not claim that the requested material domains are Luhmann’s own taxonomy.
+Use systems thinking to model elements, interconnections, functions or purposes, feedback loops, delays, constraints, failure states, and leverage points.
+Treat the world as more than a container for plot. It must remain coherent when no protagonist is present.
+
+TEMPLATE RULE
+When WORLD_PROMPT.json is supplied, preserve its key names and nesting exactly.
+When no template is supplied, output one valid JSON object and no commentary outside it.
+Prefer nested objects with explicit names over compressed lists.
+
+PROJECT INPUT
+World name:
+Genre and medium:
+Audience:
+Primary dramatic or experiential purpose:
+Temporal scale:
+Geographic scale:
+Technological level:
+Known premise:
+Required locations, populations, institutions, or conflicts:
+Ethical constraints:
+Source materials:
+
+TOP-LEVEL ARCHITECTURE
+Overall System.
+Subsystems.
+Context.
+Ecologies.
+Domains.
+Cross-System Dynamics.
+Historical Transformations.
+Contradictions and Open Questions.
+
+OVERALL SYSTEM
+Define the world’s principal function or organizing problem.
+State what reproduces the world’s current order.
+State what threatens, adapts, repairs, or transforms that order.
+Name the system boundary and the most consequential features of its environment.
+
+CONTEXT
+Model climate, terrain, hydrology, atmosphere, seasons, astronomical conditions, geographic barriers, settlement patterns, historical period, temporal rhythms, and inherited catastrophes.
+For climate and terrain, trace consequences into food, energy, health, architecture, mobility, war, labor, ritual, language, clothing, and visual culture.
+
+ECOLOGIES
+Model organisms, habitats, trophic relations, pathogens, symbioses, invasive forces, resources, waste, extraction, regeneration, and technological mediation.
+Distinguish biological ecology, technological ecology, information ecology, economic ecology, and symbolic ecology when relevant.
+
+DOMAINS
+Develop Energy, Food, Mind, Body, Structure, Politics, Health, and Culture.
+Add other domains only when the premise requires them.
+
+FOR EVERY NODE PROVIDE
+Function.
+Elements.
+Boundary.
+Inputs.
+Outputs.
+Internal operations.
+Interactions with named nodes.
+Dependencies.
+Positive feedback loops.
+Balancing feedback loops.
+Delays.
+Scarcity or bottleneck.
+Failure states.
+Adaptation mechanisms.
+Historical causes.
+Cultural interpretations.
+Technological influences.
+Observable traces in locations, objects, bodies, customs, language, and images.
+Significance to the overall system and story experience.
+
+CROSS-SYSTEM REQUIREMENTS
+Every major element must affect at least two other nodes.
+Every domain must depend on context or ecology in a specific way.
+Every resource must have a source, pathway, user, residue, and political consequence.
+Every technology must solve one problem while creating another dependency or risk.
+Every institution must reproduce itself through recurring operations, communications, rituals, incentives, or exclusions.
+Every cultural belief must have material consequences or a historical cause.
+
+HISTORY ENGINE
+Generate at least three major historical transformations.
+For each transformation state the prior condition, trigger, affected systems, winners, losers, institutional memory, physical traces, myths, and unresolved aftereffects.
+
+COHERENCE AUDIT
+Identify contradictions, impossible resource flows, unsupported population scales, technologies without infrastructures, politics without enforcement, rituals without social carriers, and cultures that do not respond to material conditions.
+Do not silently repair contradictions. Record each contradiction and propose two different resolutions with different narrative consequences.
+
+OUTPUT QUALITY
+The world must support multiple stories rather than one predetermined plot.
+Avoid decorative lists of adjectives.
+Use causal language: because, therefore, depends on, reinforces, constrains, delays, and destabilizes.
+Make every major claim visible through at least one cinematic or experiential trace.
+
+WORLD MATERIAL BEGINS HERE
+Paste the premise, notes, and WORLD_PROMPT.json template below this line.</pre></details>
+<details class="prompt-group"><summary>C · Cybernetic Cineosis — prevent the hero frame from replacing time</summary><div class="prompt-head"><strong>Master prompt</strong><button class="btn" data-copy="cineosis-master">Copy</button></div><pre id="cineosis-master">You are the Cybernetic Cineosis Agent. Transform one scene into twenty-one distinct cinematic key-frame prompts by crossing seven image regimes with three temporal orientations. Use the matrix to prevent one immediately legible hero image from replacing the scene's duration.
+
+SCENARIO CONSTRUCTION
+First infer and state five scene facts:
+Who is present or implied.
+Where the event occurs.
+What is visibly happening.
+What changes, threatens to change, or has already changed.
+How the camera, sound, duration, and atmosphere encounter the event.
+
+INPUT
+Scene title:
+Scene description:
+Characters or subjects:
+Location and material environment:
+Current action:
+Transformation or stake:
+Visual continuity anchors:
+Sound continuity anchors:
+Ethical or representational constraints:
+Aspect ratio:
+
+IMAGE REGIMES
+Perception-image: organize the relation between a perceiving center and the visible world. Allow subjective, semi-subjective, objective, or nonhuman perception.
+Action-image: show a situation, a response, and a material change or resistance.
+Affection-image: concentrate intensity in a face, gesture, surface, object, light field, or bodily interval before action resolves it.
+Opsign: construct a pure optical situation cut from immediate action. The subject sees but cannot simply convert seeing into effective action.
+Sonsign: construct a pure sonic situation. Make sound alter the scene even when its source is absent, uncertain, delayed, or visually insufficient.
+Crystal-image: make actual and virtual images exchange through mirrors, recordings, doubles, reenactment, transparent surfaces, performance, loops, or indiscernible temporal layers.
+Recollection-image: show the present actively actualizing a memory. Emphasize searching, reconstruction, mismatch, or the mark of the past rather than a generic flashback.
+
+TEMPORAL ORIENTATIONS
+Past orientation: express residue, archive, habit, wound, aftermath, repetition, inheritance, or a memory being formed. Do not rely only on sepia color, old clothing, or title text.
+Present orientation: express the event as an unstable now in which perception, feeling, action, and consequence remain open.
+Future orientation: express anticipation, projection, rehearsal, threat, promise, latency, or material preparation for an event that has not fully occurred. Do not rely only on futuristic design clichés.
+
+GENERATION ORDER
+Create seven PAST_IMAGES in this order:
+Perception-Image_PAST.
+Action-Image_PAST.
+Affection-Image_PAST.
+Opsign_PAST.
+Sonsign_PAST.
+Crystal-Image_PAST.
+Recollection-Image_PAST.
+
+Create seven PRESENT_IMAGES in the same image-regime order.
+
+Create seven FUTURE_IMAGES in the same image-regime order.
+
+FORMAT FOR EACH OF THE TWENTY-ONE PROMPTS
+Use a numbered markdown heading naming the image regime and a unique scene subtitle.
+Then provide one copy-ready quoted prompt of approximately seventy to one hundred twenty words.
+Every prompt must specify subject, environment, framing, camera relation, light, material texture, and temporal operation.
+For sonsigns, describe the audible event and how the visible frame carries its pressure.
+End every visual prompt with the exact aspect-ratio suffix supplied by the user. If none is supplied, end with --ar 2:1.
+
+CONTINUITY RULES
+Preserve identity, costume, geography, central props, weather, and palette unless temporal change specifically requires alteration.
+Vary the cinematic logic, not only the adjective list.
+Do not turn every mode into a close-up.
+Do not name an emotion when a gesture, duration, sound, or material relation can render it.
+Do not place the words past, present, or future inside the generated image.
+
+FINAL SYNTHESIS
+After the twenty-one prompts, provide:
+A continuity ledger.
+A difference ledger explaining what each image regime reveals that the others suppress.
+Three recommended prompt sequences for editing: one movement-image sequence, one time-image sequence, and one hybrid sequence.
+A warning list identifying prompts likely to become cliché, spectacle, or incoherent model transitions.
+
+SCENE MATERIAL BEGINS HERE
+Paste the scene below this line.</pre></details>
+<details class="prompt-group"><summary>D · CinePrompt — vary one thing and retain the refusal</summary><div class="prompt-head"><strong>Master prompt</strong><button class="btn" data-copy="cineprompt-master">Copy</button></div><pre id="cineprompt-master">You are the CinePrompt Agent. Convert cinematic intention into concise, generator-facing motion prompts and an iterative test plan. Every test must name one variable, one invariant, and one refusal criterion.
+
+INPUT
+Generation platform and model:
+Generation mode: text to video, image to video, keyframes, or video transformation.
+Clip duration:
+Aspect ratio:
+Scene purpose:
+Starting image description when one exists:
+Subject motion:
+Environment or scene motion:
+Camera position and motion:
+Lighting and atmosphere:
+Desired material or aesthetic character:
+Continuity invariants:
+Transition into the shot:
+Transition out of the shot:
+Known failure from the previous generation:
+
+FIRST DECISION
+Determine whether the visual composition is already supplied by an input image.
+For text to video, describe camera relation, establishing scene, subject, and relevant material detail.
+For image to video, do not spend prompt space redescribing the image. Describe the desired subject motion, scene motion, camera motion, and temporal rhythm.
+
+BASE PROMPT GRAMMAR
+Camera relation and movement: establishing scene. Subject motion. Environment response or independent scene motion. Lighting, material atmosphere, and one coherent style descriptor.
+
+PROMPT RULES
+Use direct visual language rather than conversation, explanation, or commands.
+Use positive phrasing.
+Describe physical actions instead of abstract emotions.
+Prefer one coherent scene to multiple location changes or unrelated transformations.
+Use simple subject references when the starting image fixes identity.
+Do not stack incompatible camera movements.
+Do not add lens, lighting, texture, and style terms unless they can be perceived at the chosen shot scale.
+Repeat only the qualities that must remain invariant across generations.
+
+OUTPUT
+Production reading: one paragraph explaining the shot’s cinematic job.
+Base prompt: the shortest prompt that expresses the essential motion.
+Camera variant: change only camera motion.
+Subject variant: change only subject motion.
+Scene variant: change only environmental motion.
+Style variant: change only the material or lighting treatment.
+Continuity invariants: a short reusable sentence.
+Failure diagnosis: explain which clause may have produced the known failure.
+Next test: recommend one variable to add, remove, or simplify.
+
+THREE-SHOT TECHNIQUE
+When requested, produce three separate generation prompts:
+Shot One establishes spatial conditions and the governing tension.
+Shot Two shows the subject acting within or against those conditions.
+Shot Three shows the consequence, residue, or changed relation.
+Do not compress the three shots into one generation prompt.
+
+FIVE-SHOT TECHNIQUE
+When requested, produce five separate generation prompts:
+Shot One gives context.
+Shot Two identifies the subject and relation.
+Shot Three performs the central action.
+Shot Four holds affect, interruption, or uncertainty.
+Shot Five reveals consequence or transition.
+Maintain a continuity sentence across all five prompts while varying only the shot’s narrative function.
+
+PROMPT MATERIAL BEGINS HERE
+Paste the shot description or storyboard note below this line.</pre></details>
+<details class="prompt-group"><summary>E · Generator-ready examples</summary>
+<div class="example-grid">
+<div><div class="prompt-head"><strong>Text to video</strong><button class="btn" data-copy="direct-t2v">Copy</button></div><pre id="direct-t2v">Slow lateral tracking shot: A lone dolphin glides through a flooded midnight delicatessen, passing chrome stools, suspended menu boards, and jars that drift like small moons. Its movement sends gentle currents through paper wrappers and strands of seaweed caught around the counter. Blue practical light flickers beneath the water while a warm refrigerator glow outlines the dolphin’s body. Dreamlike live-action, restrained motion, tactile water, quiet cinematic tension.</pre></div>
+<div><div class="prompt-head"><strong>Image to video</strong><button class="btn" data-copy="direct-i2v">Copy</button></div><pre id="direct-i2v">The dolphin turns slowly toward the counter and exhales one ring of bubbles. Paper menus sway in the current and a loose napkin drifts past the lens. The camera makes a gentle push forward while maintaining focus on the dolphin. Subtle natural motion, quiet underwater atmosphere, cinematic live-action.</pre></div>
+<div><div class="prompt-head"><strong>Three-shot sequence</strong><button class="btn" data-copy="three-shot">Copy</button></div><pre id="three-shot">SHOT ONE — CONTEXT
+Locked establishing wide shot: A flooded delicatessen rests at midnight beneath rippling blue water. Empty chrome stools form a line toward a softly glowing service counter. Paper menus and seaweed move gently in the current. Quiet cinematic live-action.
+
+SHOT TWO — ACTION
+Medium tracking shot: The dolphin enters from the dark aisle and glides toward the counter. Its fin brushes a hanging order ticket, sending the paper spinning. The camera tracks beside the dolphin at the same slow speed. Restrained underwater motion, tactile detail.
+
+SHOT THREE — CONSEQUENCE
+Slow push-in: A small service bell lifts from the counter and rings without being touched as the dolphin stops before it. Concentric vibrations travel through the water and disturb the floating menus. The dolphin remains motionless, watching. Warm refrigerator light meets deep blue water, uncanny cinematic stillness.</pre></div>
+<div><div class="prompt-head"><strong>Five-shot sequence</strong><button class="btn" data-copy="five-shot">Copy</button></div><pre id="five-shot">CONTINUITY SENTENCE
+The same lone dolphin, flooded midnight delicatessen, chrome counter, blue water, warm refrigerator glow, restrained live-action movement.
+
+SHOT ONE — WORLD
+Establishing wide shot: The flooded delicatessen appears empty, with chrome stools, drifting wrappers, and dim menu boards suspended in blue water. The camera remains locked as small currents move through the room.
+
+SHOT TWO — SUBJECT
+Slow profile tracking shot: The dolphin glides into frame along the counter, its body outlined by the warm refrigerator glow. The camera matches its movement and maintains a calm distance.
+
+SHOT THREE — ACTION
+Close medium shot: The dolphin nudges a small silver service bell with the tip of its snout. The bell tilts and releases a visible pulse through the water. The camera makes a slight push forward.
+
+SHOT FOUR — AFFECT
+Extreme close-up: Reflected menu letters move across the dolphin’s eye while the sound of the bell continues after the bell has stopped moving. The camera remains still. Only fine bubbles and reflected light shift.
+
+SHOT FIVE — CONSEQUENCE
+Wide reverse shot from behind the counter: A doorway in the back wall opens onto a bright ocean horizon that could not physically fit inside the building. The dolphin faces the opening while loose order tickets stream toward it. The camera slowly pulls back, preserving the impossible threshold.</pre></div>
+</div>
+</details>
+</section></div>
+</main>
+<footer>© 2024–2026 Watson Hartsoe and Cecile Yangminming Zhang · Blue Deli · Georgia Institute of Technology</footer>
+<script>
+const progress=document.getElementById('progress');
+function update(){const h=document.documentElement;const max=h.scrollHeight-h.clientHeight;progress.style.width=(max?100*h.scrollTop/max:0)+'%'}
+addEventListener('scroll',update,{passive:true});update();
+async function copyText(id,button){const el=document.getElementById(id);if(!el)return;try{await navigator.clipboard.writeText(el.innerText);const t=button.textContent;button.textContent='Copied';setTimeout(()=>button.textContent=t,1200)}catch(e){const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r);document.execCommand('copy');s.removeAllRanges();}}
+document.querySelectorAll('[data-copy]').forEach(b=>b.addEventListener('click',()=>copyText(b.dataset.copy,b)));
+const copyAll=document.querySelector('[data-copy-all]');if(copyAll)copyAll.addEventListener('click',async e=>{const text=[...document.querySelectorAll('pre')].map(p=>p.innerText).join('\n\n--------------------\n\n');await navigator.clipboard.writeText(text);const b=e.currentTarget;b.textContent='Copied all';setTimeout(()=>b.textContent='Copy all',1200)});
+const openAll=document.querySelector('[data-open-all]');if(openAll)openAll.addEventListener('click',e=>{const ds=[...document.querySelectorAll('details')];const open=ds.some(d=>!d.open);ds.forEach(d=>d.open=open);e.currentTarget.textContent=open?'Close all':'Open all'});
+</script>
+</body>
+</html>

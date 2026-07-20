@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="Growing Entanglements: Captain Cook, cultural rationality, and seven interactive agent-based models.">
+<title>Growing Entanglements — Watson Hartsoe</title>
+<style>
+:root{--paper:#fbfaf5;--paper2:#f1ede5;--ink:#1e1d19;--muted:#6f685d;--rule:#cec7bb;--red:#9a4038;--blue:#486d82;--green:#5f765f;--gold:#96783b;--serif:Georgia,"Times New Roman",serif;--sans:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--measure:43rem}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:18px;line-height:1.58;text-rendering:optimizeLegibility}
+a{color:inherit;text-decoration-thickness:.06em;text-underline-offset:.15em}a:hover{color:var(--red)}
+.progress{position:fixed;z-index:80;left:0;top:0;height:3px;width:0;background:var(--red)}
+.paper{width:min(100%,78rem);margin:0 auto;padding:0 clamp(1rem,4vw,2.4rem) 8rem}
+.hero{padding:clamp(4.5rem,11vw,9rem) 0 clamp(5rem,10vw,8rem);display:grid;grid-template-columns:minmax(0,1fr) minmax(16rem,29rem);gap:clamp(2rem,6vw,6rem);align-items:end}
+.eyebrow,.academic-line,.section-tag,.resource-line{font:800 .65rem/1.25 var(--sans);letter-spacing:.15em;text-transform:uppercase}
+.eyebrow{margin:0 0 1rem;color:var(--red)}h1{max-width:10ch;margin:0;font-size:clamp(3.7rem,9vw,7.8rem);line-height:.88;letter-spacing:-.065em;font-weight:500}
+.deck{max-width:28ch;margin:1.5rem 0 0;color:var(--muted);font-size:clamp(1.18rem,2.6vw,1.55rem);line-height:1.27;font-style:italic}
+.academic-line{padding-top:1rem;border-top:2px solid var(--ink);color:var(--muted)}.academic-line strong{color:var(--ink)}
+.hero-note{margin-top:1rem;font-size:.88rem;color:var(--muted)}
+.toc{position:sticky;top:3px;z-index:50;display:flex;gap:1.1rem;overflow:auto;padding:.75rem 0;background:color-mix(in srgb,var(--paper) 94%,transparent);border-block:1px solid var(--rule);font:750 .65rem/1.1 var(--sans);letter-spacing:.08em;text-transform:uppercase;scrollbar-width:none;backdrop-filter:blur(10px)}.toc::-webkit-scrollbar{display:none}.toc a{white-space:nowrap;text-decoration:none;color:var(--muted)}.toc a:hover{color:var(--red)}
+section{margin:0 0 clamp(6rem,12vw,10rem);scroll-margin-top:5rem}.section-head{display:grid;grid-template-columns:4rem minmax(0,var(--measure));gap:1rem;margin-bottom:1.6rem;border-top:2px solid var(--ink);padding-top:1rem}.section-tag{color:var(--red)}h2{max-width:20ch;margin:0;font-size:clamp(2.2rem,5.3vw,4rem);line-height:1;letter-spacing:-.045em;font-weight:500}h3{margin:2.3rem 0 .75rem;font-size:1.28rem;line-height:1.15;font-weight:600;font-style:italic}
+.prose{max-width:var(--measure);margin-left:5rem}.prose p{margin:0 0 1.2rem}.lead{font-size:1.2rem;line-height:1.5}.strike{font-size:clamp(1.35rem,3vw,2rem);line-height:1.25;font-style:italic;margin:2rem 0!important;max-width:28ch}
+.wide-figure{margin:2rem 0 2.7rem}.wide-figure svg{display:block;width:100%;height:auto;border-bottom:1px solid var(--rule)}figcaption{max-width:50rem;margin:.65rem 0 0;color:var(--muted);font-size:.75rem;line-height:1.4}figcaption strong{color:var(--ink)}
+.event-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);margin:2rem 0}.event{background:var(--paper);padding:1rem}.event b{display:block;margin-bottom:.35rem;font:800 .62rem/1.2 var(--sans);letter-spacing:.12em;color:var(--red)}.event span{font-size:.9rem}
+.pie{margin:2.3rem 0;padding:1rem 1.2rem;border-left:3px solid var(--red);background:var(--paper2)}.pie-row{display:grid;grid-template-columns:11rem 1fr 11rem;align-items:center;gap:.8rem;margin:.75rem 0;font:700 .72rem/1.2 var(--sans)}.pie-row span:last-child{text-align:right}.axis{height:6px;border-radius:99px;background:linear-gradient(90deg,var(--blue),var(--paper),var(--green));position:relative}.axis::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:12px;border:2px solid var(--red);border-radius:50%;background:var(--paper);transform:translate(-50%,-50%)}
+.pie-live{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin:2rem 0 0}.pie-control{padding-top:.7rem;border-top:1px solid var(--rule)}.pie-control label{display:flex;justify-content:space-between;gap:1rem;margin-bottom:.45rem;font:800 .61rem/1.2 var(--sans);letter-spacing:.1em;text-transform:uppercase}input[type=range]{width:100%;accent-color:var(--red)}#pieReading{margin:1.1rem 0 0;font-size:1.05rem;font-style:italic}
+.models-intro{max-width:var(--measure);margin:0 0 3rem 5rem}.model-block{margin:0 0 clamp(7rem,11vw,9rem);display:grid;grid-template-columns:minmax(15rem,24rem) minmax(0,1fr);gap:clamp(1.5rem,5vw,4.5rem);align-items:start}.model-copy{padding-top:.75rem;border-top:2px solid var(--ink)}.resource-line{display:flex;flex-wrap:wrap;gap:.55rem;color:var(--muted);margin-bottom:1rem}.resource-line strong{color:var(--red)}.model-copy h3{margin:0 0 1rem;font-size:clamp(1.65rem,3.2vw,2.45rem);font-style:normal;letter-spacing:-.025em;line-height:1.04}.model-copy p{margin:0 0 1rem}.example{padding-top:.8rem;border-top:1px solid var(--rule);color:var(--muted);font-size:.83rem}.model-figure{margin:0}.model-frame{height:390px;border-top:2px solid var(--ink);border-bottom:1px solid var(--rule)}.model-frame iframe{display:block;width:100%;height:100%;border:0;overflow:hidden;background:transparent}.model-links{display:flex;justify-content:space-between;gap:1rem;margin-top:.55rem;font:700 .62rem/1.2 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.apparatus-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:2rem 0}.apparatus{display:block;text-decoration:none;border-top:2px solid var(--ink);padding-top:.5rem}.apparatus svg{display:block;width:100%;height:auto;border-bottom:1px solid var(--rule);margin-bottom:.7rem}.apparatus strong{display:block;font-size:1rem}.apparatus span{display:block;margin-top:.3rem;color:var(--muted);font-size:.78rem;line-height:1.4}
+.diffraction-note{max-width:var(--measure);margin:1rem 0 0 5rem}.closing{max-width:54rem;margin:0 auto clamp(7rem,12vw,11rem);padding-top:1.3rem;border-top:3px solid var(--ink)}.closing p{max-width:31ch;margin:0 0 1.2rem;font-size:clamp(1.5rem,3.7vw,2.55rem);line-height:1.18}
+.references{margin-top:8rem;padding-top:1rem;border-top:1px solid var(--rule)}.references summary{cursor:pointer;font:800 .7rem/1.2 var(--sans);letter-spacing:.14em;text-transform:uppercase}.references ol{columns:2 20rem;column-gap:2rem;margin:1.5rem 0 0;padding:0;list-style:none}.references li{break-inside:avoid;margin:0 0 .9rem;padding-left:1rem;text-indent:-1rem;color:var(--muted);font-size:.71rem;line-height:1.42}.references a{overflow-wrap:anywhere}
+@media(max-width:850px){.hero{grid-template-columns:1fr}.prose,.models-intro,.diffraction-note{margin-left:0}.model-block{grid-template-columns:1fr}.model-copy{max-width:var(--measure)}.model-frame{height:370px}}
+@media(max-width:620px){body{font-size:17px}.paper{padding-inline:1rem}.hero{padding-top:4.5rem}.section-head{grid-template-columns:1fr;gap:.55rem}.event-grid{grid-template-columns:1fr}.pie-row{grid-template-columns:1fr;gap:.3rem}.pie-row span:last-child{text-align:left}.pie-live{grid-template-columns:1fr}.model-frame{height:330px}.apparatus-grid{grid-template-columns:1fr}.references ol{columns:1}}
+@media print{@page{size:letter;margin:.72in}body{background:#fff;font-size:10.5pt}.paper{width:auto;padding:0}.toc,.progress{display:none}.hero{padding:0 0 2rem;grid-template-columns:1fr 2.6in}h1{font-size:40pt}section{margin-bottom:3rem}.model-block{grid-template-columns:2.2in 1fr;gap:.25in;break-inside:avoid}.model-frame{height:2.4in}.references ol{columns:2}}
+</style>
+</head>
+<body>
+<div class="progress" aria-hidden="true"></div>
+<div class="paper">
+<header class="hero">
+ <div>
+  <p class="eyebrow">Interactive research paper</p>
+  <h1>Growing Entanglements</h1>
+  <p class="deck">Captain Cook, cultural rationality, and seven small worlds.</p>
+ </div>
+ <div>
+  <div class="academic-line"><strong>Watson Hartsoe</strong><br>Probabilistic Cultural Systems Ontology<br>Fall 2024</div>
+  <p class="hero-note">The simulations isolate mechanisms. They do not reconstruct Hawaiian experience or settle the Sahlins–Obeyesekere debate.</p>
+ </div>
+</header>
+<nav class="toc" aria-label="Paper sections"><a href="#encounter">Encounter</a><a href="#readings">Two readings</a><a href="#plot">PLoT</a><a href="#pie">PIE</a><a href="#models">Seven models</a><a href="#ethnography">Ethnography</a><a href="#entanglement">Entanglement</a><a href="#apparatuses">Apparatuses</a><a href="#references">References</a></nav>
+
+<section id="encounter">
+ <div class="section-head"><span class="section-tag">01</span><h2>The event comes before the model.</h2></div>
+ <div class="prose">
+  <p class="lead">On 17 January 1779, the <em>Resolution</em> and <em>Discovery</em> entered Kealakekua Bay during Makahiki, a season associated with Lono, peace, tribute, and ritual movement. Cook’s arrival and circuit around the islands could be read inside that order.</p>
+  <p>The ships left after the festival. A storm damaged the <em>Resolution</em>’s mast, and they returned on 12 February. Relations had changed. A cutter was taken. On 14 February, Cook tried to bring Kalaniʻōpuʻu aboard as leverage for its return. A crowd gathered at the water. Cook was killed.</p>
+ </div>
+ <figure class="wide-figure">
+<svg viewBox="0 0 1200 620" role="img" aria-labelledby="bay-title bay-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="bay-title">Kealakekua Bay, 1779</title>
+<desc id="bay-desc">A schematic bay with two British ships offshore, canoes crossing the water, ritual and political sites on shore, and three dated moments in the encounter.</desc>
+<rect width="1200" height="620" fill="#f8f5ed"/>
+<path d="M0 114 C160 70 290 95 390 170 C474 234 520 281 666 298 C810 315 925 274 1200 150 L1200 0 L0 0Z" fill="#d8d0c1"/>
+<path d="M0 158 C164 115 293 141 385 208 C493 286 565 329 710 337 C877 346 1007 295 1200 213 L1200 620 L0 620Z" fill="#dbe7e8"/>
+<path d="M0 158 C164 115 293 141 385 208 C493 286 565 329 710 337 C877 346 1007 295 1200 213" fill="none" stroke="#1e1d19" stroke-width="3"/>
+<path d="M56 124 C180 93 280 113 362 171" fill="none" stroke="#6f685d" stroke-width="2" stroke-dasharray="7 8"/>
+<text x="55" y="92" font-family="system-ui,sans-serif" font-size="17" font-weight="800" letter-spacing="2" fill="#6f685d">MAKAHIKI COAST</text>
+<g transform="translate(250 270)">
+ <path d="M0 42 Q64 65 128 42 L110 70 L18 70Z" fill="#1e1d19"/>
+ <line x1="64" y1="42" x2="64" y2="-72" stroke="#1e1d19" stroke-width="4"/>
+ <path d="M67 -65 L67 25 L126 8Z" fill="#fbfaf5" stroke="#1e1d19" stroke-width="2"/>
+ <text x="64" y="96" text-anchor="middle" font-family="Georgia,serif" font-size="18" fill="#1e1d19">Resolution</text>
+</g>
+<g transform="translate(492 352) scale(.72)">
+ <path d="M0 42 Q64 65 128 42 L110 70 L18 70Z" fill="#1e1d19"/>
+ <line x1="64" y1="42" x2="64" y2="-72" stroke="#1e1d19" stroke-width="4"/>
+ <path d="M67 -65 L67 25 L126 8Z" fill="#fbfaf5" stroke="#1e1d19" stroke-width="2"/>
+ <text x="64" y="102" text-anchor="middle" font-family="Georgia,serif" font-size="25" fill="#1e1d19">Discovery</text>
+</g>
+<g fill="none" stroke="#96783b" stroke-width="3">
+ <path d="M732 438 q34 18 68 0"/><path d="M803 411 q34 18 68 0"/><path d="M875 456 q34 18 68 0"/>
+</g>
+<g fill="#96783b"><circle cx="756" cy="435" r="4"/><circle cx="827" cy="408" r="4"/><circle cx="900" cy="453" r="4"/></g>
+<path d="M1008 182 l45 0 16 38-72 0Z" fill="#9a4038" opacity=".85"/>
+<text x="1033" y="163" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="800" letter-spacing="1.4" fill="#9a4038">HIKIAU HEIAU</text>
+<circle cx="978" cy="263" r="9" fill="#486d82"/><circle cx="1007" cy="275" r="9" fill="#486d82"/><circle cx="1035" cy="258" r="9" fill="#486d82"/>
+<text x="1010" y="312" text-anchor="middle" font-family="Georgia,serif" font-size="17" fill="#1e1d19">Kalaniʻōpuʻu and court</text>
+<path d="M353 235 C480 190 620 162 752 185" fill="none" stroke="#9a4038" stroke-width="3" stroke-dasharray="10 9" marker-end="url(#arrow)"/>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#9a4038"/></marker></defs>
+<g font-family="system-ui,sans-serif" font-size="15" fill="#1e1d19">
+ <text x="54" y="555" font-weight="800" letter-spacing="1.3">17 JANUARY</text><text x="54" y="582">Arrival during Makahiki</text>
+ <line x1="315" y1="542" x2="315" y2="592" stroke="#cec7bb"/>
+ <text x="354" y="555" font-weight="800" letter-spacing="1.3">12 FEBRUARY</text><text x="354" y="582">Return after mast damage</text>
+ <line x1="681" y1="542" x2="681" y2="592" stroke="#cec7bb"/>
+ <text x="720" y="555" font-weight="800" letter-spacing="1.3">14 FEBRUARY</text><text x="720" y="582">Hostage attempt; Cook killed</text>
+</g>
+</svg>
+<figcaption><strong>Figure 1.</strong> Kealakekua Bay, 1779. A schematic sequence rather than a geographic reconstruction. The same sequence anchors both the practical and symbolic interpretations developed in the paper.</figcaption></figure>
+ <div class="event-grid"><div class="event"><b>ARRIVAL</b><span>Welcome, gifts, ritual timing, and thousands gathered around the bay.</span></div><div class="event"><b>RETURN</b><span>Storm damage, a changed season, fraying relations, and a missing cutter.</span></div><div class="event"><b>CONFRONTATION</b><span>An attempted hostage-taking, a crowd at the shore, and Cook’s death.</span></div></div>
+</section>
+
+<section id="readings">
+ <div class="section-head"><span class="section-tag">02</span><h2>One death enters two causal worlds.</h2></div>
+ <div class="prose">
+  <p>Sahlins places Cook inside Hawaiian cosmology. The timing of Makahiki, the circuit around the islands, and the ritual sequence shape what action could mean.</p>
+  <p>Obeyesekere objects that the god-Cook account risks repeating a European myth about Indigenous irrationality. Hawaiians appear instead as practical actors responding to theft, force, rank, and immediate danger.</p>
+  <p class="strike">The archive can remain the same while the agents, motives, and causes change.</p>
+ </div>
+ <figure class="wide-figure">
+<svg viewBox="0 0 1100 480" role="img" aria-labelledby="debate-title" xmlns="http://www.w3.org/2000/svg">
+<title id="debate-title">The same event read through two causal worlds</title>
+<rect width="1100" height="480" fill="#fbfaf5"/>
+<line x1="550" y1="48" x2="550" y2="430" stroke="#cec7bb" stroke-width="2"/>
+<text x="84" y="75" font-family="system-ui,sans-serif" font-size="15" font-weight="800" letter-spacing="2" fill="#486d82">OBEYESEKERE</text>
+<text x="1016" y="75" text-anchor="end" font-family="system-ui,sans-serif" font-size="15" font-weight="800" letter-spacing="2" fill="#5f765f">SAHLINS</text>
+<text x="84" y="126" font-family="Georgia,serif" font-size="30" fill="#1e1d19">Practical action</text>
+<text x="1016" y="126" text-anchor="end" font-family="Georgia,serif" font-size="30" fill="#1e1d19">Symbolic order</text>
+<g font-family="Georgia,serif" font-size="19" fill="#1e1d19">
+ <text x="84" y="187">A stolen cutter becomes leverage.</text>
+ <text x="84" y="229">A chief protects his position.</text>
+ <text x="84" y="271">A crowd responds to coercion.</text>
+ <text x="1016" y="187" text-anchor="end">Arrival falls inside Makahiki.</text>
+ <text x="1016" y="229" text-anchor="end">Cook enters a Lono-shaped sequence.</text>
+ <text x="1016" y="271" text-anchor="end">Return breaks ritual timing.</text>
+</g>
+<path d="M184 346 C310 298 405 315 520 368" fill="none" stroke="#486d82" stroke-width="5"/>
+<path d="M916 346 C790 298 695 315 580 368" fill="none" stroke="#5f765f" stroke-width="5"/>
+<circle cx="550" cy="378" r="22" fill="#9a4038"/>
+<text x="550" y="429" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="800" letter-spacing="1.4" fill="#6f685d">ONE DEATH</text>
+</svg>
+<figcaption><strong>Figure 2.</strong> The disputed event does not supply its own ontology. A practical model and a symbolic model can encode different causes while pointing to the same death.</figcaption></figure>
+</section>
+
+<section id="plot">
+ <div class="section-head"><span class="section-tag">03</span><h2>A sentence becomes a distribution.</h2></div>
+ <div class="prose">
+  <p class="lead">PLoT translates language into a probabilistic world. In the familiar tug-of-war example, the system never observes strength. It observes wins and losses, then infers the hidden qualities that could have produced them.</p>
+ </div>
+ <figure class="wide-figure">
+<svg viewBox="0 0 1100 420" role="img" aria-labelledby="plot-title" xmlns="http://www.w3.org/2000/svg">
+<title id="plot-title">A tug-of-war example turns observed outcomes into inferred strength</title>
+<rect width="1100" height="420" fill="#fbfaf5"/>
+<text x="60" y="56" font-family="system-ui,sans-serif" font-size="14" font-weight="800" letter-spacing="1.8" fill="#6f685d">OBSERVED</text>
+<g font-family="Georgia,serif" font-size="23" fill="#1e1d19">
+ <text x="60" y="105">Tom defeats John.</text>
+ <text x="60" y="147">John and Mary defeat Tom and Sue.</text>
+</g>
+<path d="M450 114 L610 114" stroke="#9a4038" stroke-width="3" marker-end="url(#arr2)"/>
+<defs><marker id="arr2" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#9a4038"/></marker></defs>
+<text x="650" y="56" font-family="system-ui,sans-serif" font-size="14" font-weight="800" letter-spacing="1.8" fill="#6f685d">INFERRED</text>
+<g font-family="system-ui,sans-serif" font-size="14" fill="#1e1d19">
+ <text x="650" y="104">MARY</text><text x="650" y="159">TOM</text><text x="650" y="214">JOHN</text><text x="650" y="269">SUE</text>
+</g>
+<g><rect x="730" y="86" width="285" height="20" fill="#5f765f"/><rect x="730" y="141" width="228" height="20" fill="#486d82"/><rect x="730" y="196" width="144" height="20" fill="#96783b"/><rect x="730" y="251" width="105" height="20" fill="#cec7bb"/></g>
+<line x1="60" y1="332" x2="1040" y2="332" stroke="#cec7bb"/>
+<text x="60" y="372" font-family="Georgia,serif" font-size="21" font-style="italic" fill="#1e1d19">The strength is never seen. It is made probable by the observations.</text>
+</svg>
+<figcaption><strong>Figure 3.</strong> Two outcomes imply a ranking of latent strengths. Historical modeling repeats the move when it infers practical calculation, ritual obligation, fear, allegiance, or trust from narrative evidence.</figcaption></figure>
+ <div class="prose"><p>The move becomes difficult at Kealakekua Bay. “Strength” is already a recognized variable in tug-of-war. “Lono,” “interest,” “taboo,” and “rationality” are contested descriptions of the world being modeled.</p><p class="strike">The program does not receive history. It receives a translation.</p></div>
+</section>
+
+<section id="pie">
+ <div class="section-head"><span class="section-tag">04</span><h2>PIE keeps three disagreements in view.</h2></div>
+ <div class="prose"><p>The Practical–Individual–Entropic framework does not decide which reading is true. It gives the disagreement handles.</p></div>
+ <div class="pie">
+  <div class="pie-row"><span>Practical pressure</span><div class="axis"></div><span>Symbolic obligation</span></div>
+  <div class="pie-row"><span>Individual choice</span><div class="axis"></div><span>Collective schema</span></div>
+  <div class="pie-row"><span>Breakdown</span><div class="axis"></div><span>Reorganization</span></div>
+  <div class="pie-live">
+   <div class="pie-control"><label for="pPractical"><span>Practical</span><output id="oPractical">50</output></label><input id="pPractical" type="range" min="0" max="100" value="50"></div>
+   <div class="pie-control"><label for="pIndividual"><span>Individual</span><output id="oIndividual">50</output></label><input id="pIndividual" type="range" min="0" max="100" value="50"></div>
+   <div class="pie-control"><label for="pEntropy"><span>Entropic</span><output id="oEntropy">50</output></label><input id="pEntropy" type="range" min="0" max="100" value="50"></div>
+  </div>
+  <p id="pieReading">This setting holds practical and symbolic, individual and collective, breakdown and reorganization in tension.</p>
+ </div>
+ <div class="prose"><p>A boat can be stolen as material leverage and still matter inside a sacred order. A chief can calculate and act through collective categories. Conflict can destroy one arrangement while producing another.</p></div>
+</section>
+
+<section id="models">
+ <div class="section-head"><span class="section-tag">05</span><h2>Seven mechanisms, shown plainly.</h2></div>
+ <p class="models-intro lead">None of these models is Captain Cook’s death. Each isolates a rule that can help or mislead when it is carried into a historical encounter.</p>
+
+ <article class="model-block">
+  <div class="model-copy"><div class="resource-line"><strong>Academic resource 01</strong><span>Epstein · 2002 · Civil violence</span></div><h3>The crowd is quiet until risk changes.</h3><p>Citizens carry hardship and risk aversion. Low legitimacy raises grievance. Nearby police raise expected arrest risk. Activation occurs when grievance wins.</p><p class="example"><strong>Concrete rule:</strong> a person with high hardship can remain quiet for many steps, then activate when nearby rebels increase and the local police ratio falls.</p></div>
+  <figure class="model-figure"><div class="model-frame"><iframe src="01-protest-epstein.html?autoplay=1" scrolling="no" title="Minimal Epstein civil violence simulation"></iframe></div><div class="model-links"><span>Change trust and police</span><a href="https://hartswf0.github.io/growing-entanglements/epstein_civil_violence_model_single_file.html" target="_blank" rel="noopener">Open full model ↗</a></div></figure>
+ </article>
+
+ <article class="model-block">
+  <div class="model-copy"><div class="resource-line"><strong>Academic resource 02</strong><span>Axelrod · 1997 · Cultural dissemination</span></div><h3>Similarity invites copying.</h3><p>Agents carry several cultural traits. The more traits two neighbors share, the more likely they are to interact. When they do, one difference may disappear.</p><p class="example"><strong>Concrete rule:</strong> two neighbors sharing four of five traits interact often; the fifth trait may be copied, making the pair identical.</p></div>
+  <figure class="model-figure"><div class="model-frame"><iframe src="02-culture-axelrod.html?autoplay=1" scrolling="no" title="Minimal Axelrod cultural dissemination simulation"></iframe></div><div class="model-links"><span>Change variety and contact</span><a href="https://hartswf0.github.io/growing-entanglements/axelrod_cultural_dissemination_paper_with_code_single_file.html" target="_blank" rel="noopener">Open full model ↗</a></div></figure>
+ </article>
+
+ <article class="model-block">
+  <div class="model-copy"><div class="resource-line"><strong>Academic resource 03</strong><span>Schelling · 1971 · Segregation</span></div><h3>Small moves divide the whole city.</h3><p>Households inspect nearby households. Those below a similarity threshold move to an empty cell. Mild preferences accumulate into strong separation.</p><p class="example"><strong>Concrete rule:</strong> a household moves when fewer than one-third of its occupied neighbors are similar, though it never asks for a segregated city.</p></div>
+  <figure class="model-figure"><div class="model-frame"><iframe src="03-neighbors-schelling.html?autoplay=1" scrolling="no" title="Minimal Schelling segregation simulation"></iframe></div><div class="model-links"><span>Change tolerance and vacancy</span><a href="https://hartswf0.github.io/growing-entanglements/schelling_segregation_paper_with_code_single_file.html" target="_blank" rel="noopener">Open full model ↗</a></div></figure>
+ </article>
+
+ <article class="model-block">
+  <div class="model-copy"><div class="resource-line"><strong>Academic resource 04</strong><span>Watts & Strogatz · 1998 · Small worlds</span></div><h3>A few long ties collapse distance.</h3><p>Most links stay local. A small number are rewired across the network. Clustering remains, but average paths become short.</p><p class="example"><strong>Concrete rule:</strong> one shortcut can join two dense neighborhoods that previously required many intermediate contacts.</p></div>
+  <figure class="model-figure"><div class="model-frame"><iframe src="04-network-watts-strogatz.html?autoplay=1" scrolling="no" title="Minimal Watts-Strogatz network simulation"></iframe></div><div class="model-links"><span>Change shortcuts and neighbors</span><a href="https://hartswf0.github.io/growing-entanglements/watts_strogatz_small_world_paper_with_code_single_file_html.html" target="_blank" rel="noopener">Open full model ↗</a></div></figure>
+ </article>
+
+ <article class="model-block">
+  <div class="model-copy"><div class="resource-line"><strong>Academic resource 05</strong><span>Cioffi-Revilla & Rouleau · 2009 · RebeLand</span></div><h3>Resistance persists where power reaches badly.</h3><p>Terrain, institutions, resources, and recruitment interact across space. Rough ground and weak governance can shelter insurgent growth.</p><p class="example"><strong>Concrete rule:</strong> high terrain difficulty and low institutional strength let a small red cluster survive long enough to recruit its neighbors.</p></div>
+  <figure class="model-figure"><div class="model-frame"><iframe src="05-rebellion-rebeland.html?autoplay=1" scrolling="no" title="Minimal RebeLand simulation"></iframe></div><div class="model-links"><span>Change state strength and terrain</span><a href="https://hartswf0.github.io/growing-entanglements/mason_rebe_land_paper_with_code_single_file_html.html" target="_blank" rel="noopener">Open full model ↗</a></div></figure>
+ </article>
+
+ <article class="model-block">
+  <div class="model-copy"><div class="resource-line"><strong>Academic resource 06</strong><span>Doran & Lees · 2005 · IRUBA</span></div><h3>Harm can manufacture allegiance.</h3><p>Fear, anger, resources, terrain, and military action shift civilian support. Collateral damage moves people toward insurgents; care and equitable provision can move them back.</p><p class="example"><strong>Concrete rule:</strong> repeated harm in one neighborhood changes local allegiance even when the force producing the harm claims the opposite aim.</p></div>
+  <figure class="model-figure"><div class="model-frame"><iframe src="06-allegiance-iruba.html?autoplay=1" scrolling="no" title="Minimal IRUBA allegiance simulation"></iframe></div><div class="model-links"><span>Change care and harm</span><a href="https://hartswf0.github.io/growing-entanglements/iruba_model_paper_with_code_single_file_html.html" target="_blank" rel="noopener">Open full model ↗</a></div></figure>
+ </article>
+
+ <article class="model-block">
+  <div class="model-copy"><div class="resource-line"><strong>Academic resource 07</strong><span>Green & Costion · 2018 · Cross-cultural interaction</span></div><h3>A border can become a third culture.</h3><p>Trade, conflict, assimilation, and geography change the boundary between groups. Contact may preserve separation, move the border, or create hybrid practice.</p><p class="example"><strong>Concrete rule:</strong> repeated exchange at a frontier produces mixed cells rather than forcing every cell to become one side or the other.</p></div>
+  <figure class="model-figure"><div class="model-frame"><iframe src="07-border-ccim.html?autoplay=1" scrolling="no" title="Minimal cross-cultural interaction simulation"></iframe></div><div class="model-links"><span>Change trade and force</span><a href="https://hartswf0.github.io/growing-entanglements/ccim_cross_cultural_interaction_model_single_file.html" target="_blank" rel="noopener">Open full model ↗</a></div></figure>
+ </article>
+</section>
+
+<section id="ethnography">
+ <div class="section-head"><span class="section-tag">06</span><h2>A rule should have a traceable past.</h2></div>
+ <div class="prose"><p class="lead">Narrative evidence does not become an agent rule by itself. Someone names an actor, selects a motive, fixes a threshold, and decides what counts as an outcome.</p></div>
+ <figure class="wide-figure">
+<svg viewBox="0 0 1200 460" role="img" aria-labelledby="pipe-title" xmlns="http://www.w3.org/2000/svg">
+<title id="pipe-title">A story-and-simulation loop</title>
+<rect width="1200" height="460" fill="#fbfaf5"/>
+<g font-family="system-ui,sans-serif" font-size="13" font-weight="800" letter-spacing="1.5" fill="#6f685d">
+ <text x="80" y="70">NARRATIVE</text><text x="355" y="70">INTERPRETATION</text><text x="680" y="70">AGENT RULE</text><text x="965" y="70">PATTERN</text>
+</g>
+<g fill="#f1ede5" stroke="#1e1d19" stroke-width="1.5">
+ <rect x="60" y="96" width="225" height="172"/><rect x="335" y="96" width="260" height="172"/><rect x="645" y="96" width="260" height="172"/><rect x="955" y="96" width="185" height="172"/>
+</g>
+<g font-family="Georgia,serif" font-size="18" fill="#1e1d19">
+ <text x="82" y="139">“The sacred wood</text><text x="82" y="168">was taken.”</text>
+ <text x="357" y="139">A resource was seized.</text><text x="357" y="180">A taboo was breached.</text><text x="357" y="221">Both may matter.</text>
+ <text x="667" y="139">Resist seizure.</text><text x="667" y="180">Defend ritual site.</text><text x="667" y="221">Change trust after breach.</text>
+ <text x="977" y="139">Crowd gathers.</text><text x="977" y="180">Trade stops.</text><text x="977" y="221">Conflict spreads.</text>
+</g>
+<g stroke="#9a4038" stroke-width="3" fill="none" marker-end="url(#arr3)"><path d="M286 182 L329 182"/><path d="M596 182 L639 182"/><path d="M906 182 L949 182"/></g>
+<defs><marker id="arr3" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#9a4038"/></marker></defs>
+<path d="M1045 290 C1010 390 225 412 174 291" fill="none" stroke="#486d82" stroke-width="3" stroke-dasharray="9 8" marker-end="url(#arr4)"/>
+<defs><marker id="arr4" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#486d82"/></marker></defs>
+<text x="600" y="407" text-anchor="middle" font-family="Georgia,serif" font-size="20" font-style="italic" fill="#1e1d19">Return the pattern to the people and sources from which the rule was made.</text>
+</svg>
+<figcaption><strong>Figure 4.</strong> Story and simulation should move in both directions. Bharwani’s ethnographic knowledge elicitation keeps participants and evidence involved while agent rules are extracted, tested, and revised.</figcaption></figure>
+ <div class="prose"><p>Consider one line: sacred wood was taken. A material reading may encode uncompensated seizure. A symbolic reading may encode a breach of ritual space. A hybrid model may allow both to alter trust, obligation, and collective response.</p><p>Ologs can make the mappings explicit. They cannot make the mapping innocent.</p></div>
+</section>
+
+<section id="entanglement">
+ <div class="section-head"><span class="section-tag">07</span><h2>The model changes what it can see.</h2></div>
+ <div class="prose"><p>Barad calls the boundary that produces a phenomenon an agential cut. In a simulation, the cut appears wherever the modeler decides that a person is an agent, a rite is a belief, a conflict is an output, or a relationship can be held constant.</p></div>
+ <figure class="wide-figure">
+<svg viewBox="0 0 1100 460" role="img" aria-labelledby="dif-title" xmlns="http://www.w3.org/2000/svg">
+<title id="dif-title">Three model runs overlap to reveal differences</title>
+<rect width="1100" height="460" fill="#fbfaf5"/>
+<g opacity=".68" fill="none" stroke-width="5">
+ <path d="M60 322 C180 72 360 398 518 125 C650 -87 802 418 1040 116" stroke="#486d82"/>
+ <path d="M60 278 C224 430 340 31 531 256 C724 481 814 49 1040 310" stroke="#9a4038"/>
+ <path d="M60 172 C205 382 361 90 540 350 C708 593 855 140 1040 206" stroke="#5f765f"/>
+</g>
+<g font-family="system-ui,sans-serif" font-size="13" font-weight="800" letter-spacing="1.4">
+ <text x="60" y="48" fill="#486d82">RUN A · PRACTICAL</text><text x="390" y="48" fill="#9a4038">RUN B · SYMBOLIC</text><text x="720" y="48" fill="#5f765f">RUN C · HYBRID</text>
+</g>
+<circle cx="526" cy="244" r="46" fill="#fbfaf5" stroke="#1e1d19" stroke-width="2"/>
+<text x="526" y="238" text-anchor="middle" font-family="Georgia,serif" font-size="18" fill="#1e1d19">difference</text><text x="526" y="261" text-anchor="middle" font-family="Georgia,serif" font-size="18" fill="#1e1d19">becomes data</text>
+</svg>
+<figcaption><strong>Figure 5.</strong> Diffractive comparison reads differences across runs. Changing a parameter reveals sensitivity. Changing the ontology reveals that a different world was available to be modeled.</figcaption></figure>
+ <p class="diffraction-note strike">A clean result may describe the rule more clearly than it describes the world.</p>
+</section>
+
+<section id="apparatuses">
+ <div class="section-head"><span class="section-tag">08</span><h2>Four interfaces test where theory resists form.</h2></div>
+ <div class="prose"><p>The project also built four apparatuses around the Cook debate. Each makes one relation visible and damages another.</p></div>
+ 
+<div class="apparatus-grid">
+<a class="apparatus" href="https://hartswf0.github.io/growing-entanglements/spectral-negotiation.html" target="_blank" rel="noopener">
+ <svg viewBox="0 0 420 210" role="img" aria-label="Spectral Negotiation interface schematic"><rect width="420" height="210" fill="#f1ede5"/><circle cx="170" cy="102" r="62" fill="none" stroke="#486d82" stroke-width="9" opacity=".7"/><circle cx="250" cy="102" r="62" fill="none" stroke="#5f765f" stroke-width="9" opacity=".7"/><line x1="88" y1="181" x2="332" y2="181" stroke="#1e1d19"/><circle cx="210" cy="181" r="7" fill="#9a4038"/></svg>
+ <strong>Spectral Negotiation</strong><span>Shift the weight of practical and symbolic readings.</span>
+</a>
+<a class="apparatus" href="https://hartswf0.github.io/growing-entanglements/info-arch-nav.html" target="_blank" rel="noopener">
+ <svg viewBox="0 0 420 210" role="img" aria-label="Information Architecture Navigator schematic"><rect width="420" height="210" fill="#f1ede5"/><g stroke="#1e1d19" fill="#fbfaf5"><rect x="165" y="20" width="90" height="35"/><rect x="48" y="95" width="90" height="35"/><rect x="165" y="95" width="90" height="35"/><rect x="282" y="95" width="90" height="35"/><rect x="165" y="158" width="90" height="28"/><line x1="210" y1="55" x2="93" y2="95"/><line x1="210" y1="55" x2="210" y2="95"/><line x1="210" y1="55" x2="327" y2="95"/><line x1="210" y1="130" x2="210" y2="158"/></g></svg>
+ <strong>Information Architecture Navigator</strong><span>Turn Sahlins’ narrative into entities, actions, and relations.</span>
+</a>
+<a class="apparatus" href="https://hartswf0.github.io/growing-entanglements/flux-field.html" target="_blank" rel="noopener">
+ <svg viewBox="0 0 420 210" role="img" aria-label="Flux Field interface schematic"><rect width="420" height="210" fill="#f1ede5"/><g stroke="#cec7bb"><line x1="80" y1="58" x2="200" y2="102"/><line x1="200" y1="102" x2="335" y2="55"/><line x1="200" y1="102" x2="112" y2="168"/><line x1="200" y1="102" x2="318" y2="164"/><line x1="112" y1="168" x2="318" y2="164"/></g><g><circle cx="80" cy="58" r="18" fill="#486d82"/><circle cx="200" cy="102" r="24" fill="#9a4038"/><circle cx="335" cy="55" r="18" fill="#5f765f"/><circle cx="112" cy="168" r="15" fill="#486d82"/><circle cx="318" cy="164" r="15" fill="#5f765f"/></g></svg>
+ <strong>Flux Field</strong><span>Watch theory harden into nodes, edges, and force.</span>
+</a>
+<a class="apparatus" href="https://hartswf0.github.io/growing-entanglements/Resistance-Topology-Visualization.html" target="_blank" rel="noopener">
+ <svg viewBox="0 0 420 210" role="img" aria-label="Narrative Log interface schematic"><rect width="420" height="210" fill="#f1ede5"/><circle cx="98" cy="84" r="24" fill="#9a4038"/><circle cx="205" cy="52" r="24" fill="#5f765f"/><circle cx="314" cy="92" r="24" fill="#486d82"/><g stroke="#1e1d19"><line x1="118" y1="76" x2="181" y2="59"/><line x1="228" y1="61" x2="291" y2="84"/></g><g stroke="#cec7bb"><line x1="58" y1="148" x2="362" y2="148"/><line x1="58" y1="168" x2="322" y2="168"/><line x1="58" y1="188" x2="347" y2="188"/></g></svg>
+ <strong>Narrative Log</strong><span>Let simple rules write a history, then compare it with the archive.</span>
+</a>
+</div>
+
+ <div class="prose"><p>The slider separates rational from symbolic too cleanly. The hierarchy makes culture rigid. The force graph makes disagreement look like geometry. The log makes the rules legible by thinning the history.</p></div>
+</section>
+
+<section class="closing">
+ <p>Cook’s death can be grown from practical agents. It can also be grown from ritual obligations. A successful run does not choose between them.</p>
+ <p>History does not enter code whole. It arrives through a hand.</p>
+</section>
+
+<details class="references" id="references" open><summary>References · 58 sources</summary><ol><li>Alcamo, J., Kok, K., Busch, G., &amp; Priess, J. (2008). Methods for translating narrative scenarios into quantitative assessments of land use change. Environmental Modelling &amp; Software, 23(7), 985-997. <a href="https://doi.org/10.1016/j.envsoft.2008.01.010" rel="noopener" target="_blank">https://doi.org/10.1016/j.envsoft.2008.01.010</a></li>
+<li>Axelrod, R. (1997). The dissemination of culture: A model with local convergence and global polarization. Journal of Conflict Resolution, 41(2), 203–226. <a href="https://doi.org/10.1177/0022002797041002001" rel="noopener" target="_blank">https://doi.org/10.1177/0022002797041002001</a></li>
+<li>Axtell, R. L., &amp; Farmer, J. D. (2022). Agent-based modeling in economics and finance: Past, present, and future. INET Oxford Working Paper No. 2022-10. Retrieved from <a href="https://oms-inet.files.svdcdn.com/staging/files/JEL-v2.0.pdf" rel="noopener" target="_blank">https://oms-inet.files.svdcdn.com/staging/files/JEL-v2.0.pdf</a></li>
+<li>Barad, K. (2007). <cite>Meeting the Universe Halfway</cite>: Quantum Physics and the Entanglement of Matter and Meaning. Duke University Press. <a href="https://doi.org/10.1515/9780822388128" rel="noopener" target="_blank">https://doi.org/10.1515/9780822388128</a></li>
+<li>Barad, K. (2007). <cite>Meeting the Universe Halfway</cite>: Quantum Physics and the Entanglement of Matter and Meaning. Duke University Press.</li>
+<li>Barsalou, L. W. (2023). Implications of grounded cognition for conceptual processing across cultures. Topics in Cognitive Science. Advance online publication. <a href="https://www.barsaloulab.org/Online_Articles/2023-Barsalou-TOPICS-grounding_across_cultures.pdf" rel="noopener" target="_blank">https://www.barsaloulab.org/Online_Articles/2023-Barsalou-TOPICS-grounding_across_cultures.pdf</a></li>
+<li>Bellingham, R. (2022). A diffractive and decolonising reading methodology for education research. Australian Journal of Environmental Education, 38(1), 1–15. <a href="https://doi.org/10.1017/aee.2022.24" rel="noopener" target="_blank">https://doi.org/10.1017/aee.2022.24</a></li>
+<li>Bharwani, S. (2006). Understanding complex behavior and decision making using ethnographic knowledge elicitation tools for agent-based modeling. Ecological Modelling, 194(1-3), 92-102. <a href="https://doi.org/10.1016/j.ecolmodel.2005.10.028" rel="noopener" target="_blank">https://doi.org/10.1016/j.ecolmodel.2005.10.028</a></li>
+<li>Bharwani, S. (2018). Structuring qualitative data for agent-based modelling. Journal of Artificial Societies and Social Simulation, 26(1), 10. <a href="https://www.jasss.org/26/1/10.html" rel="noopener" target="_blank">https://www.jasss.org/26/1/10.html</a></li>
+<li>Bonabeau, E. (2002). Agent-based modeling: Methods and techniques for simulating human systems. Proceedings of the National Academy of Sciences of the United States of America, 99(Suppl 3), 7280–7287. <a href="https://doi.org/10.1073/pnas.082080899" rel="noopener" target="_blank">https://doi.org/10.1073/pnas.082080899</a></li>
+<li>Boutyline, A., &amp; Soter, L. K. (2021). Cultural Schemas: What They Are, How to Find Them, and What to Do Once You’ve Caught One. American Sociological Review, 86(4), 728-758. <a href="https://doi.org/10.1177/00031224211024525" rel="noopener" target="_blank">https://doi.org/10.1177/00031224211024525</a></li>
+<li>Bratman, M. E. (1987). <cite>Intention, Plans, and Practical Reason</cite>. Harvard University Press.</li>
+<li>Brown, S. L., Siegel, L., &amp; Blom, S. M. (2020). Entanglements of matter and meaning: The importance of the philosophy of Karen Barad for environmental education. Australian Journal of Environmental Education, 36(3), 219–233. <a href="https://doi.org/10.1017/aee.2019.29" rel="noopener" target="_blank">https://doi.org/10.1017/aee.2019.29</a></li>
+<li>Castellani, B., &amp; Hafferty, F. W. (2009). Sociology and Complexity Science: A New Field of Inquiry. Springer.</li>
+<li>Cioffi-Revilla, C., &amp; Rouleau, M. (2009). MASON RebeLand: An agent-based model of politics, environment, and insurgency. Proceedings of the Human Behavior-Computational Modeling and Interoperability Conference 2009, 26–33. <a href="https://krasnow.gmu.edu/socialcomplexity/files/2015/08/Cioffi-Roleau-RebeLand-paper.pdf" rel="noopener" target="_blank">https://krasnow.gmu.edu/socialcomplexity/files/2015/08/Cioffi-Roleau-RebeLand-paper.pdf</a></li>
+<li>Doran, J., &amp; Lees, M. (2005). Iruba: An agent-based model of the guerrilla war process. Lecture Notes in Computer Science, 3415, 160–174. <a href="https://doi.org/10.1007/978-3-540-32274-0_12" rel="noopener" target="_blank">https://doi.org/10.1007/978-3-540-32274-0_12</a></li>
+<li>Epstein, J. M., &amp; Axtell, R. (1996). Growing Artificial Societies: Social Science from the Bottom Up. Brookings Institution Press.</li>
+<li>Epstein, J. M. (1999). Agent-based computational models and generative social science. Complexity, 4(5), 41-60. <a href="https://cdanfort.w3.uvm.edu/csc-reading-group/epstein-complexity-1999.pdf" rel="noopener" target="_blank">https://cdanfort.w3.uvm.edu/csc-reading-group/epstein-complexity-1999.pdf</a></li>
+<li>Epstein, J. M. (2023). Inverse Generative Social Science: Backward to the Future. Journal of Artificial Societies and Social Simulation, 26(2), 9. <a href="https://www.jasss.org/26/2/9.html" rel="noopener" target="_blank">https://www.jasss.org/26/2/9.html</a></li>
+<li>Ferguson, N. (1999). Virtual History: Alternatives and Counterfactuals. Penguin Books.</li>
+<li>Flache, A., &amp; Macy, M. W. (2011). Small worlds and cultural polarization. Journal of Mathematical Sociology, 35(1–3), 146–176. <a href="https://doi.org/10.1080/0022250X.2010.532261" rel="noopener" target="_blank">https://doi.org/10.1080/0022250X.2010.532261</a></li>
+<li>Frolichs, K. M. M., Rosenblau, G., &amp; Korn, C. W. (2022). Incorporating social knowledge structures into computational models. Nature Communications, 13, Article 6205. <a href="https://doi.org/10.1038/s41467-022-33418-2" rel="noopener" target="_blank">https://doi.org/10.1038/s41467-022-33418-2</a></li>
+<li>Geertz, C. (1995). Culture War. Retrieved from <a href="https://hypergeertz.jku.at" rel="noopener" target="_blank">https://hypergeertz.jku.at</a>.</li>
+<li>Goodman, N. D., Baker, C. L., &amp; Tenenbaum, J. B. (2009). Cause and intent: Social reasoning in causal learning. In Proceedings of the 31st annual conference of the cognitive science society (pp. 2759-2764). Austin, TX: Cognitive Science Society.</li>
+<li>Green, U. M., &amp; Costion, K. E. (Eds.). (2018). Modeling cross-cultural interaction in ancient borderlands. University Press of Florida. <a href="https://doi.org/10.5744/florida/9780813056883.001.0001" rel="noopener" target="_blank">https://doi.org/10.5744/florida/9780813056883.001.0001</a></li>
+<li>Harman, G. (2016). Agential and speculative realism: Remarks on Barad’s ontology. Rhizomes: Cultural Studies in Emerging Knowledge, 30. Retrieved from <a href="http://www.rhizomes.net/issue30/harman.html" rel="noopener" target="_blank">http://www.rhizomes.net/issue30/harman.html</a></li>
+<li>Hertz, T., Banitz, T., Martínez-Peña, R., Radosavljevic, S., Lindkvist, E., Johansson, L.-G., Ylikoski, P., &amp; Schlüter, M. (2024). Eliciting the plurality of causal reasoning in social-ecological systems research. Ecology and Society, 29(1), Article 14. <a href="https://doi.org/10.5751/ES-14806-290114" rel="noopener" target="_blank">https://doi.org/10.5751/ES-14806-290114</a></li>
+<li>IJCAI. (2020). BDI agent architectures: A survey. Retrieved from <a href="https://www.ijcai.org/proceedings/2020/0684.pdf" rel="noopener" target="_blank">https://www.ijcai.org/proceedings/2020/0684.pdf</a></li>
+<li>Jagiello, R., Heyes, C., &amp; Whitehouse, H. (2022). Tradition and invention: The bifocal stance theory of cultural evolution. Behavioral and Brain Sciences. Advance online publication. <a href="https://doi.org/10.1017/S0140525X22000383" rel="noopener" target="_blank">https://doi.org/10.1017/S0140525X22000383</a></li>
+<li>Klemm, K., Eguiluz, V. M., Toral, R., &amp; San Miguel, M. (2007). Layered social influence promotes multiculturality in the Axelrod model. Nature Scientific Reports, 7, 2040. <a href="https://www.nature.com/articles/s41598-017-02040-4" rel="noopener" target="_blank">https://www.nature.com/articles/s41598-017-02040-4</a></li>
+<li>Lazar, A., Jelen, B., Pradhan, A., &amp; Siek, K. A. (2021). Adopting Diffractive Reading to Advance HCI Research: A Case Study on Technology for Aging. ACM Transactions on Computer-Human Interaction, 28(5), 10.1145/3462326. <a href="https://doi.org/10.1145/3462326" rel="noopener" target="_blank">https://doi.org/10.1145/3462326</a></li>
+<li>Lemos, C., Coelho, H., &amp; Lopes, R. J. (2013). Agent-based modeling of social conflict, civil violence and revolution: State-of-the-art review and further prospects. In Proceedings of the 5th International Conference on Agents and Artificial Intelligence (pp. 310–316). <a href="https://ceur-ws.org/Vol-1113/paper10.pdf" rel="noopener" target="_blank">https://ceur-ws.org/Vol-1113/paper10.pdf</a></li>
+<li>McEver, J., Sheard, S., Cook, S., Honour, E., Hybertson, D., Krupa, J., ... &amp; White, B. (2015). A Complexity Primer for Systems Engineers. International Council on Systems Engineering. Retrieved from <a href="https://www.incose.org/docs/default-source/ProductsPublications/a-complexity-primer-for-systems-engineers.pdf" rel="noopener" target="_blank">https://www.incose.org/docs/default-source/ProductsPublications/a-complexity-primer-for-systems-engineers.pdf</a></li>
+<li>Mesa. (n.d.). Epstein civil violence model. In Mesa documentation. Retrieved from <a href="https://mesa.readthedocs.io/en/stable/examples/epstein_civil_violence.html" rel="noopener" target="_blank">https://mesa.readthedocs.io/en/stable/examples/epstein_civil_violence.html</a></li>
+<li>National Library of Australia. (n.d.). South Seas: Voyaging and cross-cultural encounters in the Pacific 1760–1800. Retrieved from <a href="https://southseas.nla.gov.au/" rel="noopener" target="_blank">https://southseas.nla.gov.au/</a></li>
+<li>Nespeca, V., Comes, T., &amp; Brazier, F. (2023). A methodology to develop agent-based models for policy support via qualitative inquiry. Journal of Artificial Societies and Social Simulation, 26(1), 10. <a href="http://jasss.soc.surrey.ac.uk/26/1/10.html" rel="noopener" target="_blank">http://jasss.soc.surrey.ac.uk/26/1/10.html</a>. <a href="https://doi.org/10.18564/jasss.5014" rel="noopener" target="_blank">https://doi.org/10.18564/jasss.5014</a></li>
+<li>Nguyen, N., Chen, H., Jin, B., &amp; Landsberg, A. S. (2021). Cultural dissemination: An agent-based model with social influence. Journal of Artificial Societies and Social Simulation, 24(4), Article 5. <a href="https://doi.org/10.18564/jasss.4643" rel="noopener" target="_blank">https://doi.org/10.18564/jasss.4643</a></li>
+<li>Obeyesekere, G. (1992). <cite>The Apotheosis of Captain Cook</cite>: European Mythmaking in the Pacific. Princeton University Press.</li>
+<li>OECD. (2011). Annex A: Social unrest and agent-based models. In Understanding and responding to social unrest (pp. 49–64). OECD iLibrary. <a href="https://www.oecd-ilibrary.org/docserver/9789264167711-11-en.pdf" rel="noopener" target="_blank">https://www.oecd-ilibrary.org/docserver/9789264167711-11-en.pdf</a></li>
+<li>Overlan, M. C., Jacobs, R. A., &amp; Piantadosi, S. T. (2017). Learning abstract visual concepts via probabilistic program induction in a language of thought. Cognition, 168, 320-334.</li>
+<li>Rao, A. S., &amp; Georgeff, M. P. (1995). BDI Agents: From Theory to Practice. In Proceedings of the First International Conference on Multiagent Systems (ICMAS).</li>
+<li>Sahlins, M. (1995, November 30). Culture war. The New York Review of Books. <a href="https://www.nybooks.com/articles/1995/11/30/culture-war/" rel="noopener" target="_blank">https://www.nybooks.com/articles/1995/11/30/culture-war/</a></li>
+<li>Sahlins, M. (1985). How 'Natives' Think: About Captain Cook, For Example. University of Chicago Press.</li>
+<li>Sahlins, M. (1995). How "Natives" Think: About Captain Cook, for Example. University of Chicago Press.</li>
+<li>San Miguel, M., Eguiluz, V. M., &amp; Toral, R. (2003). Ultrametric distribution of culture vectors in an extended Axelrod model. Nature Scientific Reports, 3, 4870. <a href="https://www.nature.com/articles/srep04870" rel="noopener" target="_blank">https://www.nature.com/articles/srep04870</a></li>
+<li>Schelling, T. C. (1971). Dynamic models of segregation. Journal of Mathematical Sociology, 1(2), 143–186. <a href="https://doi.org/10.1080/0022250X.1971.9989794" rel="noopener" target="_blank">https://doi.org/10.1080/0022250X.1971.9989794</a></li>
+<li>Spivak, D. I., &amp; Kent, R. E. (2012). Ologs: A categorical framework for knowledge representation. arXiv preprint arXiv:1102.1889. <a href="https://arxiv.org/abs/1102.1889" rel="noopener" target="_blank">https://arxiv.org/abs/1102.1889</a></li>
+<li>Springer. (n.d.). Design patterns for multi-agent systems: A systematic literature review. Retrieved from <a href="https://link.springer.com/chapter/10.1007/978-3-642-54432-3_5" rel="noopener" target="_blank">https://link.springer.com/chapter/10.1007/978-3-642-54432-3_5</a></li>
+<li>Srbljinović, A. (2018). Review of Carlos Lemos: Agent-based modeling of social conflict: From mechanisms to complex behavior. Journal of Artificial Societies and Social Simulation, 21(4), Review 2. <a href="https://www.jasss.org/21/4/reviews/2.html" rel="noopener" target="_blank">https://www.jasss.org/21/4/reviews/2.html</a></li>
+<li>Toft, P. A. (2018). Modeling Complex Cultural Encounters in Contact and Colonial Greenland, 1690–1900: Possibilities and Limitations of the Cross-Cultural Interaction Model. In U. M. Green &amp; K. E. Costion (Eds.), Modeling Cross-Cultural Interaction in Ancient Borderlands (pp. 64–88). University Press of Florida. <a href="https://academic.oup.com/florida-scholarship-online/book/14780/chapter/168998898" rel="noopener" target="_blank">https://academic.oup.com/florida-scholarship-online/book/14780/chapter/168998898</a></li>
+<li>Torren-Peraire, D., Savin, I., &amp; van den Bergh, J. C. J. M. (2023). An agent-based model of cultural change for a low-carbon transition. Journal of Artificial Societies and Social Simulation, 27(1), Article 13. <a href="https://doi.org/10.18564/jasss.5014" rel="noopener" target="_blank">https://doi.org/10.18564/jasss.5014</a></li>
+<li>Turchin, P., Whitehouse, H., Gavrilets, S., et al. (2021). Long-term dynamics of institutions. Journal of Artificial Societies and Social Simulation, 24(4), 7. <a href="https://www.jasss.org/24/4/7.html" rel="noopener" target="_blank">https://www.jasss.org/24/4/7.html</a></li>
+<li>Turnbull, P. (2004). Engaging with history complexity in the virtual environment: The South Seas Project. Archives and Manuscripts, 32(2), 130–145. Retrieved from <a href="https://publications.archivists.org.au/index.php/asa/article/download/9579/9573" rel="noopener" target="_blank">https://publications.archivists.org.au/index.php/asa/article/download/9579/9573</a></li>
+<li>Watts, D. J., &amp; Strogatz, S. H. (1998). Collective dynamics of 'small-world' networks. Nature, 393(6684), 440–442. <a href="https://doi.org/10.1038/30918" rel="noopener" target="_blank">https://doi.org/10.1038/30918</a></li>
+<li>Wells, P. S. (2018). Cross-Frontier Interactions in Roman Europe, AD 100–350: The Graphic Display of Data. In U. M. Green &amp; K. E. Costion (Eds.), Modeling Cross-Cultural Interaction in Ancient Borderlands (pp. 14–34). University Press of Florida. <a href="https://upf.com/book.asp?" rel="noopener" target="_blank">https://upf.com/book.asp?</a> id=9780813056883</li>
+<li>Williams, K. (2020, June). Garden entanglement as ecological-becomings: An arts-based diffractive methodology. Paper presented at the 2019 Atlantic Education Graduate Student Conference, University of New Brunswick, Fredericton, NB. Retrieved from <a href="https://www.researchgate.net/publication/341882160_Garden_Entanglement_as_Ecological-Becomings_An_Arts-Based_Diffractive_Methodology" rel="noopener" target="_blank">https://www.researchgate.net/publication/341882160_Garden_Entanglement_as_Ecological-Becomings_An_Arts-Based_Diffractive_Methodology</a></li>
+<li>Wong, L.S., Grand, G., Lew, A.K., Goodman, N.D., Mansinghka, V.K., Andreas, J., &amp; Tenenbaum, J.B. (2023). From Word Models to World Models: Translating from Natural Language to the <em>Probabilistic Language of Thought</em>. ArXiv, abs/2306.12672.</li>
+<li>Yang, C., &amp; Gilbert, N. (2018). Structuring qualitative data for agent-based modeling. Journal of Artificial Societies and Social Simulation, 18(1), 2. <a href="https://doi.org/10.18564/jasss.18.1.2" rel="noopener" target="_blank">https://doi.org/10.18564/jasss.18.1.2</a></li></ol></details>
+</div>
+<script>
+const progress=document.querySelector('.progress');
+function updateProgress(){const h=document.documentElement.scrollHeight-innerHeight;progress.style.width=(h>0?scrollY/h*100:0)+'%'}
+addEventListener('scroll',updateProgress,{passive:true});addEventListener('resize',updateProgress);updateProgress();
+const sliders=[['pPractical','oPractical'],['pIndividual','oIndividual'],['pEntropy','oEntropy']];
+const reading=document.querySelector('#pieReading');
+function side(v,a,b){return v<38?a:v>62?b:`${a} and ${b}`}
+function updatePIE(){const p=+document.getElementById('pPractical').value,i=+document.getElementById('pIndividual').value,e=+document.getElementById('pEntropy').value;document.getElementById('oPractical').value=p;document.getElementById('oIndividual').value=i;document.getElementById('oEntropy').value=e;reading.textContent=`This setting reads the encounter through ${side(p,'symbolic obligation','practical pressure')}, ${side(i,'collective schema','individual choice')}, and ${side(e,'reorganization','breakdown')}.`}
+sliders.forEach(([id])=>document.getElementById(id).addEventListener('input',updatePIE));updatePIE();
+</script>
+</body>
+</html>

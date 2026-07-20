@@ -1,0 +1,596 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>Network</title>
+<style>
+:root{
+  --paper:#fbfaf5;
+  --ink:#1e1d19;
+  --soft:#ebe6dc;
+  --rule:#cfc7ba;
+  --red:#9a4038;
+  --blue:#486d82;
+  --green:#5d755f;
+  --gold:#96783b;
+  --serif:Georgia,"Times New Roman",serif;
+  --sans:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--paper);color:var(--ink)}
+body{font-family:var(--serif);background:transparent}
+figure{width:100%;margin:0;padding:0}
+header{
+  display:none;
+  min-height:42px;
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:16px;
+  padding-top:7px;
+  border-top:2px solid var(--ink);
+}
+.name{display:flex;align-items:baseline;gap:9px;min-width:0}
+h1{
+  margin:0;
+  font-size:1.08rem;
+  line-height:1;
+  font-weight:600;
+  letter-spacing:-.015em;
+}
+.source{
+  color:#6f685d;
+  font:700 9px/1 var(--sans);
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+.buttons{display:flex;gap:4px}
+button{
+  appearance:none;
+  width:34px;height:28px;
+  border:0;
+  border-left:1px solid var(--rule);
+  background:transparent;
+  color:var(--ink);
+  font:700 15px/1 var(--sans);
+  cursor:pointer;
+}
+button:hover,button:focus-visible{background:var(--soft);outline:none}
+canvas{
+  display:block;
+  width:100%;
+  aspect-ratio:32/17;
+  margin-top:0;
+  background:var(--paper);
+  border-bottom:1px solid var(--rule);
+  touch-action:manipulation;
+  cursor:pointer;
+}
+.controls{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  padding-top:7px;
+}
+.control{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:9px;
+  align-items:center;
+}
+.control-name{
+  min-width:54px;
+  color:#5f594f;
+  font:800 9px/1 var(--sans);
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+.rail{display:grid;grid-template-columns:10px 1fr 10px;gap:5px;align-items:center}
+.end{
+  color:#82796d;
+  font:600 12px/1 var(--sans);
+  text-align:center;
+}
+input[type=range]{
+  appearance:none;
+  width:100%;
+  height:18px;
+  margin:0;
+  background:transparent;
+}
+input[type=range]::-webkit-slider-runnable-track{
+  height:1px;background:var(--ink);
+}
+input[type=range]::-webkit-slider-thumb{
+  appearance:none;
+  width:13px;height:13px;
+  margin-top:-6px;
+  border:1.5px solid var(--ink);
+  border-radius:50%;
+  background:var(--paper);
+}
+input[type=range]::-moz-range-track{
+  height:1px;background:var(--ink);
+}
+input[type=range]::-moz-range-thumb{
+  width:11px;height:11px;
+  border:1.5px solid var(--ink);
+  border-radius:50%;
+  background:var(--paper);
+}
+@media(max-width:520px){
+  figure{padding:10px 10px 9px}
+  header{min-height:37px}
+  h1{font-size:1rem}
+  .source{font-size:8px}
+  .controls{gap:10px}
+  .control{grid-template-columns:1fr;gap:4px}
+  .control-name{min-width:0}
+}
+</style>
+
+<style id="embedded-no-scroll">
+html,body{height:100%;overflow:hidden!important}
+body{font-size:14px}
+figure{height:100%;display:grid;grid-template-rows:28px minmax(0,1fr) 38px;padding:0!important;overflow:hidden}
+header{display:flex!important;min-height:0!important;height:28px;align-items:center!important;justify-content:flex-end!important;padding:0!important;border-top:0!important}
+.name{display:none!important}
+.buttons{height:28px;align-items:center}
+button{width:31px!important;height:27px!important;font-size:13px!important}
+canvas{width:100%!important;height:100%!important;min-height:0!important;aspect-ratio:auto!important;margin:0!important}
+.controls{height:38px;grid-template-columns:1fr 1fr!important;gap:12px!important;padding:5px 0 0!important;align-items:start!important}
+.control{grid-template-columns:auto 1fr!important;gap:7px!important;align-items:center!important;min-width:0}
+.control-name{min-width:49px!important;font-size:8px!important;white-space:nowrap}
+.rail{min-width:0}
+input[type=range]{height:16px!important}
+@media(max-width:520px){
+ figure{grid-template-rows:26px minmax(0,1fr) 48px!important;padding:0!important}
+ header{height:26px!important}
+ .controls{height:48px!important;grid-template-columns:1fr 1fr!important;gap:8px!important;padding-top:4px!important}
+ .control{grid-template-columns:1fr!important;gap:2px!important}
+ .control-name{min-width:0!important;font-size:7.5px!important}
+}
+</style>
+</head>
+<body>
+<figure>
+  <header>
+    <div class="name">
+      <h1 id="title">Model</h1>
+      <span class="source" id="source"></span>
+    </div>
+    <div class="buttons">
+      <button id="play" type="button" aria-label="Play or pause" title="Play or pause">▶</button>
+      <button id="reset" type="button" aria-label="Reset" title="Reset">↺</button>
+    </div>
+  </header>
+
+  <canvas id="view" width="960" height="510" aria-label="Interactive social model"></canvas>
+  <div class="controls" id="controls"></div>
+</figure>
+
+<script>
+(() => {
+"use strict";
+
+const q = new URLSearchParams(location.search);
+const key = "watts";
+let seed0 = Number(q.get("seed") || 73) >>> 0;
+let seed = seed0;
+const rand = () => ((seed = (1664525 * seed + 1013904223) >>> 0) / 4294967296);
+const ri = n => Math.floor(rand() * n);
+const clamp = (x,a=0,b=1) => Math.max(a,Math.min(b,x));
+const mean = a => a.reduce((s,x)=>s+x,0)/(a.length||1);
+
+const cv = document.querySelector("#view");
+const ctx = cv.getContext("2d");
+const W = cv.width, H = cv.height;
+
+const C = {
+  paper:"#fbfaf5", ink:"#1e1d19", soft:"#ebe6dc", rule:"#cfc7ba",
+  red:"#9a4038", blue:"#486d82", green:"#5d755f", gold:"#96783b",
+  pale:"#e5e0d6"
+};
+
+let state = {};
+let running = q.get("autoplay") !== "0";
+let last = 0;
+
+function clear(){
+  ctx.fillStyle=C.paper;
+  ctx.fillRect(0,0,W,H);
+}
+function text(s,x,y,size=18,align="left",color=C.ink,weight=600){
+  ctx.fillStyle=color;
+  ctx.textAlign=align;
+  ctx.textBaseline="alphabetic";
+  ctx.font=`${weight} ${size}px Georgia,serif`;
+  ctx.fillText(s,x,y);
+}
+function tiny(s,x,y,align="left",color=C.ink){
+  ctx.fillStyle=color;
+  ctx.textAlign=align;
+  ctx.textBaseline="alphabetic";
+  ctx.font="800 11px ui-sans-serif,system-ui";
+  ctx.fillText(String(s).toUpperCase(),x,y);
+}
+function line(x1,y1,x2,y2,color=C.rule,w=1){
+  ctx.strokeStyle=color;ctx.lineWidth=w;
+  ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
+}
+function neighbors(i,n,diag=false){
+  const x=i%n,y=Math.floor(i/n),out=[];
+  for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){
+    if(!dx&&!dy)continue;
+    if(!diag&&Math.abs(dx)+Math.abs(dy)>1)continue;
+    const xx=x+dx,yy=y+dy;
+    if(xx>=0&&yy>=0&&xx<n&&yy<n)out.push(yy*n+xx);
+  }
+  return out;
+}
+function grid(n,cells,colorFn){
+  const top=42, bottom=42, side=34;
+  const size=Math.min(W-side*2,H-top-bottom);
+  const x=(W-size)/2,y=top,cell=size/n;
+  ctx.fillStyle=C.paper;ctx.fillRect(x,y,size,size);
+  for(let i=0;i<cells.length;i++){
+    const gx=i%n,gy=Math.floor(i/n);
+    ctx.fillStyle=colorFn(cells[i],i);
+    ctx.fillRect(x+gx*cell,y+gy*cell,Math.ceil(cell+.2),Math.ceil(cell+.2));
+  }
+  ctx.strokeStyle=C.rule;ctx.lineWidth=1;ctx.strokeRect(x+.5,y+.5,size-1,size-1);
+  return {x,y,size,cell};
+}
+function verdict(word,detail,color=C.ink){
+  text(word,28,H-22,22,"left",color,600);
+  if(detail) tiny(detail,W-28,H-24,"right",C.ink);
+}
+function regionCount(vals,n){
+  const seen=new Uint8Array(vals.length);
+  let count=0;
+  for(let i=0;i<vals.length;i++){
+    if(seen[i])continue;
+    count++;
+    const target=vals[i],stack=[i];
+    seen[i]=1;
+    while(stack.length){
+      const a=stack.pop();
+      for(const j of neighbors(a,n)){
+        if(!seen[j]&&vals[j]===target){seen[j]=1;stack.push(j)}
+      }
+    }
+  }
+  return count;
+}
+function avgShortest(adj){
+  const n=adj.length,sample=Math.min(n,24);
+  let total=0,pairs=0;
+  for(let s=0;s<sample;s++){
+    const src=Math.floor(s*n/sample),d=Array(n).fill(-1),queue=[src];
+    d[src]=0;
+    for(let h=0;h<queue.length;h++){
+      const u=queue[h];
+      for(const v of adj[u])if(d[v]<0){d[v]=d[u]+1;queue.push(v)}
+    }
+    for(const value of d)if(value>0){total+=value;pairs++}
+  }
+  return total/(pairs||1);
+}
+
+const models = {
+  epstein:{
+    title:"Protest", source:"Epstein",
+    controls:[
+      {id:"trust",name:"Trust",min:.12,max:.92,step:.01,value:.62},
+      {id:"police",name:"Police",min:.01,max:.18,step:.01,value:.06}
+    ],
+    init(p){
+      const n=42,c=[];
+      for(let i=0;i<n*n;i++){
+        c.push(rand()<p.police?{t:2}:{t:0,h:rand(),r:rand()});
+      }
+      state={n,c};
+    },
+    step(p){
+      const {n,c}=state;
+      for(let z=0;z<260;z++){
+        const i=ri(c.length),a=c[i];
+        if(a.t===2)continue;
+        let cops=0,active=0;
+        for(const j of neighbors(i,n,true)){
+          if(c[j].t===2)cops++;
+          else if(c[j].t===1)active++;
+        }
+        const grievance=a.h*(1-p.trust);
+        const risk=1-Math.exp(-2.3*cops/(active+1));
+        a.t=(grievance-risk*a.r>.11)?1:0;
+        if(a.t===1&&cops&&rand()<.03*cops)a.t=0;
+      }
+    },
+    draw(){
+      clear();
+      grid(state.n,state.c,a=>a.t===2?C.ink:a.t===1?C.red:C.pale);
+      tiny("quiet",28,25,"left",C.pale); line(73,21,101,21,C.pale,8);
+      tiny("protest",W/2,25,"center",C.red);
+      tiny("police",W-28,25,"right",C.ink);
+      const active=state.c.filter(a=>a.t===1).length;
+      verdict(active>260?"UNREST":active>70?"RISING":"CALM",`${active} active`,active>70?C.red:C.ink);
+    }
+  },
+
+  axelrod:{
+    title:"Culture", source:"Axelrod",
+    controls:[
+      {id:"variety",name:"Variety",min:2,max:12,step:1,value:7},
+      {id:"contact",name:"Contact",min:.1,max:1,step:.05,value:.8}
+    ],
+    init(p){
+      const n=36,a=[];
+      for(let i=0;i<n*n;i++)a.push(Array.from({length:5},()=>ri(p.variety)));
+      state={n,a};
+    },
+    step(p){
+      const {n,a}=state;
+      for(let z=0;z<720;z++){
+        const i=ri(a.length),ns=neighbors(i,n),j=ns[ri(ns.length)],x=a[i],y=a[j];
+        let same=0,diff=[];
+        for(let f=0;f<x.length;f++){if(x[f]===y[f])same++;else diff.push(f)}
+        if(diff.length&&rand()<(same/x.length)*p.contact){const f=diff[ri(diff.length)];x[f]=y[f];}
+      }
+    },
+    draw(p){
+      clear();
+      const keys=state.a.map(v=>v.join("."));
+      grid(state.n,state.a,v=>{
+        let h=0;for(const x of v)h=(h*31+x+1)>>>0;
+        const t=(h%1000)/1000;
+        const r=Math.round(234-48*t),g=Math.round(228-28*Math.abs(.5-t)),b=Math.round(211+30*t);
+        return `rgb(${r},${g},${b})`;
+      });
+      tiny("many",28,25,"left",C.ink);
+      tiny("few",W-28,25,"right",C.ink);
+      const regions=regionCount(keys,state.n);
+      verdict(regions<20?"CONVERGED":regions<100?"CLUSTERS":"MANY",`${regions} regions`,C.ink);
+    }
+  },
+
+  schelling:{
+    title:"Neighbors", source:"Schelling",
+    controls:[
+      {id:"tolerance",name:"Tolerance",min:0,max:.8,step:.02,value:.34},
+      {id:"empty",name:"Empty",min:.05,max:.35,step:.01,value:.18}
+    ],
+    init(p){
+      const n=42,c=[];
+      for(let i=0;i<n*n;i++)c.push(rand()<p.empty?0:(rand()<.5?1:2));
+      state={n,c};
+    },
+    unhappy(i,p){
+      const a=state.c[i];
+      if(!a)return false;
+      const ns=neighbors(i,state.n,true).filter(j=>state.c[j]);
+      return ns.length&&ns.filter(j=>state.c[j]===a).length/ns.length<p.tolerance;
+    },
+    step(p){
+      const unhappy=[],empty=[];
+      for(let i=0;i<state.c.length;i++){
+        if(!state.c[i])empty.push(i);
+        else if(this.unhappy(i,p))unhappy.push(i);
+      }
+      for(let z=0;z<Math.min(180,unhappy.length,empty.length);z++){
+        const ui=ri(unhappy.length),ei=ri(empty.length),i=unhappy.splice(ui,1)[0],j=empty.splice(ei,1)[0];
+        state.c[j]=state.c[i];state.c[i]=0;empty.push(i);
+      }
+    },
+    draw(p){
+      clear();
+      grid(state.n,state.c,a=>a===1?C.blue:a===2?C.gold:C.paper);
+      tiny("blue",28,25,"left",C.blue);
+      tiny("gold",W-28,25,"right",C.gold);
+      let unhappy=0,similar=[];
+      for(let i=0;i<state.c.length;i++)if(state.c[i]){
+        if(this.unhappy(i,p))unhappy++;
+        const ns=neighbors(i,state.n,true).filter(j=>state.c[j]);
+        if(ns.length)similar.push(ns.filter(j=>state.c[j]===state.c[i]).length/ns.length);
+      }
+      const s=mean(similar);
+      verdict(s>.76?"SEPARATE":s>.61?"SORTING":"MIXED",`${unhappy} moving`,C.ink);
+    }
+  },
+
+  watts:{
+    title:"Network", source:"Watts–Strogatz",
+    controls:[
+      {id:"shortcuts",name:"Shortcuts",min:0,max:1,step:.01,value:.08},
+      {id:"neighbors",name:"Neighbors",min:2,max:12,step:2,value:6}
+    ],
+    init(p){
+      const n=62,k=Math.min(p.neighbors,n-2),adj=Array.from({length:n},()=>new Set()),edges=[];
+      for(let i=0;i<n;i++)for(let d=1;d<=k/2;d++){
+        const j=(i+d)%n;adj[i].add(j);adj[j].add(i);edges.push({a:i,b:j,r:false});
+      }
+      for(const e of edges)if(rand()<p.shortcuts){
+        adj[e.a].delete(e.b);adj[e.b].delete(e.a);
+        let j;do{j=ri(n)}while(j===e.a||adj[e.a].has(j));
+        e.b=j;e.r=true;adj[e.a].add(j);adj[j].add(e.a);
+      }
+      state={n,adj,edges};
+    },
+    step(p){this.init(p)},
+    draw(){
+      clear();
+      const cx=W/2,cy=H/2-2,r=Math.min(W,H)*.37,pos=[];
+      for(let i=0;i<state.n;i++){
+        const a=-Math.PI/2+i*2*Math.PI/state.n;
+        pos.push([cx+r*Math.cos(a),cy+r*Math.sin(a)]);
+      }
+      for(const e of state.edges){
+        ctx.strokeStyle=e.r?C.red:C.rule;
+        ctx.lineWidth=e.r?1.35:.7;
+        ctx.beginPath();ctx.moveTo(...pos[e.a]);ctx.lineTo(...pos[e.b]);ctx.stroke();
+      }
+      ctx.fillStyle=C.ink;
+      for(const [x,y] of pos){ctx.beginPath();ctx.arc(x,y,2.15,0,Math.PI*2);ctx.fill()}
+      tiny("local",28,25,"left",C.ink);
+      tiny("shortcuts",W-28,25,"right",C.red);
+      const path=avgShortest(state.adj);
+      verdict(path<3.2?"CLOSE":path<5?"SMALL WORLD":"FAR",`path ${path.toFixed(1)}`,C.ink);
+    }
+  },
+
+  rebeland:{
+    title:"Rebellion", source:"RebeLand",
+    controls:[
+      {id:"state",name:"State",min:0,max:1,step:.02,value:.55},
+      {id:"terrain",name:"Rough land",min:0,max:1,step:.02,value:.55}
+    ],
+    init(p){
+      const n=40,c=[];
+      for(let i=0;i<n*n;i++){
+        const x=i%n,y=Math.floor(i/n);
+        const rough=clamp(.45+.3*Math.sin(x*.18)+.24*Math.cos(y*.16)+(rand()-.5)*.35);
+        c.push({rough,ins:(rand()<.025&&rough>.55)?1:0});
+      }
+      state={n,c};
+    },
+    step(p){
+      const next=state.c.map(x=>({...x}));
+      for(let i=0;i<state.c.length;i++){
+        const a=state.c[i],local=mean(neighbors(i,state.n,true).map(j=>state.c[j].ins));
+        const pressure=local*.55+a.rough*p.terrain*.34+(1-p.state)*.35;
+        if(!a.ins&&pressure>.36&&rand()<pressure*.12)next[i].ins=1;
+        if(a.ins&&rand()<p.state*.025)next[i].ins=0;
+      }
+      state.c=next;
+    },
+    draw(){
+      clear();
+      grid(state.n,state.c,a=>a.ins?C.red:(a.rough>.68?C.gold:C.pale));
+      tiny("rough land",28,25,"left",C.gold);
+      tiny("rebellion",W-28,25,"right",C.red);
+      const ins=state.c.filter(x=>x.ins).length;
+      verdict(ins>330?"SPREADING":ins>80?"GROWING":"CONTAINED",`${ins} cells`,ins>80?C.red:C.ink);
+    }
+  },
+
+  iruba:{
+    title:"Allegiance", source:"IRUBA",
+    controls:[
+      {id:"care",name:"Care",min:0,max:1,step:.02,value:.58},
+      {id:"harm",name:"Harm",min:0,max:1,step:.02,value:.24}
+    ],
+    init(){
+      const n=42,c=[];
+      for(let i=0;i<n*n;i++)c.push({a:(rand()-.5)*.25});
+      state={n,c};
+    },
+    step(p){
+      const next=state.c.map(x=>({...x}));
+      for(let i=0;i<state.c.length;i++){
+        const local=mean(neighbors(i,state.n,true).map(j=>state.c[j].a));
+        next[i].a=clamp(state.c[i].a*.82+local*.12+p.harm*.22-p.care*.17,-1,1);
+      }
+      state.c=next;
+    },
+    draw(){
+      clear();
+      grid(state.n,state.c,a=>a.a>.22?C.red:a.a<-.2?C.blue:C.pale);
+      tiny("state",28,25,"left",C.blue);
+      tiny("insurgent",W-28,25,"right",C.red);
+      const avg=mean(state.c.map(x=>x.a));
+      verdict(avg>.22?"INSURGENT":avg<-.2?"STATE":"UNDECIDED",`balance ${avg.toFixed(2)}`,avg>.22?C.red:avg<-.2?C.blue:C.ink);
+    }
+  },
+
+  ccim:{
+    title:"Border", source:"Cross-cultural interaction",
+    controls:[
+      {id:"trade",name:"Trade",min:0,max:1,step:.02,value:.62},
+      {id:"force",name:"Force",min:0,max:1,step:.02,value:.18}
+    ],
+    init(){
+      const n=42,c=[];
+      for(let y=0;y<n;y++)for(let x=0;x<n;x++){
+        c.push({v:x<n/2+(rand()-.5)*4?0:1,conf:0});
+      }
+      state={n,c};
+    },
+    step(p){
+      const next=state.c.map(x=>({...x,conf:0}));
+      for(let z=0;z<900;z++){
+        const i=ri(state.c.length),ns=neighbors(i,state.n,true),j=ns[ri(ns.length)],a=state.c[i],b=state.c[j];
+        if(Math.abs(a.v-b.v)<.08)continue;
+        if(rand()<p.force*(1-p.trade)){next[i].conf=1;next[j].conf=1;continue}
+        if(rand()<p.trade*.48){
+          const mix=(a.v+b.v)/2;
+          next[i].v=clamp(a.v+(mix-a.v)*.42);
+        }
+        if(rand()<p.force*.15)next[i].v=clamp(a.v+(b.v-a.v)*.3);
+      }
+      state.c=next;
+    },
+    draw(){
+      clear();
+      grid(state.n,state.c,a=>a.conf?C.ink:(a.v<.2?C.blue:a.v>.8?C.gold:C.green));
+      tiny("a",28,25,"left",C.blue);
+      tiny("mix",W/2,25,"center",C.green);
+      tiny("b",W-28,25,"right",C.gold);
+      const hybrid=state.c.filter(x=>x.v>.2&&x.v<.8).length;
+      const conflict=state.c.filter(x=>x.conf).length;
+      verdict(hybrid>420?"THIRD CULTURE":hybrid>80?"MIXING":"BORDER",`${conflict} clashes`,C.green);
+    }
+  }
+};
+
+const model = models[key] || models.epstein;
+document.querySelector("#title").textContent=model.title;
+document.querySelector("#source").textContent=model.source;
+const controls=document.querySelector("#controls");
+
+for(const c of model.controls){
+  const wrap=document.createElement("label");
+  wrap.className="control";
+  wrap.innerHTML=`
+    <span class="control-name">${c.name}</span>
+    <span class="rail">
+      <span class="end">−</span>
+      <input id="${c.id}" aria-label="${c.name}" type="range" min="${c.min}" max="${c.max}" step="${c.step}" value="${c.value}">
+      <span class="end">+</span>
+    </span>`;
+  controls.appendChild(wrap);
+  wrap.querySelector("input").addEventListener("input",reset);
+}
+function params(){
+  const p={};
+  for(const c of model.controls)p[c.id]=Number(document.querySelector("#"+c.id).value);
+  return p;
+}
+function reset(){
+  seed=seed0;
+  model.init(params());
+  model.draw(params());
+}
+function tick(){
+  model.step(params());
+  model.draw(params());
+}
+function loop(ts){
+  if(running&&ts-last>70){tick();last=ts}
+  requestAnimationFrame(loop);
+}
+const play=document.querySelector("#play");
+function syncPlay(){play.textContent=running?"Ⅱ":"▶";play.setAttribute("aria-pressed",String(running))}
+play.addEventListener("click",()=>{running=!running;syncPlay()});
+document.querySelector("#reset").addEventListener("click",reset);
+cv.addEventListener("click",()=>{for(let i=0;i<7;i++)tick()});
+
+reset();
+syncPlay();
+requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,585 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<meta name="description" content="Watson Hartsoe builds interfaces for worlds that don't exist yet, and the tools to find out if they should. Research engineer and creative technologist.">
+<title>Watson Hartsoe</title>
+<style>
+:root{
+  --ink:#141412;
+  --ink2:#3a382f;
+  --paper:#f2f0e8;
+  --muted:#6a665d;
+  --faint:#928d82;
+  --rule:#cbc7ba;
+  --serif:"Iowan Old Style","Palatino Linotype","Book Antiqua",Palatino,Georgia,serif;
+  --sans:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--serif);font-size:19px;line-height:1.62;
+  text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;
+}
+a{color:inherit}
+::selection{background:var(--ink);color:var(--paper)}
+
+.wrap{width:min(100%,58rem);margin:0 auto;padding:0 clamp(1.3rem,5vw,3rem)}
+
+/* identity */
+.topbar{display:flex;align-items:center;gap:.7rem;padding:clamp(1.6rem,3vw,2.4rem) 0 0}
+.topbar .face{
+  appearance:none;border:0;background:transparent;padding:2px;margin:-2px;
+  width:36px;height:36px;cursor:pointer;border-radius:4px;
+  transition:transform .15s ease, background-color .15s ease;
+}
+.topbar .face svg{display:block;width:100%;height:100%}
+.topbar .face:hover{transform:scale(1.06)}
+.topbar .face:active{transform:scale(0.96)}
+.topbar .face:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+body.play .topbar .face{background:var(--ink)}
+body.play .topbar .face svg rect{fill:var(--paper)!important}
+.topbar .name{font:700 .72rem/1 var(--sans);letter-spacing:.12em;text-transform:uppercase}
+
+/* hero */
+.hero{padding:clamp(3rem,9vw,6.5rem) 0 clamp(2.5rem,6vw,4.5rem)}
+.stmt{margin:0;font-weight:400;letter-spacing:-.035em;line-height:1;font-size:clamp(2.5rem,8vw,6.2rem);max-width:15ch}
+.stmt-sub{margin:clamp(1.6rem,3vw,2.2rem) 0 0;font-size:clamp(1.05rem,1.7vw,1.24rem);line-height:1.5;color:var(--ink2);max-width:42ch}
+
+/* sections */
+.sec{padding:clamp(2.4rem,6vw,4rem) 0;border-top:1px solid var(--ink)}
+.sec-grid{display:grid;grid-template-columns:9rem 1fr;gap:clamp(1rem,4vw,3rem)}
+.sec-tag{font-family:var(--serif);font-weight:400;font-size:1.35rem;letter-spacing:-.01em;color:var(--ink)}
+.sec-body{max-width:44rem}
+
+/* bio */
+.bio p{margin:0;font-size:clamp(1.13rem,1.8vw,1.3rem);line-height:1.62;color:var(--ink)}
+
+/* work */
+.work{display:block;text-decoration:none;color:inherit;padding:1.15rem 0;border-top:1px solid var(--rule)}
+.work:first-child{border-top:0}
+.work .wl{display:flex;align-items:baseline;gap:1rem;min-width:0}
+.work .type{font:600 .72rem/1.5 var(--sans);letter-spacing:.05em;text-transform:uppercase;color:var(--faint);flex-shrink:0;width:5rem}
+.work .title{font-size:clamp(1.28rem,2.5vw,1.6rem);line-height:1.14;letter-spacing:-.02em;color:var(--ink)}
+.work:hover .title{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+.work .desc{margin:.45rem 0 0 6rem;font-size:1.02rem;line-height:1.5;color:var(--muted);max-width:52ch}
+
+/* research */
+.research p{margin:0 0 1.1rem;font-size:clamp(1.08rem,1.7vw,1.22rem);line-height:1.62;color:var(--ink)}
+.research p:last-child{margin-bottom:0}
+
+/* contact */
+.contact .big{font-weight:400;font-size:clamp(1.35rem,3vw,2rem);line-height:1.22;letter-spacing:-.02em;margin:0;max-width:26ch;color:var(--ink)}
+.contact .actions{margin:1.6rem 0 0;display:flex;flex-wrap:wrap;gap:1.4rem}
+.contact a.link{font:600 .82rem/1 var(--sans);letter-spacing:.03em;color:var(--ink);text-underline-offset:4px;text-decoration-thickness:1px}
+.contact a.link:hover{text-decoration-color:var(--faint)}
+
+footer{padding:clamp(2rem,5vw,3rem) 0;font:500 .72rem/1.7 var(--sans);letter-spacing:.02em;color:var(--faint)}
+
+@media(max-width:680px){
+  body{font-size:17px;line-height:1.6}
+  .wrap{padding:0 1.2rem}
+  .topbar{padding-top:1.5rem}
+  .hero{padding:2.2rem 0 2.4rem}
+  .stmt{font-size:clamp(2.1rem,10vw,3rem);line-height:1.04;max-width:none}
+  .stmt-sub{font-size:1.02rem;max-width:none}
+  .sec{padding:2.2rem 0}
+  .sec-grid{grid-template-columns:1fr;gap:.6rem}
+  .sec-tag{font-size:1.15rem;color:var(--muted)}
+  .bio p{font-size:1.1rem}
+  .research p{font-size:1.06rem}
+  .work{padding:1.05rem 0}
+  .work .wl{flex-wrap:wrap;gap:.15rem .7rem;align-items:baseline}
+  .work .type{width:auto;font-size:.64rem;order:1}
+  .work .title{flex-basis:100%;order:2;font-size:1.24rem}
+  .work .desc{margin-left:0;font-size:.98rem}
+  .contact .big{font-size:1.35rem;max-width:none}
+  .contact .actions{gap:1.5rem}
+  /* game on mobile: bigger targets, cleaner prompt */
+  .hg-prompt{padding:1rem .9rem}
+  .hg-prompt .q{font-size:1.02rem;line-height:1.4}
+  .hg-actions{gap:.5rem}
+  .hg-actions button{flex:1 1 auto;min-height:44px;padding:.7rem .6rem;text-align:center;justify-content:center}
+  .hg-count{flex-basis:100%;margin:.3rem 0 0;text-align:left;align-self:flex-start}
+  body.play .work{padding-left:2.2rem}
+  body.play .work .open{margin-left:0;margin-top:.4rem;padding:.5rem .7rem;min-height:36px;align-items:center}
+  body.play .work .title{flex-basis:100%}
+}
+@media(max-width:680px) and (min-width:0px){
+  /* keep the open link on its own comfortable line under the title on phones */
+  body.play .work .wl{position:relative}
+}
+@media print{
+  body{background:#fff}
+  .work{break-inside:avoid}
+  .hg{display:none!important}
+}
+
+/* ---------- HIDDEN GAME (dormant until invoked) ---------- */
+.hg{display:none}
+body.play .hg{display:block}
+/* prompt line above the work list */
+.hg-prompt{
+  margin:0 0 1.4rem;padding:.9rem 1rem;border:1px solid var(--ink);
+  background:var(--paper);
+  font:500 .95rem/1.5 var(--serif);color:var(--ink);
+}
+.hg-prompt .q{font-size:1.05rem}
+.hg-reading{font-family:var(--serif);font-size:1rem;line-height:1.55;color:var(--ink)}
+.hg-reading .soft{color:var(--muted)}
+.hg-actions{margin-top:1rem;display:flex;flex-wrap:wrap;gap:.6rem;align-items:center}
+.hg-actions button{
+  appearance:none;background:transparent;cursor:pointer;
+  font:600 .7rem/1 var(--sans);letter-spacing:.07em;text-transform:uppercase;
+  color:var(--ink);border:1px solid var(--ink);border-radius:3px;
+  padding:.65rem .85rem;min-height:44px;transition:background-color .12s,color .12s;
+}
+.hg-actions button:hover{background:var(--ink);color:var(--paper)}
+.hg-actions button:active{transform:translateY(1px)}
+.hg-actions button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.hg-count{font:600 .64rem/1.3 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-left:auto;align-self:center;text-align:right}
+
+/* when playing, rows become selectable */
+body.play .work{position:relative;padding-left:2.4rem;cursor:pointer;transition:none;-webkit-tap-highlight-color:transparent}
+body.play .work::before{
+  content:"";position:absolute;left:.55rem;top:1.15rem;bottom:1.15rem;width:3px;
+  background:var(--rule);border-radius:2px;
+}
+body.play .work[data-picked]::before{background:var(--ink);width:4px;left:.5rem}
+body.play .work[data-picked]{background:rgba(20,20,18,.035)}
+/* full-height edge hit area for reliable tapping */
+body.play .work .edge{
+  position:absolute;left:0;top:0;bottom:0;width:2.4rem;cursor:pointer;z-index:2;
+}
+body.play .work .ord{
+  position:absolute;left:.35rem;top:1rem;font:700 .68rem/1 var(--sans);
+  color:var(--paper);background:var(--ink);width:1.3rem;height:1.3rem;
+  display:none;align-items:center;justify-content:center;border-radius:50%;z-index:3;
+}
+body.play .work[data-picked] .ord{display:flex}
+body.play .work[data-picked] .title{text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+/* explicit open link, shown only in play mode so tap-to-select and open are distinct */
+.work .open{display:none}
+body.play .work .open{
+  display:inline-flex;align-items:center;gap:.2rem;margin-left:.6rem;
+  font:600 .64rem/1 var(--sans);letter-spacing:.06em;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;vertical-align:middle;
+  border:1px solid var(--rule);border-radius:3px;padding:.3rem .5rem;z-index:4;position:relative;
+}
+body.play .work .open:hover{border-color:var(--ink);color:var(--ink)}
+/* a faint hint that a game exists, only after invoke */
+.hg-exit-hint{font:600 .64rem/1.4 var(--sans);letter-spacing:.05em;color:var(--faint);margin-top:.55rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- identity -->
+  <div class="topbar">
+    <button class="face" id="face-btn" type="button" aria-label="Watson Hartsoe">
+      <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges" aria-hidden="true">
+        <rect x="1" y="2" width="5" height="1" fill="#141412"/><rect x="1" y="7" width="5" height="1" fill="#141412"/>
+        <rect x="1" y="3" width="1" height="4" fill="#141412"/><rect x="5" y="3" width="1" height="4" fill="#141412"/>
+        <rect x="10" y="2" width="5" height="1" fill="#141412"/><rect x="10" y="7" width="5" height="1" fill="#141412"/>
+        <rect x="10" y="3" width="1" height="4" fill="#141412"/><rect x="14" y="3" width="1" height="4" fill="#141412"/>
+        <g id="pupils"><rect x="3" y="4" width="1" height="1" fill="#141412"/><rect x="12" y="4" width="1" height="1" fill="#141412"/></g>
+        <g id="lids" opacity="0"><rect x="2" y="4" width="3" height="1" fill="#141412"/><rect x="11" y="4" width="3" height="1" fill="#141412"/></g>
+        <rect x="7" y="8" width="1" height="1" fill="#141412"/>
+        <rect x="6" y="11" width="4" height="1" fill="#141412"/>
+      </svg>
+    </button>
+    <span class="name">Watson Hartsoe</span>
+  </div>
+
+  <!-- position -->
+  <header class="hero">
+    <h1 class="stmt">Interfaces for worlds that don't exist yet, and the tools to find out if they should.</h1>
+    <p class="stmt-sub">Research engineer and creative technologist. PhD candidate, Digital Media, Georgia Tech. Atlanta.</p>
+  </header>
+
+  <!-- bio -->
+  <section class="sec">
+    <div class="sec-grid">
+      <div class="sec-tag">Bio</div>
+      <div class="sec-body bio">
+        <p>Watson Hartsoe is a research engineer and creative technologist who builds working tools for generative media, filmmaking, and worldbuilding. He is a PhD candidate in Digital Media at Georgia Tech, where he develops systems for a problem now shared across creative and technical fields: machines can produce more images, video, code, and possible worlds than people can meaningfully inspect, organize, or shape. His recent work turns that abundance into usable instruments, including browser-based filmmaking systems, networked 3D environments, and compilers that translate formal languages into interactive experiences. He holds an MS in Human-Computer Interaction from Georgia Tech and previously conducted Fulbright fieldwork in Honduras. His work has been recognized by the ITU AI for Good platform, Georgia Tech's AI Competition, CREATE-X, and the Neu Wave AI Film Festival.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- work -->
+  <section class="sec">
+    <div class="sec-grid">
+      <div class="sec-tag">Selected work</div>
+      <div class="sec-body">
+        <div class="hg" id="hg-prompt-wrap"></div>
+
+        <a class="work" href="operative-ekphrasis-relational-essay.html" data-op="translate" data-obj="text" data-ten="authorship" data-phrase="turns a text into a control surface that produces what it names">
+          <div class="wl"><span class="type">Paper</span><span class="title">Operative Ekphrasis</span></div>
+          <p class="desc">Text as an operative control surface for reality. Written with Jay David Bolter.</p>
+        </a>
+
+        <a class="work" href="ripples-conference-presentation-rebuilt.html" data-op="remember" data-obj="world" data-ten="memory" data-phrase="tries to make a generative world remember what already happened in it">
+          <div class="wl"><span class="type">System</span><span class="title">Coaxing the Ripples</span></div>
+          <p class="desc">A bird eats a blueberry; two turns later it returns, untouched. Can a generative system remember? Presented at ELO 2026.</p>
+        </a>
+
+        <a class="work" href="after-the-scene-legos-essay__1_.html" data-op="generate" data-obj="world" data-ten="discontinuity" data-phrase="watches a model write the next world after the scene feels finished">
+          <div class="wl"><span class="type">Essay</span><span class="title">After the Scene</span></div>
+          <p class="desc">The scene arrives whole enough to feel inevitable. Then the machine writes the next world. The LEGOS framework.</p>
+        </a>
+
+        <a class="work" href="play-freedom-ai-films-tufte_5_.html" data-op="expose" data-obj="image" data-ten="abundance" data-phrase="exposes the moment a generated image arrives before the film has thought">
+          <div class="wl"><span class="type">Film</span><span class="title">Play, Freedom, and AI Films</span></div>
+          <p class="desc">The image arrives before the movie. It may be the moment the film stops thinking.</p>
+        </a>
+
+        <a class="work" href="machinery_of_meaning_legible_film.html" data-op="expose" data-obj="footage" data-ten="opacity" data-phrase="exposes a film procedure while it is still running">
+          <div class="wl"><span class="type">Film</span><span class="title">The Machinery of Meaning</span></div>
+          <p class="desc">A procedural film engine you can read while it runs.</p>
+        </a>
+
+        <a class="work" href="machinery_of_meaning_fluid_film_v3.html" data-op="simulate" data-obj="footage" data-ten="opacity" data-phrase="performs the same procedure as a continuous field rather than frames">
+          <div class="wl"><span class="type">Film</span><span class="title">Machinery of Meaning: Fluid</span></div>
+          <p class="desc">The same engine, run as a continuous field rather than discrete frames.</p>
+        </a>
+
+        <a class="work" href="can_a_language_model_build_with_lego__2_.html" data-op="translate" data-obj="model" data-ten="misclassification" data-phrase="translates a model's claim into legal parts that can be checked">
+          <div class="wl"><span class="type">System</span><span class="title">Can a Model Build with LEGO?</span></div>
+          <p class="desc">A picture is cheap. A build is legal parts, exact placements, and real connections. Built on LDraw.</p>
+        </a>
+
+        <a class="work" href="centaur-box-presentation-concrete.html" data-op="expose" data-obj="history" data-ten="agency" data-phrase="exposes the hidden record beneath a persuasive conversation">
+          <div class="wl"><span class="type">System</span><span class="title">Centaur Box</span></div>
+          <p class="desc">The door is not the event. Without the hidden run record, the conversation is only a story.</p>
+        </a>
+
+        <a class="work" href="aphoristic-social-models/index.html" data-op="simulate" data-obj="model" data-ten="authorship" data-phrase="simulates a historical encounter through seven competing models">
+          <div class="wl"><span class="type">Paper</span><span class="title">Growing Entanglements</span></div>
+          <p class="desc">Captain Cook and seven agent-based models. History does not enter code whole; it arrives through a hand.</p>
+        </a>
+
+        <a class="work" href="https://hartswf0.github.io" data-op="assemble" data-obj="footage" data-ten="abundance" data-phrase="assembles abundance by sampling rather than cutting down">
+          <div class="wl"><span class="type">Film</span><span class="title">CINEOSIS</span></div>
+          <p class="desc">Assembly is sampling, not cutting. When footage is abundant, cutting-down is the wrong verb.</p>
+        </a>
+
+        <a class="work" href="https://hartswf0.github.io" data-op="materialize" data-obj="emotion" data-ten="legality" data-phrase="materializes an emotion classification as a physical object">
+          <div class="wl"><span class="type">System</span><span class="title">Gumball Emotion Machine</span></div>
+          <p class="desc">Reads a face, assigns an emotion, returns a gumball. The label is probably wrong. The gumball is real.</p>
+        </a>
+
+        <a class="work" href="https://hartswf0.github.io" data-op="audit" data-obj="emotion" data-ten="misclassification" data-phrase="documents where an emotion classifier misreads affect">
+          <div class="wl"><span class="type">Paper</span><span class="title">Auditing Emotion AI</span></div>
+          <p class="desc">Documents where emotion-recognition systems mislabel affect. Published at NordiCHI 2024.</p>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- research -->
+  <section class="sec">
+    <div class="sec-grid">
+      <div class="sec-tag">Research</div>
+      <div class="sec-body research">
+        <p>My research studies how people work with generative systems: how a prompt becomes a description that participates in producing what it describes, and how that changes when the cost of generating images, video, and interactive worlds approaches zero. I develop this through a method I call thick prompting, a documented and repeatable way of studying how a model interprets, transforms, and resists human intention.</p>
+        <p>I work by building. Rather than writing about a tool in the abstract, I build the working system, test it with real users, observe where it fails, and revise it. This approach comes from earlier fieldwork: before human-computer interaction, I conducted Fulbright ethnographic research in Honduras, which taught me to treat any technology as part of the institutions, communities, and constraints it operates within, not as an isolated object.</p>
+        <p>The through-line across the work is making opaque computational processes tangible, testable, and accountable, so that the assumptions inside a system become something people can see, question, and revise.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- contact -->
+  <section class="sec contact">
+    <div class="sec-grid">
+      <div class="sec-tag">Contact</div>
+      <div class="sec-body">
+        <p class="big">Open to research and collaboration in generative media, human-computer interaction, and creative technology.</p>
+        <div class="actions">
+          <a class="link" href="mailto:hello@example.com" data-email>Email</a>
+          <a class="link" href="https://hartswf0.github.io">hartswf0.github.io</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Watson Hartsoe · Research engineer and creative technologist · Georgia Tech, School of Literature, Media, and Communication
+  </footer>
+
+</div>
+
+<script>
+  /* face blink */
+  (function(){
+    const lids=document.getElementById('lids'), pupils=document.getElementById('pupils');
+    if(lids && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+      (function blink(){
+        lids.setAttribute('opacity','1'); pupils.setAttribute('opacity','0');
+        setTimeout(()=>{lids.setAttribute('opacity','0');pupils.setAttribute('opacity','1');},130);
+        setTimeout(blink, 2600+Math.random()*3400);
+      })();
+    }
+  })();
+
+  /* ---------- THE HIDDEN RULE ----------
+     Invoked by the Konami sequence. Invisible until then.
+     The work rows are the board. No score, no timer, no chrome. */
+  (function(){
+    const KONAMI = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+    let buf = [];
+    const rows = [...document.querySelectorAll('.work')];
+    const wrap = document.getElementById('hg-prompt-wrap');
+    if(!rows.length || !wrap) return;
+
+    // readable labels for operations/tensions used in prompts
+    const OPS = {
+      expose:'make an invisible system inspectable',
+      remember:'try to make a system hold onto its own state',
+      translate:'translate a formal system into something checkable',
+      assemble:'treat generated abundance as material to sample',
+      simulate:'simulate a system in order to study it',
+      audit:'document where a system misclassifies',
+      materialize:'turn a computation into a physical object',
+      generate:'let a model author the next state'
+    };
+    const TENS = {
+      abundance:'generated abundance',
+      opacity:'hidden process',
+      misclassification:'systematic misreading',
+      discontinuity:'broken continuity',
+      legality:'the terms of exchange',
+      agency:'who is really acting',
+      authorship:'who is the author',
+      memory:'what the system forgets'
+    };
+
+    let active=false, round=0, picks=[], mode='find', target=null;
+
+    function enter(){
+      if(active) return;
+      active=true; document.body.classList.add('play');
+      rows.forEach(r=>{
+        r.querySelectorAll('.edge,.ord,.open').forEach(n=>n.remove());
+        const edge=document.createElement('span'); edge.className='edge'; edge.setAttribute('aria-hidden','true');
+        const ord=document.createElement('span'); ord.className='ord';
+        // explicit open link so select vs navigate is unambiguous (esp. on touch)
+        const open=document.createElement('a'); open.className='open';
+        open.href=r.getAttribute('href'); open.textContent='open';
+        open.setAttribute('aria-label','Open '+title(r));
+        const isExt = /^https?:/.test(r.getAttribute('href')||'');
+        if(isExt){ open.target='_blank'; open.rel='noopener'; }
+        open.addEventListener('click', e=>e.stopPropagation());
+        r.querySelector('.wl').appendChild(open);
+        r.appendChild(edge); r.appendChild(ord);
+        // prevent the row's own href from navigating on select-tap; edge/row handles selection
+        r.addEventListener('click', rowClick);
+      });
+      round=0; nextRound();
+      wrap.scrollIntoView({behavior:'smooth', block:'center'});
+    }
+    // whole-row tap toggles selection (except taps on the open link, handled above)
+    function rowClick(e){
+      if(!active) return;
+      e.preventDefault();
+      const r=e.currentTarget;
+      if(mode==='intruder'){
+        // in intruder mode, tapping a highlighted row removes it
+        if(r.hasAttribute('data-picked')){ r.removeAttribute('data-picked'); picks=picks.filter(x=>x!==r); renumber(); judgeIntruder(r); }
+        return;
+      }
+      toggle(r);
+    }
+
+    function exit(){
+      active=false; document.body.classList.remove('play');
+      picks=[];
+      rows.forEach(r=>{
+        r.removeAttribute('data-picked');
+        r.removeEventListener('click', rowClick);
+        const e=r.querySelector('.edge'); if(e) e.remove();
+        const o=r.querySelector('.ord'); if(o) o.remove();
+        const op=r.querySelector('.open'); if(op) op.remove();
+      });
+      wrap.innerHTML='';
+    }
+
+    function toggle(r){
+      if(r.hasAttribute('data-picked')){
+        r.removeAttribute('data-picked'); picks=picks.filter(x=>x!==r);
+      } else {
+        const cap = (mode==='intruder') ? 4 : 3;
+        picks.push(r);
+        if(picks.length>cap){ const old=picks.shift(); old.removeAttribute('data-picked'); }
+        r.setAttribute('data-picked','');
+      }
+      renumber(); updateCount();
+    }
+    function renumber(){
+      picks.forEach((r,i)=>{ const o=r.querySelector('.ord'); if(o) o.textContent=(i+1); });
+      rows.forEach(r=>{ if(!r.hasAttribute('data-picked')){ const o=r.querySelector('.ord'); if(o) o.textContent=''; } });
+    }
+    function updateCount(){
+      const c=document.getElementById('hg-count');
+      if(c){ const cap=(mode==='intruder')?4:3; c.textContent=picks.length+' / '+cap+' selected'; }
+    }
+
+    function title(r){ return r.querySelector('.title').textContent; }
+    function phrase(r){ return r.getAttribute('data-phrase'); }
+
+    function prompt(html){ wrap.innerHTML = '<div class="hg-prompt">'+html+'</div>'; }
+
+    function nextRound(){
+      picks.forEach(r=>r.removeAttribute('data-picked')); picks=[]; renumber();
+      round++;
+      if(round===1){ mode='find'; roundFind(); }
+      else if(round===2){ mode='intruder'; roundIntruder(); }
+      else if(round===3){ mode='build'; roundBuild(); }
+      else { exit(); }
+    }
+
+    // ROUND 1: find three works sharing a hidden operation
+    function roundFind(){
+      const opKeys=Object.keys(OPS);
+      // pick an operation actually present at least 3x, else fall back
+      const counts={}; rows.forEach(r=>{const o=r.getAttribute('data-op'); counts[o]=(counts[o]||0)+1;});
+      const viable=opKeys.filter(k=>counts[k]>=2); // 2+, readings still work
+      target = viable.length? viable[Math.floor(Math.random()*viable.length)] : 'expose';
+      prompt(
+        '<div class="q">Three of these works '+OPS[target]+'. Find them.</div>'+
+        '<div class="hg-actions"><button id="hg-read">Read the constellation</button>'+
+        '<button id="hg-exit">Exit</button>'+
+        '<span class="hg-count" id="hg-count">0 / 3 selected</span></div>'+
+        '<div class="hg-exit-hint">tap a project to select · use “open” to view it</div>'
+      );
+      bind({read:readFind});
+    }
+    function readFind(){
+      if(picks.length<3){ flash('Pick three.'); return; }
+      const chosen=picks.slice(0,3);
+      const good=chosen.filter(r=>r.getAttribute('data-op')===target);
+      const lines=chosen.map(r=>title(r)+' '+phrase(r)+'.').join(' ');
+      let verdict;
+      if(good.length===3) verdict='One reading: all three '+OPS[target]+'. Your constellation treats that operation as the point, not the medium.';
+      else if(good.length===2) verdict='One reading: two of these '+OPS[target]+', but '+title(chosen.find(r=>r.getAttribute('data-op')!==target))+' is doing something else. Is it an outlier, or a better rule than the one you were given?';
+      else verdict='This selection does not obviously '+OPS[target]+'. It suggests a different rule entirely. What is it?';
+      prompt(
+        '<div class="hg-reading">'+lines+' <span class="soft">'+verdict+'</span></div>'+
+        '<div class="hg-actions"><button id="hg-revise">Revise</button>'+
+        '<button id="hg-next">Next</button><button id="hg-exit">Exit</button></div>'
+      );
+      bind({revise:roundFind, next:nextRound});
+    }
+
+    // ROUND 2: remove the intruder
+    function roundIntruder(){
+      // choose an operation with >=3 members, plus one outlier
+      const counts={}; rows.forEach(r=>{const o=r.getAttribute('data-op'); (counts[o]=counts[o]||[]).push(r);});
+      const big=Object.keys(counts).filter(k=>counts[k].length>=3);
+      const op = big.length? big[Math.floor(Math.random()*big.length)] : 'expose';
+      const members=(counts[op]||[]).slice(0,3);
+      const outlierPool=rows.filter(r=>r.getAttribute('data-op')!==op);
+      const outlier=outlierPool[Math.floor(Math.random()*outlierPool.length)];
+      const four=[...members,outlier].sort(()=>Math.random()-0.5);
+      // pre-highlight the four
+      four.forEach(r=>r.setAttribute('data-picked','')); picks=four.slice(); renumber(); updateCount();
+      target={op, outlier, members};
+      prompt(
+        '<div class="q">Three of these '+OPS[op]+'. Remove the one that least belongs.</div>'+
+        '<div class="hg-actions"><button id="hg-exit">Exit</button>'+
+        '<span class="hg-count" id="hg-count">tap the one to remove</span></div>'
+      );
+      bind({});
+    }
+    function judgeIntruder(removed){
+      const {op, outlier}=target;
+      let verdict;
+      if(removed===outlier){
+        verdict='The strongest visible connection says yes: the other three '+OPS[op]+', and this one does not. But a rival reading could keep it and drop another. Which rule is stronger?';
+      } else {
+        verdict='One reading keeps the one you removed: it also '+OPS[op]+'. You may have found a different rule than the obvious one, or discarded a real member. The taxonomy is not fixed.';
+      }
+      prompt(
+        '<div class="hg-reading">You removed '+title(removed)+'. <span class="soft">'+verdict+'</span></div>'+
+        '<div class="hg-actions"><button id="hg-next">Next</button><button id="hg-exit">Exit</button></div>'
+      );
+      bind({next:nextRound});
+    }
+
+    // ROUND 3: build the missing work
+    function roundBuild(){
+      prompt(
+        '<div class="q">Choose three: one for its method, one for its medium, one for its failure. Order matters.</div>'+
+        '<div class="hg-actions"><button id="hg-read">Commission it</button>'+
+        '<button id="hg-exit">Exit</button>'+
+        '<span class="hg-count" id="hg-count">0 / 3 selected</span></div>'+
+        '<div class="hg-exit-hint">first pick = method · second = medium · third = failure</div>'
+      );
+      bind({read:readBuild});
+    }
+    function readBuild(){
+      if(picks.length<3){ flash('Pick three, in order.'); return; }
+      const [m,md,f]=picks;
+      const op=m.getAttribute('data-op'), obj=md.getAttribute('data-obj'), ten=f.getAttribute('data-ten');
+      const commission='A work that would '+OPS[op].replace('make an ','make the ')+', delivered through '+objMedium(obj)+', and haunted by '+TENS[ten]+'.';
+      prompt(
+        '<div class="hg-reading">'+
+        'Method: '+title(m)+'. Medium: '+title(md)+'. Failure: '+title(f)+'.<br><br>'+
+        '<b>'+commission+'</b><br><br>'+
+        '<span class="soft">Should this work exist?</span></div>'+
+        '<div class="hg-actions"><button id="hg-build">Build</button>'+
+        '<button id="hg-refuse">Refuse</button><button id="hg-exit">Exit</button></div>'
+      );
+      bind({build:()=>endLine('build'), refuse:()=>endLine('refuse')});
+    }
+    function objMedium(obj){
+      return ({world:'an inhabitable world', model:'a running model', image:'a generated image',
+        history:'a hidden record', emotion:'a physical object read from affect', text:'operative text',
+        footage:'sampled footage', interaction:'a live interaction'})[obj]||'a built system';
+    }
+    function endLine(choice){
+      const t = choice==='build'
+        ? 'You accepted experimentation despite epistemic uncertainty.'
+        : 'You treated the ability to construct a system as different from permission to deploy it.';
+      prompt('<div class="hg-reading"><b>'+(choice==='build'?'Build.':'Refuse.')+'</b> '+t+
+        ' <span class="soft">After inspecting these works, what do you now believe the work is about?</span></div>'+
+        '<div class="hg-actions"><button id="hg-again">Play again</button><button id="hg-exit">Close</button></div>');
+      bind({again:()=>{ round=0; picks.forEach(r=>r.removeAttribute('data-picked')); picks=[]; nextRound(); }});
+    }
+
+    function flash(msg){
+      const c=document.getElementById('hg-count'); if(c){ const old=c.textContent; c.textContent=msg; setTimeout(()=>c.textContent=old,1200);}    }
+
+    // bind action buttons present in the current prompt
+    function bind(map){
+      const ids={read:'hg-read',revise:'hg-revise',next:'hg-next',build:'hg-build',refuse:'hg-refuse',again:'hg-again'};
+      for(const k in ids){ const el=document.getElementById(ids[k]); if(el && map[k]) el.onclick=map[k]; }
+      const ex=document.getElementById('hg-exit'); if(ex) ex.onclick=exit;
+      updateCount();
+    }
+
+    // Konami listener (second path)
+    window.addEventListener('keydown', e=>{
+      if(active){
+        if(e.key==='Escape') exit();
+        return;
+      }
+      const k = (e.key.length===1)? e.key.toLowerCase() : e.key;
+      buf.push(k); if(buf.length>KONAMI.length) buf.shift();
+      if(buf.length===KONAMI.length && buf.every((v,i)=>v===KONAMI[i])){ buf=[]; enter(); }
+    });
+
+    // Face button (primary, discoverable path): tap to toggle
+    const faceBtn = document.getElementById('face-btn');
+    if(faceBtn){
+      faceBtn.addEventListener('click', ()=>{ active ? exit() : enter(); });
+    }
+  })();
+</script>
+</body>
+</html>

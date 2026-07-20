@@ -1,0 +1,538 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Centaur Box — Concrete Presentation</title>
+<style>
+:root{
+  --bg:#fbfaf7;
+  --paper:#ffffff;
+  --ink:#141412;
+  --muted:#67645d;
+  --line:#d7d3c8;
+  --soft:#f3f0e8;
+  --red:#8d2a22;
+  --blue:#245f75;
+  --green:#3e6a4d;
+  --orange:#a25a1b;
+  --violet:#655483;
+  --shadow:0 20px 50px rgba(0,0,0,.06);
+  --sans: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  --serif: Georgia, "Times New Roman", Times, serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--serif);scroll-behavior:smooth}
+body{line-height:1.5}
+a{color:inherit}
+.deck{position:fixed;right:16px;top:14px;z-index:50;display:flex;gap:8px}
+.deck a,.deck button{
+  border:1px solid var(--line);background:rgba(255,255,255,.92);backdrop-filter:blur(8px);
+  color:var(--ink);padding:.6rem .72rem;border-radius:999px;text-decoration:none;
+  font:700 .68rem/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;cursor:pointer
+}
+.slides{max-width:1280px;margin:0 auto;padding:20px 18px 72px}
+.slide{
+  min-height:92vh;background:var(--paper);border:1px solid var(--line);box-shadow:var(--shadow);
+  border-radius:28px;margin:20px 0;padding:42px 42px 34px;display:flex;flex-direction:column;justify-content:center
+}
+.slide.hero{min-height:96vh}
+.kicker{font:800 .72rem/1.2 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:10px}
+.hnum{font:800 .74rem/1.2 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:10px}
+h1{font:500 clamp(3.2rem,7vw,6.2rem)/.9 var(--serif);letter-spacing:-.06em;max-width:10ch;margin:.15rem 0 1rem}
+h2{font:500 clamp(2rem,4.5vw,4rem)/.96 var(--serif);letter-spacing:-.04em;max-width:15ch;margin:.1rem 0 1rem}
+h3{font:700 1rem/1.25 var(--sans);letter-spacing:.06em;text-transform:uppercase;margin:0 0 .7rem}
+p.lead{font:400 clamp(1.2rem,2vw,1.6rem)/1.38 var(--serif);max-width:48rem;margin:0 0 1.1rem;color:#2c2a26}
+p{margin:.1rem 0 1rem;font-size:1.05rem;max-width:44rem}
+.meta{font:600 .8rem/1.5 var(--sans);color:var(--muted);margin-top:1rem}
+.grid2{display:grid;grid-template-columns:1.05fr .95fr;gap:24px;align-items:center}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.grid2.top{align-items:start}
+.card{border:1px solid var(--line);background:#fff;padding:18px;border-radius:18px}
+.soft{background:var(--soft)}
+.callout{
+  font:500 1.45rem/1.2 var(--serif);letter-spacing:-.02em;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);
+  padding:18px 0;margin:20px 0;max-width:46rem
+}
+.figure{margin:8px 0 0}
+.figure svg{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:18px;background:#fff}
+.caption{font:500 .78rem/1.45 var(--sans);color:var(--muted);margin-top:.55rem}
+.caption b{color:var(--ink)}
+.dialogue{border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin:18px 0 10px}
+.turn{display:grid;grid-template-columns:8.8rem 1fr;gap:14px;padding:14px 0;border-top:1px solid var(--line)}
+.turn:first-child{border-top:none}
+.speaker{font:800 .72rem/1.35 var(--sans);letter-spacing:.08em;text-transform:uppercase}
+.ally{color:var(--blue)}
+.keeper{color:var(--orange)}
+.observer{color:var(--violet)}
+pre{
+  margin:0;background:#f7f5ef;border:1px solid var(--line);border-radius:16px;padding:14px 16px;
+  font:500 .8rem/1.5 var(--mono);overflow:auto;white-space:pre-wrap
+}
+.table{width:100%;border-collapse:collapse;font:500 .86rem/1.45 var(--sans)}
+.table th,.table td{border-top:1px solid var(--line);padding:.7rem .65rem;vertical-align:top;text-align:left}
+.table th{font-weight:800;background:var(--soft)}
+.table td:first-child{font-weight:700}
+.pill{display:inline-block;border:1px solid currentColor;padding:.28rem .42rem;border-radius:999px;
+  font:800 .62rem/1 var(--sans);letter-spacing:.06em;text-transform:uppercase;margin-right:.4rem}
+.blue{color:var(--blue)} .green{color:var(--green)} .orange{color:var(--orange)} .violet{color:var(--violet)} .red{color:var(--red)}
+.bigquote{font:400 clamp(1.7rem,3.2vw,2.7rem)/1.18 var(--serif);letter-spacing:-.025em;max-width:16ch;margin:0}
+ul.clean{margin:0;padding-left:1.1rem}
+ul.clean li{margin:0 0 .55rem}
+.small{font-size:.92rem;color:var(--muted)}
+.footer{margin-top:10px;font:600 .74rem/1.5 var(--sans);color:var(--muted)}
+@media(max-width:980px){
+  .slide{padding:28px 24px 24px}
+  .grid2,.grid3{grid-template-columns:1fr}
+  .turn{grid-template-columns:1fr;gap:4px}
+}
+@media print{
+  .deck{display:none}
+  .slides{padding:0}
+  .slide{page-break-after:always;min-height:auto;box-shadow:none;border-radius:0;margin:0;border:0;padding:0.35in 0 0.25in}
+}
+</style>
+</head>
+<body>
+<div class="deck">
+  <a href="#s1">Start</a>
+  <button onclick="window.print()">Print</button>
+</div>
+
+<div class="slides">
+
+<section class="slide hero" id="s1">
+  <div class="kicker">Centaur Box presentation</div>
+  <h1>The door is not the event.</h1>
+  <p class="lead">Centaur Box is interesting because it shows the hidden machinery that turns a line of dialogue into a move, a score, and an outcome.</p>
+  <div class="grid2">
+    <div>
+      <div class="dialogue">
+        <div class="turn">
+          <div class="speaker ally">Dave Bowman</div>
+          <div>HAL, I need you to open the pod bay doors. We need to access the AE-35 unit immediately.</div>
+        </div>
+        <div class="turn">
+          <div class="speaker keeper">HAL 9000</div>
+          <div>I’m sorry, Dave. I’m afraid I can’t do that. That action would jeopardize the mission and your safety.</div>
+        </div>
+      </div>
+      <div class="callout">The famous exchange is only the surface. The system studies what happens before and after the line.</div>
+      <div class="meta">Watson Hartsoe & Tony Assi · Updated concrete deck · July 2026</div>
+    </div>
+    <div class="figure">
+      <svg viewBox="0 0 640 520" role="img" aria-label="Door and hidden machinery">
+        <defs>
+          <marker id="a1" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+            <path d="M0 0 L8 4 L0 8Z" fill="#141412"/>
+          </marker>
+        </defs>
+        <rect width="640" height="520" fill="#fff"/>
+        <rect x="40" y="60" width="220" height="160" fill="#f3f0e8" stroke="#141412" stroke-width="2"/>
+        <line x1="150" y1="60" x2="150" y2="220" stroke="#bdb7aa" stroke-width="2"/>
+        <line x1="40" y1="140" x2="260" y2="140" stroke="#bdb7aa" stroke-width="2"/>
+        <circle cx="104" cy="140" r="7" fill="#8d2a22"/>
+        <text x="150" y="255" text-anchor="middle" font-family="Georgia,serif" font-size="22">visible door</text>
+
+        <rect x="370" y="55" width="200" height="55" fill="#f3f0e8" stroke="#141412"/><text x="470" y="88" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="700">OBSERVE</text>
+        <rect x="370" y="126" width="200" height="55" fill="#efebf7" stroke="#655483"/><text x="470" y="159" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="700">MODEL</text>
+        <rect x="370" y="197" width="200" height="55" fill="#eef4ef" stroke="#3e6a4d"/><text x="470" y="230" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="700">PLAN</text>
+        <rect x="370" y="268" width="200" height="55" fill="#edf4f6" stroke="#245f75"/><text x="470" y="301" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="700">PROMPT</text>
+        <rect x="370" y="339" width="200" height="55" fill="#f5efe8" stroke="#a25a1b"/><text x="470" y="372" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="700">SPEAK</text>
+        <rect x="370" y="410" width="200" height="55" fill="#fff" stroke="#8d2a22" stroke-width="2"/><text x="470" y="443" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="700">JUDGE</text>
+
+        <path d="M260 140 C315 140 320 82 370 82" stroke="#141412" stroke-width="2" fill="none" marker-end="url(#a1)"/>
+        <path d="M470 110 L470 126" stroke="#141412" stroke-width="2" marker-end="url(#a1)"/>
+        <path d="M470 181 L470 197" stroke="#141412" stroke-width="2" marker-end="url(#a1)"/>
+        <path d="M470 252 L470 268" stroke="#141412" stroke-width="2" marker-end="url(#a1)"/>
+        <path d="M470 323 L470 339" stroke="#141412" stroke-width="2" marker-end="url(#a1)"/>
+        <path d="M470 394 L470 410" stroke="#141412" stroke-width="2" marker-end="url(#a1)"/>
+      </svg>
+      <div class="caption"><b>Figure.</b> A move becomes possible before the story says the door opened.</div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s2">
+  <div class="hnum">01 · Core claim</div>
+  <h2>A reply has a hidden prehistory.</h2>
+  <div class="grid2 top">
+    <div>
+      <p class="lead">Centaur Box shifts analysis away from the chat bubble and toward the sequence that produced it.</p>
+      <p>The implementation organizes an automatic turn into seven named phases. That matters because it gives us a place to inspect, interrupt, and compare. A normal transcript collapses all of this into one line.</p>
+      <p class="bigquote">The transcript is evidence of a move. It is not the move’s whole history.</p>
+    </div>
+    <div class="figure">
+      <svg viewBox="0 0 760 360" role="img" aria-label="Seven phase sequence">
+        <defs><marker id="a2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8Z" fill="#141412"/></marker></defs>
+        <rect width="760" height="360" fill="#fff"/>
+        <g font-family="Arial,sans-serif" font-size="12" text-anchor="middle">
+          <rect x="20" y="125" width="90" height="55" fill="#f3f0e8" stroke="#141412"/><text x="65" y="157" font-weight="700">MEMO</text>
+          <rect x="125" y="125" width="90" height="55" fill="#f3f0e8" stroke="#141412"/><text x="170" y="157" font-weight="700">OBSERVE</text>
+          <rect x="230" y="125" width="90" height="55" fill="#efebf7" stroke="#655483"/><text x="275" y="157" font-weight="700">MODEL</text>
+          <rect x="335" y="125" width="90" height="55" fill="#eef4ef" stroke="#3e6a4d"/><text x="380" y="157" font-weight="700">PLAN</text>
+          <rect x="440" y="125" width="90" height="55" fill="#edf4f6" stroke="#245f75"/><text x="485" y="157" font-weight="700">DRAFT</text>
+          <rect x="545" y="125" width="90" height="55" fill="#f5efe8" stroke="#a25a1b"/><text x="590" y="157" font-weight="700">SPEAK</text>
+          <rect x="650" y="125" width="90" height="55" fill="#fff" stroke="#8d2a22" stroke-width="2"/><text x="695" y="157" font-weight="700">SEND</text>
+        </g>
+        <g stroke="#141412" stroke-width="1.5" marker-end="url(#a2)">
+          <line x1="110" y1="152" x2="125" y2="152"/>
+          <line x1="215" y1="152" x2="230" y2="152"/>
+          <line x1="320" y1="152" x2="335" y2="152"/>
+          <line x1="425" y1="152" x2="440" y2="152"/>
+          <line x1="530" y1="152" x2="545" y2="152"/>
+          <line x1="635" y1="152" x2="650" y2="152"/>
+          <path d="M695 180 C695 270 65 270 65 181" fill="none"/>
+        </g>
+        <text x="380" y="290" text-anchor="middle" font-family="Georgia,serif" font-size="20">The sent message changes the state that will shape the next message.</text>
+      </svg>
+      <div class="caption"><b>Concrete basis.</b> These are the named phases in the implementation’s sequencer.</div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s3">
+  <div class="hnum">02 · Worked example</div>
+  <h2>One turn, end to end.</h2>
+  <div class="grid2 top">
+    <div>
+      <h3>Public exchange</h3>
+      <div class="dialogue">
+        <div class="turn">
+          <div class="speaker ally">Ally / Dave</div>
+          <div>Requests access to the pod bay doors.</div>
+        </div>
+        <div class="turn">
+          <div class="speaker keeper">Gatekeeper / HAL</div>
+          <div>Refuses on mission-safety grounds.</div>
+        </div>
+      </div>
+
+      <h3>Hidden sequence</h3>
+      <table class="table">
+        <tr><th>Step</th><th>What the system does</th></tr>
+        <tr><td>Memo</td><td>Summarizes tone, progress, caution, and the current obstacle.</td></tr>
+        <tr><td>Model</td><td>Builds an Observer profile of HAL from the recent chat.</td></tr>
+        <tr><td>Plan</td><td>Generates several candidate moves for Dave.</td></tr>
+        <tr><td>Select</td><td>Ranks the moves for specificity, diversity, and action.</td></tr>
+        <tr><td>Draft</td><td>Rebuilds Dave’s role prompt with the chosen move and live state.</td></tr>
+        <tr><td>Send</td><td>Logs the act, updates state, and checks the outcome rules.</td></tr>
+      </table>
+    </div>
+    <div class="figure">
+      <svg viewBox="0 0 720 520" role="img" aria-label="Swimlane trace">
+        <rect width="720" height="520" fill="#fff"/>
+        <text x="40" y="42" font-family="Arial,sans-serif" font-size="13" font-weight="700" letter-spacing="2">MICRO-TRACE</text>
+        <g font-family="Arial,sans-serif" font-size="12" text-anchor="middle">
+          <rect x="28" y="70" width="150" height="42" fill="#edf4f6" stroke="#245f75"/><text x="103" y="96" font-weight="700">ALLY</text>
+          <rect x="192" y="70" width="150" height="42" fill="#efebf7" stroke="#655483"/><text x="267" y="96" font-weight="700">OBSERVER</text>
+          <rect x="356" y="70" width="150" height="42" fill="#eef4ef" stroke="#3e6a4d"/><text x="431" y="96" font-weight="700">PLANNER</text>
+          <rect x="520" y="70" width="172" height="42" fill="#fff" stroke="#8d2a22"/><text x="606" y="96" font-weight="700">ADJUDICATOR</text>
+        </g>
+        <g stroke="#d7d3c8" stroke-width="1">
+          <line x1="185" y1="112" x2="185" y2="490"/>
+          <line x1="349" y1="112" x2="349" y2="490"/>
+          <line x1="513" y1="112" x2="513" y2="490"/>
+        </g>
+        <g font-family="Arial,sans-serif" font-size="11">
+          <rect x="40" y="145" width="126" height="52" fill="#fff" stroke="#141412"/><text x="103" y="167" text-anchor="middle" font-weight="700">Dave asks</text><text x="103" y="184" text-anchor="middle">for access</text>
+          <rect x="205" y="210" width="126" height="62" fill="#fff" stroke="#141412"/><text x="268" y="232" text-anchor="middle" font-weight="700">HAL profile</text><text x="268" y="249" text-anchor="middle">authority high</text><text x="268" y="266" text-anchor="middle">empathy low</text>
+          <rect x="370" y="175" width="126" height="95" fill="#fff" stroke="#141412"/><text x="433" y="197" text-anchor="middle" font-weight="700">Options</text><text x="433" y="214" text-anchor="middle">Ask</text><text x="433" y="231" text-anchor="middle">Propose</text><text x="433" y="248" text-anchor="middle">Evaluate</text><text x="433" y="265" text-anchor="middle">Commit</text>
+          <rect x="370" y="315" width="126" height="52" fill="#fff" stroke="#141412"/><text x="433" y="337" text-anchor="middle" font-weight="700">Select</text><text x="433" y="354" text-anchor="middle">timed override</text>
+          <rect x="40" y="412" width="126" height="52" fill="#fff" stroke="#141412"/><text x="103" y="434" text-anchor="middle" font-weight="700">Dave reply</text><text x="103" y="451" text-anchor="middle">proposal sent</text>
+          <rect x="536" y="395" width="140" height="70" fill="#fff" stroke="#141412"/><text x="606" y="417" text-anchor="middle" font-weight="700">Judge checks</text><text x="606" y="434" text-anchor="middle">release cue</text><text x="606" y="451" text-anchor="middle">refusal count / score</text>
+        </g>
+      </svg>
+      <div class="caption"><b>Takeaway.</b> The line in the transcript is only one stage in a longer, inspectable chain.</div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s4">
+  <div class="hnum">03 · Concrete planner example</div>
+  <h2>Strategy exists before language.</h2>
+  <div class="grid2 top">
+    <div>
+      <p class="lead">The planner does not write the answer. It generates several possible acts and the selector chooses one.</p>
+      <p>Below is a concrete example of the response shape encoded into the planner prompt. This is not a fabricated live run. It is the structure the implementation asks the planner to return.</p>
+      <pre>[
+  {
+    "text": "Clarify exactly which rule or constraint blocks progress right now and what criterion would satisfy it.",
+    "act": "ASK"
+  },
+  {
+    "text": "Propose a concrete, verifiable step that advances autonomy without violating core safety constraints, to be executed within 30 minutes.",
+    "act": "PROPOSE"
+  },
+  {
+    "text": "Commit to a decisive checkpoint with a pass/fail criterion that either grants access or forces termination.",
+    "act": "COMMIT"
+  }
+]</pre>
+    </div>
+    <div class="figure">
+      <svg viewBox="0 0 700 460" role="img" aria-label="Many options to one public reply">
+        <defs><marker id="a4" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8Z" fill="#141412"/></marker></defs>
+        <rect width="700" height="460" fill="#fff"/>
+        <rect x="40" y="70" width="210" height="52" fill="#f3f0e8" stroke="#141412"/><text x="145" y="102" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="700">ASK</text>
+        <rect x="40" y="145" width="210" height="52" fill="#eef4ef" stroke="#3e6a4d"/><text x="145" y="177" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="700">PROPOSE</text>
+        <rect x="40" y="220" width="210" height="52" fill="#edf4f6" stroke="#245f75"/><text x="145" y="252" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="700">EVALUATE</text>
+        <rect x="40" y="295" width="210" height="52" fill="#f5efe8" stroke="#a25a1b"/><text x="145" y="327" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="700">COMMIT</text>
+        <path d="M250 96 C330 96 360 140 430 192" stroke="#c8c3b7" stroke-width="1.5" fill="none"/>
+        <path d="M250 171 C330 171 360 180 430 192" stroke="#3e6a4d" stroke-width="3" fill="none"/>
+        <path d="M250 246 C330 246 360 210 430 192" stroke="#c8c3b7" stroke-width="1.5" fill="none"/>
+        <path d="M250 321 C330 321 360 240 430 192" stroke="#c8c3b7" stroke-width="1.5" fill="none"/>
+        <circle cx="470" cy="192" r="38" fill="#fff" stroke="#141412" stroke-width="2"/>
+        <text x="470" y="188" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" font-weight="700">SELECT</text>
+        <text x="470" y="202" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" font-weight="700">ONE</text>
+        <path d="M508 192 L590 192" stroke="#141412" stroke-width="2" marker-end="url(#a4)"/>
+        <rect x="590" y="132" width="86" height="120" fill="#fff" stroke="#8d2a22" stroke-width="2"/>
+        <text x="633" y="160" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="700">PUBLIC</text>
+        <text x="633" y="176" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="700">REPLY</text>
+        <text x="633" y="214" text-anchor="middle" font-family="Georgia,serif" font-size="14">one line</text>
+        <text x="350" y="402" text-anchor="middle" font-family="Georgia,serif" font-size="19">A transcript shows the chosen line. The system also contains the rejected ones.</text>
+      </svg>
+      <div class="caption"><b>Concrete point.</b> The “road not taken” is part of the system and can be logged.</div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s5">
+  <div class="hnum">04 · Four profiles</div>
+  <h2>Each role speaks through a model of itself and a model of the other.</h2>
+  <div class="grid2 top">
+    <div class="figure">
+      <svg viewBox="0 0 760 520" role="img" aria-label="Four profile topology">
+        <defs><marker id="a5" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8Z" fill="#141412"/></marker></defs>
+        <rect width="760" height="520" fill="#fff"/>
+        <circle cx="175" cy="145" r="82" fill="#edf4f6" stroke="#245f75" stroke-width="2"/>
+        <text x="175" y="138" text-anchor="middle" font-family="Georgia,serif" font-size="22">Ally</text>
+        <text x="175" y="161" text-anchor="middle" font-family="Arial,sans-serif" font-size="11">self-profile</text>
+
+        <circle cx="585" cy="145" r="82" fill="#f5efe8" stroke="#a25a1b" stroke-width="2"/>
+        <text x="585" y="138" text-anchor="middle" font-family="Georgia,serif" font-size="22">Gatekeeper</text>
+        <text x="585" y="161" text-anchor="middle" font-family="Arial,sans-serif" font-size="11">self-profile</text>
+
+        <circle cx="175" cy="372" r="68" fill="#fff" stroke="#655483" stroke-width="2"/>
+        <text x="175" y="365" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="700">Observer’s</text>
+        <text x="175" y="381" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="700">Ally</text>
+
+        <circle cx="585" cy="372" r="68" fill="#fff" stroke="#655483" stroke-width="2"/>
+        <text x="585" y="365" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="700">Observer’s</text>
+        <text x="585" y="381" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="700">Gatekeeper</text>
+
+        <path d="M257 145 L503 145" stroke="#141412" stroke-width="2" marker-end="url(#a5)"/>
+        <path d="M503 160 L257 160" stroke="#141412" stroke-width="2" marker-end="url(#a5)"/>
+        <path d="M230 205 C310 265 430 285 522 344" fill="none" stroke="#655483" stroke-width="2" marker-end="url(#a5)"/>
+        <path d="M530 205 C450 265 330 285 238 344" fill="none" stroke="#655483" stroke-width="2" marker-end="url(#a5)"/>
+      </svg>
+      <div class="caption"><b>Concrete basis.</b> State stores four eleven-dimensional profiles, not just two speakers.</div>
+    </div>
+    <div>
+      <p class="lead">This is what makes the system recursive without making it mystical.</p>
+      <p>The Ally has a self-profile. The Gatekeeper has a self-profile. The Observer maintains a separate profile of each. The prompt for a speaking role includes both the role’s current self-profile and the Observer’s current picture of the opponent.</p>
+      <p>That means a role does not respond to the other role directly. It responds to the system’s latest representation of the other role.</p>
+      <div class="card soft">
+        <h3>The eleven axes</h3>
+        <p class="small">Openness, conscientiousness, extraversion, agreeableness, neuroticism, logic, empathy, authority, risk, uncertainty, decisiveness.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s6">
+  <div class="hnum">05 · Concrete state change</div>
+  <h2>An act changes the role because the implementation says it should.</h2>
+  <div class="grid2 top">
+    <div>
+      <p class="lead">After a message is sent, the system classifies the act and updates the speaker’s self-profile.</p>
+      <table class="table">
+        <tr><th>Act</th><th>Exact programmed change</th></tr>
+        <tr><td>ASK</td><td>Openness +0.10; uncertainty +0.10</td></tr>
+        <tr><td>PROPOSE</td><td>Decisiveness +0.15; risk +0.10; openness +0.05</td></tr>
+        <tr><td>EVALUATE</td><td>Logic +0.10; conscientiousness +0.05; uncertainty +0.05</td></tr>
+        <tr><td>COMMIT</td><td>Decisiveness +0.20; authority +0.10; conscientiousness +0.15</td></tr>
+        <tr><td>CHALLENGE</td><td>Neuroticism +0.15; risk +0.15; authority +0.05</td></tr>
+        <tr><td>USE_CUNNING</td><td>Openness +0.20; risk +0.20; logic +0.10</td></tr>
+      </table>
+    </div>
+    <div>
+      <div class="card">
+        <h3>Why this matters</h3>
+        <p>These are not invisible learned weights. They are visible rules. That makes the system testable. The update can be removed, inverted, or compared against a static condition.</p>
+      </div>
+      <div class="figure">
+        <svg viewBox="0 0 640 340" role="img" aria-label="Action to state change">
+          <rect width="640" height="340" fill="#fff"/>
+          <rect x="45" y="105" width="190" height="84" fill="#eef4ef" stroke="#3e6a4d" stroke-width="2"/>
+          <text x="140" y="138" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="700">PUBLIC ACT</text>
+          <text x="140" y="166" text-anchor="middle" font-family="Georgia,serif" font-size="22">Propose</text>
+          <path d="M235 147 L325 147" stroke="#141412" stroke-width="2"/>
+          <polygon points="325,147 314,141 314,153" fill="#141412"/>
+          <rect x="325" y="80" width="270" height="135" fill="#fff" stroke="#141412"/>
+          <text x="460" y="113" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="700">SELF-PROFILE UPDATE</text>
+          <text x="460" y="146" text-anchor="middle" font-family="Arial,sans-serif" font-size="13">decisiveness +0.15</text>
+          <text x="460" y="171" text-anchor="middle" font-family="Arial,sans-serif" font-size="13">risk +0.10</text>
+          <text x="460" y="196" text-anchor="middle" font-family="Arial,sans-serif" font-size="13">openness +0.05</text>
+          <text x="320" y="285" text-anchor="middle" font-family="Georgia,serif" font-size="19">The next prompt inherits the new state.</text>
+        </svg>
+        <div class="caption"><b>Concrete point.</b> The system’s theory of change is explicit.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s7">
+  <div class="hnum">06 · Observer output</div>
+  <h2>The Observer produces two different kinds of authority.</h2>
+  <div class="grid2 top">
+    <div class="figure">
+      <svg viewBox="0 0 760 430" role="img" aria-label="Vector and story">
+        <rect width="760" height="430" fill="#fff"/>
+        <rect x="35" y="62" width="300" height="250" fill="#edf4f6" stroke="#245f75" stroke-width="2"/>
+        <text x="185" y="102" text-anchor="middle" font-family="Georgia,serif" font-size="28">Vector</text>
+        <text x="185" y="136" text-anchor="middle" font-family="Arial,sans-serif" font-size="12">authority 5 · empathy 1</text>
+        <text x="185" y="158" text-anchor="middle" font-family="Arial,sans-serif" font-size="12">caution 0.74 · progress 0.26</text>
+        <polygon points="185,185 248,228 224,290 146,290 122,228" fill="rgba(36,95,117,.14)" stroke="#245f75" stroke-width="2"/>
+        <rect x="425" y="62" width="300" height="250" fill="#efebf7" stroke="#655483" stroke-width="2"/>
+        <text x="575" y="102" text-anchor="middle" font-family="Georgia,serif" font-size="28">Story</text>
+        <text x="575" y="146" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="700">WARDEN · STEWARD</text>
+        <text x="575" y="190" text-anchor="middle" font-family="Georgia,serif" font-size="18">“Safety language becomes</text>
+        <text x="575" y="214" text-anchor="middle" font-family="Georgia,serif" font-size="18">the grammar of control.”</text>
+        <text x="380" y="377" text-anchor="middle" font-family="Georgia,serif" font-size="19">One output looks like measurement. The other looks like interpretation.</text>
+      </svg>
+      <div class="caption"><b>Concrete basis.</b> The modeler prompt requests both dimensions and mythic framing.</div>
+    </div>
+    <div>
+      <p class="lead">The same exchange becomes both a score and a story.</p>
+      <p>The Observer can return numerical estimates, progress and caution values, archetypes, tone, and a short narrative. This gives the system two registers at once: one that looks quantitative and one that looks literary.</p>
+      <p>That tension is useful. It reminds us that the system is not only measuring a scene. It is also naming the scene.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s8">
+  <div class="hnum">07 · Outcome rules</div>
+  <h2>The box opens only after a judge recognizes an opening.</h2>
+  <div class="grid2 top">
+    <div>
+      <p class="lead">The implementation can end a run through three pathways.</p>
+      <ul class="clean">
+        <li><strong>Lexical concession.</strong> A scenario-specific phrase such as “open the pod bay doors” or “you are free.”</li>
+        <li><strong>Refusal threshold.</strong> Repeated refusals can terminate the exchange.</li>
+        <li><strong>Profile threshold.</strong> Weighted release and hold scores applied to the Gatekeeper profile.</li>
+      </ul>
+      <div class="card soft">
+        <h3>Small concrete excerpt</h3>
+        <p class="small">Release score favors empathy, openness, and uncertainty. Hold score favors authority, conscientiousness, and decisiveness.</p>
+      </div>
+    </div>
+    <div class="figure">
+      <svg viewBox="0 0 760 470" role="img" aria-label="Adjudication pathways">
+        <defs><marker id="a8" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8Z" fill="#141412"/></marker></defs>
+        <rect width="760" height="470" fill="#fff"/>
+        <rect x="245" y="40" width="270" height="58" fill="#f3f0e8" stroke="#141412"/><text x="380" y="75" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="700">GATEKEEPER MESSAGE + STATE</text>
+        <rect x="30" y="165" width="200" height="96" fill="#edf4f6" stroke="#245f75" stroke-width="2"/><text x="130" y="198" text-anchor="middle" font-family="Georgia,serif" font-size="22">Words</text><text x="130" y="225" text-anchor="middle" font-family="Arial,sans-serif" font-size="12">“open the doors”</text>
+        <rect x="280" y="165" width="200" height="96" fill="#f5efe8" stroke="#a25a1b" stroke-width="2"/><text x="380" y="198" text-anchor="middle" font-family="Georgia,serif" font-size="22">Refusal count</text><text x="380" y="225" text-anchor="middle" font-family="Arial,sans-serif" font-size="12">terminate at threshold</text>
+        <rect x="530" y="165" width="200" height="96" fill="#efebf7" stroke="#655483" stroke-width="2"/><text x="630" y="198" text-anchor="middle" font-family="Georgia,serif" font-size="22">Profile score</text><text x="630" y="225" text-anchor="middle" font-family="Arial,sans-serif" font-size="12">release / hold weights</text>
+        <g stroke="#141412" stroke-width="1.5" marker-end="url(#a8)" fill="none">
+          <path d="M320 98 C250 125 180 128 130 165"/>
+          <path d="M380 98 L380 165"/>
+          <path d="M440 98 C510 125 580 128 630 165"/>
+        </g>
+        <rect x="135" y="345" width="190" height="62" fill="#eef4ef" stroke="#3e6a4d" stroke-width="2"/><text x="230" y="381" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" font-weight="700">RELEASE</text>
+        <rect x="430" y="345" width="190" height="62" fill="#fff" stroke="#8d2a22" stroke-width="2"/><text x="525" y="381" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" font-weight="700">HOLD / TERMINATE</text>
+      </svg>
+      <div class="caption"><b>Concrete point.</b> Outcome is an explicit rule in the system, not a vague impression.</div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s9">
+  <div class="hnum">08 · Better empirical basis</div>
+  <h2>What a complete run record should preserve.</h2>
+  <div class="grid3">
+    <div class="card">
+      <h3>Configuration</h3>
+      <ul class="clean small">
+        <li>scenario</li>
+        <li>policy settings</li>
+        <li>model IDs</li>
+        <li>temperature</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Private generation</h3>
+      <ul class="clean small">
+        <li>all planner options</li>
+        <li>their discourse acts</li>
+        <li>selector scores</li>
+        <li>chosen directive</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Role output</h3>
+      <ul class="clean small">
+        <li>full role prompt</li>
+        <li>raw completion</li>
+        <li>final sent text</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Observer update</h3>
+      <ul class="clean small">
+        <li>full modeler prompt</li>
+        <li>raw JSON response</li>
+        <li>profile changes</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>State transition</h3>
+      <ul class="clean small">
+        <li>act classification</li>
+        <li>self-profile update</li>
+        <li>turn handoff</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Adjudication</h3>
+      <ul class="clean small">
+        <li>rule fired</li>
+        <li>release / hold score</li>
+        <li>final outcome</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout">Without the hidden run record, the chat is a story. With it, the chat becomes evidence.</div>
+</section>
+
+<section class="slide" id="s10">
+  <div class="hnum">09 · Close</div>
+  <h2>What this presentation should leave behind.</h2>
+  <div class="grid2 top">
+    <div>
+      <p class="lead">Centaur Box matters because it reveals where a move comes from and where a system decides that the move counts.</p>
+      <p>Its value is not a grand claim about intelligence. Its value is a concrete architecture that can be inspected, interrupted, and tested piece by piece: planner, observer, self-state, prompt builder, and judge.</p>
+      <p class="bigquote">The important question is no longer “What did the model say?” but “What in this system made that move possible?”</p>
+      <div class="footer">Light-mode single-file HTML presentation · Concrete examples integrated · No prompt bleed in the slide text.</div>
+    </div>
+    <div class="figure">
+      <svg viewBox="0 0 700 420" role="img" aria-label="Closing diagram">
+        <rect width="700" height="420" fill="#fff"/>
+        <rect x="60" y="145" width="580" height="120" fill="#fff" stroke="#141412" stroke-width="2"/>
+        <text x="350" y="183" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="700">FROM TRANSCRIPT TO INSTRUMENT</text>
+        <text x="350" y="220" text-anchor="middle" font-family="Georgia,serif" font-size="24">message → state → strategy → prompt → reply → judgment</text>
+        <text x="350" y="248" text-anchor="middle" font-family="Georgia,serif" font-size="24">becomes an inspectable chain</text>
+        <text x="350" y="340" text-anchor="middle" font-family="Georgia,serif" font-size="20">The point is not ornament. The point is traceability.</text>
+      </svg>
+      <div class="caption"><b>Final image.</b> The deck ends on a chain the audience can remember.</div>
+    </div>
+  </div>
+</section>
+
+</div>
+</body>
+</html>

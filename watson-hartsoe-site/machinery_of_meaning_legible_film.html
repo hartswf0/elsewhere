@@ -89,7 +89,7 @@
         quote: "Culture has mechanisms, but culture is not a machine.",
         source: "THE MACHINERY OF MEANING — PROSPECTUS, PREFACE",
         lineage: "WEBER · DEWEY · WITTGENSTEIN · RYLE · GEERTZ",
-        duration: 16,
+        duration: 20,
         style: "boot",
         seed: 11
       },
@@ -106,7 +106,7 @@
         quote: "Public meanings are carried, selected, combined, transformed, authorized, resisted, enacted, and repaired through investigable processes.",
         source: "PROSPECTUS, PREFACE — “CULTURE HAS MECHANISMS”",
         lineage: "WEBER · MEAD · DEWEY · PEIRCE · GEERTZ",
-        duration: 24,
+        duration: 26,
         style: "circuit",
         seed: 23
       },
@@ -123,7 +123,7 @@
         quote: "A thick description establishes what kind of action occurred.",
         source: "PROSPECTUS, CH. 1 — THICK MECHANISM",
         lineage: "RYLE · GEERTZ · AUSTIN · GOFFMAN",
-        duration: 24,
+        duration: 26,
         style: "wink",
         seed: 31
       },
@@ -140,7 +140,7 @@
         quote: "Cultural feature ≠ cultural carrier.",
         source: "PROSPECTUS, CH. 2 — FEATURES WITHOUT NEURONS",
         lineage: "PEIRCE · CASSIRER · TURNER · DOUGLAS",
-        duration: 24,
+        duration: 26,
         style: "features",
         seed: 43
       },
@@ -157,7 +157,7 @@
         quote: "Institutions are salience-routing systems.",
         source: "PROSPECTUS, CH. 3 — ATTENTION IN PUBLIC",
         lineage: "GOFFMAN · GOODWIN · FOUCAULT · BOWKER & STAR",
-        duration: 24,
+        duration: 26,
         style: "attention",
         seed: 59
       },
@@ -174,7 +174,7 @@
         quote: "Cultural interpretations become stronger when they specify what should change under substitutions of audience, actor, code, institution, genre, history, or material stake.",
         source: "PROSPECTUS, CH. 4 — PATCHING THE WINK",
         lineage: "J. S. MILL · WEBER · QCA · PROCESS TRACING",
-        duration: 24,
+        duration: 26,
         style: "patching",
         seed: 71
       },
@@ -191,7 +191,7 @@
         quote: "Formal abolition ≠ functional subtraction.",
         source: "PROSPECTUS, CH. 5 — THE INSTITUTIONAL HYDRA",
         lineage: "S. F. MOORE · S. E. MERRY · NORTH · THELEN",
-        duration: 24,
+        duration: 26,
         style: "hydra",
         seed: 83
       },
@@ -208,7 +208,7 @@
         quote: "Symbols do not merely represent an experienced order. They participate in making some actions credible, obligatory, imaginable, or forbidden.",
         source: "PROSPECTUS, CH. 6 — MODELS OF / MODELS FOR",
         lineage: "GEERTZ · CASSIRER · BURKE · GRAMSCI · HALL",
-        duration: 24,
+        duration: 26,
         style: "steering",
         seed: 97
       },
@@ -225,7 +225,7 @@
         quote: "Cultural learning may involve long periods of stable surface performance while the organization of justification, classification, and transfer changes beneath it.",
         source: "PROSPECTUS, CH. 7 — CULTURAL GROKKING",
         lineage: "MEAD · VYGOTSKY · BOURDIEU · LAVE",
-        duration: 24,
+        duration: 26,
         style: "grokking",
         seed: 109
       },
@@ -242,7 +242,7 @@
         quote: "A new language, policy, or ritual may become louder without becoming deeper.",
         source: "PROSPECTUS, CH. 8 — EDITING CULTURE",
         lineage: "AUSTIN · MACKENZIE · IMPLEMENTATION SCIENCE",
-        duration: 24,
+        duration: 26,
         style: "editing",
         seed: 127
       },
@@ -259,7 +259,7 @@
         quote: "Interpretations become scientifically valuable when they survive challenges capable of defeating them, not when they become too flexible to fail.",
         source: "PROSPECTUS, CH. 9 — ILLUSIONS OF UNDERSTANDING",
         lineage: "ARGUMENT MAPPING · PREREGISTRATION · RED TEAMING",
-        duration: 24,
+        duration: 26,
         style: "redteam",
         seed: 139
       },
@@ -276,7 +276,7 @@
         quote: "Social proximity and status rivalry help determine wager intensity, while public risk transforms the fight into a condensed drama.",
         source: "PROSPECTUS, CH. 10 — DEEP PLAY",
         lineage: "GEERTZ · BATESON · BENTHAM · GOFFMAN",
-        duration: 24,
+        duration: 26,
         style: "deepplay",
         seed: 151
       },
@@ -293,7 +293,7 @@
         quote: "A cultural circuit is a context-bounded, publicly distributed configuration through which signs become salient, distinctions become active, and consequences alter the field.",
         source: "PROSPECTUS, CONCLUSION — THE INTERPRETIVE MACHINE",
         lineage: "ETHNOGRAPHY · COMPUTATION · CAUSAL INQUIRY · HISTORY",
-        duration: 26,
+        duration: 28,
         style: "axioms",
         seed: 163
       },
@@ -310,7 +310,7 @@
         quote: "Infrastructure for interpretation, not an automated culture engine.",
         source: "R&D SLIDES, BOOK-LEVEL ROADMAP + PROSPECTUS CONCLUSION",
         lineage: "PROTOTYPE · PILOT · GOVERNANCE · FEDERATION",
-        duration: 28,
+        duration: 32,
         style: "roadmap",
         seed: 179
       }
@@ -410,6 +410,16 @@
     const fadeOut=1-smooth(invLerp(holdEnd,holdEnd+fade,p));
     return clamp(fadeIn*fadeOut);
   }
+  // Time-based crossfade. startSec/holdSec/fade are LOCAL seconds within the
+  // scene, so every slide change holds and crossfades for the same wall-clock
+  // duration no matter how long the scene is — the rhythm stays even across the
+  // whole film instead of speeding up and down with each scene's length.
+  function readAlpha(scene, p, startSec, holdSec, fade=0.9){
+    const local=p*scene.duration;
+    const fadeIn=smooth(invLerp(startSec-fade,startSec,local));
+    const fadeOut=1-smooth(invLerp(startSec+holdSec,startSec+holdSec+fade,local));
+    return clamp(fadeIn*fadeOut);
+  }
   function citationStrip(scene,dark=false,alpha=1){
     const y=H-92;
     rect(0,y,W,92,dark?INK:WHITE,null,0,alpha);
@@ -452,7 +462,9 @@
     citationStrip(scene,true,alpha);
   }
   function persistentCaption(scene,p){
-    const alpha=phaseAlpha(p,.385,.595,.02);
+    // Holds across the whole diagram-reading window (after the example card,
+    // up to the quote card), so the caption breathes with the animation.
+    const alpha=readAlpha(scene,p, 8.6, Math.max(2, scene.duration-17), 0.8);
     if(alpha<=0)return;
     const y=H-222;
     rect(70,y,W-140,132,WHITE,INK,4,alpha*.96);
@@ -462,16 +474,21 @@
     mono(scene.source,W-96,y+116,14,MUTED,'right',alpha);
   }
   function drawReadingLayer(scene,p){
-    questionCard(scene,phaseAlpha(p,.025,.155,.025));
-    exampleCard(scene,phaseAlpha(p,.185,.355,.025));
+    const D=scene.duration;
+    // Fixed wall-clock beats: read the question, read the example, watch the
+    // diagram (caption), read the source, then the title. Every card crossfades
+    // over ~0.9s and overlaps the next, so nothing hard-cuts between slides.
+    questionCard(scene, readAlpha(scene,p, 1.4, 2.8, 0.9));
+    exampleCard (scene, readAlpha(scene,p, 5.4, 3.0, 0.9));
     persistentCaption(scene,p);
-    quoteCard(scene,phaseAlpha(p,.625,.775,.025));
+    quoteCard   (scene, readAlpha(scene,p, D-8.4, 3.2, 0.9));
   }
 
   function finalTitle(scene,p){
-    const a=smooth(invLerp(.795,.845,p));
+    const local=p*scene.duration;
+    const a=smooth(invLerp(scene.duration-4.8,scene.duration-3.9,local));
     if(a<=0)return;
-    const curtain=smooth(invLerp(.88,.95,p));
+    const curtain=smooth(invLerp(scene.duration-2.4,scene.duration-0.8,local));
     ctx.save();ctx.globalAlpha=a;ctx.fillStyle=PAPER;ctx.fillRect(0,0,W,H);ctx.restore();
     const x=140;
     mono(`CHAPTER ${scene.number}`,x,245,23,RED,'left',a);
@@ -855,7 +872,7 @@
     const globalP=state.currentTime/totalDuration;
     const renderer=renderers[info.scene.style]||drawCircuit;
     renderer(info.scene,info.p,state.currentTime);
-    if(info.p<.795) drawFrameChrome(info.scene,info.index,globalP);
+    if(info.local < info.scene.duration-4.9) drawFrameChrome(info.scene,info.index,globalP);
     drawReadingLayer(info.scene,info.p);
     updateUI(info);
     return info;

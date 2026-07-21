@@ -175,6 +175,22 @@ body.play .work .open{
 body.play .work .open:hover{border-color:var(--ink);color:var(--ink)}
 /* a faint hint that a game exists, only after invoke */
 .hg-exit-hint{font:600 .64rem/1.4 var(--sans);letter-spacing:.05em;color:var(--faint);margin-top:.55rem}
+
+/* blog */
+.post{display:block;text-decoration:none;color:inherit;padding:1.15rem 0;border-top:1px solid var(--rule)}
+.post:first-child{border-top:0}
+.post .wl{display:flex;align-items:baseline;gap:1rem;min-width:0}
+.post .type{font:600 .72rem/1.5 var(--sans);letter-spacing:.05em;text-transform:uppercase;color:var(--faint);flex-shrink:0;width:5rem}
+.post .title{font-size:clamp(1.28rem,2.5vw,1.6rem);line-height:1.14;letter-spacing:-.02em;color:var(--ink)}
+.post:hover .title{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+.post .desc{margin:.45rem 0 0 6rem;font-size:1.02rem;line-height:1.5;color:var(--muted);max-width:52ch}
+@media(max-width:680px){
+  .post{padding:1.05rem 0}
+  .post .wl{flex-wrap:wrap;gap:.15rem .7rem}
+  .post .type{width:auto;font-size:.64rem;order:1}
+  .post .title{flex-basis:100%;order:2;font-size:1.24rem}
+  .post .desc{margin-left:0;font-size:.98rem}
+}
 </style>
 </head>
 <body>
@@ -220,54 +236,9 @@ body.play .work .open:hover{border-color:var(--ink);color:var(--ink)}
       <div class="sec-body">
         <div class="hg" id="hg-prompt-wrap"></div>
 
-        <a class="work" href="https://hartswf0.github.io/elsewhere/watson-hartsoe-site/operative-ekphrasis-relational-essay.html" data-op="translate" data-obj="text" data-ten="authorship" data-phrase="turns a text into a control surface that produces what it names">
-          <div class="wl"><span class="type">Paper</span><span class="title">Operative Ekphrasis</span></div>
-          <p class="desc">Text as an operative control surface for reality. Written with Jay David Bolter.</p>
-        </a>
-
-        <a class="work" href="https://hartswf0.github.io/elsewhere/watson-hartsoe-site/ripples-conference-presentation-rebuilt.html" data-op="remember" data-obj="world" data-ten="memory" data-phrase="tries to make a generative world remember what already happened in it">
-          <div class="wl"><span class="type">System</span><span class="title">Coaxing the Ripples</span></div>
-          <p class="desc">A bird eats a blueberry; two turns later it returns, untouched. Can a generative system remember? Presented at ELO 2026.</p>
-        </a>
-
-        <a class="work" href="https://hartswf0.github.io/elsewhere/watson-hartsoe-site/after-the-scene-legos-essay__1_.html" data-op="generate" data-obj="world" data-ten="discontinuity" data-phrase="watches a model write the next world after the scene feels finished">
-          <div class="wl"><span class="type">Essay</span><span class="title">After the Scene</span></div>
-          <p class="desc">The scene arrives whole enough to feel inevitable. Then the machine writes the next world. The LEGOS framework.</p>
-        </a>
-
-        <a class="work" href="https://hartswf0.github.io/elsewhere/watson-hartsoe-site/play-freedom-ai-films-tufte_5_.html" data-op="expose" data-obj="image" data-ten="abundance" data-phrase="exposes the moment a generated image arrives before the film has thought">
-          <div class="wl"><span class="type">Film</span><span class="title">Play, Freedom, and AI Films</span></div>
-          <p class="desc">The image arrives before the movie. It may be the moment the film stops thinking.</p>
-        </a>
-
-        <a class="work" href="https://hartswf0.github.io/elsewhere/watson-hartsoe-site/machinery_of_meaning_legible_film.html" data-op="expose" data-obj="footage" data-ten="opacity" data-phrase="exposes a film procedure while it is still running">
-          <div class="wl"><span class="type">Film</span><span class="title">The Machinery of Meaning</span></div>
-          <p class="desc">A procedural film engine you can read while it runs.</p>
-        </a>
-
-        <a class="work" href="https://hartswf0.github.io/elsewhere/watson-hartsoe-site/machinery_of_meaning_fluid_film_v3.html" data-op="simulate" data-obj="footage" data-ten="opacity" data-phrase="performs the same procedure as a continuous field rather than frames">
-          <div class="wl"><span class="type">Film</span><span class="title">Machinery of Meaning: Fluid</span></div>
-          <p class="desc">The same engine, run as a continuous field rather than discrete frames.</p>
-        </a>
-
-        <a class="work" href="https://hartswf0.github.io/elsewhere/watson-hartsoe-site/can_a_language_model_build_with_lego__2_.html" data-op="translate" data-obj="model" data-ten="misclassification" data-phrase="translates a model's claim into legal parts that can be checked">
-          <div class="wl"><span class="type">System</span><span class="title">Can a Model Build with LEGO?</span></div>
-          <p class="desc">A picture is cheap. A build is legal parts, exact placements, and real connections. Built on LDraw.</p>
-        </a>
-
-        <a class="work" href="https://hartswf0.github.io/elsewhere/watson-hartsoe-site/centaur-box-presentation-concrete.html" data-op="expose" data-obj="history" data-ten="agency" data-phrase="exposes the hidden record beneath a persuasive conversation">
-          <div class="wl"><span class="type">System</span><span class="title">Centaur Box</span></div>
-          <p class="desc">The door is not the event. Without the hidden run record, the conversation is only a story.</p>
-        </a>
-
-        <a class="work" href="https://hartswf0.github.io/elsewhere/watson-hartsoe-site/aphoristic-social-models/index.html" data-op="simulate" data-obj="model" data-ten="authorship" data-phrase="simulates a historical encounter through seven competing models">
-          <div class="wl"><span class="type">Paper</span><span class="title">Growing Entanglements</span></div>
-          <p class="desc">Captain Cook and seven agent-based models. History does not enter code whole; it arrives through a hand.</p>
-        </a>
-
-        <a class="work" href="https://hartswf0.github.io/abc-flix/" data-op="assemble" data-obj="footage" data-ten="abundance" data-phrase="assembles abundance by sampling rather than cutting down">
-          <div class="wl"><span class="type">Film</span><span class="title">CINEOSIS</span></div>
-          <p class="desc">Assembly is sampling, not cutting. When footage is abundant, cutting-down is the wrong verb.</p>
+        <a class="work" href="https://dl.acm.org/doi/fullHtml/10.1145/3679318.3685411" data-op="audit" data-obj="emotion" data-ten="misclassification" data-phrase="documents where an emotion classifier misreads affect">
+          <div class="wl"><span class="type">Paper</span><span class="title">Auditing Emotion AI</span></div>
+          <p class="desc">Documents where emotion-recognition systems mislabel affect. Published at NordiCHI 2024.</p>
         </a>
 
         <a class="work" href="https://www.youtube.com/watch?v=Uoitq8hpcCM" data-op="materialize" data-obj="emotion" data-ten="legality" data-phrase="materializes an emotion classification as a physical object">
@@ -275,9 +246,74 @@ body.play .work .open:hover{border-color:var(--ink);color:var(--ink)}
           <p class="desc">Reads a face, assigns an emotion, returns a gumball. The label is probably wrong. The gumball is real.</p>
         </a>
 
-        <a class="work" href="https://dl.acm.org/doi/fullHtml/10.1145/3679318.3685411" data-op="audit" data-obj="emotion" data-ten="misclassification" data-phrase="documents where an emotion classifier misreads affect">
-          <div class="wl"><span class="type">Paper</span><span class="title">Auditing Emotion AI</span></div>
-          <p class="desc">Documents where emotion-recognition systems mislabel affect. Published at NordiCHI 2024.</p>
+        <a class="work" href="https://hartswf0.github.io/elsewhere/watson-hartsoe-site/centaur-box-presentation-concrete.html" data-op="expose" data-obj="history" data-ten="agency" data-phrase="exposes the hidden record beneath a persuasive conversation">
+          <div class="wl"><span class="type">System</span><span class="title">Centaur Box</span></div>
+          <p class="desc">The door is not the event. Without the hidden run record, the conversation is only a story.</p>
+        </a>
+
+        <a class="work" href="https://hartswf0.github.io/elsewhere/watson-hartsoe-site/play-freedom-ai-films-tufte_5_.html" data-op="expose" data-obj="image" data-ten="abundance" data-phrase="exposes the moment a generated image arrives before the film has thought">
+          <div class="wl"><span class="type">Film</span><span class="title">Play, Freedom, and AI Films</span></div>
+          <p class="desc">The image arrives before the movie. It may be the moment the film stops thinking.</p>
+        </a>
+
+        <a class="work" href="https://hartswf0.github.io/elsewhere/watson-hartsoe-site/aphoristic-social-models/index.html" data-op="simulate" data-obj="model" data-ten="authorship" data-phrase="simulates a historical encounter through seven competing models">
+          <div class="wl"><span class="type">Paper</span><span class="title">Growing Entanglements</span></div>
+          <p class="desc">Captain Cook and seven agent-based models. History does not enter code whole; it arrives through a hand.</p>
+        </a>
+
+        <a class="work" href="https://hartswf0.github.io/elsewhere/watson-hartsoe-site/after-the-scene-legos-essay__1_.html" data-op="generate" data-obj="world" data-ten="discontinuity" data-phrase="watches a model write the next world after the scene feels finished">
+          <div class="wl"><span class="type">Essay</span><span class="title">After the Scene</span></div>
+          <p class="desc">The scene arrives whole enough to feel inevitable. Then the machine writes the next world. The LEGOS framework.</p>
+        </a>
+
+        <a class="work" href="https://hartswf0.github.io/elsewhere/watson-hartsoe-site/can_a_language_model_build_with_lego__2_.html" data-op="translate" data-obj="model" data-ten="misclassification" data-phrase="translates a model's claim into legal parts that can be checked">
+          <div class="wl"><span class="type">System</span><span class="title">Can a Model Build with LEGO?</span></div>
+          <p class="desc">A picture is cheap. A build is legal parts, exact placements, and real connections. Built on LDraw.</p>
+        </a>
+
+        <a class="work" href="https://hartswf0.github.io/elsewhere/watson-hartsoe-site/ripples-conference-presentation-rebuilt.html" data-op="remember" data-obj="world" data-ten="memory" data-phrase="tries to make a generative world remember what already happened in it">
+          <div class="wl"><span class="type">System</span><span class="title">Coaxing the Ripples</span></div>
+          <p class="desc">A bird eats a blueberry; two turns later it returns, untouched. Can a generative system remember? Presented at ELO 2026.</p>
+        </a>
+
+        <a class="work" href="https://hartswf0.github.io/elsewhere/watson-hartsoe-site/operative-ekphrasis-relational-essay.html" data-op="translate" data-obj="text" data-ten="authorship" data-phrase="turns a text into a control surface that produces what it names">
+          <div class="wl"><span class="type">Paper</span><span class="title">Operative Ekphrasis</span></div>
+          <p class="desc">Text as an operative control surface for reality. Written with Jay David Bolter.</p>
+        </a>
+
+        <a class="work" href="https://hartswf0.github.io/abc-flix/" data-op="assemble" data-obj="footage" data-ten="abundance" data-phrase="assembles abundance by sampling rather than cutting down">
+          <div class="wl"><span class="type">Film</span><span class="title">CINEOSIS</span></div>
+          <p class="desc">Assembly is sampling, not cutting. When footage is abundant, cutting-down is the wrong verb.</p>
+        </a>
+
+        <a class="work" href="https://hartswf0.github.io/elsewhere/watson-hartsoe-site/machinery_of_meaning_fluid_film_v3.html" data-op="simulate" data-obj="footage" data-ten="opacity" data-phrase="performs the same procedure as a continuous field rather than frames">
+          <div class="wl"><span class="type">Film</span><span class="title">Machinery of Meaning: Fluid</span></div>
+          <p class="desc">The same engine, run as a continuous field rather than discrete frames.</p>
+        </a>
+
+        <a class="work" href="https://hartswf0.github.io/elsewhere/watson-hartsoe-site/machinery_of_meaning_legible_film.html" data-op="expose" data-obj="footage" data-ten="opacity" data-phrase="exposes a film procedure while it is still running">
+          <div class="wl"><span class="type">Film</span><span class="title">The Machinery of Meaning</span></div>
+          <p class="desc">A procedural film engine you can read while it runs.</p>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- blog -->
+  <section class="sec">
+    <div class="sec-grid">
+      <div class="sec-tag">Blog</div>
+      <div class="sec-body">
+
+        <a class="post" href="https://hartswf0.github.io/elsewhere/watson-hartsoe-site/the-pronoun-alibi.html">
+          <div class="wl"><span class="type">Essay</span><span class="title">The Pronoun Alibi</span></div>
+          <p class="desc">A crime scene in eight exhibits: how agency migrates between person and machine after applause, liability, grief, or embarrassment arrives.</p>
+        </a>
+
+        <a class="post" href="https://hartswf0.github.io/elsewhere/watson-hartsoe-site/the-adviser-leaves-the-room.html">
+          <div class="wl"><span class="type">Essay</span><span class="title">The Adviser Leaves the Room</span></div>
+          <p class="desc">An illustrated essay on chatbot advice, dependency, harm, and the migration of responsibility between users, companies, and institutions.</p>
         </a>
 
       </div>

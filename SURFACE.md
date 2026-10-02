@@ -150,3 +150,30 @@ The view is remembered, and `?view=` links to one.
 **Hover preview:** on fine pointers only, resting on an orange or a tile for 0.45s shows the live page at small scale. It never appears on touch screens.
 
 **Without JavaScript or with a modifier-click:** crate tiles and list names are real links to the project.
+
+## Revision: a steady walk, every repository, a drawn bar, and Seasons
+
+**The walk glitch: cause and fix.**
+- **Cause:** while you scrolled, he chased a moving target. That popped him in and out of a zip pose, snapped him from walking to standing, flipped his facing, and switched the outline wobble on and off. On phones, the address bar showing and hiding fired a resize that jumped the scroll.
+- **Fix:** while you scroll he is locked to the camera. His stride comes from the distance travelled, and the walk blends in and out with smoothed speed. He turns around only when the direction clearly changes, and the outline wobble runs only during real actions. Resizes that don't change the stage are ignored.
+- **Measured, old → new:** facing flips 6 → 1 (the intended reversal), position jumps relative to the camera 48 → 0, zip-pose frames 49 → 0.
+
+**Every repository:** 340, up from 311.
+- The 29 created since the April 30 audit (forks and one empty repo excluded) are read from git:
+  - planted = first commit; commits = commit count;
+  - site = a root `index.html` or a `gh-pages` branch;
+  - description = the first line of the README;
+  - theme by keywords.
+- "Tended" dates for recent repositories come from the live listing.
+
+**The bar, drawn:**
+- the blinking pixel face, then "The Grove" with its count and date;
+- a search box styled as a tag;
+- four tools as hand-drawn icons, with a wavy orange underline on the active one;
+- one-tap fruit toggles on desktop (✦ hand-picked, new, and the five ripeness states), and a select on phones;
+- a wavy ink line in place of the ruled border.
+
+**Seasons:** the chronology.
+- A ring per month, its height the number of projects planted that month. Each ring jumps to its month, and the view opens on the newest.
+- Below, every month from newest to oldest, with its projects as large pills.
+- Also: a "New this season" filter, "Newest planted" sorting in the list, and planted and tended dates in the modal.

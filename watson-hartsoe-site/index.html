@@ -141,6 +141,7 @@ a.work:hover .title,a.post:hover .title{text-decoration:underline;text-decoratio
 .gsearch button{min-height:46px;padding:.55rem 1.1rem;border:0;border-radius:999px;background:var(--ink);color:var(--paper);font:600 .74rem/1 var(--sans);letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
 .gsearch input:focus-visible,.gsearch button:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 .handpicked{margin:0 0 .8rem;border-top:1px solid var(--rule);padding-top:.6rem}
+.colls{margin:0 0 1.2rem}.coll{padding:.9rem 0 .5rem;border-top:1px solid var(--rule)}.coll-note{margin:0 0 .4rem;max-width:40rem;font-size:.95rem;color:var(--muted)}.coll ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:.4rem}.coll li a{display:inline-flex;align-items:center;min-height:40px;padding:.3rem .8rem;border:1px solid var(--rule);border-radius:999px;text-decoration:none;font-size:.98rem}.coll li a:hover{border-color:var(--ink)}
 .handpicked summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font:600 .74rem/1.3 var(--sans);letter-spacing:.05em;text-transform:uppercase}
 .handpicked summary::after{content:"+";margin-left:.5rem;font-size:1rem;font-weight:400}.handpicked[open] summary::after{content:"\2013"}
 .handpicked[open] summary{margin-bottom:.6rem}
@@ -371,12 +372,19 @@ body.play .work .open:hover{border-color:var(--ink);color:var(--ink)}
     <div class="sec-grid">
       <h2 class="sec-tag">The Grove</h2>
       <div class="sec-body grove">
-        <p class="grove-lede">Every repository, searchable, with a live preview of each. <a href="../grove.html">Open the grove</a>.</p>
+        <p class="grove-lede">Every repository, searchable, with a live preview of each. <a href="../grove.html">Open the grove</a>, or <a href="../shed.html">the shed</a> for collections and small games.</p>
         <form class="gsearch" action="../grove.html" method="get" role="search" aria-label="Search the grove">
           <label class="vh" for="gq">Search every project</label>
           <input id="gq" name="q" type="search" placeholder="Search by name or idea" autocomplete="off">
           <button type="submit">Search</button>
         </form>
+        <div id="colls" class="colls" hidden></div>
+        <script src="../curation.js"></script>
+        <script>(function(){var c=window.__CURATION,el=document.getElementById('colls');if(!c||!el||!c.collections||!c.collections.length)return;
+          var e=function(t){return String(t).replace(/[&<>"]/g,function(x){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[x];});};
+          el.innerHTML=c.collections.filter(function(x){return x.items&&x.items.length;}).map(function(x){return '<section class="coll"><h3 class="tier-name">'+e(x.name)+'</h3>'+(x.note?'<p class="coll-note">'+e(x.note)+'</p>':'')+
+            '<ul>'+x.items.map(function(n){return '<li><a href="../grove.html#pick='+encodeURIComponent(n)+'">'+e(n)+'</a></li>';}).join('')+'</ul></section>';}).join('');
+          if(el.innerHTML)el.hidden=false;})();</script>
         <details class="handpicked"><summary>Selected projects, by body of work</summary>
 
         <div class="tier"><h3 class="tier-name"><span class="dot" style="background:#ff6b35"></span>Current Research Gateway</h3>

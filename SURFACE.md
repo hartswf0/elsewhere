@@ -7,7 +7,7 @@ Every visible element is a claim about what matters now. If an element cannot sa
 
 | Actor | Object | Operation | Completion |
 |---|---|---|---|
-| A visitor (mouse, touch, keyboard, or screen reader) | Watson's work: 17 selected pieces, 311 repositories | Understand who he is, then find and open one piece | The piece is open, or the visitor leaves knowing where everything is |
+| A visitor (mouse, touch, keyboard, or screen reader) | Watson's work: the selected pieces on the homepage, and every repository in the grove | Understand who he is, then find and open one piece | The piece is open, or the visitor leaves knowing where everything is |
 
 The film and the grove are the art. They must never stand between a visitor and the work.
 
@@ -31,7 +31,7 @@ The film and the grove are the art. They must never stand between a visitor and 
 |---|---|---|
 | Film intertitles | The current beat of the story | Keep visually; hidden from assistive tech (the written version carries them) |
 | Scene bar | Where you are in the film; jump anywhere | Keep |
-| Scene cards | The links on screen right now, held still | Keep, shown only during their scene |
+| Scene cards | The links on screen right now, held still | **Cut** (they covered the drawing); the drawn objects are now the links, and the end card stays |
 | "Keep scrolling" nudge | The film continues | Keep, shown only after you stop |
 | The drifting links in the drawing | Same as the scene cards | Keep as art; not the only path |
 | Exposure-sheet counter | Scene, camera, frame | Keep as delight; hidden from assistive tech |
@@ -42,7 +42,7 @@ The film and the grove are the art. They must never stand between a visitor and 
 | Hidden game (face, Konami code) | A different way to read the work | Keep; labeled honestly, with its on/off state announced |
 | The basket | A random ripe orange | Keep; labeled, reachable only in the grove overview |
 | Tricks (keepie-uppie, breakdance, duct tape) | He is a character, not a cursor; duct tape proposes a new work from three real ones | Keep: a labeled menu plus J, B and T; disabled while a pick is active; each trick announced; the camera pushes in only to show it; skipped under reduced motion (the outcome is still announced); one unprompted trick per visit after 15 seconds idle |
-| Grove doorway on the homepage | Search, the 11 trees, and tricks, one click from the work | Keep; the search opens the grove filtered (`grove.html?q=`), each tree links to `#tree=`, each trick to `#trick=` |
+| Grove doorway on the homepage | One sentence and a search box | Keep; the search opens the grove filtered (`grove.html?q=`). The tree cards, most-used grid, tricks line and ripeness key are cut |
 
 ## 4. State map
 
@@ -177,3 +177,20 @@ The view is remembered, and `?view=` links to one.
 - A ring per month, its height the number of projects planted that month. Each ring jumps to its month, and the view opens on the newest.
 - Below, every month from newest to oldest, with its projects as large pills.
 - Also: a "New this season" filter, "Newest planted" sorting in the list, and planted and tended dates in the modal.
+
+## Revision: professional, and nothing to maintain
+
+**Cut from the homepage:**
+- the model sheet (three panels, peg bars, the caption); About is now a portrait and the bio, in the same grid as every other section;
+- the grove section's most-used grid, new-this-season grid, tree cards, tricks line and ripeness key;
+- the cinema, systems and writing scene cards, which covered the drawing.
+
+**Nothing on the homepage goes stale:** no counts, no dates, no rankings. They live only in the grove, which says when it was picked.
+
+**The systems are the links.** The Gumball Emotion Machine, the LEGO stack, Centaur Box and Coaxing the Ripples are each one large link: drawing and label together. Each wakes as he walks up, or on hover:
+- the gumball crank turns and a gumball rolls out;
+- the bricks drop into a stack as he approaches;
+- Centaur Box's door swings open and the light comes on;
+- the bird pecks and the rings go out.
+
+The writing fingerpost's whole sign boards are links. Under reduced motion, each shows its finished state. The written version of the film and the work list below still hold every link for keyboard and screen-reader users.

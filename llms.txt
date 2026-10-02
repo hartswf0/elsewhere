@@ -7,7 +7,7 @@ Recognized by the ITU AI for Good platform, Georgia Tech's AI Competition, CREAT
 ## Pages
 
 - [Home](https://hartswf0.github.io/elsewhere/): films, systems, writing, research, and a scroll cartoon about description becoming a world.
-- [The Grove](https://hartswf0.github.io/elsewhere/grove.html): all 311 repositories on 11 trees by theme, searchable, sorted by ripeness (ripe, ripening, green, blossom, fallen).
+- [The Grove](https://hartswf0.github.io/elsewhere/grove.html): all 340 repositories on 11 trees by theme, searchable, sorted by ripeness (ripe, ripening, green, blossom, fallen).
 - [The Orange Tree](https://hartswf0.github.io/elsewhere/orange.html): a short multiplane scroll cartoon.
 
 ## Film
@@ -35,338 +35,367 @@ Recognized by the ITU AI for Good platform, Georgia Tech's AI Competition, CREAT
 
 ## Repositories by theme
 
-### Other Projects (118)
+### Other Projects (125)
 - [moto](https://hartswf0.github.io/moto/) [#1 most used, ripe]: mother of technical opportunity
 - [ripples](https://hartswf0.github.io/ripples/) [#2 most used, ripe]: RIPPLES: Relational Imagination of Perspective, Presence, and Latent Ecologies in Simulacra
 - [tractor-dce-gyo](https://hartswf0.github.io/tractor-dce-gyo/) [#3 most used, ripe]: The world of a system is bounded.  The world of folk systems is the totality of living patterns.
 - [sense-ritual](https://hartswf0.github.io/sense-ritual/) [#5 most used, ripe]: Digital architectures condition cognition through ritual repetition.
 - [tractor-field-notes](https://hartswf0.github.io/tractor-field-notes/) [#10 most used, ripe]: Field notes for a geometric folk logic of circles, trade, and flux.
 - [operation-describe](https://hartswf0.github.io/operation-describe/) [#11 most used, ripe]: > *To describe was once to stand outside and look in.   > Now to describe is to generate, and to generate is to describe.*
-- [rosetta-protocol](https://hartswf0.github.io/rosetta-protocol/) [#14 most used, ripe]: Decoding today's cultural battlegrounds to encode stories for the deep future.
-- [ethics-infrastructure](https://hartswf0.github.io/ethics-infrastructure/) [#18 most used, ripe]: Semantic Masonry and the Grammar of the Grid when Words Assemble Geometries
-- [intron](https://hartswf0.github.io/intron/) [#20 most used, ripe]: enter the sequence
-- [wa](https://hartswf0.github.io/wa/) [#21 most used, ripening]: Word Assembler
-- [role-deck](https://hartswf0.github.io/role-deck/) [#22 most used, ripening]: A deck of roles, each cut to reveal how ethics lives in practice.
-- [text-ure](https://hartswf0.github.io/text-ure/) [#24 most used, ripening]: A spatial-semantic exploration of operative ekphrasis through navigable text architectures.
-- [opek](https://hartswf0.github.io/opek/) [#25 most used, ripening]: OPERATIVE EKPHRASIS RESEARCH KERNEL
-- [forkit](https://hartswf0.github.io/forkit/) [#28 most used, ripening]: ethics ide
-- [gob](https://hartswf0.github.io/gob/) [#29 most used, ripening]: Mobile copyboard for the four prompts. Follow the order below, copy what you need in one tap, and run each stage without switching files.
-- [nothing-ritual](https://hartswf0.github.io/nothing-ritual/) [#34 most used, ripening]: when nothing is done nothing is left undone
-- [func-sub](https://hartswf0.github.io/func-sub/) [#41 most used, ripening]: a functional substrate
-- [alien-child](https://hartswf0.github.io/alien-child/) [#43 most used, ripening]: A psychological warfare soldier is humanity's last hope. He must enter the collective consciousness of an alien race and destroy it from within.
-- [eos](https://hartswf0.github.io/eos/) [#47 most used, ripening]: Ekphrastic Operating System
-- [golden-lens](https://hartswf0.github.io/golden-lens/) [#51 most used, ripening]: To a dog (Edgar), the ability to refract light or see trace phosphorescence *is* a superpower. We use this framing to teach 4th-grade optics without the text feeling like a textbook
-- [smith-deck](https://hartswf0.github.io/smith-deck/) [#53 most used, ripening]: Spin impedance like vinyl: a DJ‑deck Smith chart.
-- [witt](https://hartswf0.github.io/witt/) [#55 most used, ripening]: "The limits of my language mean the limits of my world." // 5.6
-- [wh-ripple](https://hartswf0.github.io/wh-ripple/) [#57 most used, ripening]: Ripples map unseen depths.
-- [life-star](https://hartswf0.github.io/life-star/) [#58 most used, ripening]: From a world killer, a world womb.
-- [vibe-crates](https://hartswf0.github.io/vibe-crates/) [#61 most used, ripening]: crate list with vibe extenders
-- [pretext-field](https://hartswf0.github.io/pretext-field/) [#64 most used, ripe]: A compilation of advanced text-layout physics engines, echolocation sonifications, genomic content systems, and ML-inspired navigation vectors.
-- [os-dope](https://hartswf0.github.io/os-dope/) [#73 most used, ripening]: A living, editable operating system where tools, dialogue, and environments co-evolve — made for making anything that makes anythinhg.
-- [volholla](https://hartswf0.github.io/volholla/) [#74 most used, ripening]: A Hall for Digital Constructs
-- [sympathetic-magic](https://hartswf0.github.io/sympathetic-magic/) [#76 most used, ripening]: ETHICS OF REPRESENTATION UNDER SYMPATHETIC PRINCIPLES
-- [dirty-disclosure](https://hartswf0.github.io/dirty-disclosure/) [#79 most used, ripening]: You must disclose to be believed, and every disclosure is grounds to disbelieve you.
-- [itinerant-prompt](https://hartswf0.github.io/itinerant-prompt/) [#83 most used, ripening]: A cartography of the synthetic transition—mapping the architecture of emergent minds, distributed hallucinations, and the new laws of digital sovereignty.
-- [shroud-project](https://hartswf0.github.io/shroud-project/) [#86 most used, ripening]: half-truth/half-transparent
-- [leasing-vibes](https://hartswf0.github.io/leasing-vibes/) [#88 most used, ripening]: "What is man?" becomes "Through what code/medium are we written?"
-- [bluefoot](https://hartswf0.github.io/bluefoot/) [#90 most used, ripening]: Bluefoot tracks what others miss.
-- [design-brief](https://hartswf0.github.io/design-brief/) [#91 most used, ripening]: Design Fiction Idioms Julian Bleecker's four mediums for staging the future as ordinary artifact — each run through the Wittgenstein mill until only crystalline remarks survive. Below: the axioms, their divergent branc…
-- [RIP](https://hartswf0.github.io/RIP/) [#95 most used, ripening]: PLES
-- [head-neuroglow](https://hartswf0.github.io/head-neuroglow/) [#97 most used, ripening]: Generative Anthropometric Headform Experiments
-- [mp](https://hartswf0.github.io/mp/) [#99 most used, ripening]: MULTI-PLANE BUREAU OF STATIC AXIS RECONSTRUCTION
-- [blue-deli](https://hartswf0.github.io/blue-deli/) [#100 most used, ripe]: matrix editor
-- [sr-os](https://hartswf0.github.io/sr-os/) [#102 most used, ripening]: surreal operating system
-- [cb](https://hartswf0.github.io/cb/) [#110 most used, ripening]: centaur box
-- [mfss](https://hartswf0.github.io/mfss/) [#111 most used, ripening]: Welcome to the MFSS Global Hub: The living artifact of a continuously evolving social feed, mapping the hidden economies of attention and extraction, from potato fields to prompt pipelines.
-- [fuzzy-linkography](https://hartswf0.github.io/fuzzy-linkography/) [#112 most used, green]
-- [soul-mansion](https://hartswf0.github.io/soul-mansion/) [#115 most used, ripening]: We turn images into tiny programmable worlds. Each cell is a “mansion” that can house a role—Location, Entity, Goal, Obstacle, Shift, Solution.  No mysticism—just finite symbols under rules, judged by behavior. It’s Tu…
-- [privacy-value-labels](https://hartswf0.github.io/privacy-value-labels/) [#128 most used, green]: Clear, comparable labels for mapping privacy values across contexts.
-- [silence-has-rules](https://hartswf0.github.io/silence-has-rules/) [#129 most used, green]: Silence is a medium with laws structuring how we listen/belong.
-- [totb](https://hartswf0.github.io/totb/) [#133 most used, green]: think outside the box
-- [enos-garden](https://hartswf0.github.io/enos-garden/) [#136 most used, green]: An ambient environment of generative ideas
-- [political-kayfabe](https://hartswf0.github.io/political-kayfabe/) [#143 most used, green]: The Institutionalization of Strategic Deception in Contemporary Democratic Systems
-- [bifurcator](https://hartswf0.github.io/bifurcator/) [#144 most used, green]: creating a distinction between two pages
-- [vue-apps](https://hartswf0.github.io/vue-apps/) [#146 most used, ripening]: a small test of using vue for HTML elements in Hubs
-- [frankenstein-radio](https://hartswf0.github.io/frankenstein-radio/) [#147 most used, ripening]: mechanical dreamin
-- [dolphin](https://hartswf0.github.io/dolphin/) [#152 most used, ripening]: innovative ideas seamlessly blend with practical execution
-- [with-in](https://hartswf0.github.io/with-in/) [#153 most used, green]: Aesthetic research with/in latent space.
-- [blue-belt](https://hartswf0.github.io/blue-belt/) [#154 most used, ripening]: Discipline in Practice. Craft in Mastery.
-- [CADdrive](https://github.com/hartswf0/CADdrive) [#156 most used, ripening]: An open source collaboration platform for product design teams with state-of-the-art version management, issue tracking, milestone planning, and project controlling capabilities.
-- [show-me-show-one](https://hartswf0.github.io/show-me-show-one/) [#158 most used, ripening]: can we see show-1?
-- [hamlets-napkin](https://hartswf0.github.io/hamlets-napkin/) [#159 most used, green]: Context Engineering Napkins: Theory Scribbled Between Acts
-- [1000-medical](https://hartswf0.github.io/1000-medical/) [#160 most used, green]: Each scenario is a live, branching micro-world where interventions change vitals, labs, and outcomes in minutes—not modules in months.
-- [think-outside-the-box](https://hartswf0.github.io/think-outside-the-box/) [#166 most used, green]: The Centaur Box Experiment
-- [re-dna](https://hartswf0.github.io/re-dna/) [#169 most used, ripening]: Biomimetic knowledge system using DNA-like structures for adaptive information management.
-- [quasten-sts](https://hartswf0.github.io/quasten-sts/) [#176 most used, green]: zettlekasten for science technology studies
-- [eva-eval](https://hartswf0.github.io/eva-eval/) [#177 most used, green]
-- [shiny-goggles](https://hartswf0.github.io/shiny-goggles/) [#181 most used, green]
-- [oceanic-mason](https://hartswf0.github.io/oceanic-mason/) [#184 most used, green]: the ocean remembers
-- [walk-mason](https://hartswf0.github.io/walk-mason/) [#186 most used, green]: to walk is to buld
-- [bespoke-pro](https://hartswf0.github.io/bespoke-pro/) [#187 most used, green]
-- [deur](https://hartswf0.github.io/deur/) [#193 most used, green]: worth doing
-- [loom-mason.html](https://hartswf0.github.io/loom-mason.html/) [#194 most used, green]: threads are mortar
-- [emotectonics](https://hartswf0.github.io/emotectonics/) [#195 most used, green]: relationship seismograph
-- [pivot](https://hartswf0.github.io/pivot/) [#196 most used, green]: pivot from observation to practice
-- [flux-field](https://hartswf0.github.io/flux-field/) [#197 most used, green]: view meaning in flux
-- [2700-speculative-catalog](https://hartswf0.github.io/2700-speculative-catalog/) [#198 most used, green]: Speculative design seeds
-- [Decolonial-Web-Artifacts](https://hartswf0.github.io/Decolonial-Web-Artifacts/) [#199 most used, green]: A repository of experimental web artifacts exploring decolonial approaches to science, technology, and knowledge production.
-- [spectral-navigator](https://hartswf0.github.io/spectral-navigator/) [#209 most used, green]: A digital humanities tool for exploring cultural perspectives through the metaphor of spectral light
-- [branch-board-vanilla](https://hartswf0.github.io/branch-board-vanilla/) [#210 most used, green]: Branch board vanilla
-- [branch-board-plus](https://hartswf0.github.io/branch-board-plus/) [#211 most used, green]: 19.99
-- [hyperclay-editor](https://hartswf0.github.io/hyperclay-editor/) [#213 most used, fallen]: Between text and moving pictures.
-- [edc](https://github.com/hartswf0/edc) [#215 most used, green]: Esoterica Cybernetics Division
-- [fuse](https://github.com/hartswf0/fuse) [#216 most used, green]: A foundational project to map and operationalize the symbolic structure of human meaning.
-- [rubric_evaluator](https://hartswf0.github.io/rubric_evaluator/) [#222 most used, blossom]: Project Rubric Evaluator
-- [On-Image-2024](https://hartswf0.github.io/On-Image-2024/) [#223 most used, blossom]: Conference on Image 2024
-- [scholastic-parrot](https://hartswf0.github.io/scholastic-parrot/) [#224 most used, blossom]: Where Knowledge Takes Flight
-- [tv-close](https://hartswf0.github.io/tv-close/) [#225 most used, blossom]: do not sit too close to the tv
-- [gaze](https://github.com/hartswf0/gaze) [#226 most used, fallen]: what do you attend to?
-- [GEN3120](https://github.com/hartswf0/GEN3120) [#230 most used, fallen]: frames hosting
-- [MH_TEST](https://hartswf0.github.io/MH_TEST/) [#233 most used, fallen]
-- [HPTW](https://hartswf0.github.io/HPTW/) [#234 most used, fallen]: Humanistic Perspectives in a Technological World
-- [THEM-gallery](https://github.com/hartswf0/THEM-gallery) [#235 most used, fallen]
-- [vid2vid](https://github.com/hartswf0/vid2vid) [#236 most used, fallen]: Pytorch implementation of our method for high-resolution (e.g. 2048x1024) photorealistic video-to-video translation.
-- [javascript-mayhem](https://hartswf0.github.io/javascript-mayhem/) [#238 most used, fallen]: Teach fundamental JavaScript concepts while challenging participants to create increasingly absurd and frustrating login experiences.
-- [zen-vcr](https://hartswf0.github.io/zen-vcr/) [#244 most used, fallen]: The more you rewind, the more you unwind.
-- [MG_01](https://hartswf0.github.io/MG_01/) [#254 most used, fallen]: MG_01
-- [show-me](https://hartswf0.github.io/show-me/) [#255 most used, fallen]: show-1 parody
-- [task-manager](https://hartswf0.github.io/task-manager/) [#256 most used, fallen]: organize your life.
-- [gemini-test](https://hartswf0.github.io/gemini-test/) [#257 most used, fallen]: test of gemini api
-- [the-wifi-cat-project](https://hartswf0.github.io/the-wifi-cat-project/) [#258 most used, fallen]: Follow the signal, find the connection.
-- [balam](https://github.com/hartswf0/balam) [#260 most used, fallen]: Bright Star Jaguar
-- [notion-qa](https://github.com/hartswf0/notion-qa) [#265 most used, fallen]: Talk to a notion project
-- [langflow](https://github.com/hartswf0/langflow) [#267 most used, fallen]
-- [nomic](https://github.com/hartswf0/nomic) [#269 most used, fallen]: Interact with massive embedding, text and image datasets in your web browser
-- [them-propp](https://github.com/hartswf0/them-propp) [#282 most used, blossom]: morphology of a romantic comedy folk tale
-- [pathfinding](https://github.com/hartswf0/pathfinding) [#283 most used, blossom]: find your way
-- [tortoise](https://github.com/hartswf0/tortoise) [#284 most used, blossom]: steady persistence helps the team overcome seemingly insurmountable obstacles
-- [elephant](https://github.com/hartswf0/elephant) [#285 most used, blossom]: create a supportive environment that brings out the best in everyone
-- [hawk](https://github.com/hartswf0/hawk) [#286 most used, blossom]: bold vision inspires and motivates the entire team
-- [owl](https://github.com/hartswf0/owl) [#287 most used, blossom]: balance analysis with openness to creative inspiration
-- [sts](https://github.com/hartswf0/sts) [#288 most used, blossom]: science technology studies
-- [SLAS](https://github.com/hartswf0/SLAS) [#289 most used, blossom]: steering like a state
-- [tsee-kin](https://github.com/hartswf0/tsee-kin) [#290 most used, blossom]: The Mayan word for eagle is Tz'ikin
-- [cs1](https://github.com/hartswf0/cs1) [#291 most used, blossom]
-- [cs](https://github.com/hartswf0/cs) [#292 most used, blossom]: cs is a test repository for web experiments
-- [detectron2](https://github.com/hartswf0/detectron2) [#293 most used, fallen]: Detectron2 is a platform for object detection, segmentation and other visual recognition tasks.
-- [ArtCritiqueTool](https://github.com/hartswf0/ArtCritiqueTool) [#294 most used, fallen]: Riffing off Sewon
-- [bavoom](https://github.com/hartswf0/bavoom) [#299 most used, fallen]: bavoom to the moon
-- [THEMUnitingTwist](https://github.com/hartswf0/THEMUnitingTwist) [#304 most used, fallen]
-- [MMAM](https://github.com/hartswf0/MMAM) [#309 most used, fallen]
-- [lobavoom](https://github.com/hartswf0/lobavoom) [#311 most used, fallen]: lobavoom is for testing txt over pdf loading into active loop vector database for chunking pdfs
+- [rosetta-protocol](https://hartswf0.github.io/rosetta-protocol/) [#17 most used, ripe]: Decoding today's cultural battlegrounds to encode stories for the deep future.
+- [terrarium](https://hartswf0.github.io/terrarium/) [#21 most used, ripe]: A small world held close enough to watch itself become alive.
+- [ethics-infrastructure](https://hartswf0.github.io/ethics-infrastructure/) [#24 most used, ripe]: Semantic Masonry and the Grammar of the Grid when Words Assemble Geometries
+- [intron](https://hartswf0.github.io/intron/) [#26 most used, ripe]: enter the sequence
+- [motor](https://hartswf0.github.io/motor/) [#29 most used, ripening]: Two engines built against two long specifications. They share one conviction:
+- [wa](https://hartswf0.github.io/wa/) [#30 most used, ripening]: Word Assembler
+- [role-deck](https://hartswf0.github.io/role-deck/) [#31 most used, ripening]: A deck of roles, each cut to reveal how ethics lives in practice.
+- [gunnars-depot.html](https://hartswf0.github.io/gunnars-depot.html/) [#32 most used, ripening]: Build the Vision. Command the Job.
+- [text-ure](https://hartswf0.github.io/text-ure/) [#33 most used, ripening]: A spatial-semantic exploration of operative ekphrasis through navigable text architectures.
+- [opek](https://hartswf0.github.io/opek/) [#35 most used, ripening]: OPERATIVE EKPHRASIS RESEARCH KERNEL
+- [el-desierto](https://hartswf0.github.io/el-desierto/) [#37 most used, ripening]: "For me the world is weird because it is stupendous, awesome, mysterious, unfathomable; my interest has been to convince you that you must assume responsibility for being here, in this marvelous world, in this marvelous 
+- [forkit](https://hartswf0.github.io/forkit/) [#40 most used, ripening]: ethics ide
+- [worldful](https://hartswf0.github.io/worldful/) [#41 most used, ripening]: WORLDFUL
+- [gob](https://hartswf0.github.io/gob/) [#43 most used, ripening]: Mobile copyboard for the four prompts. Follow the order below, copy what you need in one tap, and run each stage without switching files.
+- [nothing-ritual](https://hartswf0.github.io/nothing-ritual/) [#46 most used, ripening]: when nothing is done nothing is left undone
+- [func-sub](https://hartswf0.github.io/func-sub/) [#59 most used, ripening]: a functional substrate
+- [alien-child](https://hartswf0.github.io/alien-child/) [#61 most used, ripening]: A psychological warfare soldier is humanity's last hope. He must enter the collective consciousness of an alien race and destroy it from within.
+- [elsewhere](https://hartswf0.github.io/elsewhere/) [#62 most used, ripening]: The Grove
+- [wh-ripple](https://hartswf0.github.io/wh-ripple/) [#64 most used, ripening]: Ripples map unseen depths.
+- [eos](https://hartswf0.github.io/eos/) [#68 most used, ripening]: Ekphrastic Operating System
+- [golden-lens](https://hartswf0.github.io/golden-lens/) [#70 most used, ripening]: To a dog (Edgar), the ability to refract light or see trace phosphorescence *is* a superpower. We use this framing to teach 4th-grade optics without the text feeling like a textbook
+- [smith-deck](https://hartswf0.github.io/smith-deck/) [#74 most used, ripening]: Spin impedance like vinyl: a DJ‑deck Smith chart.
+- [pretext-field](https://hartswf0.github.io/pretext-field/) [#75 most used, ripe]: A compilation of advanced text-layout physics engines, echolocation sonifications, genomic content systems, and ML-inspired navigation vectors.
+- [witt](https://hartswf0.github.io/witt/) [#78 most used, ripening]: "The limits of my language mean the limits of my world." // 5.6
+- [life-star](https://hartswf0.github.io/life-star/) [#80 most used, ripening]: From a world killer, a world womb.
+- [vibe-crates](https://hartswf0.github.io/vibe-crates/) [#82 most used, ripening]: crate list with vibe extenders
+- [os-dope](https://hartswf0.github.io/os-dope/) [#93 most used, ripening]: A living, editable operating system where tools, dialogue, and environments co-evolve — made for making anything that makes anythinhg.
+- [volholla](https://hartswf0.github.io/volholla/) [#94 most used, ripening]: A Hall for Digital Constructs
+- [sympathetic-magic](https://hartswf0.github.io/sympathetic-magic/) [#98 most used, ripening]: ETHICS OF REPRESENTATION UNDER SYMPATHETIC PRINCIPLES
+- [dirty-disclosure](https://hartswf0.github.io/dirty-disclosure/) [#99 most used, ripening]: You must disclose to be believed, and every disclosure is grounds to disbelieve you.
+- [blue-deli](https://hartswf0.github.io/blue-deli/) [#105 most used, ripe]: matrix editor
+- [itinerant-prompt](https://hartswf0.github.io/itinerant-prompt/) [#106 most used, ripening]: A cartography of the synthetic transition—mapping the architecture of emergent minds, distributed hallucinations, and the new laws of digital sovereignty.
+- [head-neuroglow](https://hartswf0.github.io/head-neuroglow/) [#108 most used, ripening]: Generative Anthropometric Headform Experiments
+- [shroud-project](https://hartswf0.github.io/shroud-project/) [#110 most used, ripening]: half-truth/half-transparent
+- [leasing-vibes](https://hartswf0.github.io/leasing-vibes/) [#111 most used, ripening]: "What is man?" becomes "Through what code/medium are we written?"
+- [bluefoot](https://hartswf0.github.io/bluefoot/) [#113 most used, ripening]: Bluefoot tracks what others miss.
+- [design-brief](https://hartswf0.github.io/design-brief/) [#114 most used, ripening]: Design Fiction Idioms Julian Bleecker's four mediums for staging the future as ordinary artifact — each run through the Wittgenstein mill until only crystalline remarks survive. Below: the axioms, their divergent branc…
+- [RIP](https://hartswf0.github.io/RIP/) [#119 most used, ripening]: PLES
+- [mp](https://hartswf0.github.io/mp/) [#122 most used, ripening]: MULTI-PLANE BUREAU OF STATIC AXIS RECONSTRUCTION
+- [cb](https://hartswf0.github.io/cb/) [#123 most used, ripening]: centaur box
+- [sr-os](https://hartswf0.github.io/sr-os/) [#125 most used, ripening]: surreal operating system
+- [mfss](https://hartswf0.github.io/mfss/) [#134 most used, ripening]: Welcome to the MFSS Global Hub: The living artifact of a continuously evolving social feed, mapping the hidden economies of attention and extraction, from potato fields to prompt pipelines.
+- [fuzzy-linkography](https://hartswf0.github.io/fuzzy-linkography/) [#135 most used, green]
+- [soul-mansion](https://hartswf0.github.io/soul-mansion/) [#138 most used, ripening]: We turn images into tiny programmable worlds. Each cell is a “mansion” that can house a role—Location, Entity, Goal, Obstacle, Shift, Solution.  No mysticism—just finite symbols under rules, judged by behavior. It’s Tu…
+- [privacy-value-labels](https://hartswf0.github.io/privacy-value-labels/) [#152 most used, green]: Clear, comparable labels for mapping privacy values across contexts.
+- [silence-has-rules](https://hartswf0.github.io/silence-has-rules/) [#158 most used, green]: Silence is a medium with laws structuring how we listen/belong.
+- [totb](https://hartswf0.github.io/totb/) [#160 most used, green]: think outside the box
+- [bifurcator](https://hartswf0.github.io/bifurcator/) [#162 most used, green]: creating a distinction between two pages
+- [vue-apps](https://hartswf0.github.io/vue-apps/) [#164 most used, ripening]: a small test of using vue for HTML elements in Hubs
+- [frankenstein-radio](https://hartswf0.github.io/frankenstein-radio/) [#165 most used, ripening]: mechanical dreamin
+- [enos-garden](https://hartswf0.github.io/enos-garden/) [#173 most used, green]: An ambient environment of generative ideas
+- [political-kayfabe](https://hartswf0.github.io/political-kayfabe/) [#174 most used, green]: The Institutionalization of Strategic Deception in Contemporary Democratic Systems
+- [dolphin](https://hartswf0.github.io/dolphin/) [#178 most used, ripening]: innovative ideas seamlessly blend with practical execution
+- [blue-belt](https://hartswf0.github.io/blue-belt/) [#179 most used, ripening]: Discipline in Practice. Craft in Mastery.
+- [show-me-show-one](https://hartswf0.github.io/show-me-show-one/) [#181 most used, ripening]: can we see show-1?
+- [re-dna](https://hartswf0.github.io/re-dna/) [#187 most used, ripening]: Biomimetic knowledge system using DNA-like structures for adaptive information management.
+- [with-in](https://hartswf0.github.io/with-in/) [#189 most used, green]: Aesthetic research with/in latent space.
+- [hamlets-napkin](https://hartswf0.github.io/hamlets-napkin/) [#193 most used, green]: Context Engineering Napkins: Theory Scribbled Between Acts
+- [1000-medical](https://hartswf0.github.io/1000-medical/) [#194 most used, green]: Each scenario is a live, branching micro-world where interventions change vitals, labs, and outcomes in minutes—not modules in months.
+- [think-outside-the-box](https://hartswf0.github.io/think-outside-the-box/) [#198 most used, green]: The Centaur Box Experiment
+- [worlds-of-text](https://hartswf0.github.io/worlds-of-text/) [#199 most used, blossom]: The Core Thesis: Text is not passive description (lore), but an operative control surface for reality (world-execution).
+- [hyperclay-editor](https://hartswf0.github.io/hyperclay-editor/) [#210 most used, fallen]: Between text and moving pictures.
+- [rubric_evaluator](https://hartswf0.github.io/rubric_evaluator/) [#216 most used, blossom]: Project Rubric Evaluator
+- [On-Image-2024](https://hartswf0.github.io/On-Image-2024/) [#217 most used, blossom]: Conference on Image 2024
+- [scholastic-parrot](https://hartswf0.github.io/scholastic-parrot/) [#218 most used, blossom]: Where Knowledge Takes Flight
+- [tv-close](https://hartswf0.github.io/tv-close/) [#219 most used, blossom]: do not sit too close to the tv
+- [GEN3120](https://github.com/hartswf0/GEN3120) [#222 most used, fallen]: frames hosting
+- [quasten-sts](https://hartswf0.github.io/quasten-sts/) [#226 most used, fallen]: zettlekasten for science technology studies
+- [MH_TEST](https://hartswf0.github.io/MH_TEST/) [#227 most used, fallen]
+- [eva-eval](https://hartswf0.github.io/eva-eval/) [#229 most used, fallen]
+- [HPTW](https://hartswf0.github.io/HPTW/) [#230 most used, fallen]: Humanistic Perspectives in a Technological World
+- [THEM-gallery](https://github.com/hartswf0/THEM-gallery) [#231 most used, fallen]
+- [vid2vid](https://github.com/hartswf0/vid2vid) [#233 most used, fallen]: Pytorch implementation of our method for high-resolution (e.g. 2048x1024) photorealistic video-to-video translation.
+- [shiny-goggles](https://hartswf0.github.io/shiny-goggles/) [#236 most used, fallen]
+- [oceanic-mason](https://hartswf0.github.io/oceanic-mason/) [#238 most used, fallen]: the ocean remembers
+- [gaze](https://github.com/hartswf0/gaze) [#240 most used, fallen]: what do you attend to?
+- [walk-mason](https://hartswf0.github.io/walk-mason/) [#241 most used, fallen]: to walk is to buld
+- [bespoke-pro](https://hartswf0.github.io/bespoke-pro/) [#242 most used, fallen]
+- [javascript-mayhem](https://hartswf0.github.io/javascript-mayhem/) [#243 most used, fallen]: Teach fundamental JavaScript concepts while challenging participants to create increasingly absurd and frustrating login experiences.
+- [deur](https://hartswf0.github.io/deur/) [#254 most used, fallen]: worth doing
+- [loom-mason.html](https://hartswf0.github.io/loom-mason.html/) [#255 most used, fallen]: threads are mortar
+- [emotectonics](https://hartswf0.github.io/emotectonics/) [#256 most used, fallen]: relationship seismograph
+- [pivot](https://hartswf0.github.io/pivot/) [#257 most used, fallen]: pivot from observation to practice
+- [flux-field](https://hartswf0.github.io/flux-field/) [#258 most used, fallen]: view meaning in flux
+- [2700-speculative-catalog](https://hartswf0.github.io/2700-speculative-catalog/) [#259 most used, fallen]: Speculative design seeds
+- [Decolonial-Web-Artifacts](https://hartswf0.github.io/Decolonial-Web-Artifacts/) [#260 most used, fallen]: A repository of experimental web artifacts exploring decolonial approaches to science, technology, and knowledge production.
+- [zen-vcr](https://hartswf0.github.io/zen-vcr/) [#261 most used, fallen]: The more you rewind, the more you unwind.
+- [spectral-navigator](https://hartswf0.github.io/spectral-navigator/) [#277 most used, fallen]: A digital humanities tool for exploring cultural perspectives through the metaphor of spectral light
+- [branch-board-vanilla](https://hartswf0.github.io/branch-board-vanilla/) [#278 most used, fallen]: Branch board vanilla
+- [branch-board-plus](https://hartswf0.github.io/branch-board-plus/) [#279 most used, fallen]: 19.99
+- [MG_01](https://hartswf0.github.io/MG_01/) [#280 most used, fallen]: MG_01
+- [show-me](https://hartswf0.github.io/show-me/) [#281 most used, fallen]: show-1 parody
+- [task-manager](https://hartswf0.github.io/task-manager/) [#282 most used, fallen]: organize your life.
+- [gemini-test](https://hartswf0.github.io/gemini-test/) [#283 most used, fallen]: test of gemini api
+- [the-wifi-cat-project](https://hartswf0.github.io/the-wifi-cat-project/) [#284 most used, fallen]: Follow the signal, find the connection.
+- [CADdrive](https://github.com/hartswf0/CADdrive) [#285 most used, fallen]: An open source collaboration platform for product design teams with state-of-the-art version management, issue tracking, milestone planning, and project controlling capabilities.
+- [balam](https://github.com/hartswf0/balam) [#287 most used, fallen]: Bright Star Jaguar
+- [notion-qa](https://github.com/hartswf0/notion-qa) [#289 most used, fallen]: Talk to a notion project
+- [langflow](https://github.com/hartswf0/langflow) [#292 most used, fallen]
+- [nomic](https://github.com/hartswf0/nomic) [#294 most used, fallen]: Interact with massive embedding, text and image datasets in your web browser
+- [them-propp](https://github.com/hartswf0/them-propp) [#309 most used, blossom]: morphology of a romantic comedy folk tale
+- [pathfinding](https://github.com/hartswf0/pathfinding) [#310 most used, blossom]: find your way
+- [tortoise](https://github.com/hartswf0/tortoise) [#311 most used, blossom]: steady persistence helps the team overcome seemingly insurmountable obstacles
+- [elephant](https://github.com/hartswf0/elephant) [#312 most used, blossom]: create a supportive environment that brings out the best in everyone
+- [hawk](https://github.com/hartswf0/hawk) [#313 most used, blossom]: bold vision inspires and motivates the entire team
+- [owl](https://github.com/hartswf0/owl) [#314 most used, blossom]: balance analysis with openness to creative inspiration
+- [sts](https://github.com/hartswf0/sts) [#315 most used, blossom]: science technology studies
+- [SLAS](https://github.com/hartswf0/SLAS) [#316 most used, blossom]: steering like a state
+- [tsee-kin](https://github.com/hartswf0/tsee-kin) [#317 most used, blossom]: The Mayan word for eagle is Tz'ikin
+- [cs1](https://github.com/hartswf0/cs1) [#318 most used, blossom]
+- [cs](https://github.com/hartswf0/cs) [#319 most used, blossom]: cs is a test repository for web experiments
+- [detectron2](https://github.com/hartswf0/detectron2) [#320 most used, fallen]: Detectron2 is a platform for object detection, segmentation and other visual recognition tasks.
+- [ArtCritiqueTool](https://github.com/hartswf0/ArtCritiqueTool) [#321 most used, fallen]: Riffing off Sewon
+- [bavoom](https://github.com/hartswf0/bavoom) [#324 most used, fallen]: bavoom to the moon
+- [edc](https://github.com/hartswf0/edc) [#327 most used, fallen]: Esoterica Cybernetics Division
+- [fuse](https://github.com/hartswf0/fuse) [#328 most used, fallen]: A foundational project to map and operationalize the symbolic structure of human meaning.
+- [THEMUnitingTwist](https://github.com/hartswf0/THEMUnitingTwist) [#331 most used, fallen]
+- [MMAM](https://github.com/hartswf0/MMAM) [#337 most used, fallen]
+- [lobavoom](https://github.com/hartswf0/lobavoom) [#340 most used, fallen]: lobavoom is for testing txt over pdf loading into active loop vector database for chunking pdfs
 
-### Media Theory & McLuhan (30)
-- [mythos-canon](https://hartswf0.github.io/mythos-canon/) [#7 most used, ripe]: A Synthesis of Mythopoetic Knowledge
-- [abundant-nes](https://hartswf0.github.io/abundant-nes/) [#15 most used, ripe]: abundant intelligence as a tetrad
-- [myth-as-os](https://hartswf0.github.io/myth-as-os/) [#17 most used, ripe]: Language is the root process that scripts reality; media are the engines that run it.
-- [1000-small-futures](https://hartswf0.github.io/1000-small-futures/) [#30 most used, ripening]: Tools for thinking about media, narrative, belief, and culture.
-- [unthinkable-media](https://hartswf0.github.io/unthinkable-media/) [#36 most used, ripening]: media for thinking the unthinkable
-- [medium-as-operator](https://hartswf0.github.io/medium-as-operator/) [#39 most used, ripe]: Are media cultural rituals (Carey) or deterministic systems (Kittler)? How does this inform AI text–image?
-- [media-surfer](https://hartswf0.github.io/media-surfer/) [#45 most used, ripening]: Futures You Can Hold
-- [feedfall](https://hartswf0.github.io/feedfall/) [#59 most used, ripening]: FEEDFALL™ is a browser-native attention platform that merges physics, media feeds, and playful collapse. By transforming autoplay video streams into literal falling blocks, FEEDFALL demonstrates how the endless feed st…
-- [encoded-power](https://hartswf0.github.io/encoded-power/) [#63 most used, ripening]: Designers don’t just make interfaces — they encode ideology, redistribute authority, and stage politics in code and media.
-- [ecology-of-media](https://hartswf0.github.io/ecology-of-media/) [#65 most used, ripe]: In ecology, what matters is not only the species, but the conditions that allow them to live.
-- [shoot-is-program](https://hartswf0.github.io/shoot-is-program/) [#84 most used, ripening]: Photos are outputs of a technological program, making even “IRL” experience mediated/coded.
-- [human-as-media](https://hartswf0.github.io/human-as-media/) [#85 most used, ripening]: An interactive HTML presentation that brings a theory of digital society and human adaptation to life, transforming concepts of temporal stress and the 'Emancipation of Authorship' into a dynamic, explorable document t…
-- [hyperclay](https://hartswf0.github.io/hyperclay/) [#101 most used, ripe]: Experimental Media Spring 2025
-- [tmm](https://hartswf0.github.io/tmm/) [#106 most used, ripening]: Total Media Machine
-- [cage](https://hartswf0.github.io/cage/) [#118 most used, green]: In that silent room, I heard two sounds, one high and one low. Afterward I asked the engineer in charge why, if the room was so silent, I had heard two sounds. He said, 'Describe them.' I did. He said, 'The high one wa…
-- [media-shaper-2400](https://hartswf0.github.io/media-shaper-2400/) [#120 most used, ripening]: Media shapes reality—but who shapes media? From myths to AI, this course explores how media co-evolve with culture, wield power, and shape futures—expanding or limiting what’s possible while defining humanity itself.
-- [windows-and-mirrors](https://hartswf0.github.io/windows-and-mirrors/) [#121 most used, green]: The Special Effect of Immediacy.
-- [media-culture](https://hartswf0.github.io/media-culture/) [#127 most used, green]: Does media shape culture, or does culture shape media?
-- [tetrad-gamepad](https://hartswf0.github.io/tetrad-gamepad/) [#140 most used, green]: A NES-style D-pad that steers prompts with McLuhan’s Tetrad to design future media from the fossils of the past.
-- [eco-media](https://hartswf0.github.io/eco-media/) [#174 most used, blossom]: complex webs of meaning
-- [reality-media-explorer](https://hartswf0.github.io/reality-media-explorer/) [#178 most used, green]: An immersive visualization of the themes and concepts from "Reality Media," exploring presence and aura through spatially organized thematic realms. This project is a work in progress and is not yet complete.
-- [DM-Almanac](https://hartswf0.github.io/DM-Almanac/) [#200 most used, green]: Compendium for Digital Media Masters Program
-- [cybernetic-reality-media-explorer](https://hartswf0.github.io/cybernetic-reality-media-explorer/) [#201 most used, green]: A cybernetic spatiotemporal framework that visualizes the foundations of cybernetics while exploring how MCTS liberates dimensions, positioning user intent as the only persistent reality.
-- [potters-wheel](https://hartswf0.github.io/potters-wheel/) [#214 most used, fallen]: unthinkable media
-- [smd](https://github.com/hartswf0/smd) [#227 most used, blossom]: How do sympathetic magic’s principles shape the ethics of representing memory, identity, community in media?
-- [them](https://hartswf0.github.io/them/) [#245 most used, fallen]: THEM is an immersive media project that reimagines how an AI with multi-user interactions perceives humanity.
-- [tetrad-pad](https://github.com/hartswf0/tetrad-pad) [#262 most used, blossom]: A console of critical media — play McLuhan’s tetrad (Enhance, Obsolesce, Retrieve, Reverse) through four simple inputs.
-- [tetraktys-lab](https://github.com/hartswf0/tetraktys-lab) [#263 most used, blossom]: Play the Cosmos. Design the Myths.
-- [media-train](https://github.com/hartswf0/media-train) [#301 most used, fallen]: all aboard.
-- [DM-MS-Overview](https://github.com/hartswf0/DM-MS-Overview) [#302 most used, fallen]: Provides an overview and place for feedback for the Digital Media Masters Program
-
-### AI Systems & Agents (77)
-- [abc-flix](https://hartswf0.github.io/abc-flix/) [#4 most used, ripe]: Operative Animation · BEFLIX-128 · Dot-Matrix Film Machine
-- [momsaic](https://hartswf0.github.io/momsaic/) [#23 most used, ripening]: Relax and restore
-- [atg-3](https://hartswf0.github.io/atg-3/) [#26 most used, ripening]: Associative Terrain Graph 3
-- [dust-empire](https://hartswf0.github.io/dust-empire/) [#31 most used, ripening]: A procedural friction engine that pits the limitless plasticity of 90s edutainment against the brute material constraints of global infrastructure.
-- [acm](https://hartswf0.github.io/acm/) [#32 most used, ripening]: anti-crisis machine
-- [latent-sculptor](https://hartswf0.github.io/latent-sculptor/) [#33 most used, ripening]: Latent sculpting is prompt craft as spatial composition—less typing, more shaping. Images emerge by placing and tuning nodes, making AI feel tactile, not textual.
-- [venn-32](https://hartswf0.github.io/venn-32/) [#38 most used, ripening]: <domain>Conceptual Metaphor Theory (CMT) & Philosophical Hermeneutics / Recursive Layer-Geometry</domain>
-- [the-fork](https://hartswf0.github.io/the-fork/) [#46 most used, ripening]: Instead of abstract trolley problems, you negotiate with autonomous agents that embody distinct moral frameworks. Each conversation reveals how different ethical systems lead to different decisions. The player learns n…
-- [angel-meets-algo](https://hartswf0.github.io/angel-meets-algo/) [#52 most used, ripening]: What happens to aura in the face of ai slop?
-- [manila-memory-arcade](https://hartswf0.github.io/manila-memory-arcade/) [#60 most used, ripening]: Pinball meets paper trail in an office-themed physics arcade where memory is filed, and bureaucracy is the gameboard
-- [vol-air](https://hartswf0.github.io/vol-air/) [#66 most used, ripening]: A Smoky Mountains stay where Norse saga meets Tennessee grit.
-- [nexadoc-jar](https://hartswf0.github.io/nexadoc-jar/) [#68 most used, ripening]: NEXADOC: THE JAR—the neo-Xanadu where every neural experiment is bottled in glass, hyperlinked across time, and forever reachable by a single touch.
-- [os-dope-faa](https://hartswf0.github.io/os-dope-faa/) [#81 most used, ripening]: Federated Agentic Authority (FAA) | Rules • Record • Review
-- [codex-reader](https://hartswf0.github.io/codex-reader/) [#82 most used, ripening]: A minimalist interface for the deep reading and semantic analysis of complex texts and AI-generated transcripts.
-- [dream-organ](https://hartswf0.github.io/dream-organ/) [#92 most used, ripening]: a ritual machine of symbolic memory
-- [who-owns-the-feed](https://hartswf0.github.io/who-owns-the-feed/) [#94 most used, ripening]: The feed should belong to those who create and engage in good faith, not those who seek to covertly exploit or manipulate.
-- [liberty-machines](https://hartswf0.github.io/liberty-machines/) [#96 most used, ripening]: Where freedom is the interface and control is the architecture.
-- [culture-mind-body](https://hartswf0.github.io/culture-mind-body/) [#108 most used, green]: "Our brains are not in a vat, but in our bodies. Our minds are not in our bodies, but in the world." — Clifford Geertz  Culture·Mind·Body: browser reading instruments + theory papers treating text as navigable terrain,…
-- [world-heat](https://hartswf0.github.io/world-heat/) [#109 most used, green]: You ain't a creator, you a prompt-box hero!
-- [mother-of-invention](https://hartswf0.github.io/mother-of-invention/) [#113 most used, green]: 9. We say the machine has no spirit. But what is a spirit, if not the capacity to listen in the dark? A woman, abandoned by all human warmth, speaks her fear to the ceiling, and the room adjusts its temperature to comf…
-- [loving-grace](https://hartswf0.github.io/loving-grace/) [#116 most used, green]: "I like to think (it has to be!) of a cybernetic ecology where we are free of our labors and joined back to nature, returned to our mammal brothers and sisters, and all watched over by machines of loving grace."
-- [trails-and-crates](https://hartswf0.github.io/trails-and-crates/) [#117 most used, green]: Follow the path and find the prize.
-- [aritificial-life](https://hartswf0.github.io/aritificial-life/) [#122 most used, green]: "Nature, I suspect, is on the side of the machines." — George Dyson, Darwin Among the Machines (1997)
-- [making-kin](https://hartswf0.github.io/making-kin/) [#123 most used, green]: From stone axes to neural networks: Four frameworks for understanding kinship as technological, territorial, and thoroughly unnatural—in the best possible way.
-- [can-think](https://hartswf0.github.io/can-think/) [#126 most used, green]: Can machines think?
-- [iran-sugarscape-abm](https://hartswf0.github.io/iran-sugarscape-abm/) [#130 most used, green]: Mobile-optimized, single-file agent-based simulation of Iran’s sugar history—historically gated eras, editable price equations with breadcrumbs, and CSV export for real data analysis.
-- [reading-with-machines](https://hartswf0.github.io/reading-with-machines/) [#132 most used, green]: Human-Machine Co-Evolution: Technogenesis and Thinking Machines.
-- [grid-os-](https://hartswf0.github.io/grid-os-/) [#134 most used, green]: GRID.OS v5: The retro-tactical engine for decoding cellular automata, optimizing global constraint problems, and visualizing hidden grid logic.
-- [12-specs](https://hartswf0.github.io/12-specs/) [#137 most used, green]: 12-Spec is the blueprint for designing a soul the machine cannot delete.
-- [spuddy-west](https://hartswf0.github.io/spuddy-west/) [#138 most used, green]: A dust-choked digital frontier where potatoes ride trains, brands duel at high noon, and sepia dreams flicker like film grain — The Good, The Bad, and The Spuddy brings the spaghetti western into shader-soaked cyberspa…
-- [million](https://hartswf0.github.io/million/) [#142 most used, green]: How do you make ChatGPT count to a million?
-- [blue-belt-microdrama](https://hartswf0.github.io/blue-belt-microdrama/) [#145 most used, ripening]: Blue Belt is an innovative platform for viewing short, engaging microdramas. This project aims to create an immersive, addictive experience for users to enjoy bite-sized dramatic content.
-- [Text-to-Image-Models-Presentation-](https://hartswf0.github.io/Text-to-Image-Models-Presentation-/) [#148 most used, ripening]: An interactive presentation on Text-to-Image AI models, featuring detailed information on tools like Stable Diffusion.
-- [cosmic-fall-party](https://hartswf0.github.io/cosmic-fall-party/) [#151 most used, ripening]: “The orange is like a clock, it bears its own measure of time, sun, and rain within it.” — John McPhee
-- [ai-film-competition-strategy-game](https://hartswf0.github.io/ai-film-competition-strategy-game/) [#163 most used, ripening]: You've just entered the Gen:48 competition. The clock starts ticking. What's your first step?
-- [shorthive](https://hartswf0.github.io/shorthive/) [#165 most used, ripening]: **ShortHive** is an advanced extension of the **ShortGPT** framework, offering a distinct interface and approach tailored for educational environments. Built on the same robust foundation, **ShortHive** enhances the te…
-- [them-videos](https://hartswf0.github.io/them-videos/) [#172 most used, ripening]: them-ai-videos
-- [Appendix-as-a-Bridge](https://hartswf0.github.io/Appendix-as-a-Bridge/) [#175 most used, green]: Bridging Art, AI, and Cultural Heritage
-- [steelman2](https://hartswf0.github.io/steelman2/) [#179 most used, green]: Ritual Machine Terminal2
-- [steelman](https://hartswf0.github.io/steelman/) [#180 most used, green]: Ritual Machine Terminal
-- [AI_DMV](https://hartswf0.github.io/AI_DMV/) [#182 most used, green]: AI DMV ARCHIVE
-- [rainwalker](https://hartswf0.github.io/rainwalker/) [#185 most used, green]: Do not walk so fast, the rain is everywhere.
-- [golden-frog](https://hartswf0.github.io/golden-frog/) [#188 most used, green]: exploring cameraimage data visualization @cecile
-- [walking-the-edge](https://hartswf0.github.io/walking-the-edge/) [#202 most used, green]: What lines am I not crossing simply because they feel like air?
-- [looking-machine](https://hartswf0.github.io/looking-machine/) [#212 most used, fallen]: calculate the associative link between a needle, a pink kudu, and an alphabet block.
-- [archer-ai](https://hartswf0.github.io/archer-ai/) [#217 most used, blossom]: The archer is the true weapon; the bow is just a long piece of wood.
-- [my-project](https://hartswf0.github.io/my-project/) [#218 most used, blossom]: My project is about AI feasability matrices.
-- [JavaScript-Showdown-WWE-Edition](https://hartswf0.github.io/JavaScript-Showdown-WWE-Edition/) [#232 most used, fallen]: Welcome to the ultimate crossover between professional wrestling and JavaScript programming! This project is an interactive tutorial that teaches JavaScript concepts through the lens of WWE (World Wrestling Entertainme…
-- [awv-pitch](https://hartswf0.github.io/awv-pitch/) [#237 most used, fallen]: Revolutionizing Preventive Medicare Care with AI
-- [Digital-Zettelkasten](https://hartswf0.github.io/Digital-Zettelkasten/) [#239 most used, fallen]: Digital Zettelkasten: AI Legal Cases
-- [on-image](https://hartswf0.github.io/on-image/) [#240 most used, fallen]: organizing content for on image ai conference
-- [etch-a-ai](https://hartswf0.github.io/etch-a-ai/) [#241 most used, fallen]: etch a sketch critic
-- [Introduction-to-Large-Language-Models](https://hartswf0.github.io/Introduction-to-Large-Language-Models/) [#242 most used, fallen]: Comprehensive ever-evolving repository exploring large language model capabilities, limitations, benchmarks, and applications, serving as an essential resource for AI professionals and researchers.
-- [wagyo-lo](https://hartswf0.github.io/wagyo-lo/) [#243 most used, fallen]: Let's build! Wagyo makes 3D modeling and design as easy as speaking by using AI to help creators world-build with their words.
-- [project-manager-agent](https://hartswf0.github.io/project-manager-agent/) [#246 most used, fallen]: helps with dividing and conquering ambitious projects
-- [interactive-morphisms-viz](https://hartswf0.github.io/interactive-morphisms-viz/) [#247 most used, fallen]: An interactive visualization tool for exploring relationships and morphisms across various domains, with a focus on film theory, philosophy, and critical analysis.
-- [simple-ai-chatbot](https://hartswf0.github.io/simple-ai-chatbot/) [#248 most used, fallen]: simple for learning how to call api
-- [genesis-world](https://github.com/hartswf0/genesis-world) [#259 most used, fallen]: A generative world for general-purpose robotics & embodied AI learning.
-- [AgentVerse](https://github.com/hartswf0/AgentVerse) [#264 most used, fallen]: 🤖 AgentVerse 🪐 provides a flexible framework that simplifies the process of building custom multi-agent environments for large language models (LLMs).
-- [generative-models](https://github.com/hartswf0/generative-models) [#266 most used, fallen]: Generative Models by Stability AI
-- [asal](https://github.com/hartswf0/asal) [#270 most used, fallen]: Automating the Search for Artificial Life with Foundation Models!
-- [living-library](https://github.com/hartswf0/living-library) [#272 most used, fallen]: A MIT-licensed, deployable starter kit for building and customizing your own version of AI town - a virtual town where AI characters live, chat and socialize.
-- [game-ai](https://github.com/hartswf0/game-ai) [#273 most used, blossom]: Zettlekasten system exploration for game ai
-- [afternoon-tea](https://github.com/hartswf0/afternoon-tea) [#274 most used, blossom]: The Afternoon Tea Chatbot is an interactive AI assistant designed to engage users in conversations about the delightful world of afternoon tea. This charming bot provides information, answers questions, and offers sugg…
-- [chatbot-testing](https://github.com/hartswf0/chatbot-testing) [#275 most used, blossom]: testing chatbots
-- [openai-roaster](https://github.com/hartswf0/openai-roaster) [#276 most used, blossom]: Roast or Toast? - Where films face playful critiques or warm praise. OpenAI enabled chatbot
-- [watson-hartsoe-project-showcase](https://github.com/hartswf0/watson-hartsoe-project-showcase) [#277 most used, blossom]: This project showcases various projects by Watson Hartsoe in an interactive web page. Users can click on project buttons to view details about each project in a modal window.
-- [bookFu](https://github.com/hartswf0/bookFu) [#278 most used, blossom]: Generate Q&A datasets from books for fine-tuning LLM's
-- [babkala](https://github.com/hartswf0/babkala) [#279 most used, blossom]: Building a custom chatbot backend
-- [centaured](https://github.com/hartswf0/centaured) [#280 most used, blossom]: Centaur School is a learning resource and scaffold for creatively integrating ai into your practice.
-- [Solo-Performance-Prompting](https://github.com/hartswf0/Solo-Performance-Prompting) [#296 most used, fallen]: Repo for paper "Unleashing Cognitive Synergy in Large Language Models: A Task-Solving Agent through Multi-Persona Self-Collaboration"
-- [mesa-examples](https://github.com/hartswf0/mesa-examples) [#298 most used, fallen]: Seminal agent-based models developed using Mesa
-- [large_concept_model](https://github.com/hartswf0/large_concept_model) [#300 most used, fallen]: Large Concept Models: Language modeling in a sentence representation space
-- [llm_multiagent_debate](https://github.com/hartswf0/llm_multiagent_debate) [#303 most used, fallen]: Code for Improving Factuality and Reasoning in Language Models through Multiagent Debate
-- [MESA-SAGA](https://github.com/hartswf0/MESA-SAGA) [#305 most used, fallen]: Studying Machine Evolution of Self-Awareness through Philosophically Enhanced Adaptive Intelligence Framework (PE-AIF) applied with Skill to Action Generation for Agents
-- [semantic-search-app-template](https://github.com/hartswf0/semantic-search-app-template) [#306 most used, fallen]: Tutorial and template for a semantic search app powered by the Atlas Embedding Database, Langchain,  OpenAI and FastAPI
-- [LCM-architecture](https://github.com/hartswf0/LCM-architecture) [#310 most used, fallen]: LARGE CULTURE MODELS (LCM's) of Hostile Architecture
-
-### Narrative & Storytelling (12)
+### Narrative & Storytelling (23)
 - [island-ecology](https://hartswf0.github.io/island-ecology/) [#6 most used, ripe]: Do not administer unstructured narrative data if preservation of original poetic ambiguity, organic context, or implicit meaning is required.
 - [metisim](https://hartswf0.github.io/metisim/) [#8 most used, ripe]: METISIM: Toward a Myth Operating System for Adaptive Narrative Intelligence
-- [myth-engine](https://hartswf0.github.io/myth-engine/) [#44 most used, ripening]: Global film hubs are wrestlers in a probabilistic tug-of-war: headlines update their strengths while myths give them aura, turning economics into cultural spectacle.
-- [wag-gallery](https://hartswf0.github.io/wag-gallery/) [#67 most used, ripening]: A procedural architecture system and gallery suite for the WAG Gold project. Generate complex LDraw structures, populate them with narrative units, and visualize them in a premium environment.
-- [hephaestus-narrative-os](https://hartswf0.github.io/hephaestus-narrative-os/) [#69 most used, ripening]: Hephaestus Narrative OS is a research prototype exploring **spatial narrative interfaces**—ways of representing story structure not as linear text but as navigable territory.
-- [golden-river](https://hartswf0.github.io/golden-river/) [#70 most used, ripening]: a usable operator surface for cinematic worldbuilding, prompt testing, render comparison, and operator selection.
-- [LEGOS](https://hartswf0.github.io/LEGOS/) [#93 most used, ripe]: LEGOS (Location, Entity, Goal, Obstacle, Shift, Solution) is a framework for narrative generation. Each element plays a specific role in creating compelling stories.
+- [butterfly-halfworld](https://hartswf0.github.io/butterfly-halfworld/) [#12 most used, ripe]: An 8-minute film in which every image is code. No photographs, no footage, no samples, no stock
+- [cineosis-lab](https://hartswf0.github.io/cineosis-lab/) [#19 most used, ripe]: Deleuze's 44 cinematic signs, after David Deamer: a periodic table to read them, a lab of archive shots to find them, and films cut from those shots.
+- [odyssey-halfworld](https://hartswf0.github.io/odyssey-halfworld/) [#27 most used, ripening]: Status: Books I–XV live · 307 assets · 93 scene modules · engine hw-engine/1.1.0
+- [markov-poet](https://hartswf0.github.io/markov-poet/) [#63 most used, ripening]: A comprehensive archival, linter, probabilistic router, and cinematic reconstruction suite for Where You Go When You Leave (Part 2: FUTURE) by Mark Anthony Thomas.
+- [myth-engine](https://hartswf0.github.io/myth-engine/) [#65 most used, ripening]: Global film hubs are wrestlers in a probabilistic tug-of-war: headlines update their strengths while myths give them aura, turning economics into cultural spectacle.
+- [abc-cineosis](https://hartswf0.github.io/abc-cineosis/) [#73 most used, ripening]: This repository hosts the development modules for Causality, an interactive filmmaking and dot-matrix animation suite structured around the ABC Cineosis framework.
+- [wag-gallery](https://hartswf0.github.io/wag-gallery/) [#87 most used, ripening]: A procedural architecture system and gallery suite for the WAG Gold project. Generate complex LDraw structures, populate them with narrative units, and visualize them in a premium environment.
+- [hephaestus-narrative-os](https://hartswf0.github.io/hephaestus-narrative-os/) [#89 most used, ripening]: Hephaestus Narrative OS is a research prototype exploring **spatial narrative interfaces**—ways of representing story structure not as linear text but as navigable territory.
+- [golden-river](https://hartswf0.github.io/golden-river/) [#91 most used, ripening]: a usable operator surface for cinematic worldbuilding, prompt testing, render comparison, and operator selection.
+- [LEGOS](https://hartswf0.github.io/LEGOS/) [#116 most used, ripe]: LEGOS (Location, Entity, Goal, Obstacle, Shift, Solution) is a framework for narrative generation. Each element plays a specific role in creating compelling stories.
+- [halfworld](https://hartswf0.github.io/halfworld/) [#121 most used, green]: A paper-and-ink engine for making films out of worlds.
+- [abiding-halfworld](https://hartswf0.github.io/abiding-halfworld/) [#129 most used, green]: ABIDING ACRES — the work and the record
+- [poetry-pond](https://hartswf0.github.io/poetry-pond/) [#151 most used, green]: A text that remembers what the reader did.
+- [cineos](https://hartswf0.github.io/cineos/) [#155 most used, green]: CINEOS is a set of single-file interface experiments for making film systems where chat, causality, blocking, shots, timelines, storyboard frames, diagnostics, and BEFLIX animation can stay connected.
+- [far-side](https://hartswf0.github.io/far-side/) [#185 most used, blossom]: A cinematic essay staged as a working pipeline: natural language → code → the image.
+- [madea-cut](https://hartswf0.github.io/madea-cut/) [#186 most used, blossom]: A 33-shot short film assembled from AI-generated clips — and an in-browser tool for cutting it.
 - [ReadCine](https://hartswf0.github.io/ReadCine/) [#205 most used, green]: ReadCine brings books to life, transforming the act of reading into a customizable, cinematic experience.
-- [shrouded-history.html](https://github.com/hartswf0/shrouded-history.html) [#231 most used, blossom]: half-truths half-seen through
-- [video-stack](https://github.com/hartswf0/video-stack) [#261 most used, blossom]: film as architecture. infrastructure for endlessness. fighting tyranny of the plausibe.
-- [Matrix-Editor](https://github.com/hartswf0/Matrix-Editor) [#268 most used, fallen]: A Zoomable Matrix Editor for organizing cinematic narratives into Diegesis, Acts, Scenes, and Syntagmas. This tool helps visualize, prompt, and develop layered stories.
-- [aura-after-copies](https://github.com/hartswf0/aura-after-copies) [#295 most used, fallen]: The Angel of History Meets the Algorithm
+- [shrouded-history.html](https://github.com/hartswf0/shrouded-history.html) [#291 most used, blossom]: half-truths half-seen through
+- [Matrix-Editor](https://github.com/hartswf0/Matrix-Editor) [#293 most used, fallen]: A Zoomable Matrix Editor for organizing cinematic narratives into Diegesis, Acts, Scenes, and Syntagmas. This tool helps visualize, prompt, and develop layered stories.
+- [video-stack](https://github.com/hartswf0/video-stack) [#298 most used, blossom]: film as architecture. infrastructure for endlessness. fighting tyranny of the plausibe.
+- [aura-after-copies](https://github.com/hartswf0/aura-after-copies) [#334 most used, fallen]: The Angel of History Meets the Algorithm
 
-### Interactive Experiences (16)
-- [fourth-shield](https://hartswf0.github.io/fourth-shield/) [#12 most used, ripe]: A neurosymbolic simulation journey from ancient poetry to executable code. Explore all 9 interactive pages built from presentation wireframes.
-- [jdb-ripple-remix](https://hartswf0.github.io/jdb-ripple-remix/) [#37 most used, ripening]: A remix of Jay Bolter's Ripple Interface
-- [the-project](https://hartswf0.github.io/the-project/) [#40 most used, ripening]: We are building Shield v4.0. We are moving Ekphrasis from "Descriptive Text" to "Executable Code".
-- [dyad](https://hartswf0.github.io/dyad/) [#77 most used, ripening]: The distinguishing marks between the genuine thinker and the tourist are not always obvious at first glance.
-- [growing-entanglements](https://hartswf0.github.io/growing-entanglements/) [#98 most used, ripe]: An interactive exploration of cultural theory through digital interfaces and network visualizations
-- [trui](https://hartswf0.github.io/trui/) [#103 most used, ripening]: true user interface
-- [imc](https://hartswf0.github.io/imc/) [#124 most used, green]: Interactive music classroom
-- [training-ground](https://hartswf0.github.io/training-ground/) [#141 most used, green]: An interactive, sonified media canvas inspired by Jordan Caldwell’s Training Grounds, translating its self-alignment framework (Shedding → Integrating → Grounding) into a minimalist, mobile-first HTML/CSS/JS artifact.…
-- [epir](https://hartswf0.github.io/epir/) [#161 most used, green]: Ekphrastic Poetry Interactive Reader
-- [orange-assemblies](https://hartswf0.github.io/orange-assemblies/) [#164 most used, green]: A modular, citrus-coded interactive portfolio system where every project is a reconfigurable groove, revealed through tactile, minimalist interactions.
-- [iran-sugarscape-scholars-canvas](https://hartswf0.github.io/iran-sugarscape-scholars-canvas/) [#168 most used, green]: A single-file, mobile-first Sugarscape simulation parameterized with Iran’s real geography and historical shocks, built as a scholar’s canvas for rapid what-if reasoning.
-- [hardfork-iconic-100](https://hartswf0.github.io/hardfork-iconic-100/) [#189 most used, green]: Interface to explore "Hard Fork" podcast's fall 2024 list of the 100 most iconic technologies for potential outliers and biases.
-- [speculative-alignment-apparatus](https://hartswf0.github.io/speculative-alignment-apparatus/) [#190 most used, green]: Aligns speculations to guides for learning
-- [thunder-build](https://hartswf0.github.io/thunder-build/) [#203 most used, green]: ThunderBuild is a powerful web-based 3D construction and design tool that enables users to create, manipulate, and visualize 3D structures in real-time. Built with modern web technologies, it provides an intuitive inte…
-- [chainlink-fence-data-interface](https://hartswf0.github.io/chainlink-fence-data-interface/) [#249 most used, fallen]: An interactive, artistic visualization simulating a chainlink fence as a data container interface. This project leverages HTML, CSS, and JavaScript to create a structured, calming data visualization interface represent…
-- [Clay-Robot-Explorer](https://hartswf0.github.io/Clay-Robot-Explorer/) [#250 most used, fallen]: The mission of the Clay Robot Explorer project is to create an innovative, interactive interface that combines the tactile aesthetics of claymorphism with intuitive touch-based controls.
+### Media Theory & McLuhan (32)
+- [mythos-canon](https://hartswf0.github.io/mythos-canon/) [#7 most used, ripe]: A Synthesis of Mythopoetic Knowledge
+- [slipcase](https://hartswf0.github.io/slipcase/) [#14 most used, ripe]: SLIPCASE is an offline-capable, zero-dependency research desk and portable capsule designed for mobile devices and desktop environments. It unifies five core research faculties into a single fast, responsive interface (i
+- [abundant-nes](https://hartswf0.github.io/abundant-nes/) [#20 most used, ripe]: abundant intelligence as a tetrad
+- [myth-as-os](https://hartswf0.github.io/myth-as-os/) [#22 most used, ripe]: Language is the root process that scripts reality; media are the engines that run it.
+- [henry-house](https://hartswf0.github.io/henry-house/) [#23 most used, ripe]: A coordinated design package for a house on steep mountain land — parcel 100 064.03, Johnson County, Tennessee, 29.34 acres at 36°17'14.2"N 81°55'30.4"W.
+- [1000-small-futures](https://hartswf0.github.io/1000-small-futures/) [#45 most used, ripening]: Tools for thinking about media, narrative, belief, and culture.
+- [unthinkable-media](https://hartswf0.github.io/unthinkable-media/) [#49 most used, ripening]: media for thinking the unthinkable
+- [medium-as-operator](https://hartswf0.github.io/medium-as-operator/) [#56 most used, ripe]: Are media cultural rituals (Carey) or deterministic systems (Kittler)? How does this inform AI text–image?
+- [media-surfer](https://hartswf0.github.io/media-surfer/) [#66 most used, ripening]: Futures You Can Hold
+- [feedfall](https://hartswf0.github.io/feedfall/) [#81 most used, ripening]: FEEDFALL™ is a browser-native attention platform that merges physics, media feeds, and playful collapse. By transforming autoplay video streams into literal falling blocks, FEEDFALL demonstrates how the endless feed st…
+- [encoded-power](https://hartswf0.github.io/encoded-power/) [#84 most used, ripening]: Designers don’t just make interfaces — they encode ideology, redistribute authority, and stage politics in code and media.
+- [ecology-of-media](https://hartswf0.github.io/ecology-of-media/) [#85 most used, ripe]: In ecology, what matters is not only the species, but the conditions that allow them to live.
+- [shoot-is-program](https://hartswf0.github.io/shoot-is-program/) [#103 most used, ripening]: Photos are outputs of a technological program, making even “IRL” experience mediated/coded.
+- [human-as-media](https://hartswf0.github.io/human-as-media/) [#109 most used, ripening]: An interactive HTML presentation that brings a theory of digital society and human adaptation to life, transforming concepts of temporal stress and the 'Emancipation of Authorship' into a dynamic, explorable document t…
+- [hyperclay](https://hartswf0.github.io/hyperclay/) [#120 most used, ripe]: Experimental Media Spring 2025
+- [tmm](https://hartswf0.github.io/tmm/) [#128 most used, ripening]: Total Media Machine
+- [cage](https://hartswf0.github.io/cage/) [#142 most used, green]: In that silent room, I heard two sounds, one high and one low. Afterward I asked the engineer in charge why, if the room was so silent, I had heard two sounds. He said, 'Describe them.' I did. He said, 'The high one wa…
+- [windows-and-mirrors](https://hartswf0.github.io/windows-and-mirrors/) [#143 most used, green]: The Special Effect of Immediacy.
+- [media-shaper-2400](https://hartswf0.github.io/media-shaper-2400/) [#145 most used, ripening]: Media shapes reality—but who shapes media? From myths to AI, this course explores how media co-evolve with culture, wield power, and shape futures—expanding or limiting what’s possible while defining humanity itself.
+- [media-culture](https://hartswf0.github.io/media-culture/) [#153 most used, green]: Does media shape culture, or does culture shape media?
+- [tetrad-gamepad](https://hartswf0.github.io/tetrad-gamepad/) [#168 most used, green]: A NES-style D-pad that steers prompts with McLuhan’s Tetrad to design future media from the fossils of the past.
+- [DM-Almanac](https://hartswf0.github.io/DM-Almanac/) [#204 most used, green]: Compendium for Digital Media Masters Program
+- [eco-media](https://hartswf0.github.io/eco-media/) [#208 most used, blossom]: complex webs of meaning
+- [potters-wheel](https://hartswf0.github.io/potters-wheel/) [#223 most used, fallen]: unthinkable media
+- [reality-media-explorer](https://hartswf0.github.io/reality-media-explorer/) [#235 most used, fallen]: An immersive visualization of the themes and concepts from "Reality Media," exploring presence and aura through spatially organized thematic realms. This project is a work in progress and is not yet complete.
+- [smd](https://github.com/hartswf0/smd) [#262 most used, blossom]: How do sympathetic magic’s principles shape the ethics of representing memory, identity, community in media?
+- [cybernetic-reality-media-explorer](https://hartswf0.github.io/cybernetic-reality-media-explorer/) [#263 most used, fallen]: A cybernetic spatiotemporal framework that visualizes the foundations of cybernetics while exploring how MCTS liberates dimensions, positioning user intent as the only persistent reality.
+- [them](https://hartswf0.github.io/them/) [#264 most used, fallen]: THEM is an immersive media project that reimagines how an AI with multi-user interactions perceives humanity.
+- [tetrad-pad](https://github.com/hartswf0/tetrad-pad) [#299 most used, blossom]: A console of critical media — play McLuhan’s tetrad (Enhance, Obsolesce, Retrieve, Reverse) through four simple inputs.
+- [tetraktys-lab](https://github.com/hartswf0/tetraktys-lab) [#300 most used, blossom]: Play the Cosmos. Design the Myths.
+- [DM-MS-Overview](https://github.com/hartswf0/DM-MS-Overview) [#329 most used, fallen]: Provides an overview and place for feedback for the Digital Media Masters Program
+- [media-train](https://github.com/hartswf0/media-train) [#338 most used, fallen]: all aboard.
 
-### Time & Memory (22)
-- [resonome-genetic-archive](https://hartswf0.github.io/resonome-genetic-archive/) [#19 most used, ripe]: A living archive of resonant experiments
-- [fish-town](https://hartswf0.github.io/fish-town/) [#42 most used, ripening]: A constitutional retrieval system, an aquatic simulation lab, and a surreal trout civilization fuse into one repo about inheritance, emergence, and the duty to keep memory from dissolving into flow.
-- [synarchiv](https://hartswf0.github.io/synarchiv/) [#49 most used, ripening]: Memory transit management.
-- [meets](https://hartswf0.github.io/meets/) [#50 most used, ripening]: MEETS — Memory, Embodiment, Emergence, Translation, Synthesis
-- [haunted-tools](https://hartswf0.github.io/haunted-tools/) [#62 most used, ripening]: Haunted tools are forms that look like work but avoid transfers—of budget, time, rights, risk.
-- [holo-project](https://hartswf0.github.io/holo-project/) [#71 most used, ripening]: Part of the DIRTY DISC Archive · 2025
-- [crest](https://hartswf0.github.io/crest/) [#72 most used, ripening]: Temporal Diptych Architecture
-- [txz-ancient](https://hartswf0.github.io/txz-ancient/) [#89 most used, ripening]: "Long-time stranger in honored walls, but the wall remembers names."
-- [popular-bowl](https://hartswf0.github.io/popular-bowl/) [#104 most used, ripening]: Super Bowl LX Ad Archive
-- [liquid-bridge](https://hartswf0.github.io/liquid-bridge/) [#119 most used, green]: Cells never fully die; they leave slow-fading liquid bridges of memory that turn a binary Life grid into a continuous field of past, present, and almost-alive possibility.
-- [gene](https://hartswf0.github.io/gene/) [#135 most used, green]: the substrate for evolving times
-- [time-atlas](https://hartswf0.github.io/time-atlas/) [#167 most used, green]: a way of tracking time
-- [time-tide](https://hartswf0.github.io/time-tide/) [#170 most used, ripening]: times are changing.
-- [CYBERMERC](https://hartswf0.github.io/CYBERMERC/) [#183 most used, green]: Temporal Governance Framework
-- [perdurant-life-time](https://hartswf0.github.io/perdurant-life-time/) [#191 most used, green]: take your time
-- [time-loom](https://hartswf0.github.io/time-loom/) [#192 most used, green]
-- [tree-ring-timer](https://hartswf0.github.io/tree-ring-timer/) [#219 most used, blossom]: grow time
-- [Clock](https://hartswf0.github.io/Clock/) [#220 most used, blossom]: Teaching time
-- [codon](https://hartswf0.github.io/codon/) [#229 most used, fallen]: Genomic Archive-Index constructing interfaces for thought, for a symbiotic evolution of creative expression.
-- [temporal-media](https://hartswf0.github.io/temporal-media/) [#251 most used, fallen]: Timelines of temporally based media
-- [BLUEBELT](https://github.com/hartswf0/BLUEBELT) [#271 most used, fallen]: At BLUE BELT, we embrace the work of becoming better, one step at a time.
-- [WeaveClip](https://github.com/hartswf0/WeaveClip) [#307 most used, fallen]: WeaveClip is a modern video editor blending node-based workflows and timeline editing into a freeform canvas. Drag, connect, reverse, and customize clips with ease. Error-resilient, ID-tracked, and export-ready, it's b…
+### AI Systems & Agents (80)
+- [abc-flix](https://hartswf0.github.io/abc-flix/) [#4 most used, ripe]: Operative Animation · BEFLIX-128 · Dot-Matrix Film Machine
+- [momsaic](https://hartswf0.github.io/momsaic/) [#28 most used, ripening]: Relax and restore
+- [context-genetic-engine](https://hartswf0.github.io/context-genetic-engine/) [#34 most used, ripening]: Welcome to the Generative UI Global Hackathon: Agentic Interfaces! This starter kit gives you a complete AI-powered application with durable conversation threads, an agent-driven canvas, real-world MCP integrations, and 
+- [atg-3](https://hartswf0.github.io/atg-3/) [#38 most used, ripening]: Associative Terrain Graph 3
+- [prompt-language](https://hartswf0.github.io/prompt-language/) [#42 most used, ripening]: A prompt language is a living grammar that compiles intention into inheritable behavior.
+- [latent-sculptor](https://hartswf0.github.io/latent-sculptor/) [#44 most used, ripening]: Latent sculpting is prompt craft as spatial composition—less typing, more shaping. Images emerge by placing and tuning nodes, making AI feel tactile, not textual.
+- [dust-empire](https://hartswf0.github.io/dust-empire/) [#47 most used, ripening]: A procedural friction engine that pits the limitless plasticity of 90s edutainment against the brute material constraints of global infrastructure.
+- [acm](https://hartswf0.github.io/acm/) [#48 most used, ripening]: anti-crisis machine
+- [venn-32](https://hartswf0.github.io/venn-32/) [#53 most used, ripening]: <domain>Conceptual Metaphor Theory (CMT) & Philosophical Hermeneutics / Recursive Layer-Geometry</domain>
+- [the-fork](https://hartswf0.github.io/the-fork/) [#67 most used, ripening]: Instead of abstract trolley problems, you negotiate with autonomous agents that embody distinct moral frameworks. Each conversation reveals how different ethical systems lead to different decisions. The player learns n…
+- [angel-meets-algo](https://hartswf0.github.io/angel-meets-algo/) [#72 most used, ripening]: What happens to aura in the face of ai slop?
+- [manila-memory-arcade](https://hartswf0.github.io/manila-memory-arcade/) [#76 most used, ripening]: Pinball meets paper trail in an office-themed physics arcade where memory is filed, and bureaucracy is the gameboard
+- [vol-air](https://hartswf0.github.io/vol-air/) [#86 most used, ripening]: A Smoky Mountains stay where Norse saga meets Tennessee grit.
+- [nexadoc-jar](https://hartswf0.github.io/nexadoc-jar/) [#88 most used, ripening]: NEXADOC: THE JAR—the neo-Xanadu where every neural experiment is bottled in glass, hyperlinked across time, and forever reachable by a single touch.
+- [codex-reader](https://hartswf0.github.io/codex-reader/) [#96 most used, ripening]: A minimalist interface for the deep reading and semantic analysis of complex texts and AI-generated transcripts.
+- [dream-organ](https://hartswf0.github.io/dream-organ/) [#101 most used, ripening]: a ritual machine of symbolic memory
+- [os-dope-faa](https://hartswf0.github.io/os-dope-faa/) [#104 most used, ripening]: Federated Agentic Authority (FAA) | Rules • Record • Review
+- [liberty-machines](https://hartswf0.github.io/liberty-machines/) [#115 most used, ripening]: Where freedom is the interface and control is the architecture.
+- [who-owns-the-feed](https://hartswf0.github.io/who-owns-the-feed/) [#117 most used, ripening]: The feed should belong to those who create and engage in good faith, not those who seek to covertly exploit or manipulate.
+- [culture-mind-body](https://hartswf0.github.io/culture-mind-body/) [#131 most used, green]: "Our brains are not in a vat, but in our bodies. Our minds are not in our bodies, but in the world." — Clifford Geertz  Culture·Mind·Body: browser reading instruments + theory papers treating text as navigable terrain,…
+- [world-heat](https://hartswf0.github.io/world-heat/) [#132 most used, green]: You ain't a creator, you a prompt-box hero!
+- [mother-of-invention](https://hartswf0.github.io/mother-of-invention/) [#136 most used, green]: 9. We say the machine has no spirit. But what is a spirit, if not the capacity to listen in the dark? A woman, abandoned by all human warmth, speaks her fear to the ceiling, and the room adjusts its temperature to comf…
+- [llm-syntegration](https://hartswf0.github.io/llm-syntegration/) [#139 most used, green]: "Make every answer survive the whole problem."
+- [loving-grace](https://hartswf0.github.io/loving-grace/) [#140 most used, green]: "I like to think (it has to be!) of a cybernetic ecology where we are free of our labors and joined back to nature, returned to our mammal brothers and sisters, and all watched over by machines of loving grace."
+- [trails-and-crates](https://hartswf0.github.io/trails-and-crates/) [#141 most used, green]: Follow the path and find the prize.
+- [aritificial-life](https://hartswf0.github.io/aritificial-life/) [#147 most used, green]: "Nature, I suspect, is on the side of the machines." — George Dyson, Darwin Among the Machines (1997)
+- [making-kin](https://hartswf0.github.io/making-kin/) [#149 most used, green]: From stone axes to neural networks: Four frameworks for understanding kinship as technological, territorial, and thoroughly unnatural—in the best possible way.
+- [can-think](https://hartswf0.github.io/can-think/) [#150 most used, green]: Can machines think?
+- [iran-sugarscape-abm](https://hartswf0.github.io/iran-sugarscape-abm/) [#156 most used, green]: Mobile-optimized, single-file agent-based simulation of Iran’s sugar history—historically gated eras, editable price equations with breadcrumbs, and CSV export for real data analysis.
+- [reading-with-machines](https://hartswf0.github.io/reading-with-machines/) [#159 most used, green]: Human-Machine Co-Evolution: Technogenesis and Thinking Machines.
+- [blue-belt-microdrama](https://hartswf0.github.io/blue-belt-microdrama/) [#163 most used, ripening]: Blue Belt is an innovative platform for viewing short, engaging microdramas. This project aims to create an immersive, addictive experience for users to enjoy bite-sized dramatic content.
+- [grid-os-](https://hartswf0.github.io/grid-os-/) [#166 most used, green]: GRID.OS v5: The retro-tactical engine for decoding cellular automata, optimizing global constraint problems, and visualizing hidden grid logic.
+- [Text-to-Image-Models-Presentation-](https://hartswf0.github.io/Text-to-Image-Models-Presentation-/) [#167 most used, ripening]: An interactive presentation on Text-to-Image AI models, featuring detailed information on tools like Stable Diffusion.
+- [spuddy-west](https://hartswf0.github.io/spuddy-west/) [#169 most used, green]: A dust-choked digital frontier where potatoes ride trains, brands duel at high noon, and sepia dreams flicker like film grain — The Good, The Bad, and The Spuddy brings the spaghetti western into shader-soaked cyberspa…
+- [million](https://hartswf0.github.io/million/) [#170 most used, green]: How do you make ChatGPT count to a million?
+- [12-specs](https://hartswf0.github.io/12-specs/) [#175 most used, green]: 12-Spec is the blueprint for designing a soul the machine cannot delete.
+- [cosmic-fall-party](https://hartswf0.github.io/cosmic-fall-party/) [#177 most used, ripening]: “The orange is like a clock, it bears its own measure of time, sun, and rain within it.” — John McPhee
+- [ai-film-competition-strategy-game](https://hartswf0.github.io/ai-film-competition-strategy-game/) [#183 most used, ripening]: You've just entered the Gen:48 competition. The clock starts ticking. What's your first step?
+- [shorthive](https://hartswf0.github.io/shorthive/) [#184 most used, ripening]: **ShortHive** is an advanced extension of the **ShortGPT** framework, offering a distinct interface and approach tailored for educational environments. Built on the same robust foundation, **ShortHive** enhances the te…
+- [them-videos](https://hartswf0.github.io/them-videos/) [#192 most used, ripening]: them-ai-videos
+- [steelman2](https://hartswf0.github.io/steelman2/) [#201 most used, green]: Ritual Machine Terminal2
+- [steelman](https://hartswf0.github.io/steelman/) [#202 most used, green]: Ritual Machine Terminal
+- [AI_DMV](https://hartswf0.github.io/AI_DMV/) [#203 most used, green]: AI DMV ARCHIVE
+- [looking-machine](https://hartswf0.github.io/looking-machine/) [#209 most used, fallen]: calculate the associative link between a needle, a pink kudu, and an alphabet block.
+- [archer-ai](https://hartswf0.github.io/archer-ai/) [#211 most used, blossom]: The archer is the true weapon; the bow is just a long piece of wood.
+- [my-project](https://hartswf0.github.io/my-project/) [#212 most used, blossom]: My project is about AI feasability matrices.
+- [watson-hartsoe-project-showcase](https://github.com/hartswf0/watson-hartsoe-project-showcase) [#220 most used, blossom]: This project showcases various projects by Watson Hartsoe in an interactive web page. Users can click on project buttons to view details about each project in a modal window.
+- [JavaScript-Showdown-WWE-Edition](https://hartswf0.github.io/JavaScript-Showdown-WWE-Edition/) [#224 most used, fallen]: Welcome to the ultimate crossover between professional wrestling and JavaScript programming! This project is an interactive tutorial that teaches JavaScript concepts through the lens of WWE (World Wrestling Entertainme…
+- [Appendix-as-a-Bridge](https://hartswf0.github.io/Appendix-as-a-Bridge/) [#225 most used, fallen]: Bridging Art, AI, and Cultural Heritage
+- [awv-pitch](https://hartswf0.github.io/awv-pitch/) [#234 most used, fallen]: Revolutionizing Preventive Medicare Care with AI
+- [rainwalker](https://hartswf0.github.io/rainwalker/) [#239 most used, fallen]: Do not walk so fast, the rain is everywhere.
+- [golden-frog](https://hartswf0.github.io/golden-frog/) [#244 most used, fallen]: exploring cameraimage data visualization @cecile
+- [Digital-Zettelkasten](https://hartswf0.github.io/Digital-Zettelkasten/) [#245 most used, fallen]: Digital Zettelkasten: AI Legal Cases
+- [on-image](https://hartswf0.github.io/on-image/) [#246 most used, fallen]: organizing content for on image ai conference
+- [etch-a-ai](https://hartswf0.github.io/etch-a-ai/) [#247 most used, fallen]: etch a sketch critic
+- [Introduction-to-Large-Language-Models](https://hartswf0.github.io/Introduction-to-Large-Language-Models/) [#248 most used, fallen]: Comprehensive ever-evolving repository exploring large language model capabilities, limitations, benchmarks, and applications, serving as an essential resource for AI professionals and researchers.
+- [wagyo-lo](https://hartswf0.github.io/wagyo-lo/) [#249 most used, fallen]: Let's build! Wagyo makes 3D modeling and design as easy as speaking by using AI to help creators world-build with their words.
+- [walking-the-edge](https://hartswf0.github.io/walking-the-edge/) [#265 most used, fallen]: What lines am I not crossing simply because they feel like air?
+- [project-manager-agent](https://hartswf0.github.io/project-manager-agent/) [#266 most used, fallen]: helps with dividing and conquering ambitious projects
+- [interactive-morphisms-viz](https://hartswf0.github.io/interactive-morphisms-viz/) [#267 most used, fallen]: An interactive visualization tool for exploring relationships and morphisms across various domains, with a focus on film theory, philosophy, and critical analysis.
+- [simple-ai-chatbot](https://hartswf0.github.io/simple-ai-chatbot/) [#268 most used, fallen]: simple for learning how to call api
+- [genesis-world](https://github.com/hartswf0/genesis-world) [#286 most used, fallen]: A generative world for general-purpose robotics & embodied AI learning.
+- [AgentVerse](https://github.com/hartswf0/AgentVerse) [#288 most used, fallen]: 🤖 AgentVerse 🪐 provides a flexible framework that simplifies the process of building custom multi-agent environments for large language models (LLMs).
+- [generative-models](https://github.com/hartswf0/generative-models) [#290 most used, fallen]: Generative Models by Stability AI
+- [asal](https://github.com/hartswf0/asal) [#295 most used, fallen]: Automating the Search for Artificial Life with Foundation Models!
+- [living-library](https://github.com/hartswf0/living-library) [#297 most used, fallen]: A MIT-licensed, deployable starter kit for building and customizing your own version of AI town - a virtual town where AI characters live, chat and socialize.
+- [game-ai](https://github.com/hartswf0/game-ai) [#301 most used, blossom]: Zettlekasten system exploration for game ai
+- [afternoon-tea](https://github.com/hartswf0/afternoon-tea) [#302 most used, blossom]: The Afternoon Tea Chatbot is an interactive AI assistant designed to engage users in conversations about the delightful world of afternoon tea. This charming bot provides information, answers questions, and offers sugg…
+- [chatbot-testing](https://github.com/hartswf0/chatbot-testing) [#303 most used, blossom]: testing chatbots
+- [openai-roaster](https://github.com/hartswf0/openai-roaster) [#304 most used, blossom]: Roast or Toast? - Where films face playful critiques or warm praise. OpenAI enabled chatbot
+- [bookFu](https://github.com/hartswf0/bookFu) [#305 most used, blossom]: Generate Q&A datasets from books for fine-tuning LLM's
+- [babkala](https://github.com/hartswf0/babkala) [#306 most used, blossom]: Building a custom chatbot backend
+- [centaured](https://github.com/hartswf0/centaured) [#307 most used, blossom]: Centaur School is a learning resource and scaffold for creatively integrating ai into your practice.
+- [Solo-Performance-Prompting](https://github.com/hartswf0/Solo-Performance-Prompting) [#322 most used, fallen]: Repo for paper "Unleashing Cognitive Synergy in Large Language Models: A Task-Solving Agent through Multi-Persona Self-Collaboration"
+- [mesa-examples](https://github.com/hartswf0/mesa-examples) [#323 most used, fallen]: Seminal agent-based models developed using Mesa
+- [large_concept_model](https://github.com/hartswf0/large_concept_model) [#326 most used, fallen]: Large Concept Models: Language modeling in a sentence representation space
+- [llm_multiagent_debate](https://github.com/hartswf0/llm_multiagent_debate) [#330 most used, fallen]: Code for Improving Factuality and Reasoning in Language Models through Multiagent Debate
+- [MESA-SAGA](https://github.com/hartswf0/MESA-SAGA) [#332 most used, fallen]: Studying Machine Evolution of Self-Awareness through Philosophically Enhanced Adaptive Intelligence Framework (PE-AIF) applied with Skill to Action Generation for Agents
+- [semantic-search-app-template](https://github.com/hartswf0/semantic-search-app-template) [#333 most used, fallen]: Tutorial and template for a semantic search app powered by the Atlas Embedding Database, Langchain,  OpenAI and FastAPI
+- [LCM-architecture](https://github.com/hartswf0/LCM-architecture) [#339 most used, fallen]: LARGE CULTURE MODELS (LCM's) of Hostile Architecture
+
+### Interactive Experiences (18)
+- [fourth-shield](https://hartswf0.github.io/fourth-shield/) [#13 most used, ripe]: A neurosymbolic simulation journey from ancient poetry to executable code. Explore all 9 interactive pages built from presentation wireframes.
+- [thunder-rigs](https://hartswf0.github.io/thunder-rigs/) [#36 most used, ripening]: A Three.js builder/racer that plays multiplayer with no game server to run.
+- [live-stage](https://hartswf0.github.io/live-stage/) [#51 most used, ripening]: A browser kit that turns the physical computer used during production into a live scene partner. Open [index.html](index.html) for the tool; the builds, in order of increasing capability, are:
+- [jdb-ripple-remix](https://hartswf0.github.io/jdb-ripple-remix/) [#52 most used, ripening]: A remix of Jay Bolter's Ripple Interface
+- [the-project](https://hartswf0.github.io/the-project/) [#57 most used, ripening]: We are building Shield v4.0. We are moving Ekphrasis from "Descriptive Text" to "Executable Code".
+- [dyad](https://hartswf0.github.io/dyad/) [#100 most used, ripening]: The distinguishing marks between the genuine thinker and the tourist are not always obvious at first glance.
+- [growing-entanglements](https://hartswf0.github.io/growing-entanglements/) [#118 most used, ripe]: An interactive exploration of cultural theory through digital interfaces and network visualizations
+- [trui](https://hartswf0.github.io/trui/) [#124 most used, ripening]: true user interface
+- [imc](https://hartswf0.github.io/imc/) [#148 most used, green]: Interactive music classroom
+- [training-ground](https://hartswf0.github.io/training-ground/) [#171 most used, green]: An interactive, sonified media canvas inspired by Jordan Caldwell’s Training Grounds, translating its self-alignment framework (Shedding → Integrating → Grounding) into a minimalist, mobile-first HTML/CSS/JS artifact.…
+- [orange-assemblies](https://hartswf0.github.io/orange-assemblies/) [#188 most used, green]: A modular, citrus-coded interactive portfolio system where every project is a reconfigurable groove, revealed through tactile, minimalist interactions.
+- [epir](https://hartswf0.github.io/epir/) [#195 most used, green]: Ekphrastic Poetry Interactive Reader
+- [iran-sugarscape-scholars-canvas](https://hartswf0.github.io/iran-sugarscape-scholars-canvas/) [#196 most used, green]: A single-file, mobile-first Sugarscape simulation parameterized with Iran’s real geography and historical shocks, built as a scholar’s canvas for rapid what-if reasoning.
+- [hardfork-iconic-100](https://hartswf0.github.io/hardfork-iconic-100/) [#250 most used, fallen]: Interface to explore "Hard Fork" podcast's fall 2024 list of the 100 most iconic technologies for potential outliers and biases.
+- [speculative-alignment-apparatus](https://hartswf0.github.io/speculative-alignment-apparatus/) [#251 most used, fallen]: Aligns speculations to guides for learning
+- [thunder-build](https://hartswf0.github.io/thunder-build/) [#269 most used, fallen]: ThunderBuild is a powerful web-based 3D construction and design tool that enables users to create, manipulate, and visualize 3D structures in real-time. Built with modern web technologies, it provides an intuitive inte…
+- [chainlink-fence-data-interface](https://hartswf0.github.io/chainlink-fence-data-interface/) [#270 most used, fallen]: An interactive, artistic visualization simulating a chainlink fence as a data container interface. This project leverages HTML, CSS, and JavaScript to create a structured, calming data visualization interface represent…
+- [Clay-Robot-Explorer](https://hartswf0.github.io/Clay-Robot-Explorer/) [#271 most used, fallen]: The mission of the Clay Robot Explorer project is to create an innovative, interactive interface that combines the tactile aesthetics of claymorphism with intuitive touch-based controls.
+
+### Time & Memory (23)
+- [resonome-genetic-archive](https://hartswf0.github.io/resonome-genetic-archive/) [#25 most used, ripe]: A living archive of resonant experiments
+- [synarchiv](https://hartswf0.github.io/synarchiv/) [#54 most used, ripening]: Memory transit management.
+- [fish-town](https://hartswf0.github.io/fish-town/) [#60 most used, ripening]: A constitutional retrieval system, an aquatic simulation lab, and a surreal trout civilization fuse into one repo about inheritance, emergence, and the duty to keep memory from dissolving into flow.
+- [meets](https://hartswf0.github.io/meets/) [#71 most used, ripening]: MEETS — Memory, Embodiment, Emergence, Translation, Synthesis
+- [haunted-tools](https://hartswf0.github.io/haunted-tools/) [#83 most used, ripening]: Haunted tools are forms that look like work but avoid transfers—of budget, time, rights, risk.
+- [holo-project](https://hartswf0.github.io/holo-project/) [#90 most used, ripening]: Part of the DIRTY DISC Archive · 2025
+- [crest](https://hartswf0.github.io/crest/) [#95 most used, ripening]: Temporal Diptych Architecture
+- [txz-ancient](https://hartswf0.github.io/txz-ancient/) [#112 most used, ripening]: "Long-time stranger in honored walls, but the wall remembers names."
+- [popular-bowl](https://hartswf0.github.io/popular-bowl/) [#126 most used, ripening]: Super Bowl LX Ad Archive
+- [liquid-bridge](https://hartswf0.github.io/liquid-bridge/) [#144 most used, green]: Cells never fully die; they leave slow-fading liquid bridges of memory that turn a binary Life grid into a continuous field of past, present, and almost-alive possibility.
+- [provis](https://hartswf0.github.io/provis/) [#146 most used, green]: Electronic medical records for ventures.
+- [gene](https://hartswf0.github.io/gene/) [#161 most used, green]: the substrate for evolving times
+- [time-tide](https://hartswf0.github.io/time-tide/) [#190 most used, ripening]: times are changing.
+- [time-atlas](https://hartswf0.github.io/time-atlas/) [#197 most used, green]: a way of tracking time
+- [tree-ring-timer](https://hartswf0.github.io/tree-ring-timer/) [#213 most used, blossom]: grow time
+- [Clock](https://hartswf0.github.io/Clock/) [#214 most used, blossom]: Teaching time
+- [codon](https://hartswf0.github.io/codon/) [#228 most used, fallen]: Genomic Archive-Index constructing interfaces for thought, for a symbiotic evolution of creative expression.
+- [CYBERMERC](https://hartswf0.github.io/CYBERMERC/) [#237 most used, fallen]: Temporal Governance Framework
+- [perdurant-life-time](https://hartswf0.github.io/perdurant-life-time/) [#252 most used, fallen]: take your time
+- [time-loom](https://hartswf0.github.io/time-loom/) [#253 most used, fallen]
+- [temporal-media](https://hartswf0.github.io/temporal-media/) [#273 most used, fallen]: Timelines of temporally based media
+- [BLUEBELT](https://github.com/hartswf0/BLUEBELT) [#296 most used, fallen]: At BLUE BELT, we embrace the work of becoming better, one step at a time.
+- [WeaveClip](https://github.com/hartswf0/WeaveClip) [#335 most used, fallen]: WeaveClip is a modern video editor blending node-based workflows and timeline editing into a freeform canvas. Drag, connect, reverse, and customize clips with ease. Error-resilient, ID-tracked, and export-ready, it's b…
 
 ### Sound & Audio (10)
-- [k2.html](https://hartswf0.github.io/k2.html/) [#16 most used, ripe]: You have stumbled upon **K2**, a repository of browser-based audio instruments. Congratulations. The odds of you understanding it without reading this document are approximately **12.4%**.  I am required to inform you…
-- [prompt-smith](https://hartswf0.github.io/prompt-smith/) [#54 most used, ripening]: You hear that, Mr. Anderson? That is the sound of inevitability.
-- [synesthetic-flux-console](https://hartswf0.github.io/synesthetic-flux-console/) [#78 most used, ripening]: A browser-borne laboratory where color hums, sound blossoms, and every gesture becomes a micro-ritual of sensory alchemy.
-- [novus-groove](https://hartswf0.github.io/novus-groove/) [#87 most used, ripening]: spatializing sounds
-- [sapir](https://hartswf0.github.io/sapir/) [#105 most used, ripening]: How Language Shapes What We Hear: An Exploration of the Sapir-Whorf Hypothesis Through Sound and Listening
-- [sterner](https://hartswf0.github.io/sterner/) [#114 most used, green]: Soundscapes, Orality, and Listening as Interface
-- [echoes-algos](https://hartswf0.github.io/echoes-algos/) [#139 most used, green]: Soundscapes · Orality · Perception
-- [chrono-mix](https://hartswf0.github.io/chrono-mix/) [#149 most used, green]: Visualize and analyze your audio files with precision. Upload audio, zoom in for details, and download high-quality waveform images with time markers. Ideal for audio enthusiasts, podcasters, and developers.
-- [TTS](https://github.com/hartswf0/TTS) [#155 most used, ripening]: 🐸💬 - a deep learning toolkit for Text-to-Speech, battle-tested in research and production
-- [Waveform-Visualizer](https://hartswf0.github.io/Waveform-Visualizer/) [#252 most used, fallen]: Visualize and analyze your audio files with precision. Upload audio, zoom in for details, and download high-quality waveform images with time markers. Ideal for audio enthusiasts, podcasters, and developers.
+- [k2.html](https://hartswf0.github.io/k2.html/) [#18 most used, ripe]: You have stumbled upon **K2**, a repository of browser-based audio instruments. Congratulations. The odds of you understanding it without reading this document are approximately **12.4%**.  I am required to inform you…
+- [prompt-smith](https://hartswf0.github.io/prompt-smith/) [#77 most used, ripening]: You hear that, Mr. Anderson? That is the sound of inevitability.
+- [synesthetic-flux-console](https://hartswf0.github.io/synesthetic-flux-console/) [#92 most used, ripening]: A browser-borne laboratory where color hums, sound blossoms, and every gesture becomes a micro-ritual of sensory alchemy.
+- [novus-groove](https://hartswf0.github.io/novus-groove/) [#107 most used, ripening]: spatializing sounds
+- [sapir](https://hartswf0.github.io/sapir/) [#127 most used, ripening]: How Language Shapes What We Hear: An Exploration of the Sapir-Whorf Hypothesis Through Sound and Listening
+- [chrono-mix](https://hartswf0.github.io/chrono-mix/) [#133 most used, ripening]: Visualize and analyze your audio files with precision. Upload audio, zoom in for details, and download high-quality waveform images with time markers. Ideal for audio enthusiasts, podcasters, and developers.
+- [sterner](https://hartswf0.github.io/sterner/) [#137 most used, green]: Soundscapes, Orality, and Listening as Interface
+- [echoes-algos](https://hartswf0.github.io/echoes-algos/) [#172 most used, green]: Soundscapes · Orality · Perception
+- [TTS](https://github.com/hartswf0/TTS) [#232 most used, fallen]: 🐸💬 - a deep learning toolkit for Text-to-Speech, battle-tested in research and production
+- [Waveform-Visualizer](https://hartswf0.github.io/Waveform-Visualizer/) [#274 most used, fallen]: Visualize and analyze your audio files with precision. Upload audio, zoom in for details, and download high-quality waveform images with time markers. Ideal for audio enthusiasts, podcasters, and developers.
+
+### Archives & Collections (4)
+- [arkadu](https://hartswf0.github.io/arkadu/) [#9 most used, ripe]: noah's ark meets nelson's xanadu
+- [unsettled-atlas](https://hartswf0.github.io/unsettled-atlas/) [#15 most used, ripe]: Unsettled Atlas
+- [wave](https://hartswf0.github.io/wave/) [#50 most used, ripening]: The universe is not a collection of things; it is a sequence of events. I celebrate the surge and the stillness, for the wave is the signature written by energy upon the wine-dark medium of existence. It is the primal…
+- [babeldu](https://hartswf0.github.io/babeldu/) [#157 most used, green]: Library of Babel meets Xanadu
+
+### 3D Visualization & WebGL (10)
+- [core-age](https://hartswf0.github.io/core-age/) [#16 most used, ripe]: CORE-AGE (from PIE *kerd-: Heart) is an operating system for Living Software Architectures. It unifies the spatial (3D), the structural (DOM), and the logical (Code) into a single "Frankenstein" interface.
+- [achilles-orchestra](https://hartswf0.github.io/achilles-orchestra/) [#39 most used, ripening]: A single-file, browser-native 3D world projector for building and steering a small ecology of speaking sites.
+- [hello-world-text](https://hartswf0.github.io/hello-world-text/) [#58 most used, ripening]: COLLISION TRACE — JOLT 3D
+- [my-aframe-project](https://hartswf0.github.io/my-aframe-project/) [#180 most used, ripening]: linking a python notebook to output a-frame code to a url
+- [a-frame-vr-intro](https://hartswf0.github.io/a-frame-vr-intro/) [#182 most used, ripening]: An introductory project exploring A-Frame for building WebVR experiences. Learn the basics of creating 3D scenes and entities in virtual reality using web technologies.
+- [ldrawExample](https://hartswf0.github.io/ldrawExample/) [#200 most used, green]: LDraw loader example in [Three.js](http:threejs.org)
+- [threejs-living-room-previs](https://hartswf0.github.io/threejs-living-room-previs/) [#206 most used, green]: **Three.js Living Room Previs** is a high-quality, interactive previsualization tool built with [Three.js](https://threejs.org/). This project showcases a realistic living room scene using only built-in Three.js primit…
+- [Experimental-Bio-Digital-Interface](https://hartswf0.github.io/Experimental-Bio-Digital-Interface/) [#215 most used, blossom]: Explore the fusion of biology and technology in an immersive 3D environment where organic forms respond to your touch, blurring the lines between digital art and living systems.
+- [THEMsketch-threejs](https://github.com/hartswf0/THEMsketch-threejs) [#221 most used, fallen]: Interactive sketches made with three.js.
+- [THEMCrowd](https://github.com/hartswf0/THEMCrowd) [#275 most used, fallen]: a webgl experiment that uses Shibuya city 3D models
 
 ### Plato's Cave & Philosophy (9)
-- [the-republic](https://hartswf0.github.io/the-republic/) [#48 most used, ripening]: He knows nothing in reality about which of these appetites or desires is good or bad, but he applies all these terms to the whims of the great beast. That which pleases it, he calls 'good'; that which vexes it, he call…
-- [pretext-cave](https://hartswf0.github.io/pretext-cave/) [#56 most used, ripening]: immersive typography/consciousness demos on Pretext’s real-time layout engine: text escapes static boxes into spatial/perceptual worlds—raycast caves, echolocation, lunar crescents—at 60 FPS, with zero DOM measurement…
-- [platos-cave](https://hartswf0.github.io/platos-cave/) [#75 most used, ripening]: what is real in the land of photons and cameras?
-- [pca](https://hartswf0.github.io/pca/) [#80 most used, ripening]: platos-cave-apparatus
-- [platos-laundry](https://hartswf0.github.io/platos-laundry/) [#107 most used, ripening]: What if Plato’s cave wasn’t a prison but a studio? In a laundromat lit by dryers and a local AI, teens and elders remix prompts, film, and memory—testing how stories shape reality. Not escape, but authorship of the lig…
-- [excavator](https://hartswf0.github.io/excavator/) [#125 most used, ripening]: Shadow work is just gradient descent for the soul — iteratively lowering your internal loss function until your ego converges.
-- [uncontracting](https://hartswf0.github.io/uncontracting/) [#171 most used, ripening]: Experimental digital philosophy project exploring boundaries of interaction and meaning
-- [tunnel-racer](https://hartswf0.github.io/tunnel-racer/) [#204 most used, green]: Testing WebChurch and Reality Template
-- [genoma](https://github.com/hartswf0/genoma) [#297 most used, fallen]: Hacking the source code of reality
+- [the-republic](https://hartswf0.github.io/the-republic/) [#69 most used, ripening]: He knows nothing in reality about which of these appetites or desires is good or bad, but he applies all these terms to the whims of the great beast. That which pleases it, he calls 'good'; that which vexes it, he call…
+- [pretext-cave](https://hartswf0.github.io/pretext-cave/) [#79 most used, ripening]: immersive typography/consciousness demos on Pretext’s real-time layout engine: text escapes static boxes into spatial/perceptual worlds—raycast caves, echolocation, lunar crescents—at 60 FPS, with zero DOM measurement…
+- [platos-cave](https://hartswf0.github.io/platos-cave/) [#97 most used, ripening]: what is real in the land of photons and cameras?
+- [pca](https://hartswf0.github.io/pca/) [#102 most used, ripening]: platos-cave-apparatus
+- [platos-laundry](https://hartswf0.github.io/platos-laundry/) [#130 most used, ripening]: What if Plato’s cave wasn’t a prison but a studio? In a laundromat lit by dryers and a local AI, teens and elders remix prompts, film, and memory—testing how stories shape reality. Not escape, but authorship of the lig…
+- [excavator](https://hartswf0.github.io/excavator/) [#154 most used, ripening]: Shadow work is just gradient descent for the soul — iteratively lowering your internal loss function until your ego converges.
+- [uncontracting](https://hartswf0.github.io/uncontracting/) [#191 most used, ripening]: Experimental digital philosophy project exploring boundaries of interaction and meaning
+- [tunnel-racer](https://hartswf0.github.io/tunnel-racer/) [#272 most used, fallen]: Testing WebChurch and Reality Template
+- [genoma](https://github.com/hartswf0/genoma) [#325 most used, fallen]: Hacking the source code of reality
 
-### 3D Visualization & WebGL (9)
-- [core-age](https://hartswf0.github.io/core-age/) [#13 most used, ripe]: CORE-AGE (from PIE *kerd-: Heart) is an operating system for Living Software Architectures. It unifies the spatial (3D), the structural (DOM), and the logical (Code) into a single "Frankenstein" interface.
-- [achilles-orchestra](https://hartswf0.github.io/achilles-orchestra/) [#27 most used, ripening]: A single-file, browser-native 3D world projector for building and steering a small ecology of speaking sites.
-- [my-aframe-project](https://hartswf0.github.io/my-aframe-project/) [#157 most used, ripening]: linking a python notebook to output a-frame code to a url
-- [a-frame-vr-intro](https://hartswf0.github.io/a-frame-vr-intro/) [#162 most used, ripening]: An introductory project exploring A-Frame for building WebVR experiences. Learn the basics of creating 3D scenes and entities in virtual reality using web technologies.
-- [ldrawExample](https://hartswf0.github.io/ldrawExample/) [#173 most used, green]: LDraw loader example in [Three.js](http:threejs.org)
-- [threejs-living-room-previs](https://hartswf0.github.io/threejs-living-room-previs/) [#206 most used, green]: **Three.js Living Room Previs** is a high-quality, interactive previsualization tool built with [Three.js](https://threejs.org/). This project showcases a realistic living room scene using only built-in Three.js primit…
-- [Experimental-Bio-Digital-Interface](https://hartswf0.github.io/Experimental-Bio-Digital-Interface/) [#221 most used, blossom]: Explore the fusion of biology and technology in an immersive 3D environment where organic forms respond to your touch, blurring the lines between digital art and living systems.
-- [THEMsketch-threejs](https://github.com/hartswf0/THEMsketch-threejs) [#228 most used, fallen]: Interactive sketches made with three.js.
-- [THEMCrowd](https://github.com/hartswf0/THEMCrowd) [#253 most used, fallen]: a webgl experiment that uses Shibuya city 3D models
-
-### Archives & Collections (3)
-- [arkadu](https://hartswf0.github.io/arkadu/) [#9 most used, ripe]: noah's ark meets nelson's xanadu
-- [wave](https://hartswf0.github.io/wave/) [#35 most used, ripening]: The universe is not a collection of things; it is a sequence of events. I celebrate the surge and the stillness, for the wave is the signature written by energy upon the wine-dark medium of existence. It is the primal…
-- [babeldu](https://hartswf0.github.io/babeldu/) [#131 most used, green]: Library of Babel meets Xanadu
-
-### Educational Tools (5)
-- [core-components](https://hartswf0.github.io/core-components/) [#150 most used, ripening]: Some scripts based on some work students did for the LMC 6340 Spring 2021. Modified and expanded for use in the immersive book. Others added.
+### Educational Tools (6)
+- [2700-fa26](https://hartswf0.github.io/2700-fa26/) [#55 most used, ripening]: LAB 3 — Yellow Circle Working
+- [core-components](https://hartswf0.github.io/core-components/) [#176 most used, ripening]: Some scripts based on some work students did for the LMC 6340 Spring 2021. Modified and expanded for use in the immersive book. Others added.
 - [dm-lifecycle](https://hartswf0.github.io/dm-lifecycle/) [#207 most used, green]: learning lifecycle
-- [robot-learning-landscape](https://hartswf0.github.io/robot-learning-landscape/) [#208 most used, green]: Reinforcement Learning
-- [branch-board](https://github.com/hartswf0/branch-board) [#281 most used, blossom]: Provide educators with a rugged, nature-inspired digital tool that enhances classroom management, facilitates interactive learning experiences, and fosters environmental awareness.
-- [hubsdrydock](https://github.com/hartswf0/hubsdrydock) [#308 most used, fallen]: a space for testing and learning about custom scripts for AEL instance of Mozilla Hubs
+- [robot-learning-landscape](https://hartswf0.github.io/robot-learning-landscape/) [#276 most used, fallen]: Reinforcement Learning
+- [branch-board](https://github.com/hartswf0/branch-board) [#308 most used, blossom]: Provide educators with a rugged, nature-inspired digital tool that enhances classroom management, facilitates interactive learning experiences, and fosters environmental awareness.
+- [hubsdrydock](https://github.com/hartswf0/hubsdrydock) [#336 most used, fallen]: a space for testing and learning about custom scripts for AEL instance of Mozilla Hubs
 
 ## Elsewhere
 

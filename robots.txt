@@ -1,0 +1,6 @@
+# Note: crawlers read robots.txt only at the domain root (hartswf0.github.io/robots.txt).
+# This copy documents intent for this project site.
+User-agent: *
+Allow: /
+
+Sitemap: https://hartswf0.github.io/elsewhere/sitemap.xml

@@ -262,3 +262,27 @@ All of it is decoration: hidden from assistive technology and transparent to cli
 - Visitors' edits never leave their own browser.
 
 axe-core finds 0 violations on the homepage, the grove and the shed.
+
+## Revision: the games, inside the grove
+
+The three games now live in one shared file, `games.js`, used by both the Shed and the Grove. Best scores are shared between the two pages.
+
+**Ways in:**
+- a Play button in the grove's bar;
+- a GAMES board standing in the clearing after the "Picked first" stall, with one plaque per game.
+
+The games open in a panel over the walk, so the grove stays on screen. The panel closes with ✕ or Esc, and "All games" returns to the menu.
+
+**Catch is played in the world:**
+- The tree in front of you shakes, its real oranges wobble and drop, and Watson walks under them holding a basket.
+- Move him with ← →, the mouse, dragging, or the on-screen pads.
+- Missed oranges land on the ground. Rotten ones cost a point.
+- While the game runs, scrolling is held still and the oranges can't be picked.
+- After 40 seconds every orange returns to its branch. What you caught is listed, and each one opens in the peel.
+- "Next tree" moves on and plays again under the next tree.
+
+**The quizzes answer with a place:**
+- After each answer in Older or newer and Which tree?, the camera walks to the orange and it glows.
+- Every name in the feedback opens the project in the peel.
+
+axe-core finds 0 violations on the grove and the shed.

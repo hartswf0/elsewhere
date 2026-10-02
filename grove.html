@@ -26,7 +26,7 @@
 <!-- /seo -->
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2016%2016'%3E%3Ccircle%20cx='8'%20cy='9'%20r='6'%20fill='%23e7833b'%20stroke='%23141412'/%3E%3Cpath%20d='M8%203q3-2%205%200q-3%202-5%200'%20fill='%237ea292'%20stroke='%23141412'%20stroke-width='.6'/%3E%3C/svg%3E">
 <style>
-:root{--ink:#141412;--ink2:#3a382f;--paper:#f2f0e8;--card:#fbfaf5;--muted:#6a665d;--faint:#928d82;--rule:#cbc7ba;--warm:#e7833b;
+:root{--ink:#141412;--ink2:#3a382f;--paper:#f2f0e8;--card:#fbfaf5;--muted:#6a665d;--faint:#6a665d;--rule:#cbc7ba;--warm:#e7833b;
   --serif:"Iowan Old Style","Palatino Linotype","Book Antiqua",Palatino,Georgia,serif;
   --sans:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
   --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
@@ -52,7 +52,11 @@ button{font:inherit;color:inherit}
 .controls{position:sticky;top:0;z-index:30;display:flex;flex-wrap:wrap;gap:.45rem .5rem;align-items:center;padding:.6rem clamp(1rem,3vw,2rem);background:var(--paper);border-bottom:1px solid var(--rule)}
 .sbox{position:relative;flex:1 1 15rem;max-width:26rem}
 .search{width:100%;min-height:40px;padding:.5rem .9rem .5rem 2.1rem;border:1px solid var(--ink);border-radius:999px;background:var(--card) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='7' cy='7' r='4.5' fill='none' stroke='%23141412' stroke-width='1.6'/%3E%3Cpath d='M10.5 10.5L14 14' stroke='%23141412' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E") .75rem 50%/15px no-repeat;font:500 .95rem/1 var(--sans);color:var(--ink)}
-.search:focus-visible,.chip:focus-visible,.res button:focus-visible,.strip a:focus-visible,.btn:focus-visible,.pan:focus-visible{outline:2px solid var(--warm);outline-offset:2px}
+:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.btn.primary:focus-visible{outline-offset:3px}
+.skip{position:fixed;left:50%;margin-left:-8rem;top:.6rem;z-index:100;padding:.7rem 1rem;border-radius:999px;background:var(--ink);color:var(--paper);font:600 .8rem/1 var(--sans);text-decoration:none;transform:translateY(-200%)}
+.skip:focus{transform:none}
+@media(pointer:coarse){.chip{min-height:44px}.cnav .btn{min-height:44px}}
 .res{position:absolute;left:0;right:0;top:calc(100% + 6px);margin:0;padding:.3rem;list-style:none;background:var(--card);border:1px solid var(--ink);border-radius:12px;box-shadow:0 10px 30px rgba(20,20,18,.18);z-index:40;max-height:60vh;overflow:auto}
 .res[hidden]{display:none}
 .res button{width:100%;display:grid;grid-template-columns:1rem 1fr auto;gap:.6rem;align-items:center;text-align:left;padding:.5rem .6rem;border:0;border-radius:8px;background:transparent;cursor:pointer}
@@ -74,18 +78,18 @@ button{font:inherit;color:inherit}
 
 /* the stage */
 .stage{position:relative;height:calc(100svh - 7.5rem);min-height:440px;max-height:860px;overflow:hidden;background:#f3e7cf;touch-action:pan-y;user-select:none;-webkit-user-select:none}
-.stage:focus-visible{outline:3px solid var(--warm);outline-offset:-3px}
+.stage:focus-visible{outline:3px solid var(--ink);outline-offset:-3px}
 .stage svg{position:absolute;inset:0;width:100%;height:100%;display:block}
 .stage.dragging{cursor:grabbing}
 #cel a{cursor:pointer;outline:none}
 #cel .fruit .s{transition:transform .14s ease;transform-box:fill-box;transform-origin:center}
 #cel .fruit:hover .s,#cel .fruit:focus-visible .s{transform:scale(1.6)}
-#cel .fruit:focus-visible .hit{stroke:#141412;stroke-width:1.6;fill:rgba(251,250,245,.75)}
+#cel .fruit:focus-visible .hit{stroke:#141412;stroke-width:3;fill:rgba(251,250,245,.85)}
 #cel .fruit.dim{opacity:.13}
 #cel.mode-grove .fruit{pointer-events:none}
 #cel .tree.dim .crown{filter:saturate(.25) brightness(1.06)}
-#cel .fruit.match .hit{fill:rgba(251,250,245,.85);stroke:#e7833b;stroke-width:3}
-#cel .sign:focus-visible .board,#cel .crownlink:focus-visible .crownline{stroke:#e7833b;stroke-width:4}
+#cel .fruit.match .hit{fill:rgba(251,250,245,.85);stroke:#141412;stroke-width:2.5;stroke-dasharray:4 3}
+#cel .sign:focus-visible .board,#cel .crownlink:focus-visible .crownline{stroke:#141412;stroke-width:5}
 #cel .sign:hover .board{fill:#fff}
 .hint{position:absolute;left:50%;bottom:4.2rem;transform:translateX(-50%);margin:0;padding:.45rem .8rem;border-radius:999px;background:rgba(251,250,245,.92);border:1px solid var(--rule);font:600 .64rem/1.3 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--ink2);pointer-events:none;white-space:nowrap;transition:opacity .3s}
 .pan{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;border:1px solid var(--ink);background:rgba(251,250,245,.92);cursor:pointer;display:flex;align-items:center;justify-content:center;font:600 1.2rem/1 var(--sans)}
@@ -106,8 +110,9 @@ button{font:inherit;color:inherit}
 .mix i{display:block;height:100%}
 
 /* the card: a picked orange */
+.card[hidden]{display:block;visibility:hidden}
 .card{position:absolute;z-index:20;right:1rem;top:1rem;width:min(23rem,calc(100% - 2rem));max-height:calc(100% - 2rem);overflow:auto;background:var(--card);border:1px solid var(--ink);border-radius:14px;box-shadow:0 18px 40px rgba(20,20,18,.2);padding:1.2rem 1.2rem 1rem;transform:translateY(8px);opacity:0;transition:opacity .2s,transform .2s;pointer-events:none}
-.card.open{opacity:1;transform:none;pointer-events:auto}
+.card.open{opacity:1;transform:none;pointer-events:auto;visibility:visible}
 .card .peel{position:absolute;left:0;right:0;top:-1px;height:12px;display:block}
 .card .k{margin:.3rem 0 .2rem;display:flex;flex-wrap:wrap;align-items:center;gap:.45rem;font:600 .62rem/1.3 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 .card h2{margin:0;font-weight:400;font-size:1.55rem;line-height:1.12;letter-spacing:-.02em;overflow-wrap:anywhere;outline:none}
@@ -162,6 +167,8 @@ footer{margin-top:2rem;padding:2rem 0;border-top:1px solid var(--rule);font:500 
 </style>
 </head>
 <body>
+<a class="skip" href="#list">Skip the grove: go to the plain list</a>
+<p class="vh" id="live" aria-live="polite" aria-atomic="true"></p>
 
 <header class="top">
   <a class="home" href="index.html" aria-label="Watson Hartsoe, home">
@@ -172,11 +179,11 @@ footer{margin-top:2rem;padding:2rem 0;border-top:1px solid var(--rule);font:500 
   <nav><a href="orange.html">The short</a><a href="#list">List</a><a href="index.html">Home</a></nav>
 </header>
 
-<div class="controls">
+<div class="controls" role="search" aria-label="Find and filter oranges">
   <div class="sbox">
     <label class="vh" for="q">Search every repository</label>
-    <input class="search" id="q" type="search" placeholder="Find an orange: name or idea" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="res" aria-autocomplete="list">
-    <ul class="res" id="res" role="listbox" hidden></ul>
+    <input class="search" id="q" type="search" placeholder="Find an orange: name or idea" autocomplete="off" aria-describedby="status" aria-controls="res">
+    <ul class="res" id="res" aria-label="Matching oranges" hidden></ul>
   </div>
   <div class="chips" role="group" aria-label="Filter by ripeness">
     <button class="chip" type="button" data-f="all" aria-pressed="true">All <b>311</b></button>
@@ -187,17 +194,18 @@ footer{margin-top:2rem;padding:2rem 0;border-top:1px solid var(--rule);font:500 
     <button class="chip" type="button" data-f="0" aria-pressed="false"><i class="fr s0"></i>Blossom <b>35</b></button>
     <button class="chip" type="button" data-f="4" aria-pressed="false"><i class="fr s4"></i>Fallen <b>64</b></button>
   </div>
-  <p class="status" id="status" aria-live="polite"></p>
+  <p class="status" id="status" role="status"></p>
 </div>
 
-<div class="stage" id="stage" tabindex="0" aria-label="The grove. Use the tree strip below, the arrow keys, or drag to move between trees. Enter a tree to pick from it.">
+<div class="stage" id="stage" tabindex="0" role="region" aria-roledescription="grove" aria-label="The grove" aria-describedby="how">
+  <p class="vh" id="how">Left and right arrows move between trees. Tab to a tree and press Enter to step in. Inside a tree, Tab moves between oranges and Enter picks one. Escape steps back. Every orange is also in the plain list below the grove.</p>
   <svg id="cel" class="mode-grove" aria-hidden="false"></svg>
   <button class="btn back" id="back" type="button">‹ The grove</button>
   <button class="pan l" id="panL" type="button" aria-label="Previous tree">‹</button>
   <button class="pan r" id="panR" type="button" aria-label="Next tree">›</button>
-  <p class="hint" id="hint">Drag or use ‹ › to walk the grove · tap a tree to step in</p>
+  <p class="hint" id="hint" aria-hidden="true">Drag or use ‹ › to walk the grove · tap a tree to step in</p>
   <p id="xsheet" aria-hidden="true"></p>
-  <aside class="card" id="card" aria-live="polite" aria-hidden="true">
+  <aside class="card" id="card" aria-labelledby="cN" hidden>
     <svg class="peel" viewBox="0 0 100 12" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0H100V3Q95 9 90 4T80 5T70 3T60 6T50 3T40 6T30 3T20 6T10 3T0 5Z" fill="#e7833b" stroke="#141412" stroke-width=".6" vector-effect="non-scaling-stroke"/></svg>
     <p class="k" id="cK"></p>
     <h2 id="cN" tabindex="-1"></h2>
@@ -609,6 +617,8 @@ const NS='http://www.w3.org/2000/svg';
 const G=window.__GROVE,stage=document.getElementById('stage'),svg=document.getElementById('cel');
 if(!G||!stage||!svg)return;
 const RM=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const live=document.getElementById('live');let sayT=0;
+function say(t){clearTimeout(sayT);live.textContent='';sayT=setTimeout(()=>{live.textContent=t;},60);}
 const C={ink:'#141412',paper:'#f2f0e8',white:'#fbfaf5',far:'#c9d6cf',mid:'#93b2a6',tree:'#7ea292',leaf:'#b2cbbb',leaf2:'#a3c0ae',dark:'#5d8a73',
   sand:'#e9dfc5',sun:'#f1c84f',warm:'#e7833b',amber:'#f0b047',green:'#9dbb55',rot:'#7a5a34',rot2:'#4a3a24',bark:'#9a7a55',fg:'#1d2927'};
 const RIPE=['Blossom','Green','Ripening','Ripe','Fallen'];
@@ -748,17 +758,17 @@ const TALL=Math.max.apply(null,trees.map(t=>t.top));
 const root=E('g',{},svg);
 const bg=E('rect',{x:-50,y:-50,fill:'#f3e7cf'},root);
 const planes=[];
-function plane(fx,fy){const g=E('g',{},root);planes.push({g:g,fx:fx,fy:fy==null?fx:fy});return g;}
+function plane(fx,fy,deco){const g=E('g',deco?{'aria-hidden':'true'}:{},root);planes.push({g:g,fx:fx,fy:fy==null?fx:fy});return g;}
 const r0=R(4);
-const pSky=plane(.03,.35);
+const pSky=plane(.03,.35,1);
 E('path',SHAPE(C.sun,2,{d:circD(-120,-560,44,44,2,r0,16)}),pSky);
 for(let i=0;i<9;i++){const x=-400+i*360+(r0()-.5)*120,y=-560-r0()*120,w=40+r0()*30;
   E('path',SHAPE(C.white,1.2,{'stroke-opacity':.4,d:smooth(jit([[x-w,y],[x-w*.6,y-w*.34],[x-w*.1,y-w*.5],[x+w*.35,y-w*.36],[x+w*.8,y-w*.3],[x+w,y],[x+w*.3,y+w*.12],[x-w*.5,y+w*.12]],2,r0),true)}),pSky);}
-const pFar=plane(.18,.6);
+const pFar=plane(.18,.6,1);
 (function(){const pts=[];for(let x=-1400;x<=WMAX*.2+1800;x+=40)pts.push([x,-90-(46+30*Math.sin(x*.006+1)+16*Math.sin(x*.017))]);
   const top=jit(pts,2,r0);E('path',{d:'M-1400 600L'+top.map(pt).join('L')+'L'+(WMAX*.2+1800)+' 600Z',fill:C.far},pFar);
   E('path',INK(1.2,{d:'M'+top.map(pt).join('L'),opacity:.45}),pFar);})();
-const pRows=plane(.45,.8);
+const pRows=plane(.45,.8,1);
 (function(){const r=R(8),y=-30,end=WMAX*.45+1600;E('rect',{x:-1600,y:y,width:end+1600,height:900,fill:'#b7c9b8'},pRows);
   E('path',INK(1.2,{d:lineD(-1600,y,end,y,1,r,90),opacity:.5}),pRows);
   for(let x=-1500;x<end;x+=70+r()*50){const cr=12+r()*6;E('path',INK(1.6,{d:lineD(x,y,x,y-cr,.5,r,8),opacity:.5}),pRows);
@@ -768,14 +778,15 @@ const pMain=plane(1,1);
 E('rect',{x:WMIN-2000,y:0,width:WMAX-WMIN+4000,height:1200,fill:C.sand},pMain);
 E('path',INK(2.4,{d:lineD(WMIN-2000,0,WMAX+2000,0,1.3,r0,80)}),pMain);
 /* the gate */
-(function(){const g=E('g',{transform:'translate(-300 0)'},pMain),r=R(12);
+(function(){const g0=E('g',{transform:'translate(-300 0)'},pMain),g=E('g',{'aria-hidden':'true'},g0),r=R(12);
   [-90,90].forEach(x=>E('path',SHAPE(C.bark,2.2,{d:rectD(x-8,-170,16,170,1,r)}),g));
   E('path',SHAPE(C.white,2.4,{d:polyD([[-120,-205],[120,-205],[110,-160],[-110,-160]],1,r)}),g);
   E('text',{x:0,y:-177,'font-size':20,'text-anchor':'middle','font-family':SANS,'font-weight':700,'letter-spacing':5,fill:C.ink},g).textContent='THE GROVE';
   E('path',SHAPE(C.white,1.8,{d:rectD(-86,-120,172,46,1,r)}),g);
   E('text',{x:0,y:-101,'font-size':12,'text-anchor':'middle','font-family':SERIF,fill:C.ink},g).textContent=G.repos.length+' repositories · '+trees.length+' trees';
   E('text',{x:0,y:-84,'font-size':10.5,'text-anchor':'middle','font-family':SERIF,fill:C.ink,opacity:.7},g).textContent='tap a tree to step in';
-  const bk=E('g',{transform:'translate(110 0)'},g);
+  const bka=E('a',{href:'#basket',class:'basket','aria-label':'The basket: pick a random ripe orange'},g0),bk=E('g',{transform:'translate(110 0)'},bka);
+  E('circle',{cx:110,cy:-30,r:40,fill:'rgba(0,0,0,0)'},bka);
   E('path',SHAPE('#c9a46a',2,{d:polyD([[-28,-34],[28,-34],[22,0],[-22,0]],.8,r)}),bk);
   for(let i=0;i<5;i++)E('circle',{cx:-18+i*9,cy:-38+(i%2)*3,r:7,fill:C.warm,stroke:C.ink,'stroke-width':1.1},bk);
   E('path',INK(1.4,{d:'M-24 -22H24M-23 -11H23',opacity:.5}),bk);})();
@@ -807,14 +818,14 @@ trees.forEach(t=>{
     else{let d=minD;for(let k=0;k<600&&!ok;k++){if(k%150===149)d*=.85;x=(r()-.5)*2*t.rx;y=t.cy+(r()-.5)*2*t.ry*1.1;if(!inside(x,y)||placed.some(q=>Math.hypot(q[0]-x,q[1]-y)<d))continue;ok=true;}placed.push([x,y]);}
     const name=rp[0],a=E('a',{class:'fruit',href:'#pick='+encodeURIComponent(name),tabindex:-1,'aria-label':name+', '+RIPE[s]+(rp[7]?', hand-picked':'')+', '+t.name},par);
     const gg=E('g',{transform:'translate('+n1(x)+' '+n1(y)+')'},a);
-    E('circle',{class:'hit',r:13,fill:'rgba(0,0,0,0)'},gg);
+    E('circle',{class:'hit',r:n1(Math.max(13,t.minD*.5)),fill:'rgba(0,0,0,0)'},gg);
     shapeFruit(gg,s);
     if(rp[7]){E('path',INK(.8,{d:'M3 -4L9 3'}),gg);E('path',SHAPE(C.white,.9,{d:'M8 2l6 -2l3 6l-6 2Z'}),gg);}
     const f={j:j,name:name,rp:rp,s:s,tree:t,x:t.x+x,y:y,lx:x,ly:y,a:a,gg:gg,ground:s===4};
     fruits.push(f);byName[name.toLowerCase()]=f;t.order.push(f);
   });
   /* the sign */
-  const sg=t.sign=E('a',{class:'sign',href:'#tree='+t.id,'aria-label':t.name+', '+t.n+' repositories'},g);
+  const sg=t.sign=E('a',{class:'sign',href:'#tree='+t.id,tabindex:-1,'aria-hidden':'true'},g);
   const bx=-t.rx*.2-178,by=-104;
   E('path',INK(4,{d:lineD(bx+86,0,bx+86,by+40,.5,r,20)}),sg);
   E('path',SHAPE(C.white,2,{class:'board',d:rectD(bx,by,172,62,.9,r)}),sg);
@@ -835,7 +846,7 @@ const held=E('g',{opacity:0},pMain);const heldShape={el:null};
 /* the label that follows hover and focus, at constant screen size */
 const tip=E('g',{opacity:0,'pointer-events':'none'},pMain);const tipBg=E('rect',{rx:6,fill:C.white,stroke:C.ink,'stroke-width':1.2},tip);const tipT=E('text',{'font-size':13,'font-family':SERIF,fill:C.ink,'text-anchor':'middle'},tip);const tipS=E('text',{'font-size':8.5,'font-family':SANS,'font-weight':700,'letter-spacing':1,fill:C.ink,opacity:.6,'text-anchor':'middle'},tip);
 /* foreground: grass and a fence, close to the lens */
-const pFore=plane(1.55,1.1);
+const pFore=plane(1.55,1.1,1);
 (function(){const r=R(30);let d='',x=WMIN-900;const end=WMAX*1.55+1200;
   while(x<end){const n=3+Math.floor(r()*3);for(let i=0;i<n;i++){const h=34+r()*44,bx=x+i*7,lean=(r()-.5)*18;d+='M'+n1(bx-4)+' 150Q'+n1(bx+lean*.3)+' '+n1(150-h*.6)+' '+n1(bx+lean)+' '+n1(150-h)+'Q'+n1(bx+lean*.5+4)+' '+n1(150-h*.5)+' '+n1(bx+4)+' 150Z';}x+=80+r()*170;}
   E('path',{d:d,fill:C.fg},pFore);E('rect',{x:WMIN-1000,y:148,width:end-WMIN+2000,height:900,fill:C.fg},pFore);})();
@@ -856,7 +867,7 @@ let focusTree=0;
 function treeView(t,withCard,f){
   const cardW=withCard&&!narrow?Math.min(368,W*.4):0,cardH=withCard&&narrow?H*.56:0;
   const aw=W-cardW-40,ah=H-cardH-30;
-  const fit=Math.min(aw*.92/(2*t.rx+70),ah*.86/(t.top+60)),tap=26/t.minD;
+  const fit=Math.min(aw*.92/(2*t.rx+70),ah*.86/(t.top+60)),tap=32/t.minD;
   const z=clamp(Math.max(fit,tap),.35,2.4),over=z>fit*1.02;
   let fx=t.x-(over?0:t.rx*.12),fy=over?t.cy:(-t.top+30)/2;
   if(f&&over){fx=f.x-10;fy=(-f.y+40)*z<ah*.88?(f.y+20)/2:f.y+ah*.3/z;}
@@ -885,28 +896,30 @@ function applyFilter(){
   listRows.forEach(li=>{const f=byName[li.dataset.n];li.hidden=!(f&&f.match);});
   groups.forEach(g=>{g.hidden=![...g.querySelectorAll('li')].some(li=>!li.hidden);});
   status.textContent=active?n+' of '+fruits.length+' match':fruits.length+' oranges on '+trees.length+' trees';
+  setTabbable();
   return n;
 }
 chips.forEach(c=>c.addEventListener('click',()=>{filt=c.dataset.f;chips.forEach(x=>x.setAttribute('aria-pressed',x===c?'true':'false'));applyFilter();}));
 let resSel=-1,resItems=[];
 function renderResults(){
-  if(!query){res.hidden=true;q.setAttribute('aria-expanded','false');return;}
+  if(!query){res.hidden=true;return;}
   resItems=fruits.filter(f=>f.match).sort((a,b)=>{const an=a.name.toLowerCase().indexOf(query)===0?0:1,bn=b.name.toLowerCase().indexOf(query)===0?0:1;return an-bn||b.s%4-a.s%4||(a.name<b.name?-1:1);}).slice(0,8);
   res.innerHTML='';resSel=-1;
   if(!resItems.length){const li=document.createElement('li');li.className='none';li.textContent='No orange by that name. Try a theme word, or clear the filter.';res.appendChild(li);}
-  resItems.forEach((f,i)=>{const li=document.createElement('li'),b=document.createElement('button');b.type='button';b.setAttribute('role','option');b.id='opt'+i;
+  resItems.forEach((f,i)=>{const li=document.createElement('li'),b=document.createElement('button');b.type='button';b.id='opt'+i;b.setAttribute('aria-label',f.name+', '+RIPE[f.s]+', '+f.tree.name);
     b.innerHTML='<i class="fr s'+f.s+'"></i><b></b><small></small>';b.querySelector('b').textContent=f.name;b.querySelector('small').textContent=f.tree.name;
-    b.addEventListener('click',()=>{go('#pick='+encodeURIComponent(f.name));res.hidden=true;q.setAttribute('aria-expanded','false');});li.appendChild(b);res.appendChild(li);});
-  res.hidden=false;q.setAttribute('aria-expanded','true');
+    b.addEventListener('click',()=>{byKey=true;go('#pick='+encodeURIComponent(f.name));res.hidden=true;});
+    b.addEventListener('keydown',e=>{const bs=[...res.querySelectorAll('button')];if(e.key==='ArrowDown'){e.preventDefault();(bs[i+1]||bs[0]).focus();}else if(e.key==='ArrowUp'){e.preventDefault();(i?bs[i-1]:q).focus();}else if(e.key==='Escape'){res.hidden=true;q.focus();}});
+    li.appendChild(b);res.appendChild(li);});
+  res.hidden=false;
 }
 q.addEventListener('input',()=>{query=q.value.trim().toLowerCase();applyFilter();renderResults();});
 q.addEventListener('keydown',e=>{
-  if(e.key==='ArrowDown'||e.key==='ArrowUp'){if(!resItems.length)return;e.preventDefault();resSel=(resSel+(e.key==='ArrowDown'?1:-1)+resItems.length)%resItems.length;
-    [...res.querySelectorAll('button')].forEach((b,i)=>b.setAttribute('aria-selected',i===resSel?'true':'false'));q.setAttribute('aria-activedescendant','opt'+resSel);}
-  else if(e.key==='Enter'){const f=resItems[Math.max(0,resSel)];if(f){e.preventDefault();go('#pick='+encodeURIComponent(f.name));res.hidden=true;q.setAttribute('aria-expanded','false');}}
-  else if(e.key==='Escape'){res.hidden=true;q.setAttribute('aria-expanded','false');}
+  if(e.key==='ArrowDown'){const b=res.querySelector('button');if(b&&!res.hidden){e.preventDefault();b.focus();}}
+  else if(e.key==='Enter'){const f=resItems[0];if(f){e.preventDefault();byKey=true;go('#pick='+encodeURIComponent(f.name));res.hidden=true;}}
+  else if(e.key==='Escape'){res.hidden=true;}
 });
-document.addEventListener('click',e=>{if(!e.target.closest('.sbox')){res.hidden=true;q.setAttribute('aria-expanded','false');}});
+document.addEventListener('click',e=>{if(!e.target.closest('.sbox'))res.hidden=true;});
 
 /* ---- the card ---- */
 const card=document.getElementById('card'),cK=document.getElementById('cK'),cN=document.getElementById('cN'),cD=document.getElementById('cD'),cM=document.getElementById('cM'),cH=document.getElementById('cH'),cA=document.getElementById('cA');
@@ -922,26 +935,36 @@ function fillCard(f){
   if(rp[1])mk('https://hartswf0.github.io/'+rp[0]+'/','Open the page','primary');
   mk(gh,rp[1]?'Code':'Open the code',rp[1]?'':'primary');
 }
-function openCard(){stage.classList.add('carded');card.classList.add('open');card.setAttribute('aria-hidden','false');ST.cardOpen=true;}
-function closeCard(){stage.classList.remove('carded');card.classList.remove('open');card.setAttribute('aria-hidden','true');ST.cardOpen=false;}
+let byKey=false,returnTo=null;
+function openCard(){stage.classList.add('carded');card.hidden=false;card.classList.add('open');ST.cardOpen=true;const f=ST.pick;
+  if(f)say('Picked '+f.name+'. '+RIPE[f.s]+', from '+f.tree.name+'. '+(f.rp[2]||''));
+  if(byKey||document.activeElement&&document.activeElement!==document.body){returnTo=f?f.a:null;cN.focus({preventScroll:true});}byKey=false;}
+function closeCard(){stage.classList.remove('carded');card.classList.remove('open');card.hidden=true;ST.cardOpen=false;
+  if(card.contains(document.activeElement)){const t=returnTo;returnTo=null;setTimeout(()=>{(t&&t.getAttribute('tabindex')==='0'?t:stage).focus({preventScroll:true});},0);}}
 function stepPick(d){if(!ST.pick)return;const o=ST.pick.tree.order,i=o.indexOf(ST.pick),useF=o.filter(x=>x.match).length>1;let k=i;for(let n=0;n<o.length;n++){k=(k+d+o.length)%o.length;if(!useF||o[k].match)break;}go('#pick='+encodeURIComponent(o[k].name));}
-document.getElementById('cPrev').addEventListener('click',()=>stepPick(-1));
-document.getElementById('cNext').addEventListener('click',()=>stepPick(1));
+document.getElementById('cPrev').addEventListener('click',()=>{byKey=true;stepPick(-1);});
+document.getElementById('cNext').addEventListener('click',()=>{byKey=true;stepPick(1);});
 document.getElementById('cBack').addEventListener('click',()=>{const t=ST.pick&&ST.pick.tree;go(t?'#tree='+t.id:'#grove');});
 document.getElementById('back').addEventListener('click',()=>go('#grove'));
 
 /* ---- router: the URL is the state ---- */
 function go(h){if(location.hash===h)route();else location.hash=h;}
-function setTabbable(){fruits.forEach(f=>f.a.setAttribute('tabindex',ST.mode==='tree'&&f.tree===ST.tree?'0':'-1'));
+function setTabbable(){const active=filt!=='all'||!!query;fruits.forEach(f=>{const on=ST.mode==='tree'&&f.tree===ST.tree;f.a.setAttribute('tabindex',on&&(!active||f.match)?'0':'-1');if(on)f.a.removeAttribute('aria-hidden');else f.a.setAttribute('aria-hidden','true');});
+  const pl=document.getElementById('panL'),pr=document.getElementById('panR'),i=ST.mode==='tree'?ST.tree.i:focusTree;
+  pl.setAttribute('aria-label',i>0?'Previous tree: '+trees[i-1].name:'No previous tree');pr.setAttribute('aria-label',i<trees.length-1?'Next tree: '+trees[i+1].name:'No next tree');
   trees.forEach(t=>t.link.setAttribute('tabindex',ST.mode==='grove'?'0':'-1'));
+  const bk=svg.querySelector('.basket');if(bk){bk.setAttribute('tabindex',ST.mode==='grove'?'0':'-1');if(ST.mode==='grove')bk.removeAttribute('aria-hidden');else bk.setAttribute('aria-hidden','true');}
   document.querySelectorAll('.strip a').forEach(a=>a.setAttribute('aria-current',ST.tree&&a.dataset.t===ST.tree.id?'true':'false'));}
 function route(instant){
   const h=decodeURIComponent(location.hash.slice(1));
   let m;
   if((m=/^pick=(.+)$/.exec(h))){const f=byName[m[1].toLowerCase()];if(!f)return;enterTree(f.tree,instant,true,f);pick(f,instant);}
-  else if((m=/^tree=(.+)$/.exec(h))){const t=trees.find(x=>x.id===m[1]);if(!t)return;putBack(instant);enterTree(t,instant,false);}
+  else if(h==='basket'){const ripe=fruits.filter(f=>f.s===3&&f.match!==false);const f=ripe[Math.floor(Math.random()*ripe.length)]||fruits[0];history.replaceState(null,'','#pick='+encodeURIComponent(f.name));route(instant);return;}
+  else if((m=/^tree=(.+)$/.exec(h))){const t=trees.find(x=>x.id===m[1]);if(!t)return;putBack(instant);enterTree(t,instant,false);
+    const nm=t.order.filter(f=>f.match).length,act=filt!=='all'||!!query;if(!instant)say('In the tree '+t.name+'. '+t.n+' oranges'+(act?', '+nm+' match':'')+'. Tab to move between them.');
+    if(byKey){byKey=false;const f=t.order.find(x=>x.a.getAttribute('tabindex')==='0');setTimeout(()=>(f?f.a:stage).focus({preventScroll:true}),0);}}
   else if(h===''||h==='grove'){putBack(instant);ST.mode='grove';svg.setAttribute('class','mode-grove');stage.classList.remove('mode-tree');
-    setGroveAt(ST.tree?ST.tree.x:cam.x,instant);ST.tree=null;setTabbable();hint();}
+    setGroveAt(ST.tree?ST.tree.x:cam.x,instant);const was=ST.tree;ST.tree=null;setTabbable();hint();if(!instant&&was){say('Back in the grove, at '+was.name+'.');setTimeout(()=>was.link.focus({preventScroll:true}),0);}}
 }
 function enterTree(t,instant,withCard,f){
   ST.mode='tree';ST.tree=t;svg.setAttribute('class','mode-tree');stage.classList.add('mode-tree');focusTree=t.i;
@@ -957,7 +980,7 @@ function pick(f,instant){
   f.a.style.opacity=0;
   setHeld(f);
   if(RM||instant){FIG.x=f.x-34;FIG.goal=FIG.x;FIG.act={k:'hold',t0:tNow-2000,f:f,grabbed:true,hasFruit:true};openCard();Object.assign(tgt,holdView(f));if(instant)Object.assign(cam,tgt);return;}
-  FIG.goal=f.x-34;FIG.act={k:'goto',t0:tNow,f:f};closeCard();
+  FIG.goal=f.x-34;FIG.act={k:'goto',t0:tNow,f:f};openCard();
 }
 function putBack(instant){
   if(!ST.pick)return;const f=ST.pick;ST.pick=null;closeCard();
@@ -976,7 +999,7 @@ window.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-dra
 window.addEventListener('pointerup',()=>{if(drag&&moved&&ST.mode==='grove')focusTree=nearestTree(tgt.x);drag=null;setTimeout(()=>stage.classList.remove('dragging'),0);});
 svg.addEventListener('click',e=>{if(moved){e.preventDefault();e.stopPropagation();moved=false;}},true);
 stage.addEventListener('wheel',e=>{if(Math.abs(e.deltaX)>Math.abs(e.deltaY)||e.shiftKey){e.preventDefault();const d=(e.shiftKey?e.deltaY:e.deltaX)/cam.z;tgt.x=clamp(tgt.x+d,WMIN,WMAX);focusTree=nearestTree(tgt.x);}},{passive:false});
-function stepTree(d){focusTree=clamp(focusTree+d,0,trees.length-1);if(ST.mode==='tree')go('#tree='+trees[focusTree].id);else setGroveAt(trees[focusTree].x);}
+function stepTree(d){focusTree=clamp(focusTree+d,0,trees.length-1);const t=trees[focusTree];if(ST.mode==='tree')go('#tree='+t.id);else{setGroveAt(t.x);setTabbable();say(t.name+', '+t.n+' oranges. Press Enter to step in.');}}
 document.getElementById('panL').addEventListener('click',()=>stepTree(-1));
 document.getElementById('panR').addEventListener('click',()=>stepTree(1));
 stage.addEventListener('keydown',e=>{
@@ -984,13 +1007,14 @@ stage.addEventListener('keydown',e=>{
   if(e.key==='ArrowRight'){e.preventDefault();stepTree(1);}
   else if(e.key==='ArrowLeft'){e.preventDefault();stepTree(-1);}
   else if(e.key==='Escape'){if(ST.pick)go('#tree='+ST.pick.tree.id);else if(ST.mode==='tree')go('#grove');}
-  else if(e.key==='Enter'&&e.target===stage&&ST.mode==='grove'){go('#tree='+trees[focusTree].id);}
+  else if(e.key==='Enter'&&e.target===stage&&ST.mode==='grove'){byKey=true;go('#tree='+trees[focusTree].id);}
 });
 card.addEventListener('keydown',e=>{if(e.key==='Escape'){const t=ST.pick&&ST.pick.tree;go(t?'#tree='+t.id:'#grove');}});
 /* hover and focus label */
 function showTip(f){ST.hover=f;tipT.textContent=f.name;tipS.textContent=(RIPE[f.s]+(f.rp[7]?' · HAND-PICKED':'')).toUpperCase();tip.setAttribute('opacity',1);}
 function hideTip(f){if(ST.hover===f){ST.hover=null;tip.setAttribute('opacity',0);}}
-fruits.forEach(f=>{f.a.addEventListener('pointerenter',()=>showTip(f));f.a.addEventListener('pointerleave',()=>hideTip(f));f.a.addEventListener('focus',()=>showTip(f));f.a.addEventListener('blur',()=>hideTip(f));});
+trees.forEach(t=>[t.link].forEach(a=>a.addEventListener('keydown',e=>{if(e.key==='Enter')byKey=true;})));
+fruits.forEach(f=>{f.a.addEventListener('keydown',e=>{if(e.key==='Enter')byKey=true;});f.a.addEventListener('pointerenter',()=>showTip(f));f.a.addEventListener('pointerleave',()=>hideTip(f));f.a.addEventListener('focus',()=>showTip(f));f.a.addEventListener('blur',()=>hideTip(f));});
 const hintEl=document.getElementById('hint');let hintT=0;
 function hint(){hintEl.textContent=ST.mode==='grove'?(narrow?'Drag or ‹ › to walk · tap a tree':'Drag or use ‹ › to walk the grove · tap a tree to step in'):(narrow?'Drag to look around · tap an orange':'Hover to read · tap an orange to pick it · Esc to step back');hintEl.style.opacity=1;hintT=performance.now();}
 
@@ -1001,7 +1025,7 @@ function figurePose(time,dt){
   const a=FIG.act,goal=FIG.goal==null?FIG.x:FIG.goal,dist=goal-FIG.x;
   /* travel: walk, or zip when it is far (cartoon physics, never slow) */
   if(Math.abs(dist)>2&&(!a||a.k==='goto')){
-    const far=Math.abs(dist)>380,sp=(far?Math.max(1.4,Math.abs(dist)/480):.62)*dt;
+    const far=Math.abs(dist)>240,sp=(far?Math.max(2.4,Math.abs(dist)/300):.8)*dt;
     const step=Math.sign(dist)*Math.min(Math.abs(dist),sp);FIG.x+=step;FIG.phase+=Math.abs(step);FIG.face=Math.sign(dist);
     P=walk(FIG.phase/FS);if(far){P.lean=.3;P.sx=1.12;P.sy=.92;P.zip=.8;}
     P.mirror=FIG.face<0;P.gaze=[.4,0];
@@ -1036,7 +1060,8 @@ function frame(time){
   cam.x+=(tgt.x-cam.x)*kf;cam.y+=(tgt.y-cam.y)*kf;cam.z+=(tgt.z-cam.z)*kf;shoot();
   /* in the grove, the figure keeps pace with the camera */
   if(ST.mode==='grove'&&!FIG.act)FIG.goal=clamp(cam.x-(narrow?W*.18:W*.28)/cam.z,WMIN+60,WMAX);
-  const boil=RM?1:1+Math.floor(time/115)%3;
+  const busy=!!FIG.act&&FIG.act.k!=='hold'||Math.abs((FIG.goal==null?FIG.x:FIG.goal)-FIG.x)>2||!!FIG.ret;
+  const boil=RM||!busy?1:1+Math.floor(time/115)%3;
   const P=figurePose(time,dt),hand=drawFigure(hero,P,boil*13);FIG.hand=hand;
   const a=FIG.act;
   if(a&&a.hasFruit){held.setAttribute('opacity',1);held.setAttribute('transform','translate('+pt([hand[0],hand[1]-6])+')');}

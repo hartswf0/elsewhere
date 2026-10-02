@@ -119,3 +119,34 @@ HOME / film                          GROVE / tree open, orange picked
 - **The stops bar** shows where you are and jumps anywhere. The arrow keys and the ‹ › buttons step from stop to stop.
 - **The index** ranks all 311 by use, with edit counts. It can be sorted (most used, A–Z, recently tended, ripeness) and filtered by tree and ripeness, and it shares the grove's search; **/** focuses the search box.
 - **Tab order:** only the oranges in front of you can be reached by Tab. A picked orange that scrolls out of view is put back.
+
+## Revision: three tools, one peel
+
+**Cut from the top:**
+- the seven ripeness chips (now one Show filter);
+- the status line (the count now sits beside the view it describes);
+- the ✦ Tricks button (Watson is the button);
+- the arrow buttons (the stops bar, the keys and swiping cover them).
+
+**Three tools, one data set, one search, one filter:**
+- **Walk:** the scrolling grove.
+- **Crate:** a grid of large tiles, the easiest targets on a phone or for a tremor.
+- **List:** the ranked index with sorting.
+
+The view is remembered, and `?view=` links to one.
+
+**Watson is a button:**
+- pressing him cycles keepie-uppie, breakdance and duct tape;
+- his label names the next trick;
+- his tap area sits under every orange, so where they overlap, the orange wins.
+
+**The peel, one modal for every orange:**
+- It's a native `<dialog>`: it traps focus and closes with Esc, the ✕ button, a backdrop click, or Back (`#pick=`). The page behind it locks, and focus returns to the orange you came from.
+- The skin falls away (skipped under reduced motion) to show the **live page in a sandboxed iframe**. Code-only repos show their **README**, fetched from GitHub.
+- If a page won't embed, a note after 6 seconds offers to open it in a new tab.
+- Previous/Next, or ← and →, step through the current filtered ranking.
+- On phones it's a full-screen sheet.
+
+**Hover preview:** on fine pointers only, resting on an orange or a tile for 0.45s shows the live page at small scale. It never appears on touch screens.
+
+**Without JavaScript or with a modifier-click:** crate tiles and list names are real links to the project.

@@ -233,3 +233,32 @@ The signs stand below the fruit and never cover it.
 **Reduced motion:** nothing sways or flies. The birds sit, and every landmark shows its still frame.
 
 All of it is decoration: hidden from assistive technology and transparent to clicks. axe-core finds 0 violations.
+
+## Revision: the Shed (pruning, collections, play)
+
+`shed.html` is the gardener's shed at the edge of the grove. It is linked from the grove's bar and the homepage.
+
+**Prune:**
+- One project at a time, in a chosen pile: least used, blossoms and fallen, untended longest, newest, most used, or one tree.
+- Each project can be kept, pruned, featured or skipped, by button, swipe, or the keys P/K/F/S and the arrow keys. U undoes.
+- The card shows the project's facts, links and an optional live preview.
+- A side tree records the decisions: kept fruit in the crown, featured fruit with a star, pruned fruit on the ground.
+- A decisions ledger lets you clear any one of them.
+
+**Collect:**
+- Named collections with a note, built with a search-and-add list.
+- Items can be reordered and removed with buttons.
+- Deleting a collection takes two presses.
+
+**Play** (best scores are kept in the browser):
+- **Catch:** a 40-second basket game; the projects you catch are listed as links.
+- **Older or newer:** which was planted first?
+- **Which tree?:** which theme a project grows on.
+
+**Publishing without code:**
+- Edits stay in this browser until Publish. Publish downloads `curation.js`, which you upload to the repository root.
+- The grove reads it on load: pruned projects fall to the ground (marked "pruned" in the crate and list), and featured ones become hand-picked and lead the "Picked first" stall.
+- The homepage lists published collections under the grove search.
+- Visitors' edits never leave their own browser.
+
+axe-core finds 0 violations on the homepage, the grove and the shed.

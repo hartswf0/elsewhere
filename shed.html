@@ -1,0 +1,596 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<meta name="description" content="The Shed: the gardener's tools for Watson Hartsoe's grove. Prune and feature projects, make collections, and play three small games with the real work.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="The Shed">
+<meta property="og:description" content="Prune the grove, make collections, and play: catch the oranges, older or newer, which tree.">
+<meta property="og:url" content="https://hartswf0.github.io/elsewhere/shed.html">
+<link rel="canonical" href="https://hartswf0.github.io/elsewhere/shed.html">
+<title>The Shed</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2016%2016'%3E%3Ccircle%20cx='8'%20cy='9'%20r='6'%20fill='%23e7833b'%20stroke='%23141412'/%3E%3Cpath%20d='M8%203q3-2%205%200q-3%202-5%200'%20fill='%237ea292'%20stroke='%23141412'%20stroke-width='.6'/%3E%3C/svg%3E">
+<style>
+:root{--ink:#141412;--ink2:#3a382f;--paper:#f2f0e8;--card:#fbfaf5;--muted:#6a665d;--rule:#cbc7ba;--warm:#e7833b;--leaf:#b2cbbb;--tree:#7ea292;--sand:#e9dfc5;
+  --serif:"Iowan Old Style","Palatino Linotype","Book Antiqua",Palatino,Georgia,serif;
+  --sans:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+*{box-sizing:border-box}
+html{scroll-padding-top:5rem}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:18px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+button,select,input,textarea{font:inherit;color:inherit}
+::selection{background:var(--ink);color:var(--paper)}
+:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:fixed;left:50%;margin-left:-5rem;top:.6rem;z-index:100;padding:.7rem 1rem;border-radius:999px;background:var(--ink);color:var(--paper);font:600 .8rem/1 var(--sans);text-decoration:none;transform:translateY(-250%)}
+.skip:focus{transform:none}
+.fr{flex:none;display:inline-block;width:.8rem;height:.8rem;border-radius:50%;border:1px solid var(--ink)}
+.fr.s3{background:#e7833b}.fr.s2{background:#f0b047}.fr.s1{background:#9dbb55}
+.fr.s0{background:#fbfaf5;box-shadow:inset 0 0 0 .2rem #fbfaf5,inset 0 0 0 .5rem #f1c84f}
+.fr.s4{background:#7a5a34;border-radius:50% 50% 45% 45%/60% 60% 40% 40%;height:.6rem}
+
+/* the bar */
+.bar{position:sticky;top:0;z-index:30;display:flex;flex-wrap:wrap;align-items:center;gap:.4rem .9rem;padding:.5rem clamp(.8rem,3vw,1.6rem) .7rem;background:var(--paper)}
+.bar::after{content:"";position:absolute;left:0;right:0;bottom:-5px;height:6px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 6'%3E%3Cpath d='M0 3Q5 .5 10 3T20 3T30 3T40 3' fill='none' stroke='%23141412' stroke-width='1.3'/%3E%3C/svg%3E") repeat-x 0 0/40px 6px;pointer-events:none}
+.home{display:flex;align-items:center;gap:.6rem;min-height:44px;text-decoration:none}
+.home svg{width:30px;height:30px;display:block;flex:none}
+.ttl{display:flex;flex-direction:column;line-height:1.05}
+.ttl h1{margin:0;font-weight:400;font-size:1.3rem;letter-spacing:-.02em}
+.ttl small{font:500 .6rem/1.2 var(--mono);letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.views{display:flex;gap:.15rem;margin-left:auto}
+.views button,.views a{position:relative;display:flex;flex-direction:column;align-items:center;gap:.1rem;min-width:4.2rem;min-height:48px;padding:.25rem .4rem .45rem;border:0;background:transparent;cursor:pointer;color:var(--muted);font:600 .6rem/1 var(--sans);letter-spacing:.06em;text-transform:uppercase;text-decoration:none}
+.views svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.views button[aria-pressed="true"]{color:var(--ink)}
+.views button[aria-pressed="true"]::after{content:"";position:absolute;left:12%;right:12%;bottom:0;height:5px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 5' preserveAspectRatio='none'%3E%3Cpath d='M1 3Q10 .5 20 2.6T39 2' fill='none' stroke='%23e7833b' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E") 0 0/100% 100% no-repeat}
+.views button:hover,.views a:hover{color:var(--ink)}
+.views .sep{width:1px;margin:.5rem .3rem;background:var(--rule)}
+.pubbtn{min-height:44px;padding:.5rem .95rem;border:1.5px solid var(--ink);border-radius:999px;background:var(--card);cursor:pointer;font:700 .66rem/1 var(--sans);letter-spacing:.06em;text-transform:uppercase}
+.pubbtn b{display:inline-block;min-width:1.4rem;margin-left:.3rem;padding:.18rem .35rem;border-radius:999px;background:var(--warm);color:var(--ink);font-weight:700}
+.pubbtn b:empty{display:none}
+@media(max-width:700px){.ttl small{display:none}.views{order:3;flex:1 1 100%;justify-content:space-between;margin:0}.views button,.views a{flex:1;min-width:0}.views .sep{display:none}.pubbtn{margin-left:auto}}
+
+main{max-width:72rem;margin:0 auto;padding:clamp(1.4rem,3vw,2.2rem) clamp(1rem,3vw,1.6rem) 4rem}
+[data-view]{display:none}[data-view].on{display:block}
+.lede{margin:0 0 1.4rem;max-width:44rem;color:var(--ink2);font-size:1.02rem}
+h2{margin:0 0 .4rem;font-weight:400;font-size:clamp(1.5rem,3vw,2rem);letter-spacing:-.02em;line-height:1.15}
+h3{margin:0 0 .6rem;font:700 .66rem/1.3 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--ink2)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;min-height:44px;padding:.5rem 1rem;border:1.5px solid var(--ink);border-radius:999px;background:var(--card);cursor:pointer;font:600 .76rem/1.1 var(--sans);letter-spacing:.03em;text-decoration:none}
+.btn.dark{background:var(--ink);color:var(--paper)}
+.btn:hover{box-shadow:3px 3px 0 var(--warm)}
+.btn[disabled]{opacity:.45;cursor:default;box-shadow:none}
+.sel,.inp{min-height:44px;padding:.45rem .7rem;border:1.5px solid var(--ink);border-radius:12px;background:var(--card);font:500 .86rem/1.2 var(--sans)}
+textarea.inp{width:100%;min-height:5rem;font-family:var(--serif);font-size:1rem;line-height:1.45}
+.chk{display:inline-flex;align-items:center;gap:.45rem;min-height:44px;font:500 .82rem/1.2 var(--sans);cursor:pointer}
+.chk input{width:20px;height:20px;accent-color:var(--ink)}
+.tag{display:inline-block;padding:.15rem .4rem;border-radius:4px;font:700 .55rem/1 var(--sans);letter-spacing:.06em;text-transform:uppercase;vertical-align:middle}
+.tag.pr{background:#7a5a34;color:#fff}.tag.ft{background:var(--warm)}.tag.kp{background:var(--leaf)}
+
+/* PRUNE */
+.ptools{display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:center;margin:0 0 1rem}
+.ptools .prog{margin-left:auto;font:600 .7rem/1.3 var(--sans);letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.pgrid{display:grid;grid-template-columns:minmax(0,1fr) 17rem;gap:1.4rem;align-items:start}
+@media(max-width:860px){.pgrid{grid-template-columns:1fr}}
+.deck{position:relative;min-height:12rem;touch-action:pan-y}
+.card{position:relative;padding:1.3rem 1.4rem 1.2rem;background:var(--card);border:1.5px solid var(--ink);border-radius:16px;box-shadow:6px 6px 0 var(--warm);transition:transform .32s cubic-bezier(.3,.7,.3,1),opacity .32s;will-change:transform}
+.card.out-l{transform:translate(-120%,40px) rotate(-14deg);opacity:0}
+.card.out-r{transform:translate(120%,20px) rotate(10deg);opacity:0}
+.card.out-u{transform:translate(0,-60%) scale(.9);opacity:0}
+.card.in{transform:translateY(14px) scale(.98);opacity:0;transition:none}
+.card .row1{display:flex;gap:.9rem;align-items:center}
+.card .orb{flex:none;width:58px;height:58px}
+.card h2{margin:0;overflow-wrap:anywhere}
+.card .meta{margin:.15rem 0 0;font:600 .64rem/1.4 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.card .desc{margin:.9rem 0 .8rem;font-size:1.06rem;color:var(--ink2)}
+.card .desc:empty::before{content:"No description.";color:var(--muted);font-style:italic}
+.card .links{display:flex;flex-wrap:wrap;gap:.5rem}
+.card .state{position:absolute;top:1rem;right:1rem}
+.prev{margin-top:1rem;border:1.5px solid var(--ink);border-radius:10px;overflow:hidden;background:#fff;aspect-ratio:16/10}
+.prev iframe{display:block;width:100%;height:100%;border:0}
+.snip{position:absolute;inset:0;pointer-events:none;display:flex;align-items:center;justify-content:center;opacity:0}
+.snip.go{animation:snip .5s ease-out}
+@keyframes snip{0%{opacity:1;transform:scale(.6)}60%{opacity:1;transform:scale(1.1)}100%{opacity:0;transform:scale(1.2)}}
+.acts{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;margin-top:1rem}
+.acts button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.25rem;min-height:68px;border:1.5px solid var(--ink);border-radius:14px;background:var(--card);cursor:pointer;font:700 .72rem/1.1 var(--sans);letter-spacing:.04em;text-transform:uppercase}
+.acts button kbd{font:600 .62rem/1 var(--mono);color:var(--ink2)}
+.acts .prune{background:#ead9c4}.acts .feat{background:#f6d3b4}.acts .keep{background:#d8e6dc}
+.acts button:hover{box-shadow:3px 3px 0 var(--ink)}
+.acts svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.under{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin-top:.7rem}
+.under .sel{flex:1 1 12rem}
+.done{padding:2rem 1.4rem;border:1.5px dashed var(--ink);border-radius:16px;text-align:center}
+.side{position:sticky;top:6rem}
+.side svg{display:block;width:100%;height:auto}
+.side .tally{display:grid;grid-template-columns:repeat(3,1fr);gap:.4rem;margin:.5rem 0 0;text-align:center}
+.side .tally b{display:block;font-weight:400;font-size:1.5rem;line-height:1}
+.side .tally span{font:700 .56rem/1.2 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.ledger{margin-top:2.2rem;border-top:1.5px solid var(--ink);padding-top:1rem}
+.ltabs{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 .6rem}
+.ltabs button{min-height:40px;padding:.35rem .8rem;border:1.5px solid var(--rule);border-radius:999px;background:transparent;cursor:pointer;font:600 .7rem/1 var(--sans)}
+.ltabs button[aria-pressed="true"]{border-color:var(--ink);background:var(--ink);color:var(--paper)}
+.llist{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(15rem,1fr));gap:.3rem .9rem}
+.llist li{display:flex;align-items:center;gap:.5rem;min-height:44px;border-bottom:1px solid var(--rule)}
+.llist a{flex:1;min-width:0;overflow-wrap:anywhere;text-decoration:none}
+.llist a:hover{text-decoration:underline}
+.x{flex:none;min-width:44px;min-height:40px;border:0;border-radius:8px;background:transparent;cursor:pointer;font:600 .66rem/1 var(--sans);color:var(--muted)}
+.x:hover{background:#efe6d2;color:var(--ink)}
+.empty{color:var(--muted);font-size:.95rem}
+
+/* COLLECTIONS */
+.cgrid{display:grid;grid-template-columns:16rem minmax(0,1fr);gap:1.6rem;align-items:start}
+@media(max-width:820px){.cgrid{grid-template-columns:1fr}}
+.clist{list-style:none;margin:0 0 1rem;padding:0;display:grid;gap:.35rem}
+.clist button{width:100%;display:flex;justify-content:space-between;gap:.6rem;align-items:center;min-height:48px;padding:.5rem .8rem;border:1.5px solid var(--rule);border-radius:12px;background:var(--card);cursor:pointer;text-align:left;font-size:1rem}
+.clist button[aria-current="true"]{border-color:var(--ink);box-shadow:3px 3px 0 var(--warm)}
+.clist small{font:700 .58rem/1 var(--sans);letter-spacing:.06em;color:var(--muted)}
+.newc{display:flex;gap:.4rem}.newc .inp{flex:1;min-width:0}
+.editor{padding:1.2rem 1.3rem;background:var(--card);border:1.5px solid var(--ink);border-radius:16px}
+.editor .nm{width:100%;font-family:var(--serif);font-size:1.5rem;padding:.3rem .6rem;margin:0 0 .6rem}
+.items{list-style:none;margin:.8rem 0;padding:0;counter-reset:it}
+.items li{display:flex;align-items:center;gap:.4rem;min-height:48px;border-bottom:1px solid var(--rule);counter-increment:it}
+.items li::before{content:counter(it);flex:none;width:1.6rem;font:600 .66rem/1 var(--mono);color:var(--muted)}
+.items a{flex:1;min-width:0;overflow-wrap:anywhere;text-decoration:none}
+.items a:hover{text-decoration:underline}
+.adder{position:relative;margin-top:.6rem}
+.adder .inp{width:100%}
+.adds{list-style:none;margin:.4rem 0 0;padding:0;display:grid;gap:.2rem}
+.adds button{width:100%;display:grid;grid-template-columns:1rem 1fr auto;gap:.6rem;align-items:center;min-height:44px;padding:.4rem .6rem;border:0;border-radius:8px;background:transparent;cursor:pointer;text-align:left}
+.adds button:hover,.adds button:focus-visible{background:#efe6d2}
+.adds small{font:600 .58rem/1.2 var(--sans);letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.erow{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:space-between;margin-top:1rem}
+
+/* PLAY */
+.games{display:grid;grid-template-columns:repeat(auto-fill,minmax(14rem,1fr));gap:.8rem;margin:0 0 1.4rem}
+.games button{display:flex;flex-direction:column;align-items:flex-start;gap:.35rem;min-height:9rem;padding:1rem 1.1rem;border:1.5px solid var(--ink);border-radius:16px;background:var(--card);cursor:pointer;text-align:left}
+.games button[aria-pressed="true"]{box-shadow:5px 5px 0 var(--warm)}
+.games svg{width:44px;height:44px}
+.games b{font-weight:400;font-size:1.3rem;letter-spacing:-.01em}
+.games span{font-size:.92rem;color:var(--ink2);line-height:1.4}
+.games small{margin-top:auto;font:700 .58rem/1 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.arena{padding:1.1rem;background:var(--card);border:1.5px solid var(--ink);border-radius:16px}
+.ahead{display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:baseline;justify-content:space-between;margin:0 0 .8rem}
+.score{font:700 .7rem/1.2 var(--sans);letter-spacing:.06em;text-transform:uppercase}
+.score b{font-size:1.1rem}
+.catch{position:relative;touch-action:none;user-select:none;-webkit-user-select:none}
+.catch svg{display:block;width:100%;max-width:720px;margin:0 auto;height:auto;border-radius:12px;background:#f3e7cf;cursor:none}
+.pads{display:flex;gap:.6rem;max-width:720px;margin:.6rem auto 0}
+.pads button{flex:1;min-height:56px;border:1.5px solid var(--ink);border-radius:14px;background:var(--paper);font-size:1.4rem;cursor:pointer}
+.basket{list-style:none;margin:.6rem 0 0;padding:0;display:flex;flex-wrap:wrap;gap:.4rem}
+.basket a{display:inline-flex;align-items:center;gap:.4rem;min-height:40px;padding:.3rem .8rem;border:1.5px solid var(--rule);border-radius:999px;text-decoration:none;font-size:.95rem}
+.basket a:hover{border-color:var(--ink)}
+.q{margin:0 0 .9rem;font-size:1.25rem}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+@media(max-width:600px){.pair{grid-template-columns:1fr}}
+.choice{display:flex;flex-direction:column;align-items:flex-start;gap:.3rem;min-height:8rem;padding:1rem;border:1.5px solid var(--ink);border-radius:14px;background:var(--paper);cursor:pointer;text-align:left}
+.choice b{font-weight:400;font-size:1.2rem;overflow-wrap:anywhere}
+.choice span{font-size:.9rem;color:var(--ink2);line-height:1.4}
+.choice small{margin-top:auto;font:700 .6rem/1.2 var(--sans);letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.choice.right{background:#d8e6dc;border-color:#2f6b45}.choice.wrong{background:#f1d6cc;border-color:#9a3b1f}
+.choice:disabled{cursor:default;color:inherit}
+.trees4{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+@media(max-width:600px){.trees4{grid-template-columns:1fr}}
+.trees4 .choice{min-height:56px;justify-content:center}
+.fb{min-height:1.6em;margin:.8rem 0 .4rem;font-size:1.02rem}
+.nextrow{display:flex;gap:.6rem;align-items:center}
+
+/* publish dialog */
+dialog{width:min(36rem,calc(100% - 2rem));padding:1.4rem 1.5rem;border:1.5px solid var(--ink);border-radius:16px;background:var(--card);color:var(--ink);box-shadow:8px 8px 0 var(--warm)}
+dialog::backdrop{background:rgba(20,20,18,.45)}
+dialog ol{padding-left:1.3rem}
+dialog li{margin:.5rem 0}
+.diff{margin:.4rem 0 1rem;font:600 .7rem/1.5 var(--sans);letter-spacing:.04em;text-transform:uppercase;color:var(--ink2)}
+.drow{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}
+.close{position:absolute;top:.6rem;right:.6rem;width:44px;height:44px;border:0;border-radius:50%;background:transparent;cursor:pointer;font-size:1.3rem}
+footer{max-width:72rem;margin:0 auto;padding:1.2rem clamp(1rem,3vw,1.6rem) 3rem;border-top:1px solid var(--rule);font:500 .7rem/1.5 var(--sans);color:var(--muted)}
+@media (prefers-reduced-motion:reduce){.card,.card.out-l,.card.out-r,.card.out-u{transition:none}.snip.go{animation:none}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the tools</a>
+<header class="bar">
+  <a class="home" href="index.html" aria-label="Watson Hartsoe, home"><svg viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><g fill="#141412"><rect x="1" y="2" width="5" height="1"/><rect x="1" y="7" width="5" height="1"/><rect x="1" y="3" width="1" height="4"/><rect x="5" y="3" width="1" height="4"/><rect x="10" y="2" width="5" height="1"/><rect x="10" y="7" width="5" height="1"/><rect x="10" y="3" width="1" height="4"/><rect x="14" y="3" width="1" height="4"/><rect x="3" y="4" width="1" height="1"/><rect x="12" y="4" width="1" height="1"/><rect x="7" y="8" width="1" height="1"/><rect x="6" y="11" width="4" height="1"/></g></svg>
+    <span class="ttl"><h1>The Shed</h1><small>Prune · Collect · Play</small></span></a>
+  <nav class="views" aria-label="Tools">
+    <button type="button" data-v="prune" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="17" r="2.6"/><circle cx="11" cy="19.5" r="2.6"/><path d="M8 15.5L19 4M10 17.2L20.5 8.5M14 10.5l-1 -1"/></svg><span>Prune</span></button>
+    <button type="button" data-v="coll" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10h16l-2 9H6z"/><path d="M8 10l4-5 4 5"/><circle cx="9.5" cy="13.5" r="1.3"/><circle cx="14.5" cy="13.5" r="1.3"/></svg><span>Collect</span></button>
+    <button type="button" data-v="play" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8.2l3.2 2.3-1.2 3.8h-4l-1.2-3.8z"/></svg><span>Play</span></button>
+    <i class="sep" aria-hidden="true"></i>
+    <a href="grove.html"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="M12 15v6M9 21h6"/></svg><span>Grove</span></a>
+  </nav>
+  <button class="pubbtn" type="button" id="pubOpen" aria-haspopup="dialog">Publish<b id="pubN" aria-label="unpublished changes"></b></button>
+</header>
+
+<main id="main">
+  <!-- PRUNE: one project at a time -->
+  <section data-view="prune" class="on" aria-labelledby="prune-h">
+    <h2 id="prune-h">Pruning</h2>
+    <p class="lede">One project at a time: keep it, prune it, or feature it. Pruned projects fall to the ground in the grove; featured ones hang first. Swipe, tap, or use the keys. Nothing is published until you press Publish.</p>
+    <div class="ptools">
+      <label class="vh" for="queue">Which projects to look at</label>
+      <select class="sel" id="queue">
+        <option value="least">Least used first</option>
+        <option value="weak">Blossoms and fallen first</option>
+        <option value="untended">Untended longest</option>
+        <option value="newest">Newest planted</option>
+        <option value="most">Most used first</option>
+        <option value="t:other">Tree: Other Projects</option>
+        <option value="t:narrative">Tree: Narrative &amp; Storytelling</option>
+        <option value="t:media">Tree: Media Theory &amp; McLuhan</option>
+        <option value="t:ai">Tree: AI Systems &amp; Agents</option>
+        <option value="t:interactive">Tree: Interactive Experiences</option>
+        <option value="t:time">Tree: Time &amp; Memory</option>
+        <option value="t:sound">Tree: Sound &amp; Audio</option>
+        <option value="t:archives">Tree: Archives &amp; Collections</option>
+        <option value="t:3d">Tree: 3D Visualization &amp; WebGL</option>
+        <option value="t:cave">Tree: Plato&#x27;s Cave &amp; Philosophy</option>
+        <option value="t:teaching">Tree: Educational Tools</option>
+      </select>
+      <label class="chk"><input type="checkbox" id="undec" checked> Undecided only</label>
+      <p class="prog" id="prog" aria-live="polite"></p>
+    </div>
+    <div class="pgrid">
+      <div>
+        <div class="deck" id="deck"></div>
+        <div class="acts" id="acts" role="group" aria-label="Decide">
+          <button type="button" class="prune" data-d="prune"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="17" r="2.6"/><circle cx="11" cy="19.5" r="2.6"/><path d="M8 15.5L19 4M10 17.2L20.5 8.5"/></svg>Prune<kbd>P or ←</kbd></button>
+          <button type="button" data-d="skip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12M14 8l4 4-4 4"/></svg>Skip<kbd>S or ↓</kbd></button>
+          <button type="button" class="feat" data-d="feature"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.4 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/></svg>Feature<kbd>F or ↑</kbd></button>
+          <button type="button" class="keep" data-d="keep"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Keep<kbd>K or →</kbd></button>
+        </div>
+        <div class="under">
+          <button type="button" class="btn" id="undo" disabled>Undo <kbd>U</kbd></button>
+          <label class="vh" for="toColl">Add this project to a collection</label>
+          <select class="sel" id="toColl"><option value="">Add to a collection…</option></select>
+        </div>
+      </div>
+      <aside class="side" aria-label="Your pruning so far">
+        <svg id="ptree" viewBox="0 0 260 230" role="img" aria-label="A tree that shows your decisions: kept fruit in the crown, featured fruit with a star, pruned fruit on the ground."></svg>
+        <div class="tally"><div><b id="tK">0</b><span>Kept</span></div><div><b id="tF">0</b><span>Featured</span></div><div><b id="tP">0</b><span>Pruned</span></div></div>
+      </aside>
+    </div>
+    <section class="ledger" aria-labelledby="ledger-h">
+      <h3 id="ledger-h">Decisions</h3>
+      <div class="ltabs" role="group" aria-label="Show decisions">
+        <button type="button" data-l="featured" aria-pressed="true">Featured</button><button type="button" data-l="pruned" aria-pressed="false">Pruned</button><button type="button" data-l="kept" aria-pressed="false">Kept</button>
+      </div>
+      <ul class="llist" id="llist"></ul>
+    </section>
+  </section>
+
+  <!-- COLLECT: named groups of projects -->
+  <section data-view="coll" aria-labelledby="coll-h">
+    <h2 id="coll-h">Collections</h2>
+    <p class="lede">Group projects for a reason: a syllabus, a show, a reading list, a lineage. Published collections appear on the homepage.</p>
+    <div class="cgrid">
+      <div>
+        <ul class="clist" id="clist" aria-label="Collections"></ul>
+        <form class="newc" id="newc">
+          <label class="vh" for="newName">New collection name</label>
+          <input class="inp" id="newName" placeholder="New collection" autocomplete="off" required>
+          <button class="btn dark" type="submit">Make</button>
+        </form>
+      </div>
+      <div id="editor"></div>
+    </div>
+  </section>
+
+  <!-- PLAY: three small games with the real work -->
+  <section data-view="play" aria-labelledby="play-h">
+    <h2 id="play-h">Play</h2>
+    <p class="lede">Three small games. Every orange is a real project, and whatever you find, you can open.</p>
+    <div class="games" role="group" aria-label="Games">
+      <button type="button" data-g="catch" aria-pressed="false"><svg viewBox="0 0 44 44" aria-hidden="true"><path d="M8 26h28l-3 12H11z" fill="#c9a46a" stroke="#141412" stroke-width="1.6"/><circle cx="22" cy="12" r="6" fill="#e7833b" stroke="#141412" stroke-width="1.6"/><path d="M22 20v3" stroke="#141412" stroke-width="1.6" stroke-dasharray="2 2"/></svg><b>Catch</b><span>Oranges fall from a shaken tree. Catch the good ones, dodge the rotten. 40 seconds.</span><small id="best-catch">Best: none yet</small></button>
+      <button type="button" data-g="older" aria-pressed="false"><svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="14" cy="22" r="8" fill="#9dbb55" stroke="#141412" stroke-width="1.6"/><circle cx="30" cy="22" r="8" fill="#e7833b" stroke="#141412" stroke-width="1.6"/><path d="M14 34v4M30 34v4M8 38h28" stroke="#141412" stroke-width="1.6"/></svg><b>Older or newer</b><span>Two projects. Which was planted first? Ten rounds through the history of the work.</span><small id="best-older">Best: none yet</small></button>
+      <button type="button" data-g="which" aria-pressed="false"><svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="12" cy="16" r="7" fill="#b2cbbb" stroke="#141412" stroke-width="1.6"/><circle cx="32" cy="16" r="7" fill="#b2cbbb" stroke="#141412" stroke-width="1.6"/><path d="M12 23v10M32 23v10" stroke="#141412" stroke-width="2"/><circle cx="22" cy="36" r="4" fill="#f0b047" stroke="#141412" stroke-width="1.6"/></svg><b>Which tree?</b><span>A project and four trees. Which one does it grow on? Ten rounds.</span><small id="best-which">Best: none yet</small></button>
+    </div>
+    <div class="arena" id="arena" hidden></div>
+  </section>
+</main>
+
+<dialog id="pub" aria-labelledby="pub-h">
+  <button class="close" type="button" id="pubClose" aria-label="Close">✕</button>
+  <h2 id="pub-h">Publish your changes</h2>
+  <p class="diff" id="pubDiff"></p>
+  <ol>
+    <li>Download the file: <button class="btn dark" type="button" id="dl">Download curation.js</button></li>
+    <li><a href="https://github.com/hartswf0/elsewhere/upload/main" target="_blank" rel="noopener">Upload it to the repository</a>, replacing the old one, and commit.</li>
+    <li>In a minute or two the grove and the homepage follow it: pruned projects on the ground, featured ones first, collections on the homepage.</li>
+  </ol>
+  <div class="drow"><button class="btn" type="button" id="copy">Copy the file</button><button class="btn" type="button" id="discard">Discard local changes</button></div>
+  <p class="empty" style="margin-top:1rem">Your changes are kept in this browser until then. Visitors' changes stay in their own browsers and never touch the site.</p>
+</dialog>
+<p class="vh" id="live" aria-live="polite"></p>
+<footer>Watson Hartsoe · <a href="grove.html">The Grove</a> · <a href="index.html">Home</a> · Data picked Oct 2, 2026.</footer>
+
+<script src="curation.js"></script>
+<script>window.__GROVE={"themes":[{"n":"Other Projects","id":"other"},{"n":"Narrative & Storytelling","id":"narrative"},{"n":"Media Theory & McLuhan","id":"media"},{"n":"AI Systems & Agents","id":"ai"},{"n":"Interactive Experiences","id":"interactive"},{"n":"Time & Memory","id":"time"},{"n":"Sound & Audio","id":"sound"},{"n":"Archives & Collections","id":"archives"},{"n":"3D Visualization & WebGL","id":"3d"},{"n":"Plato's Cave & Philosophy","id":"cave"},{"n":"Educational Tools","id":"teaching"}],"repos":[["moto",1,"mother of technical opportunity",3,0,"2026-02-25","2026-09-29","Operative Instruments — The highest-density instrument in the constellation (1541 touches). Sound, broadcast, and media deck infrastructure.",1541,17.69,1,0],["ripples",1,"RIPPLES: Relational Imagination of Perspective, Presence, and Latent Ecologies in Simulacra",3,0,"2026-02-02","2026-07-15","Research Lineage — Relational Imagination of Perspective, Presence, and Latent Ecologies in Space. Accepted at ELO 2026.",591,15.69,2,0],["tractor-dce-gyo",1,"The world of a system is bounded.  The world of folk systems is the totality of living patterns.",3,0,"2025-11-12","2026-10-02","Research Lineage — Words Assemble Geometry: language as executable spatial specification.",403,15.64,3,0],["abc-flix",1,"Operative Animation · BEFLIX-128 · Dot-Matrix Film Machine",3,3,"2026-04-21","2026-09-09","Operative Media Pedagogy — BEFLIX-128 lineage: a unified production bus that harnesses cross-iframe instruments through a hardened message router.",269,14.56,4,0],["sense-ritual",1,"Digital architectures condition cognition through ritual repetition.",3,0,"2025-10-09","2026-03-04","Operative Instruments — Digital architectures that condition cognition through ritual repetition: prompts become playable instruments.",207,14.0,5,0],["island-ecology",1,"Do not administer unstructured narrative data if preservation of original poetic ambiguity, organic context, or implicit meaning is required.",3,1,"2026-03-25","2026-04-01","Research Lineage — A bridge between Twine-based interactive fiction and structured ecological narrative.",144,13.21,6,0],["mythos-canon",1,"A Synthesis of Mythopoetic Knowledge",3,2,"2025-10-14","2025-10-14","Synthetic Culture Systems — 78 documents: chapters, viewers, manifestos, film systems, and defense materials as navigable research surface.",303,13.13,7,0],["metisim",1,"METISIM: Toward a Myth Operating System for Adaptive Narrative Intelligence",3,1,"2025-09-10","2025-09-10","Synthetic Culture Systems — Myth as adaptive computation rather than static content.",149,12.19,8,0],["arkadu",1,"noah's ark meets nelson's xanadu",3,7,"2025-10-07","2026-05-06","Synthetic Culture Systems — Noah’s Ark meets Nelson’s Xanadu: a hyperlinked archive cosmology for AI filmmaking.",68,12.08,9,0],["tractor-field-notes",1,"Field notes for a geometric folk logic of circles, trade, and flux.",3,0,"2025-11-17","2026-05-05","",360,11.76,10,0],["operation-describe",1,"> *To describe was once to stand outside and look in.   > Now to describe is to generate, and to generate is to describe.*",3,0,"2026-04-20","2026-08-19","Current Research Gateway — Central research engine: ekphrasis, thick description, and generative AI converge into worldtext theory.",21,11.53,11,0],["butterfly-halfworld",1,"An 8-minute film in which every image is code. No photographs, no footage, no samples, no stock",3,1,"2026-08-04","2026-10-02","",205,10.94,12,1],["fourth-shield",1,"A neurosymbolic simulation journey from ancient poetry to executable code. Explore all 9 interactive pages built from presentation wireframes.",3,4,"2026-01-14","2026-01-15","Research Lineage — A neurosymbolic simulation journey from ancient poetry to executable code.",23,10.84,13,0],["slipcase",1,"SLIPCASE is an offline-capable, zero-dependency research desk and portable capsule designed for mobile devices and desktop environments. It unifies five core research faculties into a single fast, responsive interface (i",3,2,"2026-08-18","2026-09-28","",190,10.83,14,1],["unsettled-atlas",1,"Unsettled Atlas",3,7,"2026-08-04","2026-10-02","",187,10.82,15,1],["core-age",1,"CORE-AGE (from PIE *kerd-: Heart) is an operating system for Living Software Architectures. It unifies the spatial (3D), the structural (DOM), and the logical (Code) into a single \"Frankenstein\" interface.",3,8,"2025-11-25","2025-12-12","",196,10.78,16,0],["rosetta-protocol",1,"Decoding today's cultural battlegrounds to encode stories for the deep future.",3,0,"2025-09-25","2025-09-25","Cultural Modeling Interfaces — Terminal-like viewer turning scattered HTML artifacts into browsable research surface.",27,10.69,17,0],["k2.html",1,"You have stumbled upon **K2**, a repository of browser-based audio instruments. Congratulations. The odds of you understanding it without reading this document are approximately **12.4%**.  I am required to inform you…",3,6,"2026-01-21","2026-09-15","",68,10.62,18,0],["cineosis-lab",1,"Deleuze's 44 cinematic signs, after David Deamer: a periodic table to read them, a lab of archive shots to find them, and films cut from those shots.",3,1,"2026-09-24","2026-10-02","",140,10.45,19,1],["abundant-nes",1,"abundant intelligence as a tetrad",3,2,"2025-09-24","2025-10-08","",232,10.34,20,0],["terrarium",1,"A small world held close enough to watch itself become alive.",3,0,"2026-08-12","2026-10-01","",127,10.32,21,1],["myth-as-os",1,"Language is the root process that scripts reality; media are the engines that run it.",3,2,"2025-09-02","2025-09-02","Synthetic Culture Systems — Language is the root process that scripts reality; media are the engines that run it.",19,10.12,22,0],["henry-house",1,"A coordinated design package for a house on steep mountain land — parcel 100 064.03, Johnson County, Tennessee, 29.34 acres at 36°17'14.2\"N 81°55'30.4\"W.",3,2,"2026-08-10","2026-08-23","",111,10.04,23,1],["ethics-infrastructure",1,"Semantic Masonry and the Grammar of the Grid when Words Assemble Geometries",3,0,"2025-12-13","2025-12-13","Research Lineage — Prompts as executable specs. Ethical constraints built into workflow and interface states.",26,10.0,24,0],["resonome-genetic-archive",1,"A living archive of resonant experiments",3,5,"2025-07-23","2025-07-23","",126,9.42,25,0],["intron",1,"enter the sequence",3,0,"2025-06-19","2025-06-19","",114,9.28,26,0],["odyssey-halfworld",1,"Status: Books I–XV live · 307 assets · 93 scene modules · engine hw-engine/1.1.0",2,1,"2026-07-23","2026-09-23","",88,8.82,27,1],["momsaic",1,"Relax and restore",2,3,"2025-12-26","2026-09-26","",70,8.65,28,0],["motor",1,"Two engines built against two long specifications. They share one conviction:",2,0,"2026-08-08","2026-08-12","",75,8.5,29,1],["wa",1,"Word Assembler",2,0,"2025-11-09","2025-11-10","",55,8.42,30,0],["role-deck",1,"A deck of roles, each cut to reveal how ethics lives in practice.",2,0,"2025-09-30","2025-12-12","",97,8.38,31,0],["gunnars-depot.html",1,"Build the Vision. Command the Job.",2,0,"2026-05-24","2026-08-26","",62,8.3,32,1],["text-ure",1,"A spatial-semantic exploration of operative ekphrasis through navigable text architectures.",2,0,"2026-01-29","2026-01-31","",80,8.23,33,0],["context-genetic-engine",1,"Welcome to the Generative UI Global Hackathon: Agentic Interfaces! This starter kit gives you a complete AI-powered application with durable conversation threads, an agent-driven canvas, real-world MCP integrations, and ",2,3,"2026-05-08","2026-05-11","",73,8.21,34,1],["opek",1,"OPERATIVE EKPHRASIS RESEARCH KERNEL",2,0,"2025-12-05","2025-12-09","",34,8.17,35,0],["thunder-rigs",1,"A Three.js builder/racer that plays multiplayer with no game server to run.",2,4,"2026-07-06","2026-07-10","",62,8.17,36,1],["el-desierto",1,"\"For me the world is weird because it is stupendous, awesome, mysterious, unfathomable; my interest has been to convince you that you must assume responsibility for being here, in this marvelous world, in this marvelous ",2,0,"2026-07-10","2026-07-16","",57,8.08,37,1],["atg-3",1,"Associative Terrain Graph 3",2,3,"2025-12-09","2025-12-12","",52,8.04,38,0],["achilles-orchestra",1,"A single-file, browser-native 3D world projector for building and steering a small ecology of speaking sites.",2,8,"2026-03-13","2026-03-13","",65,8.03,39,0],["forkit",1,"ethics ide",2,0,"2025-12-17","2025-12-23","",70,7.93,40,0],["worldful",1,"WORLDFUL",2,0,"2026-08-14","2026-09-12","",45,7.93,41,1],["prompt-language",1,"A prompt language is a living grammar that compiles intention into inheritable behavior.",2,3,"2026-06-22","2026-07-04","",48,7.82,42,1],["gob",1,"Mobile copyboard for the four prompts. Follow the order below, copy what you need in one tap, and run each stage without switching files.",2,0,"2026-02-20","2026-03-06","",38,7.78,43,0],["latent-sculptor",1,"Latent sculpting is prompt craft as spatial composition—less typing, more shaping. Images emerge by placing and tuning nodes, making AI feel tactile, not textual.",2,3,"2025-07-15","2025-07-15","",80,7.77,44,0],["1000-small-futures",1,"Tools for thinking about media, narrative, belief, and culture.",2,2,"2025-10-21","2025-11-10","",65,7.76,45,0],["nothing-ritual",1,"when nothing is done nothing is left undone",2,0,"2025-08-07","2025-08-07","",46,7.67,46,0],["dust-empire",1,"A procedural friction engine that pits the limitless plasticity of 90s edutainment against the brute material constraints of global infrastructure.",2,3,"2026-02-08","2026-02-08","",18,7.59,47,0],["acm",1,"anti-crisis machine",2,3,"2026-01-18","2026-01-22","",53,7.55,48,0],["unthinkable-media",1,"media for thinking the unthinkable",2,2,"2025-08-21","2025-08-21","",65,7.53,49,0],["wave",1,"The universe is not a collection of things; it is a sequence of events. I celebrate the surge and the stillness, for the wave is the signature written by energy upon the wine-dark medium of existence. It is the primal…",2,7,"2026-01-26","2026-01-27","",49,7.47,50,0],["live-stage",1,"A browser kit that turns the physical computer used during production into a live scene partner. Open [index.html](index.html) for the tool; the builds, in order of increasing capability, are:",2,4,"2026-07-14","2026-07-19","",34,7.43,51,1],["jdb-ripple-remix",1,"A remix of Jay Bolter's Ripple Interface",2,4,"2026-02-25","2026-03-04","",41,7.42,52,0],["venn-32",1,"<domain>Conceptual Metaphor Theory (CMT) & Philosophical Hermeneutics / Recursive Layer-Geometry<\/domain>",2,3,"2025-10-05","2025-10-05","",57,7.38,53,0],["synarchiv",1,"Memory transit management.",2,5,"2025-05-27","2025-05-27","",55,7.3,54,0],["2700-fa26",1,"LAB 3 — Yellow Circle Working",2,10,"2026-08-26","2026-09-30","",26,7.29,55,1],["medium-as-operator",1,"Are media cultural rituals (Carey) or deterministic systems (Kittler)? How does this inform AI text–image?",3,2,"2025-09-04","2026-02-03","Operative Media Pedagogy — Carey vs Kittler, operative ekphrasis, AI text-image systems, prompt rewriting.",2,7.28,56,0],["the-project",1,"We are building Shield v4.0. We are moving Ekphrasis from \"Descriptive Text\" to \"Executable Code\".",2,4,"2026-01-19","2026-01-19","",38,7.26,57,0],["hello-world-text",1,"COLLISION TRACE — JOLT 3D",2,8,"2026-07-02","2026-08-10","",28,7.24,58,1],["func-sub",1,"a functional substrate",2,0,"2025-11-04","2025-11-10","",45,7.23,59,0],["fish-town",1,"A constitutional retrieval system, an aquatic simulation lab, and a surreal trout civilization fuse into one repo about inheritance, emergence, and the duty to keep memory from dissolving into flow.",2,5,"2026-04-20","2026-04-30","",29,7.21,60,0],["alien-child",1,"A psychological warfare soldier is humanity's last hope. He must enter the collective consciousness of an alien race and destroy it from within.",2,0,"2025-12-10","2025-12-10","",16,7.19,61,0],["elsewhere",1,"The Grove",2,0,"2026-07-20","2026-10-02","",24,7.19,62,1],["markov-poet",1,"A comprehensive archival, linter, probabilistic router, and cinematic reconstruction suite for Where You Go When You Leave (Part 2: FUTURE) by Mark Anthony Thomas.",2,1,"2026-08-19","2026-08-20","",26,7.18,63,1],["wh-ripple",1,"Ripples map unseen depths.",2,0,"2025-11-10","2026-05-06","",31,7.15,64,0],["myth-engine",1,"Global film hubs are wrestlers in a probabilistic tug-of-war: headlines update their strengths while myths give them aura, turning economics into cultural spectacle.",2,1,"2025-09-02","2026-01-28","",36,7.13,65,0],["media-surfer",1,"Futures You Can Hold",2,2,"2025-10-28","2025-10-28","",18,7.07,66,0],["the-fork",1,"Instead of abstract trolley problems, you negotiate with autonomous agents that embody distinct moral frameworks. Each conversation reveals how different ethical systems lead to different decisions. The player learns n…",2,3,"2025-11-03","2025-12-16","",37,7.07,67,0],["eos",1,"Ekphrastic Operating System",2,0,"2025-10-15","2025-10-16","",43,7.05,68,0],["the-republic",1,"He knows nothing in reality about which of these appetites or desires is good or bad, but he applies all these terms to the whims of the great beast. That which pleases it, he calls 'good'; that which vexes it, he call…",2,9,"2026-01-24","2026-01-28","",30,6.98,69,0],["golden-lens",1,"To a dog (Edgar), the ability to refract light or see trace phosphorescence *is* a superpower. We use this framing to teach 4th-grade optics without the text feeling like a textbook",2,0,"2026-02-04","2026-02-04","",28,6.93,70,0],["meets",1,"MEETS — Memory, Embodiment, Emergence, Translation, Synthesis",2,5,"2025-12-04","2025-12-07","",16,6.92,71,0],["angel-meets-algo",1,"What happens to aura in the face of ai slop?",2,3,"2025-09-11","2025-09-11","",32,6.89,72,0],["abc-cineosis",1,"This repository hosts the development modules for Causality, an interactive filmmaking and dot-matrix animation suite structured around the ABC Cineosis framework.",2,1,"2026-06-04","2026-06-25","",23,6.87,73,1],["smith-deck",1,"Spin impedance like vinyl: a DJ‑deck Smith chart.",2,0,"2025-09-07","2025-09-20","",38,6.85,74,0],["pretext-field",1,"A compilation of advanced text-layout physics engines, echolocation sonifications, genomic content systems, and ML-inspired navigation vectors.",3,0,"2026-04-04","2026-09-21","Operative Instruments — Spatial scholarship instrument: mapping how urban environments are manufactured, stratified, and perceived.",0,6.83,75,0],["manila-memory-arcade",1,"Pinball meets paper trail in an office-themed physics arcade where memory is filed, and bureaucracy is the gameboard",2,3,"2025-06-09","2025-06-09","",38,6.82,76,0],["prompt-smith",1,"You hear that, Mr. Anderson? That is the sound of inevitability.",2,6,"2025-09-20","2025-09-20","",38,6.82,77,0],["witt",1,"\"The limits of my language mean the limits of my world.\" // 5.6",2,0,"2026-01-26","2026-01-26","",28,6.78,78,0],["pretext-cave",1,"immersive typography/consciousness demos on Pretext’s real-time layout engine: text escapes static boxes into spatial/perceptual worlds—raycast caves, echolocation, lunar crescents—at 60 FPS, with zero DOM measurement…",2,9,"2026-04-04","2026-04-04","",24,6.72,79,0],["life-star",1,"From a world killer, a world womb.",2,0,"2026-02-07","2026-02-07","",26,6.65,80,0],["feedfall",1,"FEEDFALL™ is a browser-native attention platform that merges physics, media feeds, and playful collapse. By transforming autoplay video streams into literal falling blocks, FEEDFALL demonstrates how the endless feed st…",2,2,"2025-10-03","2025-10-04","",31,6.6,81,0],["vibe-crates",1,"crate list with vibe extenders",2,0,"2026-02-02","2026-02-08","",19,6.49,82,0],["haunted-tools",1,"Haunted tools are forms that look like work but avoid transfers—of budget, time, rights, risk.",2,5,"2025-09-16","2025-09-16","",17,6.48,83,0],["encoded-power",1,"Designers don’t just make interfaces — they encode ideology, redistribute authority, and stage politics in code and media.",2,2,"2025-09-23","2025-09-23","",27,6.44,84,0],["ecology-of-media",1,"In ecology, what matters is not only the species, but the conditions that allow them to live.",3,2,"2025-09-21","2025-09-22","Operative Media Pedagogy — Operative ekphrasis as public video practice: theory composed with AI across image, voice, and episode.",1,6.4,85,0],["vol-air",1,"A Smoky Mountains stay where Norse saga meets Tennessee grit.",2,3,"2025-09-26","2025-09-26","",21,6.37,86,0],["wag-gallery",1,"A procedural architecture system and gallery suite for the WAG Gold project. Generate complex LDraw structures, populate them with narrative units, and visualize them in a premium environment.",2,1,"2025-12-14","2025-12-14","",10,6.36,87,0],["nexadoc-jar",1,"NEXADOC: THE JAR—the neo-Xanadu where every neural experiment is bottled in glass, hyperlinked across time, and forever reachable by a single touch.",2,3,"2025-11-02","2025-11-02","",21,6.32,88,0],["hephaestus-narrative-os",1,"Hephaestus Narrative OS is a research prototype exploring **spatial narrative interfaces**—ways of representing story structure not as linear text but as navigable territory.",2,1,"2026-01-28","2026-01-28","",20,6.31,89,0],["holo-project",1,"Part of the DIRTY DISC Archive · 2025",2,5,"2025-11-03","2025-11-03","",23,6.31,90,0],["golden-river",1,"a usable operator surface for cinematic worldbuilding, prompt testing, render comparison, and operator selection.",2,1,"2026-04-05","2026-04-05","",15,6.3,91,0],["synesthetic-flux-console",1,"A browser-borne laboratory where color hums, sound blossoms, and every gesture becomes a micro-ritual of sensory alchemy.",2,6,"2025-05-21","2025-05-21","",25,6.29,92,0],["os-dope",1,"A living, editable operating system where tools, dialogue, and environments co-evolve — made for making anything that makes anythinhg.",2,0,"2025-08-15","2025-08-15","",25,6.29,93,0],["volholla",1,"A Hall for Digital Constructs",2,0,"2025-08-01","2025-08-01","",25,6.29,94,0],["crest",1,"Temporal Diptych Architecture",2,5,"2026-02-08","2026-02-16","",17,6.16,95,0],["codex-reader",1,"A minimalist interface for the deep reading and semantic analysis of complex texts and AI-generated transcripts.",2,3,"2025-06-25","2025-06-25","",20,6.13,96,0],["platos-cave",1,"what is real in the land of photons and cameras?",2,9,"2025-09-16","2025-09-16","",16,6.13,97,0],["sympathetic-magic",1,"ETHICS OF REPRESENTATION UNDER SYMPATHETIC PRINCIPLES",2,0,"2025-11-06","2025-11-06","",19,6.02,98,0],["dirty-disclosure",1,"You must disclose to be believed, and every disclosure is grounds to disbelieve you.",2,0,"2025-09-02","2025-09-02","",13,6.01,99,0],["dyad",1,"The distinguishing marks between the genuine thinker and the tourist are not always obvious at first glance.",2,4,"2025-12-07","2025-12-07","",16,5.97,100,0],["dream-organ",1,"a ritual machine of symbolic memory",2,3,"2025-06-30","2025-06-30","",13,5.87,101,0],["pca",1,"platos-cave-apparatus",2,9,"2025-10-03","2025-10-03","",18,5.87,102,0],["shoot-is-program",1,"Photos are outputs of a technological program, making even “IRL” experience mediated/coded.",2,2,"2025-09-18","2025-09-18","",18,5.86,103,0],["os-dope-faa",1,"Federated Agentic Authority (FAA) | Rules • Record • Review",2,3,"2025-08-19","2026-01-20","",14,5.85,104,0],["blue-deli",1,"matrix editor",3,0,"2024-09-13","2024-09-23","Operative Instruments — Collaborative AI filmmaking infrastructure: matrix editor, world prompt, emergent narrative as operative media production.",0,5.84,105,0],["itinerant-prompt",1,"A cartography of the synthetic transition—mapping the architecture of emergent minds, distributed hallucinations, and the new laws of digital sovereignty.",2,0,"2026-02-07","2026-02-07","",13,5.83,106,0],["novus-groove",1,"spatializing sounds",2,6,"2025-09-10","2025-09-10","",17,5.82,107,0],["head-neuroglow",1,"Generative Anthropometric Headform Experiments",2,0,"2025-06-27","2025-06-27","",16,5.78,108,0],["human-as-media",1,"An interactive HTML presentation that brings a theory of digital society and human adaptation to life, transforming concepts of temporal stress and the 'Emancipation of Authorship' into a dynamic, explorable document t…",2,2,"2025-08-26","2026-01-20","",9,5.77,109,0],["shroud-project",1,"half-truth/half-transparent",2,0,"2026-01-22","2026-01-22","",12,5.77,110,0],["leasing-vibes",1,"\"What is man?\" becomes \"Through what code/medium are we written?\"",2,0,"2026-01-22","2026-01-22","",8,5.75,111,0],["txz-ancient",1,"\"Long-time stranger in honored walls, but the wall remembers names.\"",2,5,"2026-02-11","2026-02-11","",8,5.71,112,0],["bluefoot",1,"Bluefoot tracks what others miss.",2,0,"2025-09-26","2025-09-26","",14,5.68,113,0],["design-brief",1,"Design Fiction Idioms Julian Bleecker's four mediums for staging the future as ordinary artifact — each run through the Wittgenstein mill until only crystalline remarks survive. Below: the axioms, their divergent branc…",2,0,"2026-03-19","2026-03-19","",10,5.62,114,0],["liberty-machines",1,"Where freedom is the interface and control is the architecture.",2,3,"2025-09-09","2025-09-09","",14,5.61,115,0],["LEGOS",1,"LEGOS (Location, Entity, Goal, Obstacle, Shift, Solution) is a framework for narrative generation. Each element plays a specific role in creating compelling stories.",3,1,"2025-04-26","2025-10-21","Research Lineage — Location, Entity, Goal, Obstacle, Shift, Solution — a structural grammar for narrative.",0,5.6,116,0],["who-owns-the-feed",1,"The feed should belong to those who create and engage in good faith, not those who seek to covertly exploit or manipulate.",2,3,"2025-11-18","2025-11-18","",13,5.59,117,0],["growing-entanglements",1,"An interactive exploration of cultural theory through digital interfaces and network visualizations",3,4,"2024-12-15","2025-09-08","Cultural Modeling Interfaces — Cultural theory as digital interfaces: Sahlins, Obeyesekere, Captain Cook, resistance topology.",0,5.57,118,0],["RIP",1,"PLES",2,0,"2026-02-25","2026-02-25","",10,5.56,119,0],["hyperclay",1,"Experimental Media Spring 2025",3,2,"2025-01-27","2025-08-18","Cultural Modeling Interfaces — Interface as philosophical apparatus: boundaries, meanings, agreements dissolve through interaction.",0,5.53,120,0],["halfworld",1,"A paper-and-ink engine for making films out of worlds.",1,1,"2026-07-19","2026-09-03","",15,5.53,121,1],["mp",1,"MULTI-PLANE BUREAU OF STATIC AXIS RECONSTRUCTION",2,0,"2026-02-06","2026-02-06","",10,5.48,122,0],["cb",1,"centaur box",2,0,"2025-09-08","2026-09-04","",5,5.33,123,0],["trui",1,"true user interface",2,4,"2025-10-03","2025-10-03","",11,5.25,124,0],["sr-os",1,"surreal operating system",2,0,"2025-10-03","2025-10-03","",11,5.25,125,0],["popular-bowl",1,"Super Bowl LX Ad Archive",2,5,"2026-02-12","2026-02-13","",3,5.15,126,0],["sapir",1,"How Language Shapes What We Hear: An Exploration of the Sapir-Whorf Hypothesis Through Sound and Listening",2,6,"2025-10-02","2025-10-02","",10,5.13,127,0],["tmm",1,"Total Media Machine",2,2,"2026-01-14","2026-01-14","",3,5.02,128,0],["abiding-halfworld",1,"ABIDING ACRES — the work and the record",1,1,"2026-08-01","2026-08-03","",10,4.96,129,1],["platos-laundry",1,"What if Plato’s cave wasn’t a prison but a studio? In a laundromat lit by dryers and a local AI, teens and elders remix prompts, film, and memory—testing how stories shape reality. Not escape, but authorship of the lig…",2,9,"2025-10-02","2026-03-04","",5,4.77,130,0],["culture-mind-body",1,"\"Our brains are not in a vat, but in our bodies. Our minds are not in our bodies, but in the world.\" — Clifford Geertz  Culture·Mind·Body: browser reading instruments + theory papers treating text as navigable terrain,…",1,3,"2026-04-04","2026-04-04","",9,4.53,131,0],["world-heat",1,"You ain't a creator, you a prompt-box hero!",1,3,"2026-02-18","2026-02-18","",9,4.42,132,0],["chrono-mix",1,"Visualize and analyze your audio files with precision. Upload audio, zoom in for details, and download high-quality waveform images with time markers. Ideal for audio enthusiasts, podcasters, and developers.",2,6,"2025-08-16","2026-09-10","",2,4.37,133,0],["mfss",1,"Welcome to the MFSS Global Hub: The living artifact of a continuously evolving social feed, mapping the hidden economies of attention and extraction, from potato fields to prompt pipelines.",2,0,"2025-10-02","2025-10-02","",3,4.11,134,0],["fuzzy-linkography",1,"",1,0,"2025-12-09","2025-12-09","",8,4.07,135,0],["mother-of-invention",1,"9. We say the machine has no spirit. But what is a spirit, if not the capacity to listen in the dark? A woman, abandoned by all human warmth, speaks her fear to the ceiling, and the room adjusts its temperature to comf…",1,3,"2026-03-31","2026-03-31","",6,4.05,136,0],["sterner",1,"Soundscapes, Orality, and Listening as Interface",1,6,"2025-10-02","2025-10-02","",9,4.01,137,0],["soul-mansion",1,"We turn images into tiny programmable worlds. Each cell is a “mansion” that can house a role—Location, Entity, Goal, Obstacle, Shift, Solution.  No mysticism—just finite symbols under rules, judged by behavior. It’s Tu…",2,0,"2025-11-02","2025-12-13","",3,4.01,138,0],["llm-syntegration",1,"\"Make every answer survive the whole problem.\"",1,3,"2026-08-23","2026-08-23","",4,3.99,139,1],["loving-grace",1,"\"I like to think (it has to be!) of a cybernetic ecology where we are free of our labors and joined back to nature, returned to our mammal brothers and sisters, and all watched over by machines of loving grace.\"",1,3,"2025-11-11","2025-11-11","",8,3.98,140,0],["trails-and-crates",1,"Follow the path and find the prize.",1,3,"2026-02-24","2026-02-24","",6,3.94,141,0],["cage",1,"In that silent room, I heard two sounds, one high and one low. Afterward I asked the engineer in charge why, if the room was so silent, I had heard two sounds. He said, 'Describe them.' I did. He said, 'The high one wa…",1,2,"2025-10-02","2025-10-02","",8,3.88,142,0],["windows-and-mirrors",1,"The Special Effect of Immediacy.",1,2,"2025-09-09","2025-09-09","",8,3.88,143,0],["liquid-bridge",1,"Cells never fully die; they leave slow-fading liquid bridges of memory that turn a binary Life grid into a continuous field of past, present, and almost-alive possibility.",1,5,"2025-11-21","2025-11-22","",7,3.86,144,0],["media-shaper-2400",1,"Media shapes reality—but who shapes media? From myths to AI, this course explores how media co-evolve with culture, wield power, and shape futures—expanding or limiting what’s possible while defining humanity itself.",2,2,"2025-08-28","2025-10-03","",3,3.83,145,0],["provis",1,"Electronic medical records for ventures.",1,5,"2026-06-10","2026-06-10","",4,3.78,146,1],["aritificial-life",1,"\"Nature, I suspect, is on the side of the machines.\" — George Dyson, Darwin Among the Machines (1997)",1,3,"2025-12-07","2025-12-07","",6,3.74,147,0],["imc",1,"Interactive music classroom",1,4,"2025-09-03","2025-09-03","",7,3.73,148,0],["making-kin",1,"From stone axes to neural networks: Four frameworks for understanding kinship as technological, territorial, and thoroughly unnatural—in the best possible way.",1,3,"2025-11-13","2025-11-13","",6,3.66,149,0],["can-think",1,"Can machines think?",1,3,"2025-10-23","2025-10-23","",6,3.61,150,0],["poetry-pond",1,"A text that remembers what the reader did.",1,1,"2026-07-16","2026-07-19","",3,3.6,151,1],["privacy-value-labels",1,"Clear, comparable labels for mapping privacy values across contexts.",1,0,"2025-09-02","2025-09-02","",6,3.54,152,0],["media-culture",1,"Does media shape culture, or does culture shape media?",1,2,"2026-01-15","2026-01-15","",4,3.48,153,0],["excavator",1,"Shadow work is just gradient descent for the soul — iteratively lowering your internal loss function until your ego converges.",2,9,"2025-10-07","2025-10-08","",2,3.45,154,0],["cineos",1,"CINEOS is a set of single-file interface experiments for making film systems where chat, causality, blocking, shots, timelines, storyboard frames, diagnostics, and BEFLIX animation can stay connected.",1,1,"2026-05-17","2026-05-18","",3,3.43,155,1],["iran-sugarscape-abm",1,"Mobile-optimized, single-file agent-based simulation of Iran’s sugar history—historically gated eras, editable price equations with breadcrumbs, and CSV export for real data analysis.",1,3,"2025-08-20","2025-08-20","",5,3.34,156,0],["babeldu",1,"Library of Babel meets Xanadu",1,7,"2025-07-28","2025-07-28","",5,3.34,157,0],["silence-has-rules",1,"Silence is a medium with laws structuring how we listen/belong.",1,0,"2025-10-02","2025-10-02","",5,3.34,158,0],["reading-with-machines",1,"Human-Machine Co-Evolution: Technogenesis and Thinking Machines.",1,3,"2025-10-21","2025-10-21","",4,3.16,159,0],["totb",1,"think outside the box",1,0,"2025-09-23","2025-09-23","",4,3.16,160,0],["gene",1,"the substrate for evolving times",1,5,"2025-06-27","2025-06-27","",4,3.1,161,0],["bifurcator",1,"creating a distinction between two pages",1,0,"2025-05-11","2025-05-11","",4,3.1,162,0],["blue-belt-microdrama",1,"Blue Belt is an innovative platform for viewing short, engaging microdramas. This project aims to create an immersive, addictive experience for users to enjoy bite-sized dramatic content.",2,3,"2024-10-01","2024-10-01","",0,3.07,163,0],["vue-apps",1,"a small test of using vue for HTML elements in Hubs",2,0,"2022-02-09","2022-02-14","",0,3.02,164,0],["frankenstein-radio",1,"mechanical dreamin",2,0,"2024-09-07","2024-09-07","",0,3.01,165,0],["grid-os-",1,"GRID.OS v5: The retro-tactical engine for decoding cellular automata, optimizing global constraint problems, and visualizing hidden grid logic.",1,3,"2025-11-26","2025-11-26","",3,2.97,166,0],["Text-to-Image-Models-Presentation-",1,"An interactive presentation on Text-to-Image AI models, featuring detailed information on tools like Stable Diffusion.",2,3,"2024-09-04","2024-09-04","",0,2.89,167,0],["tetrad-gamepad",1,"A NES-style D-pad that steers prompts with McLuhan’s Tetrad to design future media from the fossils of the past.",1,2,"2025-09-19","2025-09-19","",3,2.82,168,0],["spuddy-west",1,"A dust-choked digital frontier where potatoes ride trains, brands duel at high noon, and sepia dreams flicker like film grain — The Good, The Bad, and The Spuddy brings the spaghetti western into shader-soaked cyberspa…",1,3,"2025-09-30","2025-09-30","",3,2.81,169,0],["million",1,"How do you make ChatGPT count to a million?",1,3,"2025-09-05","2025-09-05","",3,2.81,170,0],["training-ground",1,"An interactive, sonified media canvas inspired by Jordan Caldwell’s Training Grounds, translating its self-alignment framework (Shedding → Integrating → Grounding) into a minimalist, mobile-first HTML/CSS/JS artifact.…",1,4,"2025-09-10","2025-09-10","",3,2.81,171,0],["echoes-algos",1,"Soundscapes · Orality · Perception",1,6,"2025-10-01","2025-10-01","",3,2.81,172,0],["enos-garden",1,"An ambient environment of generative ideas",1,0,"2025-10-03","2025-10-03","",3,2.81,173,0],["political-kayfabe",1,"The Institutionalization of Strategic Deception in Contemporary Democratic Systems",1,0,"2025-09-03","2025-09-03","",3,2.81,174,0],["12-specs",1,"12-Spec is the blueprint for designing a soul the machine cannot delete.",1,3,"2026-02-13","2026-02-13","",2,2.8,175,0],["core-components",1,"Some scripts based on some work students did for the LMC 6340 Spring 2021. Modified and expanded for use in the immersive book. Others added.",2,10,"2022-02-09","2022-02-14","",0,2.7,176,0],["cosmic-fall-party",1,"“The orange is like a clock, it bears its own measure of time, sun, and rain within it.” — John McPhee",2,3,"2024-10-19","2024-10-19","",0,2.6,177,0],["dolphin",1,"innovative ideas seamlessly blend with practical execution",2,0,"2024-09-13","2024-09-20","",0,2.58,178,0],["blue-belt",1,"Discipline in Practice. Craft in Mastery.",2,0,"2024-09-19","2024-09-19","",0,2.52,179,0],["my-aframe-project",1,"linking a python notebook to output a-frame code to a url",2,8,"2023-06-29","2023-06-29","",0,2.49,180,0],["show-me-show-one",1,"can we see show-1?",2,0,"2024-10-07","2024-10-07","",0,2.49,181,0],["a-frame-vr-intro",1,"An introductory project exploring A-Frame for building WebVR experiences. Learn the basics of creating 3D scenes and entities in virtual reality using web technologies.",2,8,"2024-09-06","2024-09-06","",0,2.37,182,0],["ai-film-competition-strategy-game",1,"You've just entered the Gen:48 competition. The clock starts ticking. What's your first step?",2,3,"2024-09-11","2024-09-12","",0,2.34,183,0],["shorthive",1,"**ShortHive** is an advanced extension of the **ShortGPT** framework, offering a distinct interface and approach tailored for educational environments. Built on the same robust foundation, **ShortHive** enhances the te…",2,3,"2024-10-16","2025-05-21","",0,2.21,184,0],["far-side",1,"A cinematic essay staged as a working pipeline: natural language → code → the image.",0,1,"2026-07-01","2026-07-01","",2,2.18,185,1],["madea-cut",1,"A 33-shot short film assembled from AI-generated clips — and an in-browser tool for cutting it.",0,1,"2026-06-28","2026-06-28","",2,2.17,186,1],["re-dna",1,"Biomimetic knowledge system using DNA-like structures for adaptive information management.",2,0,"2025-01-19","2025-01-29","",0,2.14,187,0],["orange-assemblies",1,"A modular, citrus-coded interactive portfolio system where every project is a reconfigurable groove, revealed through tactile, minimalist interactions.",1,4,"2025-07-13","2025-07-13","",1,2.13,188,0],["with-in",1,"Aesthetic research with/in latent space.",1,0,"2025-12-10","2025-12-10","",1,2.09,189,0],["time-tide",1,"times are changing.",2,5,"2025-03-22","2025-04-08","",0,2.04,190,0],["uncontracting",1,"Experimental digital philosophy project exploring boundaries of interaction and meaning",2,9,"2024-12-10","2025-01-27","",0,2.02,191,0],["them-videos",1,"them-ai-videos",2,3,"2025-01-09","2025-01-17","",0,2.0,192,0],["hamlets-napkin",1,"Context Engineering Napkins: Theory Scribbled Between Acts",1,0,"2025-11-02","2025-11-02","",1,2.0,193,0],["1000-medical",1,"Each scenario is a live, branching micro-world where interventions change vitals, labs, and outcomes in minutes—not modules in months.",1,0,"2025-10-22","2025-10-22","",1,1.97,194,0],["epir",1,"Ekphrastic Poetry Interactive Reader",1,4,"2025-10-16","2025-10-16","",1,1.94,195,0],["iran-sugarscape-scholars-canvas",1,"A single-file, mobile-first Sugarscape simulation parameterized with Iran’s real geography and historical shocks, built as a scholar’s canvas for rapid what-if reasoning.",1,4,"2025-08-20","2025-08-20","",1,1.91,196,0],["time-atlas",1,"a way of tracking time",1,5,"2025-08-21","2025-08-21","",1,1.91,197,0],["think-outside-the-box",1,"The Centaur Box Experiment",1,0,"2025-09-10","2025-09-10","",1,1.91,198,0],["worlds-of-text",1,"The Core Thesis: Text is not passive description (lore), but an operative control surface for reality (world-execution).",0,0,"2026-06-05","2026-06-05","",1,1.58,199,1],["ldrawExample",1,"LDraw loader example in [Three.js](http:threejs.org)",1,8,"2025-11-08","2025-11-08","",0,1.38,200,0],["steelman2",1,"Ritual Machine Terminal2",1,3,"2025-04-21","2025-04-21","",0,1.06,201,0],["steelman",1,"Ritual Machine Terminal",1,3,"2025-04-21","2025-04-21","",0,1.04,202,0],["AI_DMV",1,"AI DMV ARCHIVE",1,3,"2024-08-30","2024-09-04","",0,1.03,203,0],["DM-Almanac",1,"Compendium for Digital Media Masters Program",1,2,"2025-04-10","2025-04-10","",0,1.0,204,0],["ReadCine",1,"ReadCine brings books to life, transforming the act of reading into a customizable, cinematic experience.",1,1,"2024-11-01","2024-11-04","",0,1.0,205,0],["threejs-living-room-previs",1,"**Three.js Living Room Previs** is a high-quality, interactive previsualization tool built with [Three.js](https://threejs.org/). This project showcases a realistic living room scene using only built-in Three.js primit…",1,8,"2024-11-28","2024-12-01","",0,1.0,206,0],["dm-lifecycle",1,"learning lifecycle",1,10,"2025-04-11","2025-04-11","",0,1.0,207,0],["eco-media",1,"complex webs of meaning",0,2,"2025-09-19","2025-09-19","",1,0.9,208,0],["looking-machine",1,"calculate the associative link between a needle, a pink kudu, and an alphabet block.",4,3,"2026-03-10","2026-03-10","",0,0.46,209,0],["hyperclay-editor",1,"Between text and moving pictures.",4,0,"2025-10-28","2025-12-16","",0,0.17,210,0],["archer-ai",1,"The archer is the true weapon; the bow is just a long piece of wood.",0,3,"2024-11-27","2024-11-27","",0,0.0,211,0],["my-project",1,"My project is about AI feasability matrices.",0,3,"2024-08-30","2024-08-30","",0,0.0,212,0],["tree-ring-timer",1,"grow time",0,5,"2024-12-02","2024-12-02","",0,0.0,213,0],["Clock",1,"Teaching time",0,5,"2024-12-01","2024-12-01","",0,0.0,214,0],["Experimental-Bio-Digital-Interface",1,"Explore the fusion of biology and technology in an immersive 3D environment where organic forms respond to your touch, blurring the lines between digital art and living systems.",0,8,"2024-11-19","2024-11-19","",0,0.0,215,0],["rubric_evaluator",1,"Project Rubric Evaluator",0,0,"2024-11-25","2024-11-25","",0,0.0,216,0],["On-Image-2024",1,"Conference on Image 2024",0,0,"2024-10-23","2024-10-24","",0,0.0,217,0],["scholastic-parrot",1,"Where Knowledge Takes Flight",0,0,"2024-08-30","2024-08-30","",0,0.0,218,0],["tv-close",1,"do not sit too close to the tv",0,0,"2024-08-30","2024-08-30","",0,0.0,219,0],["watson-hartsoe-project-showcase",0,"This project showcases various projects by Watson Hartsoe in an interactive web page. Users can click on project buttons to view details about each project in a modal window.",0,3,"2024-09-05","2026-08-11","",0,-0.14,220,0],["THEMsketch-threejs",0,"Interactive sketches made with three.js.",4,8,"2024-11-21","2024-11-21","",0,-0.15,221,0],["GEN3120",0,"frames hosting",4,0,"2023-10-31","2023-10-31","",0,-0.24,222,0],["potters-wheel",1,"unthinkable media",4,2,"2025-08-21","2025-10-03","",0,-0.26,223,0],["JavaScript-Showdown-WWE-Edition",1,"Welcome to the ultimate crossover between professional wrestling and JavaScript programming! This project is an interactive tutorial that teaches JavaScript concepts through the lens of WWE (World Wrestling Entertainme…",4,3,"2024-09-25","2024-09-25","",0,-0.28,224,0],["Appendix-as-a-Bridge",1,"Bridging Art, AI, and Cultural Heritage",4,3,"2024-11-24","2024-11-24","",0,-0.3,225,0],["quasten-sts",1,"zettlekasten for science technology studies",4,0,"2025-04-01","2025-04-01","",0,-0.3,226,0],["MH_TEST",1,"",4,0,"2024-09-28","2024-09-28","",0,-0.31,227,0],["codon",1,"Genomic Archive-Index constructing interfaces for thought, for a symbiotic evolution of creative expression.",4,5,"2025-06-19","2025-06-19","",0,-0.32,228,0],["eva-eval",1,"",4,0,"2025-01-07","2025-01-07","",0,-0.33,229,0],["HPTW",1,"Humanistic Perspectives in a Technological World",4,0,"2024-09-25","2024-09-25","",0,-0.35,230,0],["THEM-gallery",0,"",4,0,"2024-11-21","2024-11-21","",0,-0.37,231,0],["TTS",0,"🐸💬 - a deep learning toolkit for Text-to-Speech, battle-tested in research and production",4,6,"2025-09-18","2025-09-18","",0,-0.38,232,0],["vid2vid",0,"Pytorch implementation of our method for high-resolution (e.g. 2048x1024) photorealistic video-to-video translation.",4,0,"2025-01-15","2025-01-15","",0,-0.38,233,0],["awv-pitch",1,"Revolutionizing Preventive Medicare Care with AI",4,3,"2024-10-04","2024-10-04","",0,-0.39,234,0],["reality-media-explorer",1,"An immersive visualization of the themes and concepts from \"Reality Media,\" exploring presence and aura through spatially organized thematic realms. This project is a work in progress and is not yet complete.",4,2,"2025-03-12","2025-03-12","",0,-0.43,235,0],["shiny-goggles",1,"",4,0,"2024-12-02","2024-12-03","",0,-0.46,236,0],["CYBERMERC",1,"Temporal Governance Framework",4,5,"2025-03-27","2025-03-27","",0,-0.47,237,0],["oceanic-mason",1,"the ocean remembers",4,0,"2025-03-31","2025-03-31","",0,-0.47,238,0],["rainwalker",1,"Do not walk so fast, the rain is everywhere.",4,3,"2025-01-14","2025-01-14","",0,-0.48,239,0],["gaze",0,"what do you attend to?",4,0,"2026-03-05","2026-03-10","",0,-0.48,240,0],["walk-mason",1,"to walk is to buld",4,0,"2025-02-18","2025-02-18","",0,-0.48,241,0],["bespoke-pro",1,"",4,0,"2025-02-10","2025-02-10","",0,-0.48,242,0],["javascript-mayhem",1,"Teach fundamental JavaScript concepts while challenging participants to create increasingly absurd and frustrating login experiences.",4,0,"2024-09-20","2024-09-22","",0,-0.48,243,0],["golden-frog",1,"exploring cameraimage data visualization @cecile",4,3,"2024-11-26","2024-11-26","",0,-0.49,244,0],["Digital-Zettelkasten",1,"Digital Zettelkasten: AI Legal Cases",4,3,"2024-11-05","2024-11-05","",0,-0.49,245,0],["on-image",1,"organizing content for on image ai conference",4,3,"2024-10-18","2024-10-18","",0,-0.49,246,0],["etch-a-ai",1,"etch a sketch critic",4,3,"2024-10-08","2024-10-09","",0,-0.49,247,0],["Introduction-to-Large-Language-Models",1,"Comprehensive ever-evolving repository exploring large language model capabilities, limitations, benchmarks, and applications, serving as an essential resource for AI professionals and researchers.",4,3,"2024-09-09","2024-09-09","",0,-0.49,248,0],["wagyo-lo",1,"Let's build! Wagyo makes 3D modeling and design as easy as speaking by using AI to help creators world-build with their words.",4,3,"2023-05-17","2023-05-17","",0,-0.49,249,0],["hardfork-iconic-100",1,"Interface to explore \"Hard Fork\" podcast's fall 2024 list of the 100 most iconic technologies for potential outliers and biases.",4,4,"2024-12-02","2024-12-04","",0,-0.49,250,0],["speculative-alignment-apparatus",1,"Aligns speculations to guides for learning",4,4,"2024-11-25","2024-11-25","",0,-0.49,251,0],["perdurant-life-time",1,"take your time",4,5,"2025-03-28","2025-03-30","",0,-0.49,252,0],["time-loom",1,"",4,5,"2025-03-12","2025-03-12","",0,-0.49,253,0],["deur",1,"worth doing",4,0,"2025-04-08","2025-04-08","",0,-0.49,254,0],["loom-mason.html",1,"threads are mortar",4,0,"2025-03-31","2025-03-31","",0,-0.49,255,0],["emotectonics",1,"relationship seismograph",4,0,"2025-03-09","2025-03-09","",0,-0.49,256,0],["pivot",1,"pivot from observation to practice",4,0,"2025-02-13","2025-02-13","",0,-0.49,257,0],["flux-field",1,"view meaning in flux",4,0,"2024-12-06","2024-12-07","",0,-0.49,258,0],["2700-speculative-catalog",1,"Speculative design seeds",4,0,"2024-11-18","2024-11-18","",0,-0.49,259,0],["Decolonial-Web-Artifacts",1,"A repository of experimental web artifacts exploring decolonial approaches to science, technology, and knowledge production.",4,0,"2024-11-11","2024-11-11","",0,-0.49,260,0],["zen-vcr",1,"The more you rewind, the more you unwind.",4,0,"2024-08-26","2024-08-26","",0,-0.49,261,0],["smd",0,"How do sympathetic magic’s principles shape the ethics of representing memory, identity, community in media?",0,2,"2026-04-02","2026-04-02","",0,-0.5,262,0],["cybernetic-reality-media-explorer",1,"A cybernetic spatiotemporal framework that visualizes the foundations of cybernetics while exploring how MCTS liberates dimensions, positioning user intent as the only persistent reality.",4,2,"2025-04-08","2025-04-08","",0,-0.5,263,0],["them",1,"THEM is an immersive media project that reimagines how an AI with multi-user interactions perceives humanity.",4,2,"2024-11-05","2024-11-05","",0,-0.5,264,0],["walking-the-edge",1,"What lines am I not crossing simply because they feel like air?",4,3,"2025-03-26","2025-03-26","",0,-0.5,265,0],["project-manager-agent",1,"helps with dividing and conquering ambitious projects",4,3,"2024-10-18","2024-10-18","",0,-0.5,266,0],["interactive-morphisms-viz",1,"An interactive visualization tool for exploring relationships and morphisms across various domains, with a focus on film theory, philosophy, and critical analysis.",4,3,"2024-10-15","2024-10-15","",0,-0.5,267,0],["simple-ai-chatbot",1,"simple for learning how to call api",4,3,"2024-10-02","2024-10-04","",0,-0.5,268,0],["thunder-build",1,"ThunderBuild is a powerful web-based 3D construction and design tool that enables users to create, manipulate, and visualize 3D structures in real-time. Built with modern web technologies, it provides an intuitive inte…",4,4,"2024-12-31","2024-12-31","",0,-0.5,269,0],["chainlink-fence-data-interface",1,"An interactive, artistic visualization simulating a chainlink fence as a data container interface. This project leverages HTML, CSS, and JavaScript to create a structured, calming data visualization interface represent…",4,4,"2024-11-04","2024-11-04","",0,-0.5,270,0],["Clay-Robot-Explorer",1,"The mission of the Clay Robot Explorer project is to create an innovative, interactive interface that combines the tactile aesthetics of claymorphism with intuitive touch-based controls.",4,4,"2024-10-23","2024-10-23","",0,-0.5,271,0],["tunnel-racer",1,"Testing WebChurch and Reality Template",4,9,"2024-11-19","2024-11-19","",0,-0.5,272,0],["temporal-media",1,"Timelines of temporally based media",4,5,"2024-09-30","2024-10-01","",0,-0.5,273,0],["Waveform-Visualizer",1,"Visualize and analyze your audio files with precision. Upload audio, zoom in for details, and download high-quality waveform images with time markers. Ideal for audio enthusiasts, podcasters, and developers.",4,6,"2024-07-17","2024-07-18","",0,-0.5,274,0],["THEMCrowd",0,"a webgl experiment that uses Shibuya city 3D models",4,8,"2024-11-21","2024-11-21","",0,-0.5,275,0],["robot-learning-landscape",1,"Reinforcement Learning",4,10,"2025-04-08","2025-04-08","",0,-0.5,276,0],["spectral-navigator",1,"A digital humanities tool for exploring cultural perspectives through the metaphor of spectral light",4,0,"2024-12-06","2024-12-06","",0,-0.5,277,0],["branch-board-vanilla",1,"Branch board vanilla",4,0,"2024-12-01","2024-12-01","",0,-0.5,278,0],["branch-board-plus",1,"19.99",4,0,"2024-12-01","2024-12-01","",0,-0.5,279,0],["MG_01",1,"MG_01",4,0,"2024-10-17","2024-10-17","",0,-0.5,280,0],["show-me",1,"show-1 parody",4,0,"2024-10-07","2024-10-07","",0,-0.5,281,0],["task-manager",1,"organize your life.",4,0,"2024-10-03","2024-10-03","",0,-0.5,282,0],["gemini-test",1,"test of gemini api",4,0,"2024-09-30","2024-09-30","",0,-0.5,283,0],["the-wifi-cat-project",1,"Follow the signal, find the connection.",4,0,"2024-09-11","2024-09-11","",0,-0.5,284,0],["CADdrive",0,"An open source collaboration platform for product design teams with state-of-the-art version management, issue tracking, milestone planning, and project controlling capabilities.",4,0,"2025-11-08","2025-07-30","",0,-0.52,285,0],["genesis-world",0,"A generative world for general-purpose robotics & embodied AI learning.",4,3,"2024-12-19","2024-12-19","",0,-0.53,286,0],["balam",0,"Bright Star Jaguar",4,0,"2023-06-02","2023-06-02","",0,-0.53,287,0],["AgentVerse",0,"🤖 AgentVerse 🪐 provides a flexible framework that simplifies the process of building custom multi-agent environments for large language models (LLMs).",4,3,"2023-09-15","2023-09-15","",0,-0.59,288,0],["notion-qa",0,"Talk to a notion project",4,0,"2023-05-03","2023-05-03","",0,-0.66,289,0],["generative-models",0,"Generative Models by Stability AI",4,3,"2023-11-25","2023-11-25","",0,-0.69,290,0],["shrouded-history.html",0,"half-truths half-seen through",0,1,"2026-01-22","2026-01-22","",0,-0.69,291,0],["langflow",0,"",4,0,"2023-06-02","2023-06-02","",0,-0.76,292,0],["Matrix-Editor",0,"A Zoomable Matrix Editor for organizing cinematic narratives into Diegesis, Acts, Scenes, and Syntagmas. This tool helps visualize, prompt, and develop layered stories.",4,1,"2024-09-05","2024-09-05","",0,-0.79,293,0],["nomic",0,"Interact with massive embedding, text and image datasets in your web browser",4,0,"2023-07-06","2023-07-06","",0,-0.86,294,0],["asal",0,"Automating the Search for Artificial Life with Foundation Models!",4,3,"2025-01-01","2025-01-01","",0,-0.9,295,0],["BLUEBELT",0,"At BLUE BELT, we embrace the work of becoming better, one step at a time.",4,5,"2024-09-19","2024-09-20","",0,-0.94,296,0],["living-library",0,"A MIT-licensed, deployable starter kit for building and customizing your own version of AI town - a virtual town where AI characters live, chat and socialize.",4,3,"2023-09-07","2023-09-07","",0,-0.98,297,0],["video-stack",0,"film as architecture. infrastructure for endlessness. fighting tyranny of the plausibe.",0,1,"2025-10-04","2025-10-04","",0,-0.99,298,0],["tetrad-pad",0,"A console of critical media — play McLuhan’s tetrad (Enhance, Obsolesce, Retrieve, Reverse) through four simple inputs.",0,2,"2025-10-01","2025-10-01","",0,-1.0,299,0],["tetraktys-lab",0,"Play the Cosmos. Design the Myths.",0,2,"2025-10-01","2025-10-01","",0,-1.0,300,0],["game-ai",0,"Zettlekasten system exploration for game ai",0,3,"2025-01-13","2025-01-13","",0,-1.0,301,0],["afternoon-tea",0,"The Afternoon Tea Chatbot is an interactive AI assistant designed to engage users in conversations about the delightful world of afternoon tea. This charming bot provides information, answers questions, and offers sugg…",0,3,"2024-10-04","2024-10-04","",0,-1.0,302,0],["chatbot-testing",0,"testing chatbots",0,3,"2024-10-02","2024-10-02","",0,-1.0,303,0],["openai-roaster",0,"Roast or Toast? - Where films face playful critiques or warm praise. OpenAI enabled chatbot",0,3,"2024-10-02","2024-10-02","",0,-1.0,304,0],["bookFu",0,"Generate Q&A datasets from books for fine-tuning LLM's",0,3,"2023-08-14","2023-08-14","",0,-1.0,305,0],["babkala",0,"Building a custom chatbot backend",0,3,"2023-06-01","2023-06-01","",0,-1.0,306,0],["centaured",0,"Centaur School is a learning resource and scaffold for creatively integrating ai into your practice.",0,3,"2022-02-05","2022-02-05","",0,-1.0,307,0],["branch-board",0,"Provide educators with a rugged, nature-inspired digital tool that enhances classroom management, facilitates interactive learning experiences, and fosters environmental awareness.",0,10,"2024-12-01","2024-12-01","",0,-1.0,308,0],["them-propp",0,"morphology of a romantic comedy folk tale",0,0,"2025-03-11","2025-03-11","",0,-1.0,309,0],["pathfinding",0,"find your way",0,0,"2025-01-28","2025-01-28","",0,-1.0,310,0],["tortoise",0,"steady persistence helps the team overcome seemingly insurmountable obstacles",0,0,"2024-09-13","2024-09-13","",0,-1.0,311,0],["elephant",0,"create a supportive environment that brings out the best in everyone",0,0,"2024-09-13","2024-09-13","",0,-1.0,312,0],["hawk",0,"bold vision inspires and motivates the entire team",0,0,"2024-09-13","2024-09-13","",0,-1.0,313,0],["owl",0,"balance analysis with openness to creative inspiration",0,0,"2024-09-13","2024-09-13","",0,-1.0,314,0],["sts",0,"science technology studies",0,0,"2024-09-10","2024-09-10","",0,-1.0,315,0],["SLAS",0,"steering like a state",0,0,"2024-04-29","2024-04-29","",0,-1.0,316,0],["tsee-kin",0,"The Mayan word for eagle is Tz'ikin",0,0,"2023-06-02","2023-06-02","",0,-1.0,317,0],["cs1",0,"",0,0,"2022-02-05","2022-02-05","",0,-1.0,318,0],["cs",0,"cs is a test repository for web experiments",0,0,"2022-02-05","2022-02-05","",0,-1.0,319,0],["detectron2",0,"Detectron2 is a platform for object detection, segmentation and other visual recognition tasks.",4,0,"2023-07-07","2023-07-07","",0,-1.07,320,0],["ArtCritiqueTool",0,"Riffing off Sewon",4,0,"2024-11-05","2024-11-05","",0,-1.09,321,0],["Solo-Performance-Prompting",0,"Repo for paper \"Unleashing Cognitive Synergy in Large Language Models: A Task-Solving Agent through Multi-Persona Self-Collaboration\"",4,3,"2023-07-26","2023-07-26","",0,-1.16,322,0],["mesa-examples",0,"Seminal agent-based models developed using Mesa",4,3,"2024-02-25","2024-02-25","",0,-1.18,323,0],["bavoom",0,"bavoom to the moon",4,0,"2023-06-02","2023-06-02","",0,-1.19,324,0],["genoma",0,"Hacking the source code of reality",4,9,"2025-06-27","2025-06-27","",0,-1.32,325,0],["large_concept_model",0,"Large Concept Models: Language modeling in a sentence representation space",4,3,"2024-12-17","2024-12-17","",0,-1.38,326,0],["edc",0,"Esoterica Cybernetics Division",4,0,"2025-06-19","2025-06-19","",0,-1.39,327,0],["fuse",0,"A foundational project to map and operationalize the symbolic structure of human meaning.",4,0,"2025-06-19","2025-06-19","",0,-1.39,328,0],["DM-MS-Overview",0,"Provides an overview and place for feedback for the Digital Media Masters Program",4,2,"2025-04-10","2025-04-10","",0,-1.43,329,0],["llm_multiagent_debate",0,"Code for Improving Factuality and Reasoning in Language Models through Multiagent Debate",4,3,"2023-07-26","2023-07-26","",0,-1.46,330,0],["THEMUnitingTwist",0,"",4,0,"2024-11-21","2024-11-21","",0,-1.47,331,0],["MESA-SAGA",0,"Studying Machine Evolution of Self-Awareness through Philosophically Enhanced Adaptive Intelligence Framework (PE-AIF) applied with Skill to Action Generation for Agents",4,3,"2024-03-15","2024-03-15","",0,-1.49,332,0],["semantic-search-app-template",0,"Tutorial and template for a semantic search app powered by the Atlas Embedding Database, Langchain,  OpenAI and FastAPI",4,3,"2023-07-06","2023-07-06","",0,-1.49,333,0],["aura-after-copies",0,"The Angel of History Meets the Algorithm",4,1,"2025-09-10","2025-09-10","",0,-1.49,334,0],["WeaveClip",0,"WeaveClip is a modern video editor blending node-based workflows and timeline editing into a freeform canvas. Drag, connect, reverse, and customize clips with ease. Error-resilient, ID-tracked, and export-ready, it's b…",4,5,"2025-01-08","2025-04-18","",0,-1.49,335,0],["hubsdrydock",0,"a space for testing and learning about custom scripts for AEL instance of Mozilla Hubs",4,10,"2022-01-27","2022-01-27","",0,-1.49,336,0],["MMAM",0,"",4,0,"2024-03-28","2024-03-28","",0,-1.49,337,0],["media-train",0,"all aboard.",4,2,"2025-05-27","2025-05-27","",0,-1.5,338,0],["LCM-architecture",0,"LARGE CULTURE MODELS (LCM's) of Hostile Architecture",4,3,"2024-12-11","2024-12-11","",0,-1.5,339,0],["lobavoom",0,"lobavoom is for testing txt over pdf loading into active loop vector database for chunking pdfs",4,0,"2023-06-02","2023-06-02","",0,-1.5,340,0]]};</script>
+<script>
+(function(){
+'use strict';
+const G=window.__GROVE,TH=G.themes,REPOS=G.repos,RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const RIPE=['Blossom','Green','Ripening','Ripe','Fallen'],FILL=['#fbfaf5','#9dbb55','#f0b047','#e7833b','#7a5a34'];
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const byName={};REPOS.forEach(r=>byName[r[0]]=r);
+const live=$('#live');let sayT=0;
+function say(t){clearTimeout(sayT);live.textContent='';sayT=setTimeout(()=>live.textContent=t,50);}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+const ym=d=>{if(!d)return'';const m=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];return m[+d.slice(5,7)-1]+' '+d.slice(0,4);};
+const pageOf=r=>r[1]?'https://hartswf0.github.io/'+r[0]+'/':'https://github.com/hartswf0/'+r[0];
+const pickOf=n=>'grove.html#pick='+encodeURIComponent(n);
+function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(k));localStorage.setItem(k,JSON.stringify(v));}catch(e){return null;}}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+/* ---------- curation: the published file, with this browser's edits on top ---------- */
+const PUB=norm(window.__CURATION);
+function norm(c){c=c||{};return{pruned:(c.pruned||[]).filter(n=>byName[n]),featured:(c.featured||[]).filter(n=>byName[n]),kept:(c.kept||[]).filter(n=>byName[n]),
+  collections:(c.collections||[]).map(x=>({id:x.id||slug(x.name),name:x.name||'Untitled',note:x.note||'',items:(x.items||[]).filter(n=>byName[n])}))};}
+function slug(s){return String(s||'c').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,40)||'c';}
+let CUR=norm(store('shed-curation')||PUB);
+function save(){store('shed-curation',CUR);pubCount();}
+function stateOf(n){return CUR.featured.includes(n)?'featured':CUR.pruned.includes(n)?'pruned':CUR.kept.includes(n)?'kept':null;}
+function setState(n,s){['featured','pruned','kept'].forEach(k=>CUR[k]=CUR[k].filter(x=>x!==n));if(s)CUR[s].push(n);save();}
+function fileText(){const out={updated:new Date().toISOString().slice(0,10),pruned:CUR.pruned,featured:CUR.featured,kept:CUR.kept,collections:CUR.collections};
+  return '/* The grove\'s curation, written by the Shed (shed.html). Upload it to the repository root to publish. */\nwindow.__CURATION='+JSON.stringify(out,null,1)+';\n';}
+function diffCount(){let n=0;['pruned','featured','kept'].forEach(k=>{const a=new Set(CUR[k]),b=new Set(PUB[k]);a.forEach(x=>{if(!b.has(x))n++;});b.forEach(x=>{if(!a.has(x))n++;});});
+  if(JSON.stringify(CUR.collections)!==JSON.stringify(PUB.collections))n+=Math.max(1,Math.abs(CUR.collections.length-PUB.collections.length));return n;}
+function pubCount(){const n=diffCount();$('#pubN').textContent=n?String(n):'';}
+
+/* ---------- views ---------- */
+const views=$$('.views button');
+function setView(v,quiet){views.forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===v?'true':'false'));$$('main>[data-view]').forEach(s=>s.classList.toggle('on',s.dataset.view===v));
+  try{history.replaceState(null,'','#'+v);}catch(e){}if(v!=='play')stopGame();if(!quiet)say({prune:'Pruning.',coll:'Collections.',play:'Play.'}[v]);}
+views.forEach(b=>b.addEventListener('click',()=>setView(b.dataset.v)));
+
+/* ---------- PRUNE ---------- */
+const deck=$('#deck'),queueSel=$('#queue'),undecChk=$('#undec');
+let queue=[],qi=0,cur=null,hist=[];
+function buildQueue(){
+  const v=queueSel.value;let list=REPOS.slice();
+  if(v==='least')list.sort((a,b)=>a[9]-b[9]);
+  else if(v==='most')list.sort((a,b)=>b[9]-a[9]);
+  else if(v==='weak')list.sort((a,b)=>((a[3]===0||a[3]===4)?0:1)-((b[3]===0||b[3]===4)?0:1)||a[9]-b[9]);
+  else if(v==='untended')list.sort((a,b)=>(a[6]||'').localeCompare(b[6]||''));
+  else if(v==='newest')list.sort((a,b)=>(b[5]||'').localeCompare(a[5]||''));
+  else if(v.startsWith('t:')){const i=TH.findIndex(t=>t.id===v.slice(2));list=list.filter(r=>r[4]===i).sort((a,b)=>b[9]-a[9]);}
+  if(undecChk.checked)list=list.filter(r=>!stateOf(r[0]));
+  queue=list.map(r=>r[0]);qi=0;showCard(false);
+}
+function orbSVG(s,star){return '<svg class="orb" viewBox="0 0 60 60" aria-hidden="true"><path d="M30 12q7-9 15-4q-7 8-15 4Z" fill="#7ea292" stroke="#141412" stroke-width="1.2"/>'+
+  (s===0?[0,1,2,3,4].map(i=>{const a=i/5*6.283;return '<circle cx="'+(30+Math.cos(a)*9)+'" cy="'+(34+Math.sin(a)*9)+'" r="7" fill="#fbfaf5" stroke="#141412" stroke-width="1.2"/>';}).join('')+'<circle cx="30" cy="34" r="5" fill="#f1c84f"/>'
+  :s===4?'<ellipse cx="30" cy="38" rx="20" ry="13" fill="#7a5a34" stroke="#141412" stroke-width="1.5"/>':'<circle cx="30" cy="35" r="'+[0,15,18,20][s]+'" fill="'+FILL[s]+'" stroke="#141412" stroke-width="1.6"/>')+
+  (star?'<path d="M47 6l2.4 5 5.4.6-4 3.7 1.1 5.3-4.9-2.8-4.8 2.8 1.1-5.3-4-3.7 5.4-.6z" fill="#e7833b" stroke="#141412" stroke-width="1"/>':'')+'</svg>';}
+function showCard(anim){
+  const n=queue[qi];cur=n?byName[n]:null;
+  if(!cur){deck.innerHTML='<div class="done"><h2>Nothing left in this pile.</h2><p class="lede" style="margin:.5rem auto 1rem">Pick another pile above, or publish what you\'ve decided.</p><button class="btn dark" type="button" id="doneP">Publish</button></div>';
+    $('#doneP').addEventListener('click',openPub);$$('#acts button').forEach(b=>b.disabled=true);progress();return;}
+  $$('#acts button').forEach(b=>b.disabled=false);
+  const r=cur,st=stateOf(r[0]),th=TH[r[4]];
+  deck.innerHTML='<article class="card'+(anim&&!RM?' in':'')+'" id="card" tabindex="-1" aria-labelledby="cardN">'+
+    (st?'<span class="state tag '+({featured:'ft',pruned:'pr',kept:'kp'}[st])+'">'+st+'</span>':'')+
+    '<div class="row1">'+orbSVG(r[3],r[7])+'<div><h2 id="cardN">'+esc(r[0])+'</h2><p class="meta">'+esc(th?th.n:'')+' · '+RIPE[r[3]]+(r[7]?' · hand-picked':'')+' · planted '+ym(r[5])+' · tended '+ym(r[6])+(r[8]?' · '+r[8]+(r[11]?' commits':' edits'):'')+'</p></div></div>'+
+    '<p class="desc">'+esc(r[2])+'</p>'+
+    '<div class="links">'+(r[1]?'<a class="btn" href="'+pageOf(r)+'" target="_blank" rel="noopener">Open the page ↗</a><button class="btn" type="button" id="pv" aria-expanded="false">Preview here</button>':'')+
+    '<a class="btn" href="https://github.com/hartswf0/'+esc(r[0])+'" target="_blank" rel="noopener">Code ↗</a><a class="btn" href="'+pickOf(r[0])+'">Find it in the grove</a></div>'+
+    '<div id="pvBox"></div><div class="snip" id="snip"><svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="#141412" stroke-width="1.4" stroke-linecap="round"><circle cx="6" cy="17" r="2.6" fill="#fbfaf5"/><circle cx="11" cy="19.5" r="2.6" fill="#fbfaf5"/><path d="M8 15.5L19 4M10 17.2L20.5 8.5"/></svg></div></article>';
+  const card=$('#card');
+  if(anim&&!RM)requestAnimationFrame(()=>requestAnimationFrame(()=>card.classList.remove('in')));
+  const pv=$('#pv');if(pv)pv.addEventListener('click',()=>{const box=$('#pvBox'),open=pv.getAttribute('aria-expanded')==='true';
+    if(open){box.innerHTML='';pv.setAttribute('aria-expanded','false');pv.textContent='Preview here';}
+    else{box.innerHTML='<div class="prev"><iframe title="Live preview of '+esc(r[0])+'" src="'+pageOf(r)+'" sandbox="allow-scripts allow-same-origin allow-popups" loading="lazy"></iframe></div>';pv.setAttribute('aria-expanded','true');pv.textContent='Hide preview';}});
+  swipe(card);progress();refreshToColl();
+}
+function progress(){
+  const left=queue.length-qi;$('#prog').textContent=queue.length?(Math.min(qi+1,queue.length))+' of '+queue.length+(left<=0?' · done':''):'';
+  $('#tK').textContent=CUR.kept.length;$('#tF').textContent=CUR.featured.length;$('#tP').textContent=CUR.pruned.length;drawTree();ledger();
+}
+function decide(d){
+  if(!cur)return;const n=cur[0],prev=stateOf(n);
+  if(d!=='skip'){setState(n,d==='feature'?'featured':d==='prune'?'pruned':'kept');}
+  hist.push({n:n,prev:prev,qi:qi});$('#undo').disabled=false;
+  const card=$('#card'),cls={prune:'out-l',keep:'out-r',feature:'out-u',skip:'out-r'}[d];
+  if(d==='prune'&&!RM){const s=$('#snip');s.classList.add('go');}
+  say({prune:'Pruned ',keep:'Kept ',feature:'Featured ',skip:'Skipped '}[d]+n+'.'+(queue[qi+1]?' Next: '+queue[qi+1]+'.':' That was the last one.'));
+  lastDrop=d==='prune'?n:null;
+  const next=()=>{qi++;showCard(true);const c=$('#card');if(c&&document.activeElement&&document.activeElement.closest&&document.activeElement.closest('#deck'))c.focus();};
+  if(RM||!card){next();return;}
+  card.classList.add(cls);setTimeout(next,d==='prune'?330:260);
+}
+function undo(){const h=hist.pop();if(!h)return;setState(h.n,h.prev);qi=h.qi;if(queue[qi]!==h.n){queue.splice(qi,0,h.n);}showCard(true);$('#undo').disabled=!hist.length;say('Undid '+h.n+'.');}
+$$('#acts button').forEach(b=>b.addEventListener('click',()=>decide(b.dataset.d)));
+$('#undo').addEventListener('click',undo);
+queueSel.addEventListener('change',()=>{buildQueue();say(queueSel.options[queueSel.selectedIndex].text+': '+queue.length+' projects.');});
+undecChk.addEventListener('change',buildQueue);
+document.addEventListener('keydown',e=>{
+  if(!$('[data-view="prune"]').classList.contains('on')||$('#pub').open)return;
+  if(e.target.closest('input,select,textarea,iframe')||e.metaKey||e.ctrlKey||e.altKey)return;
+  const k=e.key.toLowerCase(),m={p:'prune',arrowleft:'prune',k:'keep',arrowright:'keep',f:'feature',arrowup:'feature',s:'skip',arrowdown:'skip'}[k];
+  if(m){e.preventDefault();decide(m);}else if(k==='u'||k==='z'){e.preventDefault();undo();}
+});
+function swipe(card){
+  let x0=null,y0=0,dx=0,dy=0,id=null;
+  card.addEventListener('pointerdown',e=>{if(e.target.closest('a,button,iframe')||e.pointerType==='mouse')return;x0=e.clientX;y0=e.clientY;id=e.pointerId;card.style.transition='none';});
+  card.addEventListener('pointermove',e=>{if(x0==null||e.pointerId!==id)return;dx=e.clientX-x0;dy=e.clientY-y0;if(Math.abs(dx)<8&&dy>-8)return;
+    card.style.transform='translate('+dx+'px,'+Math.min(0,dy)+'px) rotate('+(dx/20)+'deg)';});
+  const end=()=>{if(x0==null)return;card.style.transition='';card.style.transform='';const d=dx<-90?'prune':dx>90?'keep':dy<-90?'feature':null;x0=null;dx=dy=0;if(d)decide(d);};
+  card.addEventListener('pointerup',end);card.addEventListener('pointercancel',end);
+}
+/* the tree on the side: kept fruit in the crown, featured with a star, pruned on the ground */
+let lastDrop=null;
+function drawTree(){
+  const s=$('#ptree');let h='<rect x="0" y="198" width="260" height="32" fill="#e9dfc5"/><path d="M0 198H260" stroke="#141412" stroke-width="1.6"/>'+
+    '<path d="M120 198L124 140L116 112H144L136 140L140 198Z" fill="#9a7a55" stroke="#141412" stroke-width="1.6"/>'+
+    '<ellipse cx="130" cy="86" rx="104" ry="72" fill="#7ea292" stroke="#141412" stroke-width="1.8"/><ellipse cx="130" cy="92" rx="80" ry="52" fill="#b2cbbb"/>';
+  const crown=CUR.featured.map(n=>[n,1]).concat(CUR.kept.map(n=>[n,0]));
+  crown.slice(0,90).forEach((c,i)=>{const a=i*2.399,rr=Math.sqrt((i+.5)/90),x=130+Math.cos(a)*rr*88,y=88+Math.sin(a)*rr*58,r=byName[c[0]];
+    h+='<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+(c[1]?6:4.4)+'" fill="'+(c[1]?'#e7833b':FILL[r?Math.max(1,Math.min(3,r[3])):2])+'" stroke="#141412" stroke-width="1"/>';
+    if(c[1])h+='<path d="M'+(x+4)+' '+(y-9)+'l1.3 2.7 2.9.3-2.2 2 .6 2.9-2.6-1.5-2.6 1.5.6-2.9-2.2-2 2.9-.3z" fill="#141412"/>';});
+  CUR.pruned.slice(-60).forEach((n,i)=>{const x=18+((i*37)%224),y=206+((i*13)%16);
+    h+='<ellipse cx="'+x+'" cy="'+y+'" rx="6" ry="3.6" fill="#7a5a34" stroke="#141412" stroke-width=".9"'+(n===lastDrop&&!RM?'><animate attributeName="cy" from="120" to="'+y+'" dur=".5s" fill="freeze"/></ellipse>':'/>');});
+  s.innerHTML=h;
+}
+/* the ledger */
+let ltab='featured';
+$$('.ltabs button').forEach(b=>b.addEventListener('click',()=>{ltab=b.dataset.l;$$('.ltabs button').forEach(x=>x.setAttribute('aria-pressed',x===b?'true':'false'));ledger();}));
+function ledger(){const L=$('#llist'),arr=CUR[ltab];
+  $$('.ltabs button').forEach(b=>b.textContent=({featured:'Featured',pruned:'Pruned',kept:'Kept'}[b.dataset.l])+' '+CUR[b.dataset.l].length);
+  if(!arr.length){L.innerHTML='<li class="empty">None yet.</li>';return;}
+  L.innerHTML=arr.slice().reverse().map(n=>'<li><i class="fr s'+byName[n][3]+'"></i><a href="'+pickOf(n)+'">'+esc(n)+'</a><button class="x" type="button" data-n="'+esc(n)+'" aria-label="Clear the decision on '+esc(n)+'">Clear</button></li>').join('');
+  L.querySelectorAll('.x').forEach(b=>b.addEventListener('click',()=>{setState(b.dataset.n,null);say('Cleared '+b.dataset.n+'.');progress();}));}
+/* add to a collection from the card */
+function refreshToColl(){const s=$('#toColl');s.innerHTML='<option value="">Add to a collection…</option>'+CUR.collections.map(c=>'<option value="'+esc(c.id)+'">'+esc(c.name)+(cur&&c.items.includes(cur[0])?' ✓':'')+'</option>').join('')+'<option value="__new">New collection…</option>';}
+$('#toColl').addEventListener('change',e=>{const v=e.target.value;e.target.value='';if(!cur||!v)return;
+  let c;if(v==='__new'){const nm=prompt('Name the new collection');if(!nm)return;c=makeColl(nm);}else c=CUR.collections.find(x=>x.id===v);
+  if(c&&!c.items.includes(cur[0])){c.items.push(cur[0]);save();say('Added '+cur[0]+' to '+c.name+'.');}refreshToColl();renderColls();});
+
+/* ---------- COLLECT ---------- */
+let sel=null;
+function makeColl(name){let id=slug(name),k=2;while(CUR.collections.some(c=>c.id===id))id=slug(name)+'-'+(k++);const c={id:id,name:name.trim(),note:'',items:[]};CUR.collections.push(c);sel=c.id;save();return c;}
+$('#newc').addEventListener('submit',e=>{e.preventDefault();const i=$('#newName'),v=i.value.trim();if(!v)return;makeColl(v);i.value='';renderColls();say('Made '+v+'.');const n=$('#editor .nm');if(n)n.focus();});
+function renderColls(){
+  const L=$('#clist');
+  L.innerHTML=CUR.collections.length?CUR.collections.map(c=>'<li><button type="button" data-id="'+esc(c.id)+'" aria-current="'+(c.id===sel)+'"><span>'+esc(c.name)+'</span><small>'+c.items.length+'</small></button></li>').join(''):'<li class="empty">No collections yet. Make one: a syllabus, a show, a reading list.</li>';
+  L.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{sel=b.dataset.id;renderColls();}));
+  const c=CUR.collections.find(x=>x.id===sel),E=$('#editor');
+  if(!c){E.innerHTML='';return;}
+  E.innerHTML='<div class="editor"><label class="vh" for="cName">Collection name</label><input class="inp nm" id="cName" value="'+esc(c.name)+'">'+
+    '<label class="vh" for="cNote">A note about this collection</label><textarea class="inp" id="cNote" placeholder="Why these, together? One or two sentences.">'+esc(c.note)+'</textarea>'+
+    '<ol class="items" aria-label="Projects in '+esc(c.name)+'">'+(c.items.length?c.items.map((n,i)=>'<li><i class="fr s'+byName[n][3]+'"></i> <a href="'+pickOf(n)+'">'+esc(n)+'</a>'+
+      '<button class="x" type="button" data-a="up" data-i="'+i+'" aria-label="Move '+esc(n)+' up"'+(i?'':' disabled')+'>↑</button><button class="x" type="button" data-a="down" data-i="'+i+'" aria-label="Move '+esc(n)+' down"'+(i<c.items.length-1?'':' disabled')+'>↓</button><button class="x" type="button" data-a="rm" data-i="'+i+'" aria-label="Remove '+esc(n)+'">Remove</button></li>').join(''):'<li class="empty">Empty. Add projects below.</li>')+'</ol>'+
+    '<div class="adder"><label class="vh" for="addQ">Find a project to add</label><input class="inp" id="addQ" type="search" placeholder="Add a project: name or idea" autocomplete="off"><ul class="adds" id="adds" aria-label="Projects to add"></ul></div>'+
+    '<div class="erow"><a class="btn" href="index.html#tree">See where it shows</a><button class="btn" type="button" id="cDel">Delete collection</button></div></div>';
+  $('#cName').addEventListener('change',e=>{c.name=e.target.value.trim()||'Untitled';save();renderColls();});
+  $('#cNote').addEventListener('change',e=>{c.note=e.target.value.trim();save();});
+  E.querySelectorAll('.items .x').forEach(b=>b.addEventListener('click',()=>{const i=+b.dataset.i,a=b.dataset.a,n=c.items[i];
+    if(a==='rm'){c.items.splice(i,1);say('Removed '+n+'.');}else{const j=a==='up'?i-1:i+1;[c.items[i],c.items[j]]=[c.items[j],c.items[i]];say('Moved '+n+' '+(a==='up'?'up':'down')+'.');}
+    save();renderColls();const again=E.querySelector('.items .x[data-a="'+a+'"][data-i="'+(a==='rm'?Math.min(i,c.items.length-1):a==='up'?i-1:i+1)+'"]')||$('#addQ');if(again)again.focus();}));
+  const q=$('#addQ'),adds=$('#adds');
+  const find=()=>{const v=q.value.trim().toLowerCase();if(!v){adds.innerHTML='';return;}
+    const m=REPOS.filter(r=>!c.items.includes(r[0])&&(r[0].toLowerCase().includes(v)||(r[2]||'').toLowerCase().includes(v)||(TH[r[4]]&&TH[r[4]].n.toLowerCase().includes(v)))).slice(0,8);
+    adds.innerHTML=m.length?m.map(r=>'<li><button type="button" data-n="'+esc(r[0])+'"><i class="fr s'+r[3]+'"></i><span>'+esc(r[0])+'</span><small>'+esc(TH[r[4]]?TH[r[4]].n:'')+'</small></button></li>').join(''):'<li class="empty">No match.</li>';
+    adds.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{c.items.push(b.dataset.n);save();say('Added '+b.dataset.n+'.');const keep=q.value;renderColls();const q2=$('#addQ');q2.value=keep;q2.focus();q2.dispatchEvent(new Event('input'));}));};
+  q.addEventListener('input',find);
+  const del=$('#cDel');let armed=false;del.addEventListener('click',()=>{if(!armed){armed=true;del.textContent='Really delete? Press again';return;}
+    CUR.collections=CUR.collections.filter(x=>x!==c);sel=CUR.collections[0]&&CUR.collections[0].id;save();renderColls();say('Deleted '+c.name+'.');});
+}
+
+/* ---------- PLAY ---------- */
+const arena=$('#arena');let game=null;
+function best(k,v){const b=store('shed-best')||{};if(v===undefined)return b[k];if(!(b[k]>=v)){b[k]=v;store('shed-best',b);}showBest();}
+function showBest(){const b=store('shed-best')||{};[['catch',' points'],['older',' of 10'],['which',' of 10']].forEach(x=>{$('#best-'+x[0]).textContent='Best: '+(b[x[0]]!=null?b[x[0]]+x[1]:'none yet');});}
+$$('.games button').forEach(b=>b.addEventListener('click',()=>{$$('.games button').forEach(x=>x.setAttribute('aria-pressed',x===b?'true':'false'));startGame(b.dataset.g);}));
+function stopGame(){if(game&&game.stop)game.stop();game=null;}
+function startGame(k){stopGame();arena.hidden=false;({catch:catchGame,older:olderGame,which:whichGame})[k]();arena.scrollIntoView({block:'nearest',behavior:RM?'auto':'smooth'});}
+
+/* CATCH: a shaken tree drops oranges; the basket catches them */
+function catchGame(){
+  const W=600,H=380,DUR=40000;
+  arena.innerHTML='<div class="ahead"><h3 style="margin:0">Catch</h3><p class="score">Score <b id="cs">0</b> · <span id="ct">40</span>s</p></div>'+
+    '<div class="catch" id="cbox" tabindex="0" role="application" aria-label="Catch. Move the basket with the left and right arrow keys, your mouse, or by dragging. Ripe oranges score most; rotten ones cost a point."><svg id="csv" viewBox="0 0 '+W+' '+H+'" aria-hidden="true"></svg></div>'+
+    '<div class="pads"><button type="button" id="cl" aria-label="Move left">◀</button><button type="button" id="cr" aria-label="Move right">▶</button></div>'+
+    '<div id="cend"></div>';
+  const sv=$('#csv'),NS='http://www.w3.org/2000/svg';
+  const E=(n,a,p)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);(p||sv).appendChild(e);return e;};
+  E('rect',{x:0,y:H-34,width:W,height:34,fill:'#e9dfc5'});E('path',{d:'M0 '+(H-34)+'H'+W,stroke:'#141412','stroke-width':1.6});
+  const crown=E('g',{});E('ellipse',{cx:W/2,cy:30,rx:W*.55,ry:70,fill:'#7ea292',stroke:'#141412','stroke-width':2},crown);E('ellipse',{cx:W/2,cy:36,rx:W*.45,ry:48,fill:'#b2cbbb'},crown);
+  const drops=E('g',{});
+  const bk=E('g',{});E('path',{d:'M-40 0H40L32 26H-32Z',fill:'#c9a46a',stroke:'#141412','stroke-width':2},bk);E('path',{d:'M-34 9H34M-31 18H31',stroke:'#141412','stroke-width':1,opacity:.5},bk);
+  E('rect',{x:-15,y:-58,width:30,height:30,rx:5,fill:'#fbfaf5',stroke:'#141412','stroke-width':2},bk);
+  E('rect',{x:-11,y:-49,width:9,height:7,fill:'none',stroke:'#141412','stroke-width':1.6},bk);E('rect',{x:2,y:-49,width:9,height:7,fill:'none',stroke:'#141412','stroke-width':1.6},bk);
+  E('path',{d:'M-4 -34h8',stroke:'#141412','stroke-width':1.6},bk);E('path',{d:'M-10 -28h20v6h-20z',fill:'#e7833b',stroke:'#141412','stroke-width':1.2},bk);
+  const fx=E('g',{});
+  let bx=W/2,goal=W/2,t0=performance.now(),last=t0,next=t0+300,score=0,running=true,raf=0,keys={},caught=[];
+  const pool=shuffle(REPOS.slice());let pi=0;
+  function spawn(now){const r=pool[pi++%pool.length],rot=r[3]===4,x=40+Math.random()*(W-80),g=E('g',{},drops),s=r[3];
+    if(rot)E('ellipse',{rx:13,ry:8,fill:'#7a5a34',stroke:'#141412','stroke-width':1.4},g);
+    else if(s===0){E('circle',{r:10,fill:'#fbfaf5',stroke:'#141412','stroke-width':1.4},g);E('circle',{r:4,fill:'#f1c84f'},g);}
+    else{E('circle',{r:[0,10,12,14][s],fill:FILL[s],stroke:'#141412','stroke-width':1.5},g);E('path',{d:'M0 '+(-[0,10,12,14][s])+'q4 -6 9 -3q-4 4 -9 3Z',fill:'#7ea292',stroke:'#141412','stroke-width':.8},g);}
+    const el=(now-t0)/DUR;return{g:g,r:r,x:x,y:40,v:.09+el*.12+Math.random()*.05,pts:rot?-1:[1,1,2,3][s]};}
+  let live_=[];
+  function pop(x,y,txt,good){const t=E('text',{x:x,y:y,'text-anchor':'middle','font-family':'Inter,sans-serif','font-weight':700,'font-size':16,fill:good?'#141412':'#9a3b1f'},fx);t.textContent=txt;
+    let a=0;const st=performance.now();(function f(n){const u=(n-st)/600;if(u>=1||!running&&u>1){t.remove();return;}t.setAttribute('y',y-u*30);t.setAttribute('opacity',1-u);requestAnimationFrame(f);})(st);}
+  function tick(now){
+    if(!running)return;const dt=Math.min(40,now-last);last=now;
+    if(keys.l)goal-=dt*.6;if(keys.r)goal+=dt*.6;goal=Math.max(44,Math.min(W-44,goal));
+    bx+=(goal-bx)*(RM?1:Math.min(1,dt/60));bk.setAttribute('transform','translate('+bx.toFixed(1)+' '+(H-62)+')');
+    crown.setAttribute('transform',RM?'':'rotate('+(Math.sin(now/90)*.6).toFixed(2)+' '+W/2+' 60)');
+    if(now>next){live_.push(spawn(now));next=now+Math.max(380,900-(now-t0)/DUR*450);}
+    live_=live_.filter(o=>{o.y+=o.v*dt;o.g.setAttribute('transform','translate('+o.x.toFixed(1)+' '+o.y.toFixed(1)+')');
+      if(o.y>H-72&&o.y<H-48&&Math.abs(o.x-bx)<44){score+=o.pts;$('#cs').textContent=score;o.g.remove();pop(o.x,H-80,(o.pts>0?'+':'')+o.pts,o.pts>0);if(o.pts>0)caught.push(o.r[0]);return false;}
+      if(o.y>H-20){o.g.remove();return false;}return true;});
+    const left=Math.max(0,Math.ceil((DUR-(now-t0))/1000));$('#ct').textContent=left;
+    if(now-t0>=DUR){end();return;}
+    raf=requestAnimationFrame(tick);}
+  function end(){running=false;cancelAnimationFrame(raf);best('catch',score);
+    const uniq=[...new Set(caught)];
+    $('#cend').innerHTML='<p class="fb">Time. <b>'+score+'</b> points, '+uniq.length+' projects in the basket.</p>'+(uniq.length?'<h3>Your basket</h3><ul class="basket">'+uniq.map(n=>'<li><a href="'+pickOf(n)+'"><i class="fr s'+byName[n][3]+'"></i>'+esc(n)+'</a></li>').join('')+'</ul>':'')+
+      '<div class="nextrow" style="margin-top:1rem"><button class="btn dark" type="button" id="again">Play again</button></div>';
+    $('#again').addEventListener('click',()=>startGame('catch'));$('#again').focus();say('Time. '+score+' points, '+uniq.length+' projects caught.');}
+  const box=$('#cbox');
+  const toX=e=>{const r=sv.getBoundingClientRect();return (e.clientX-r.left)/r.width*W;};
+  box.addEventListener('pointermove',e=>{goal=toX(e);});box.addEventListener('pointerdown',e=>{goal=toX(e);});
+  const kd=e=>{if(e.key==='ArrowLeft'){keys.l=1;e.preventDefault();}if(e.key==='ArrowRight'){keys.r=1;e.preventDefault();}},ku=e=>{if(e.key==='ArrowLeft')keys.l=0;if(e.key==='ArrowRight')keys.r=0;};
+  window.addEventListener('keydown',kd);window.addEventListener('keyup',ku);
+  [['#cl','l'],['#cr','r']].forEach(p=>{const b=$(p[0]);b.addEventListener('pointerdown',()=>keys[p[1]]=1);['pointerup','pointerleave','pointercancel'].forEach(ev=>b.addEventListener(ev,()=>keys[p[1]]=0));});
+  const vis=()=>{if(document.hidden&&running){running=false;cancelAnimationFrame(raf);pausedAt=performance.now();}else if(!document.hidden&&!running&&pausedAt){const d=performance.now()-pausedAt;t0+=d;next+=d;last=performance.now();pausedAt=0;running=true;raf=requestAnimationFrame(tick);}};
+  let pausedAt=0;document.addEventListener('visibilitychange',vis);
+  box.focus({preventScroll:true});say('Catch. 40 seconds. Arrow keys move the basket.');raf=requestAnimationFrame(tick);
+  game={stop(){running=false;cancelAnimationFrame(raf);window.removeEventListener('keydown',kd);window.removeEventListener('keyup',ku);document.removeEventListener('visibilitychange',vis);}};
+}
+
+/* OLDER OR NEWER: which was planted first? */
+function olderGame(){
+  const dated=REPOS.filter(r=>r[5]);let round=0,score=0;
+  function pair(){for(let k=0;k<200;k++){const a=dated[Math.floor(Math.random()*dated.length)],b=dated[Math.floor(Math.random()*dated.length)];
+    if(a!==b&&Math.abs(new Date(a[5])-new Date(b[5]))>45*864e5)return[a,b];}return[dated[0],dated[1]];}
+  function show(){round++;const [a,b]=pair(),first=a[5]<b[5]?0:1;
+    arena.innerHTML='<div class="ahead"><h3 style="margin:0">Older or newer</h3><p class="score">Round <b>'+round+'</b> of 10 · Score <b>'+score+'</b></p></div><p class="q" id="oq">Which was planted first?</p>'+
+      '<div class="pair" role="group" aria-labelledby="oq">'+[a,b].map((r,i)=>'<button class="choice" type="button" data-i="'+i+'"><b>'+esc(r[0])+'</b><span>'+esc((r[2]||'').slice(0,120))+'</span><small data-d>'+esc(TH[r[4]]?TH[r[4]].n:'')+'</small></button>').join('')+'</div>'+
+      '<p class="fb" id="ofb" aria-live="polite"></p><div class="nextrow" id="onx"></div>';
+    const bs=arena.querySelectorAll('.choice');bs[0].focus();
+    bs.forEach(btn=>btn.addEventListener('click',()=>{const i=+btn.dataset.i,ok=i===first;if(ok)score++;
+      bs.forEach((x,j)=>{x.disabled=true;x.classList.add(j===first?'right':'wrong');x.querySelector('[data-d]').textContent='Planted '+ym([a,b][j][5]);});
+      $('#ofb').textContent=(ok?'Right. ':'Not quite. ')+[a,b][first][0]+' came first, in '+ym([a,b][first][5])+'; '+[a,b][1-first][0]+' followed in '+ym([a,b][1-first][5])+'.';
+      const nx=$('#onx');nx.innerHTML=round<10?'<button class="btn dark" type="button" id="onext">Next pair</button>':'<p class="fb"><b>'+score+' of 10.</b></p><button class="btn dark" type="button" id="onext">Play again</button>';
+      if(round>=10){best('older',score);}
+      $('#onext').addEventListener('click',()=>{if(round>=10){round=0;score=0;}show();});$('#onext').focus();}));}
+  show();game={stop(){}};
+}
+
+/* WHICH TREE: a project and four trees */
+function whichGame(){
+  const other=TH.findIndex(t=>t.id==='other'),pool=shuffle(REPOS.filter(r=>r[4]!==other&&r[2]&&r[2].length>12));let round=0,score=0;
+  function show(){const r=pool[round%pool.length];round++;
+    const opts=shuffle([r[4]].concat(shuffle(TH.map((t,i)=>i).filter(i=>i!==r[4]&&i!==other)).slice(0,3)));
+    arena.innerHTML='<div class="ahead"><h3 style="margin:0">Which tree?</h3><p class="score">Round <b>'+round+'</b> of 10 · Score <b>'+score+'</b></p></div>'+
+      '<p class="q" id="wq"><b style="font-weight:400">'+esc(r[0])+'</b>: '+esc(r[2])+'</p><div class="trees4" role="group" aria-labelledby="wq">'+
+      opts.map(i=>'<button class="choice" type="button" data-i="'+i+'"><b>'+esc(TH[i].n)+'</b></button>').join('')+'</div><p class="fb" id="wfb" aria-live="polite"></p><div class="nextrow" id="wnx"></div>';
+    const bs=arena.querySelectorAll('.choice');bs[0].focus();
+    bs.forEach(btn=>btn.addEventListener('click',()=>{const ok=+btn.dataset.i===r[4];if(ok)score++;
+      bs.forEach(x=>{x.disabled=true;if(+x.dataset.i===r[4])x.classList.add('right');else if(x===btn)x.classList.add('wrong');});
+      $('#wfb').innerHTML=(ok?'Right. ':'It grows on '+esc(TH[r[4]].n)+'. ')+'<a href="'+pickOf(r[0])+'">Pick it in the grove</a>.';
+      const nx=$('#wnx');nx.innerHTML=round<10?'<button class="btn dark" type="button" id="wnext">Next</button>':'<p class="fb"><b>'+score+' of 10.</b></p><button class="btn dark" type="button" id="wnext">Play again</button>';
+      if(round>=10)best('which',score);
+      $('#wnext').addEventListener('click',()=>{if(round>=10){round=0;score=0;shuffle(pool);}show();});$('#wnext').focus();}));}
+  show();game={stop(){}};
+}
+
+/* ---------- publish ---------- */
+const dlg=$('#pub');
+function openPub(){const n=diffCount();$('#pubDiff').textContent=n?n+' change'+(n===1?'':'s')+' since the published version · '+CUR.featured.length+' featured · '+CUR.pruned.length+' pruned · '+CUR.collections.length+' collections':'No changes since the published version.';dlg.showModal();}
+$('#pubOpen').addEventListener('click',openPub);$('#pubClose').addEventListener('click',()=>dlg.close());
+dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close();});
+$('#dl').addEventListener('click',()=>{const b=new Blob([fileText()],{type:'text/javascript'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='curation.js';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},500);say('Downloaded curation.js.');});
+$('#copy').addEventListener('click',()=>{(navigator.clipboard?navigator.clipboard.writeText(fileText()):Promise.reject()).then(()=>say('Copied.'),()=>say('Copy failed; use Download.'));});
+const disc=$('#discard');let dArm=false;disc.addEventListener('click',()=>{if(!dArm){dArm=true;disc.textContent='Really discard? Press again';return;}
+  dArm=false;disc.textContent='Discard local changes';CUR=norm(PUB);try{localStorage.removeItem('shed-curation');}catch(e){}pubCount();buildQueue();renderColls();dlg.close();say('Discarded. Back to the published version.');});
+
+/* ---------- go ---------- */
+const TREEOPT=queueSel;showBest();pubCount();
+const h=(location.hash||'').slice(1);setView(['prune','coll','play'].includes(h)?h:'prune',true);
+sel=CUR.collections[0]&&CUR.collections[0].id;renderColls();buildQueue();
+})();
+</script>
+</body>
+</html>

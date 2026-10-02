@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="color-scheme" content="light">
-<meta name="description" content="The Shed: the gardener's tools for Watson Hartsoe's grove. Prune and feature projects, make collections, and play three small games with the real work.">
+<meta name="description" content="The Shed: the gardener's tools for Watson Hartsoe's grove. Prune and feature projects, make collections, and play small games with the real work against Watson.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="The Shed">
 <meta property="og:description" content="Prune the grove, make collections, and play: catch the oranges, older or newer, which tree.">
@@ -143,6 +143,8 @@ textarea.inp{width:100%;min-height:5rem;font-family:var(--serif);font-size:1rem;
 
 /* PLAY */
 .games{display:grid;grid-template-columns:repeat(auto-fill,minmax(14rem,1fr));gap:.8rem;margin:0 0 1.4rem}
+.games .gamelink{display:flex;flex-direction:column;align-items:flex-start;gap:.35rem;min-height:9rem;padding:1rem 1.1rem;border:1.5px dashed var(--ink);border-radius:16px;background:transparent;text-decoration:none;color:inherit}
+.games .gamelink svg{width:44px;height:44px}.games .gamelink b{font-weight:400;font-size:1.3rem}.games .gamelink span{font-size:.92rem;color:var(--ink2);line-height:1.4}.games .gamelink small{margin-top:auto;font:700 .58rem/1 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 .games button{display:flex;flex-direction:column;align-items:flex-start;gap:.35rem;min-height:9rem;padding:1rem 1.1rem;border:1.5px solid var(--ink);border-radius:16px;background:var(--card);cursor:pointer;text-align:left}
 .games button[aria-pressed="true"]{box-shadow:5px 5px 0 var(--warm)}
 .games svg{width:44px;height:44px}
@@ -255,11 +257,14 @@ footer{max-width:72rem;margin:0 auto;padding:1.2rem clamp(1rem,3vw,1.6rem) 3rem;
   <!-- PLAY: three small games with the real work -->
   <section data-view="play" aria-labelledby="play-h">
     <h2 id="play-h">Play</h2>
-    <p class="lede">Three small games. Every orange is a real project, and whatever you find, you can open.</p>
+    <p class="lede">Small games with the real projects. Watson plays too: he answers every round after you, takes his turn, and keeps score.</p>
     <div class="games" role="group" aria-label="Games">
       <button type="button" data-g="catch" aria-pressed="false"><svg viewBox="0 0 44 44" aria-hidden="true"><path d="M8 26h28l-3 12H11z" fill="#c9a46a" stroke="#141412" stroke-width="1.6"/><circle cx="22" cy="12" r="6" fill="#e7833b" stroke="#141412" stroke-width="1.6"/><path d="M22 20v3" stroke="#141412" stroke-width="1.6" stroke-dasharray="2 2"/></svg><b>Catch</b><span>Oranges fall from a shaken tree. Catch the good ones, dodge the rotten. 40 seconds.</span><small id="best-catch">Best: none yet</small></button>
       <button type="button" data-g="older" aria-pressed="false"><svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="14" cy="22" r="8" fill="#9dbb55" stroke="#141412" stroke-width="1.6"/><circle cx="30" cy="22" r="8" fill="#e7833b" stroke="#141412" stroke-width="1.6"/><path d="M14 34v4M30 34v4M8 38h28" stroke="#141412" stroke-width="1.6"/></svg><b>Older or newer</b><span>Two projects. Which was planted first? Ten rounds through the history of the work.</span><small id="best-older">Best: none yet</small></button>
       <button type="button" data-g="which" aria-pressed="false"><svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="12" cy="16" r="7" fill="#b2cbbb" stroke="#141412" stroke-width="1.6"/><circle cx="32" cy="16" r="7" fill="#b2cbbb" stroke="#141412" stroke-width="1.6"/><path d="M12 23v10M32 23v10" stroke="#141412" stroke-width="2"/><circle cx="22" cy="36" r="4" fill="#f0b047" stroke="#141412" stroke-width="1.6"/></svg><b>Which tree?</b><span>A project and four trees. Which one does it grow on? Ten rounds.</span><small id="best-which">Best: none yet</small></button>
+      <button type="button" data-g="more" aria-pressed="false"><svg viewBox="0 0 44 44" aria-hidden="true"><path d="M8 36V24h8v12M18 36V12h8v24M28 36V18h8v18" fill="#f0b047" stroke="#141412" stroke-width="1.6"/></svg><b>More work?</b><span>Two projects. Which got more edits by hand? Watson guesses too.</span><small id="best-more">Best: none yet</small></button>
+      <button type="button" data-g="pairs" aria-pressed="false"><svg viewBox="0 0 44 44" aria-hidden="true"><rect x="6" y="8" width="14" height="20" rx="3" fill="#7ea292" stroke="#141412" stroke-width="1.6"/><rect x="24" y="16" width="14" height="20" rx="3" fill="#fbfaf5" stroke="#141412" stroke-width="1.6"/><circle cx="13" cy="18" r="3" fill="#e7833b" stroke="#141412"/></svg><b>Pairs</b><span>Match each project to what it does. You and Watson take turns.</span><small id="best-pairs">Best: none yet</small></button>
+      <a class="gamelink" href="grove.html#play=toss"><svg viewBox="0 0 44 44" aria-hidden="true"><path d="M6 30Q20 4 34 26" fill="none" stroke="#141412" stroke-width="1.6" stroke-dasharray="2 4"/><circle cx="8" cy="30" r="4" fill="#e7833b" stroke="#141412" stroke-width="1.4"/><path d="M28 28h12l-2 10h-8z" fill="#c9a46a" stroke="#141412" stroke-width="1.6"/></svg><b>Toss ↗</b><span>Played in the grove: throw oranges into a crate, turn about with Watson.</span><small>Opens the grove</small></a>
     </div>
     <div class="arena" id="arena" hidden></div>
   </section>
@@ -454,11 +459,11 @@ function renderColls(){
 
 /* ---------- PLAY ---------- */
 const arena=$('#arena');let game=null;
-function showBest(){const b=store('shed-best')||{};[['catch',' points'],['older',' of 10'],['which',' of 10']].forEach(x=>{$('#best-'+x[0]).textContent='Best: '+(b[x[0]]!=null?b[x[0]]+x[1]:'none yet');});}
+function showBest(){const b=store('shed-best')||{};[['catch',' points'],['older',' of 10'],['which',' of 10'],['more',' of 10'],['pairs',' pairs']].forEach(x=>{$('#best-'+x[0]).textContent='Best: '+(b[x[0]]!=null?b[x[0]]+x[1]:'none yet');});}
 $$('.games button').forEach(b=>b.addEventListener('click',()=>{$$('.games button').forEach(x=>x.setAttribute('aria-pressed',x===b?'true':'false'));startGame(b.dataset.g);}));
 function stopGame(){if(game&&game.stop)game.stop();game=null;}
-function startGame(k){stopGame();arena.hidden=false;
-  game=OrchardGames.start(k,arena,{repos:REPOS,themes:TH,href:pickOf,say:say,onBest:showBest,again:startGame});
+function startGame(k,o){stopGame();arena.hidden=false;
+  game=OrchardGames.start(k,arena,{repos:REPOS,themes:TH,href:pickOf,say:say,onBest:showBest,again:startGame},o);
   arena.scrollIntoView({block:'nearest',behavior:RM?'auto':'smooth'});}
 
 /* ---------- publish ---------- */

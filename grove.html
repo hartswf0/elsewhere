@@ -94,7 +94,10 @@ button,select,input{font:inherit;color:inherit}
 .gp-back{min-height:40px;padding:.3rem .8rem;border:1.5px solid var(--ink);border-radius:999px;background:transparent;cursor:pointer;font:600 .66rem/1 var(--sans)}
 .gp-lede{margin:0 0 .6rem;color:var(--ink2);font-size:.95rem}
 .gp-hint{margin:0;color:var(--ink2);font-size:.88rem}
-.gp-menu{display:grid;gap:.45rem}
+.gp-menu{display:grid;grid-template-columns:1fr 1fr;gap:.45rem}
+.gp-watch{width:100%;min-height:44px;margin-top:.5rem;border:1.5px dashed var(--ink);border-radius:12px;background:transparent;cursor:pointer;font:600 .74rem/1 var(--sans)}
+.gp-watch:hover{background:#efe6d2}
+.gp-sub{margin:.4rem 0 0;font:700 .62rem/1.3 var(--sans);letter-spacing:.08em;text-transform:uppercase}
 .gp-menu button{display:grid;gap:.15rem;text-align:left;min-height:56px;padding:.6rem .8rem;border:1.5px solid var(--ink);border-radius:12px;background:var(--paper);cursor:pointer;font-family:var(--serif);color:var(--ink)}
 .gp-menu b{font-weight:400;font-size:1.08rem}.gp-menu span{font-size:.86rem;color:var(--ink2);line-height:1.35}
 .gp-menu small{font:700 .56rem/1.2 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
@@ -255,7 +258,7 @@ footer{padding:2rem 0;border-top:1px solid var(--rule);font:500 .72rem/1.7 var(-
 
 <section class="walk on" id="walk" data-view="walk" aria-label="Walk">
   <div class="stage" id="stage" tabindex="0" role="region" aria-roledescription="grove" aria-label="The grove, a walk past every tree" aria-describedby="how">
-    <p class="vh" id="how">Scroll down, swipe sideways, or use the left and right arrow keys to walk from tree to tree. Tab moves between the oranges on the tree in front of you; Enter opens one. Watson is a button too: press him for a trick. The Play button opens three games; Catch is played under the tree in front of you. The Crate and List views show every project as larger targets.</p>
+    <p class="vh" id="how">Scroll down, swipe sideways, or use the left and right arrow keys to walk from tree to tree. Tab moves between the oranges on the tree in front of you; Enter opens one. Watson is a button too: press him for a trick. The Play button opens six games, and Watson plays against you; Catch is played under the tree in front of you. The Crate and List views show every project as larger targets.</p>
     <svg id="cel"></svg>
     <p class="cue" id="cue" aria-hidden="true">Scroll or swipe · tap any orange · tap him for a trick</p>
     <section class="gpanel" id="gpanel" hidden aria-labelledby="gpH">
@@ -1233,7 +1236,7 @@ let camPush=null;
 const trees=[],crowns=[],fruits=[],byName={};
 const scoreMax=Math.max.apply(null,G.repos.map(r=>r[9])),scoreMin=Math.min.apply(null,G.repos.map(r=>r[9]));
 const STAND={x0:20,x1:420};
-let wx=STAND.x1+200;
+let wx=STAND.x1+320;
 G.themes.forEach((t,i)=>{
   const items=G.repos.map((r,j)=>j).filter(j=>G.repos[j][4]===i);
   const crownItems=items.filter(j=>G.repos[j][3]!==4).sort((a,b)=>G.repos[b][9]-G.repos[a][9]),n=items.length;
@@ -1583,6 +1586,7 @@ function route(instant){
   if(FIG.trick)endTrick(true);
   if((m=/^pick=(.+)$/.exec(h))){const f=byName[m[1].toLowerCase()];if(f)pick(f,instant);}
   else if((m=/^tree=(.+)$/.exec(h))){const t=trees.find(x=>x.id===m[1]);closePeel();if(t){if(VIEW!=='walk')setView('walk',true);scrollToX(t.x,!instant);}}
+  else if((m=/^play=(catch|toss|older|which|more|pairs|watson)$/.exec(h))){history.replaceState(null,'','#');setTimeout(()=>openGames(m[1]==='watson'?'catch':m[1]),instant?500:60);if(m[1]==='watson')setTimeout(()=>startGame('catch',{auto:true}),instant?560:120);}
   else if((m=/^trick=(juggle|break|tape)$/.exec(h))){history.replaceState(null,'','#');if(VIEW!=='walk')setView('walk',true);setTimeout(()=>startTrick(m[1]),instant?600:120);}
   else if(h===''||h==='grove'){closePeel();}
 }
@@ -1958,29 +1962,49 @@ function bubbleUpdate(time,P,busy){
 /* ---- games in the grove: Catch is played under the tree in front of you; the quizzes walk you to their answers ---- */
 const gp=document.getElementById('gpanel'),gpBody=document.getElementById('gpBody'),gpBack=document.getElementById('gpBack'),playBtn=document.getElementById('playBtn');
 let GAME=null,quiz=null;
-const GAMES=[['catch','Catch','Shake the tree in front of you and catch its oranges in the basket. 40 seconds.'],
-  ['older','Older or newer','Which was planted first? Then the grove walks you to it.'],
-  ['which','Which tree?','Name the tree a project grows on, then walk there to see it.']];
-function bestText(k){const b=window.OrchardGames&&OrchardGames.best(k);return b==null?'Not played yet':'Best: '+b+(k==='catch'?' points':' of 10');}
+const GAMES=[['catch','Catch','Shake the tree in front of you; catch its oranges.'],
+  ['toss','Toss','Take turns with Watson throwing oranges into a crate.'],
+  ['older','Older or newer','Which was planted first?'],
+  ['which','Which tree?','Name the tree a project grows on.'],
+  ['more','More work?','Which project got more edits?'],
+  ['pairs','Pairs','Match projects to what they do, against Watson.']];
+const UNIT={catch:' points',toss:' points',pairs:' pairs'};
+function bestText(k){const b=window.OrchardGames&&OrchardGames.best(k);return b==null?'Not played yet':'Your best: '+b+(UNIT[k]||' of 10');}
 function openGames(k){
-  if(!window.OrchardGames)return;
+  if(!window.OrchardGames)return;OrchardGames.css();
   if(VIEW!=='walk')setView('walk',true);if(dlg.open)closePeel();if(FIG.trick)endTrick(true);
   gp.hidden=false;playBtn.setAttribute('aria-expanded','true');
   if(k)startGame(k);else gameMenu();
 }
 function gameMenu(){
   stopGame();gp.classList.remove('slim');gpBack.hidden=true;
-  gpBody.innerHTML='<p class="gp-lede">Three games with the real projects.</p><div class="gp-menu">'+GAMES.map(g=>'<button type="button" data-g="'+g[0]+'"><b>'+g[1]+'</b><span>'+g[2]+'</span><small>'+bestText(g[0])+'</small></button>').join('')+'</div>';
-  gpBody.querySelectorAll('.gp-menu button').forEach(b=>b.addEventListener('click',()=>startGame(b.dataset.g)));
+  gpBody.innerHTML='<p class="gp-lede">Six games with the real projects. Watson plays too.</p><div class="gp-menu">'+GAMES.map(g=>'<button type="button" data-g="'+g[0]+'"><b>'+g[1]+'</b><span>'+g[2]+'</span><small>'+bestText(g[0])+'</small></button>').join('')+'</div>'+
+    '<button type="button" class="gp-watch" data-g="catch" data-auto="1">Watch Watson play Catch</button>';
+  gpBody.querySelectorAll('[data-g]').forEach(b=>b.addEventListener('click',()=>startGame(b.dataset.g,b.dataset.auto?{auto:true}:null)));
   gpBody.querySelector('button').focus({preventScroll:true});
 }
 function closeGames(){stopGame();gp.hidden=true;gp.classList.remove('slim');playBtn.setAttribute('aria-expanded','false');stage.focus({preventScroll:true});}
-function startGame(k){
+function startGame(k,o){
   stopGame();gpBack.hidden=false;
-  if(k==='catch'){GAME=catchHere();return;}
+  if(k==='catch'){GAME=catchHere(o||{});return;}
+  if(k==='toss'){GAME=tossHere();return;}
   gp.classList.remove('slim');
-  quiz=OrchardGames.start(k,gpBody,{repos:G.repos,themes:G.themes,href:n=>'#pick='+encodeURIComponent(n),say:say,onReveal:reveal,again:startGame});
+  quiz=OrchardGames.start(k,gpBody,{repos:G.repos,themes:G.themes,href:n=>'#pick='+encodeURIComponent(n),say:say,onReveal:reveal,onWatson:watsonReact,again:startGame});
 }
+/* Watson reacts to his own play: arms up when he's right, a head shake when he's wrong, a breakdance when he wins */
+function watsonReact(ev){
+  if(RM&&ev!=='win'&&ev!=='lose')return;
+  if(ev==='right'||ev==='wrong'||ev==='shrug'){FIG.cheer={k:ev,t0:tNow};return;}
+  setTimeout(()=>{if(GAME||FIG.act||ST.pick)return;
+    if(ev==='win'){say('Watson wins, and breakdances about it.');startTrick('break');}
+    else if(ev==='lose'){FIG.cheer={k:'shrug',t0:tNow};say('Watson tips his glasses to you.');}
+    else startTrick('juggle');},700);
+}
+function cheerPose(P,time){const c=FIG.cheer;if(!c)return;const t=time-c.t0;if(t>900){FIG.cheer=null;return;}
+  const u=Math.sin(Math.min(1,t/900)*Math.PI);
+  if(c.k==='right'){P.hF=[16,-30*u+31*(1-u)];P.hB=[-16,-30*u+31*(1-u)];P.mouth='smile';P.y=-Math.abs(Math.sin(t/150))*12*u;}
+  else if(c.k==='wrong'){P.gaze=[Math.sin(t/70)*.9*u,0];P.mouth='o';}
+  else{P.hF=[28,8*u+31*(1-u)];P.hB=[-28,8*u+31*(1-u)];P.mouth='smile';P.tilt=.12*u;}}
 function stopGame(){if(GAME){GAME.stop();GAME=null;}if(quiz){quiz.stop();quiz=null;}}
 /* an answer is a place: walk to the orange and make it glow */
 function reveal(name){const f=byName[name.toLowerCase()];if(!f)return;
@@ -1994,24 +2018,25 @@ gp.addEventListener('keydown',e=>{if(e.key==='Escape'&&!dlg.open){e.stopPropagat
 
 /* CATCH, here: the oranges are the real ones on the tree in front of you */
 const gameL=E('g',{'aria-hidden':'true','pointer-events':'none'},pMain);
-function catchHere(){
-  const DUR=40000;autoDone=true;
-  const cr=crowns.reduce((b,c)=>Math.abs(c.x-cam.x)<Math.abs(b.x-cam.x)?c:b,crowns[0]);
+function catchHere(o){
+  const DUR=40000,auto=!!o.auto;autoDone=true;
+  const cr=o.cr||crowns.reduce((b,c)=>Math.abs(c.x-cam.x)<Math.abs(b.x-cam.x)?c:b,crowns[0]);
   const camX=cr.x;scrollToX(camX,true);
   const T=cr.T,ripe=fruits.filter(f=>f.crown===cr&&f.y<0),rotten=fruits.filter(f=>f.tree===T&&f.s===4);
   const half=()=>W*.5/cam.z-50;
   gp.classList.add('slim');
-  gpBody.innerHTML='<div class="og-head"><h3>Catch · '+esc(T.name)+'</h3><p class="og-score">Score <b class="gs">0</b> · <span class="gt">40</span>s</p></div>'+
+  gpBody.innerHTML='<div class="og-head"><h3>Catch · '+(auto?'Watson plays':esc(T.name))+'</h3><p class="og-score">'+(auto?'Watson':'Score')+' <b class="gs">0</b>'+(o.vs!=null?' · you had '+o.vs:'')+' · <span class="gt">40</span>s</p></div>'+
+    (auto?'<p class="gp-hint">He goes for the ripest he can reach, and dodges the rotten.</p><div class="gp-pads"><button type="button" class="gp-stop">Stop</button></div>':
     '<p class="gp-hint">Move him with ← →, the mouse, or by dragging. Ripe scores most; rotten costs a point.</p>'+
-    '<div class="gp-pads"><button type="button" data-p="l" aria-label="Move left">◀</button><button type="button" data-p="r" aria-label="Move right">▶</button><button type="button" class="gp-stop">Stop</button></div>';
+    '<div class="gp-pads"><button type="button" data-p="l" aria-label="Move left">◀</button><button type="button" data-p="r" aria-label="Move right">▶</button><button type="button" class="gp-stop">Stop</button></div>');
   const basket=E('g',{},gameL);
   E('path',SHAPE('#c9a46a',2,{d:'M-34 0H34L27 24H-27Z'}),basket);E('path',INK(1,{d:'M-29 8H29M-27 16H27',opacity:.5}),basket);
   E('path',INK(1.8,{d:'M-30 0Q0 -30 30 0'}),basket);
   const st={camX:camX,goal:FIG.x,keys:{},live:[],caught:[],score:0,t0:tNow,last:tNow,next:tNow+500,n:0,running:true,used:new Set(),hidden:[],pausedAt:0};
-  stage.classList.add('gaming');say('Catch, under '+T.name+'. 40 seconds. Arrow keys move him.');
+  stage.classList.add('gaming');say(auto?'Watson plays Catch under '+T.name+'.':'Catch, under '+T.name+'. 40 seconds. Arrow keys move him.');
   const toWorld=cx=>{const r=stage.getBoundingClientRect();return cam.x+(cx-r.left-W/2)/cam.z;};
-  const pm=e=>{if(!st.running||e.target.closest('.gpanel,.stops'))return;st.goal=toWorld(e.clientX);};
-  const kd=e=>{if(!st.running)return;if(e.key==='ArrowLeft'){st.keys.l=1;e.preventDefault();}else if(e.key==='ArrowRight'){st.keys.r=1;e.preventDefault();}},ku=e=>{if(e.key==='ArrowLeft')st.keys.l=0;if(e.key==='ArrowRight')st.keys.r=0;};
+  const pm=e=>{if(auto||!st.running||e.target.closest('.gpanel,.stops'))return;st.goal=toWorld(e.clientX);};
+  const kd=e=>{if(auto||!st.running)return;if(e.key==='ArrowLeft'){st.keys.l=1;e.preventDefault();}else if(e.key==='ArrowRight'){st.keys.r=1;e.preventDefault();}},ku=e=>{if(e.key==='ArrowLeft')st.keys.l=0;if(e.key==='ArrowRight')st.keys.r=0;};
   const wheel=e=>{if(st.running)e.preventDefault();},touch=e=>{if(st.running&&!e.target.closest('.gpanel'))e.preventDefault();};
   stage.addEventListener('pointermove',pm);stage.addEventListener('pointerdown',pm);window.addEventListener('keydown',kd);window.addEventListener('keyup',ku);
   window.addEventListener('wheel',wheel,{passive:false});stage.addEventListener('touchmove',touch,{passive:false});
@@ -2032,7 +2057,8 @@ function catchHere(){
     const s=performance.now();(function f(n){const u=(n-s)/650;if(u>=1){t.remove();return;}t.setAttribute('y',n1(y-u*36));t.setAttribute('opacity',n1(1-u));requestAnimationFrame(f);})(s);}
   function update(time,dt){
     if(!st.running||st.pausedAt)return;
-    if(st.keys.l)st.goal-=dt*.75;if(st.keys.r)st.goal+=dt*.75;
+    if(auto)st.goal=OrchardGames.aiGoal(st.live.filter(x=>x.state!=='ground').map(x=>x.ai||(x.ai={get x(){return x.x},get y(){return x.state==='shake'?x.y-40:x.y},get vy(){return Math.max(.12,x.vy)},pts:x.pts})),FIG.x,-70,dt,st.goal);
+    else{if(st.keys.l)st.goal-=dt*.75;if(st.keys.r)st.goal+=dt*.75;}
     st.goal=clamp(st.goal,camX-half(),camX+half());FIG.goal=st.goal;
     const bx=FIG.x+FIG.face*6,by=-70;basket.setAttribute('transform','translate('+n1(bx)+' '+by+')');
     const el=(time-st.t0)/DUR;
@@ -2055,29 +2081,133 @@ function catchHere(){
   function end(stopped){
     if(!st.running)return;cleanup();GAME=null;
     if(stopped){gameMenu();say('Stopped.');return;}
-    const nb=OrchardGames.record('catch',st.score),uniq=[...new Set(st.caught)];gp.classList.remove('slim');
-    gpBody.innerHTML='<div class="og-head"><h3>Catch · '+esc(T.name)+'</h3></div><p class="og-fb">Time. <b>'+st.score+'</b> points'+(nb?', a new best':'')+', '+uniq.length+' projects in the basket.</p>'+
+    const uniq=[...new Set(st.caught)];gp.classList.remove('slim');let head;
+    if(auto){head='<p class="og-fb">Watson caught <b>'+st.score+'</b> points'+(o.vs!=null?'. You had '+o.vs+'. <b>'+OrchardGames.verdict(o.vs,st.score)+'</b>':'.')+'</p>';if(o.vs!=null)watsonReact(o.vs>st.score?'lose':o.vs<st.score?'win':'tie');}
+    else{const nb=OrchardGames.record('catch',st.score);head='<p class="og-fb">Time. <b>'+st.score+'</b> points'+(nb?', a new best':'')+', '+uniq.length+' projects in the basket.</p>';}
+    gpBody.innerHTML='<div class="og-head"><h3>Catch · '+esc(T.name)+'</h3></div>'+head+
       (uniq.length?OrchardGames.basketList({href:n=>'#pick='+encodeURIComponent(n)},uniq,Object.fromEntries(G.repos.map(r=>[r[0],r]))):'')+
-      '<div class="og-row" style="margin-top:.8rem"><button class="og-btn" type="button" data-a="again">Play again</button><button class="og-btn light" type="button" data-a="next">Next tree</button></div>';
+      '<div class="og-row" style="margin-top:.8rem"><button class="og-btn" type="button" data-a="again">Play again</button>'+(auto?'':'<button class="og-btn light" type="button" data-a="w">Watson\'s turn</button>')+'<button class="og-btn light" type="button" data-a="next">Next tree</button></div>';
+    const wb=gpBody.querySelector('[data-a="w"]');if(wb)wb.addEventListener('click',()=>startGame('catch',{auto:true,vs:st.score,cr:cr}));
     gpBody.querySelector('[data-a="again"]').addEventListener('click',()=>startGame('catch'));
     gpBody.querySelector('[data-a="next"]').addEventListener('click',()=>{const i=crowns.indexOf(cr),n=crowns[(i+1)%crowns.length];scrollToX(n.x,false);setTimeout(()=>startGame('catch'),RM?0:700);});
-    gpBody.querySelector('[data-a="again"]').focus({preventScroll:true});
-    say('Time. '+st.score+' points, '+uniq.length+' projects caught.');
+    (wb||gpBody.querySelector('[data-a="again"]')).focus({preventScroll:true});
+    say((auto?'Watson caught ':'Time. ')+st.score+' points.');
   }
   return{camX:camX,update:update,stop:()=>{if(st.running){cleanup();}}};
 }
 
-/* the games board stands in the clearing after the stall */
+/* the games board stands in the clearing after the stall: six plaques */
 (function(){const x=(STAND.x1+TREE_START)/2,g=E('g',{transform:'translate('+n1(x)+' 0)'},pMain),r=R(41),deco=E('g',{'aria-hidden':'true','pointer-events':'none'},g);
-  E('path',INK(5,{d:lineD(-46,0,-46,-170,.6,r,20)+lineD(46,0,46,-170,.6,r,20),stroke:C.bark}),deco);
-  E('path',SHAPE(C.white,2.2,{d:polyD([[-70,-200],[70,-200],[62,-168],[-62,-168]],.8,r)}),deco);
-  E('text',{x:0,y:-178,'font-size':15,'text-anchor':'middle','font-family':SANS,'font-weight':700,'letter-spacing':3,fill:C.ink},deco).textContent='GAMES';
-  GAMES.forEach((gm,i)=>{const y=-156+i*46,a=E('a',{href:'#',class:'plaque',tabindex:-1,role:'button','aria-label':'Play '+gm[1]},g);
-    E('path',INK(1.2,{d:'M-30 '+(y-2)+'L-34 '+(y-12)+'M30 '+(y-2)+'L34 '+(y-12),opacity:.7}),a);
-    E('path',SHAPE(i===0?'#f6d3b4':i===1?'#d8e6dc':'#efe2c4',2,{d:rectD(-56,y,112,36,.7,r)}),a);
-    E('text',{x:0,y:y+23,'font-size':14,'text-anchor':'middle','font-family':SERIF,fill:C.ink},a).textContent=gm[1];
+  E('path',INK(5,{d:lineD(-112,0,-112,-176,.6,r,20)+lineD(112,0,112,-176,.6,r,20),stroke:C.bark}),deco);
+  E('path',INK(4,{d:lineD(-116,-170,116,-170,.6,r,30),stroke:C.bark}),deco);
+  E('path',SHAPE(C.white,2.2,{d:polyD([[-96,-212],[96,-212],[88,-178],[-88,-178]],.8,r)}),deco);
+  E('text',{x:0,y:-189,'font-size':15,'text-anchor':'middle','font-family':SANS,'font-weight':700,'letter-spacing':3,fill:C.ink},deco).textContent='GAMES';
+  const tint=['#f6d3b4','#f1c9a0','#d8e6dc','#efe2c4','#e3dccd','#cfe0e6'];
+  GAMES.forEach((gm,i)=>{const cx=i%2?56:-56,y=-158+Math.floor(i/2)*48,a=E('a',{href:'#',class:'plaque',tabindex:-1,role:'button','aria-label':'Play '+gm[1]},g);
+    E('path',INK(1.2,{d:'M'+(cx-26)+' '+(y-2)+'L'+(cx-30)+' '+(y-12)+'M'+(cx+26)+' '+(y-2)+'L'+(cx+30)+' '+(y-12),opacity:.7}),a);
+    E('path',SHAPE(tint[i],2,{d:rectD(cx-50,y,100,36,.7,r)}),a);
+    E('text',{x:cx,y:y+23,'font-size':13.5,'text-anchor':'middle','font-family':SERIF,fill:C.ink},a).textContent=gm[1];
     a.addEventListener('click',e=>{e.preventDefault();openGames(gm[0]);});});
 })();
+
+/* TOSS: you and Watson take turns throwing real oranges into a crate. Same crate, same wind, five rounds */
+function tossHere(){
+  autoDone=true;
+  const camX=cam.x,vw=W/cam.z,left=camX-vw/2,right=camX+vw/2;
+  const x0=left+Math.max(70,vw*.16),launch=()=>[FIG.x+14,-104];
+  const GR=.0011,V0=.5,V1=1.15,ROUNDS=5;
+  const src=shuffle(fruits.filter(f=>f.y<0&&Math.abs(f.x-camX)<vw).concat(fruits.slice(0,40)));
+  const st={camX:camX,turn:'you',round:1,you:0,wat:0,ang:50,pow:.3,acc:0,wind:0,crX:0,fly:null,landed:[],running:true,next:0,drag:null,poseT:-1e9,throwsLeft:0};
+  const crate=E('g',{},gameL),aim=E('path',INK(2,{'stroke-dasharray':'2 7',opacity:.7}),gameL),arrow=E('path',INK(2.4,{stroke:C.warm}),gameL),ball=E('g',{},gameL),flag=E('path',SHAPE(C.warm,1.4,{}),gameL);
+  E('path',SHAPE('#c9a46a',2.2,{d:'M-36 -42H36L32 0H-32Z'}),crate);E('path',INK(1.1,{d:'M-34 -28H34M-33 -14H33',opacity:.5}),crate);
+  E('path',INK(2.4,{d:'M30 -42L30 -92',stroke:C.bark}),crate);
+  const inCrate=E('g',{},crate);
+  gp.classList.add('slim');stage.classList.add('gaming');
+  function layout(){const max=Math.min(640,right-70-x0),min=Math.min(200,max-40);st.crX=x0+lerp(min,max,Math.random());st.wind=(Math.random()-.5)*.00014;
+    crate.setAttribute('transform','translate('+n1(st.crX)+' 0)');while(inCrate.firstChild)inCrate.firstChild.remove();
+    const w=st.wind/.00007,len=10+Math.abs(w)*14;flag.setAttribute('d','M'+n1(st.crX+30)+' -92l'+n1(Math.sign(w||1)*len)+' 6l'+n1(-Math.sign(w||1)*len)+' 6Z');}
+  const windText=()=>{const w=st.wind/.00007,a=Math.abs(w);return 'Wind '+(a<.25?'calm':(w>0?'→ ':'← ')+(a<.6?'light':'steady'));};
+  function panel(msg){
+    gpBody.innerHTML='<div class="og-head"><h3>Toss · round '+Math.min(st.round,ROUNDS)+' of '+ROUNDS+'</h3><p class="og-score">You <b>'+st.you+'</b> · Watson <b>'+st.wat+'</b></p></div>'+
+      '<p class="gp-hint"><b>'+(st.turn==='you'?'Your throw.':'Watson\'s throw.')+'</b> '+windText()+'. '+(st.turn==='you'?'Drag back from him and let go, or use the keys: ↑ ↓ angle, ← → power, Space to throw.':'He\'s sizing it up…')+'</p>'+
+      '<p class="og-fb tmsg" aria-live="polite">'+(msg||'')+'</p>'+
+      (st.turn==='you'&&!st.fly?'<div class="gp-pads"><button type="button" data-k="a-" aria-label="Lower the angle">∠−</button><button type="button" data-k="a+" aria-label="Raise the angle">∠+</button><button type="button" data-k="p-" aria-label="Less power">−</button><button type="button" data-k="p+" aria-label="More power">+</button><button type="button" class="gp-stop" data-k="go">Throw</button></div>':'')+
+      '<div class="og-row" style="margin-top:.5rem"><button type="button" class="og-btn light" data-k="stop">Stop</button></div>';
+    gpBody.querySelectorAll('[data-k]').forEach(b=>b.addEventListener('click',()=>key(b.dataset.k)));
+  }
+  function key(k){if(k==='stop'){end(true);return;}if(st.turn!=='you'||st.fly)return;
+    if(k==='a+')st.ang=clamp(st.ang+2,15,78);if(k==='a-')st.ang=clamp(st.ang-2,15,78);if(k==='p+')st.pow=clamp(st.pow+.03,0,1);if(k==='p-')st.pow=clamp(st.pow-.03,0,1);if(k==='go')throwIt();}
+  function velo(a,p){const v=lerp(V0,V1,p),r=a*Math.PI/180;return[v*Math.cos(r),-v*Math.sin(r)];}
+  const STEP=8;
+  function step(o){o.vx+=st.wind*STEP;o.vy+=GR*STEP;o.py=o.y;o.x+=o.vx*STEP;o.y+=o.vy*STEP;}
+  const inRim=o=>o.vy>0&&o.py<-42&&o.y>=-42&&Math.abs(o.x-st.crX)<34;
+  function sim(a,p,stopAt){const L=launch(),v=velo(a,p),o={x:L[0],y:L[1],vx:v[0],vy:v[1]},pts=[[o.x,o.y]];let t=0;
+    while(t<6000){step(o);t+=STEP;if(t%16===0)pts.push([o.x,o.y]);if(stopAt&&t>=stopAt)break;if(o.y>=-6||inRim(o))break;}return{x:o.x,pts:pts};}
+  function drawAim(){if(st.fly||!st.running){aim.setAttribute('d','');arrow.setAttribute('d','');return;}
+    const s=sim(st.ang,st.pow,st.turn==='you'?520:0);aim.setAttribute('d',st.turn==='you'?'M'+s.pts.map(pt).join('L'):'');
+    const L=launch(),r=st.ang*Math.PI/180,len=30+st.pow*50;arrow.setAttribute('d','M'+pt(L)+'l'+n1(Math.cos(r)*len)+' '+n1(-Math.sin(r)*len));}
+  function throwIt(){if(Math.abs(FIG.x-x0)>2)return;
+    const f=src[(st.round*2+(st.turn==='you'?0:1))%src.length];const [vx,vy]=velo(st.ang,st.pow),L=launch();
+    while(ball.firstChild)ball.firstChild.remove();shapeFruit(ball,f.s===4?3:f.s,1.15);
+    st.fly={f:f,x:L[0],y:L[1],vx:vx,vy:vy,spin:0};st.acc=0;st.poseT=tNow;panel('');
+  }
+  function settle(hit,dx,f){
+    const who=st.turn,name=f.name;let msg;
+    if(hit){const pts=Math.abs(dx)<12?5:3;if(who==='you')st.you+=pts;else st.wat+=pts;st.landed.push(name);
+      const g=E('g',{transform:'translate('+n1(dx*.6)+' -30)'},inCrate);shapeFruit(g,f.s===4?3:f.s,.9);
+      msg=(who==='you'?'In! ':'Watson sinks it. ')+(pts===5?'Dead centre, 5 points':'3 points')+': '+name+'.';
+      if(who==='watson')watsonReact('right');}
+    else{msg=(who==='you'?'':'Watson: ')+(dx<0?'short':'long')+' by '+Math.round(Math.abs(dx))+'.';if(who==='watson')watsonReact('wrong');}
+    say(msg);
+    if(who==='you'){st.turn='watson';panel(msg);st.next=tNow+1200;st.plan=null;}
+    else{st.turn='you';st.round++;if(st.round>ROUNDS){setTimeout(()=>end(false),900);panel(msg);return;}layout();panel(msg);}
+  }
+  function plan(){ /* Watson aims: pick an angle, search the power that lands centre in this wind, then his hand shakes a little */
+    const a=44+Math.random()*14;let lo=0,hi=1;
+    for(let i=0;i<18;i++){const m=(lo+hi)/2,x=sim(a,m).x;if(x<st.crX)lo=m;else hi=m;}
+    return{a:clamp(a+(Math.random()-.5)*6,15,78),p:clamp((lo+hi)/2*(1+(Math.random()-.5)*.1),0,1)};
+  }
+  function update(time,dt){
+    if(!st.running)return;FIG.goal=x0;FIG.face=1;
+    if(st.fly){const o=st.fly;st.acc+=dt;o.spin+=dt*.5;let done=null;
+      while(st.acc>=STEP&&!done){st.acc-=STEP;step(o);if(inRim(o))done='in';else if(o.y>=-6)done='out';}
+      ball.setAttribute('transform','translate('+pt([o.x,o.y])+') rotate('+n1(o.spin)+')');
+      if(done){st.fly=null;ball.setAttribute('transform','translate(-9999 0)');settle(done==='in',o.x-st.crX,o.f);}}
+    else if(st.turn==='watson'&&time>st.next&&Math.abs(FIG.x-x0)<2){
+      if(!st.plan){st.plan=plan();st.from={a:st.ang,p:st.pow};st.pt0=time;}
+      const u=ss(clamp((time-st.pt0)/(RM?1:900),0,1));st.ang=lerp(st.from.a,st.plan.a,u);st.pow=lerp(st.from.p,st.plan.p,u);
+      if(u>=1&&time-st.pt0>1100){st.plan=null;st.next=1e15;throwIt();}}
+    drawAim();
+  }
+  function pose(P,time){P.mirror=false;const t=time-st.poseT;
+    if(t<320){const u=t/320;P.hF=[lerp(-8,30,u),lerp(-30,-12,u)];P.lean=.15*u;P.mouth='o';}
+    else if(!st.fly&&st.running){P.hF=[-20-st.pow*8,-2-st.ang*.18];P.hB=[-14,24];P.gaze=[.9,-.2];P.lean=-.06*st.pow;}}
+  /* input: drag back from him like a slingshot, or keys */
+  const toWorld=(cx,cy)=>{const r=stage.getBoundingClientRect();return[cam.x+(cx-r.left-W/2)/cam.z,cam.y+(cy-r.top-H/2)/cam.z];};
+  const pd=e=>{if(st.turn!=='you'||st.fly||e.target.closest('.gpanel,.stops'))return;st.drag=toWorld(e.clientX,e.clientY);e.preventDefault();};
+  const pmv=e=>{if(!st.drag)return;const p=toWorld(e.clientX,e.clientY),L=launch(),dx=L[0]-p[0],dy=L[1]-p[1],d=Math.hypot(dx,dy);
+    if(d<12)return;st.ang=clamp(Math.atan2(-dy,dx)*180/Math.PI,15,78);st.pow=clamp((d-20)/220,0,1);};
+  const pu=e=>{if(!st.drag)return;const p=toWorld(e.clientX,e.clientY),moved=Math.hypot(p[0]-st.drag[0],p[1]-st.drag[1]);st.drag=null;if(moved>24)throwIt();};
+  const kd=e=>{if(!st.running||e.target.closest('input,select,textarea'))return;const m={ArrowUp:'a+',ArrowDown:'a-',ArrowRight:'p+',ArrowLeft:'p-',' ':'go',Enter:'go'}[e.key];
+    if(m&&!(e.target.closest('.gpanel')&&(e.key===' '||e.key==='Enter'))){e.preventDefault();key(m);}};
+  const wheel=e=>{if(st.running)e.preventDefault();},touch=e=>{if(st.running&&!e.target.closest('.gpanel'))e.preventDefault();};
+  stage.addEventListener('pointerdown',pd);window.addEventListener('pointermove',pmv);window.addEventListener('pointerup',pu);window.addEventListener('keydown',kd);
+  window.addEventListener('wheel',wheel,{passive:false});stage.addEventListener('touchmove',touch,{passive:false});
+  function cleanup(){st.running=false;stage.classList.remove('gaming');
+    stage.removeEventListener('pointerdown',pd);window.removeEventListener('pointermove',pmv);window.removeEventListener('pointerup',pu);window.removeEventListener('keydown',kd);
+    window.removeEventListener('wheel',wheel);stage.removeEventListener('touchmove',touch);while(gameL.firstChild)gameL.firstChild.remove();FIG.lock=false;FIG.goal=FIG.x;}
+  function end(stopped){if(!st.running)return;cleanup();GAME=null;
+    if(stopped){gameMenu();say('Stopped.');return;}
+    gp.classList.remove('slim');const nb=OrchardGames.record('toss',st.you),uniq=[...new Set(st.landed)];
+    gpBody.innerHTML='<div class="og-head"><h3>Toss</h3></div><p class="og-fb"><b>You '+st.you+', Watson '+st.wat+'. '+OrchardGames.verdict(st.you,st.wat)+'</b>'+(nb?' Your best yet.':'')+'</p>'+
+      (uniq.length?'<h3 class="gp-sub">In the crate</h3>'+OrchardGames.basketList({href:n=>'#pick='+encodeURIComponent(n)},uniq,Object.fromEntries(G.repos.map(r=>[r[0],r]))):'')+
+      '<div class="og-row" style="margin-top:.8rem"><button class="og-btn" type="button">Play again</button></div>';
+    const b=gpBody.querySelector('.og-row .og-btn');b.addEventListener('click',()=>startGame('toss'));b.focus({preventScroll:true});
+    say('You '+st.you+', Watson '+st.wat+'. '+OrchardGames.verdict(st.you,st.wat));watsonReact(st.you>st.wat?'lose':st.you<st.wat?'win':'tie');}
+  layout();panel('');say('Toss. Five rounds against Watson. '+windText()+'.');
+  return{camX:camX,update:update,pose:pose,stop:()=>{if(st.running)cleanup();}};
+}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 
 /* ---- the frame ---- */
 const cue=document.getElementById('cue');let last=0,startX=null;
@@ -2096,7 +2226,8 @@ function frame(time){
   const busy=!!GAME||!!FIG.trick||!!FIG.act&&FIG.act.k!=='hold'||!!FIG.ret;
   const boil=RM||!busy?1:1+Math.floor(time/115)%3;
   const P=figurePose(time,dt);
-  if(GAME){P.hF=[17,22];P.hB=[7,23];P.mouth='o';P.gaze=[0,-.6];}
+  if(GAME){if(GAME.pose)GAME.pose(P,time);else{P.hF=[17,22];P.hB=[7,23];P.mouth='o';P.gaze=[0,-.6];}}
+  else if(FIG.cheer)cheerPose(P,time);
   else if(avHover&&!busy&&!RM){const s=Math.sin(time/110);P.hB=[-24+s*5,-24];P.mouth='smile';P.gaze=[0,0];}
   const hand=drawFigure(hero,P,boil*13);FIG.hand=hand;
   avatar.setAttribute('transform','translate('+n1(FIG.x)+' 0)');

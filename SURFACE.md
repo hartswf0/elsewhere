@@ -286,3 +286,26 @@ The games open in a panel over the walk, so the grove stays on screen. The panel
 - Every name in the feedback opens the project in the peel.
 
 axe-core finds 0 violations on the grove and the shed.
+
+## Revision: six games, and Watson plays them too
+
+**New games:**
+- **Toss** (in the grove): five rounds of throwing real oranges into a crate. You and Watson face the same distance and wind each round.
+  - Aim by dragging back from him like a slingshot, or with the keys (↑ ↓ angle, ← → power, Space to throw), or with the panel buttons.
+  - A dotted line previews only the first part of the arc.
+  - The physics runs in fixed steps, so the preview, Watson's aim and the real flight agree.
+- **More work?:** which of two projects got more edits by hand.
+- **Pairs:** a memory game matching projects to what they do, taking turns with Watson.
+
+**Watson plays:**
+- In every quiz he answers after you; his pick is tagged and the score reads "You n · Watson n". He is right about 50 to 62% of the time, depending on the game.
+- In Pairs he remembers about 70% of the cards he sees.
+- In Toss he works out the throw that would land dead centre, then his hand shakes a little.
+- In Catch, "Watson's turn" after your round has him play the same tree on his own: he goes for the ripest orange he can reach, dodges rotten ones, and sometimes misses. "Watch Watson play Catch" is also in the menu.
+
+**He reacts:** arms up when he's right, a head shake when he's wrong, a breakdance when he wins a match, a shrug and a tip of his glasses when you beat him.
+
+**Elsewhere:**
+- `grove.html#play=toss` (or any game) opens a game directly.
+- The Shed has More work? and Pairs, and links to Toss in the grove.
+- The GAMES board in the grove now has six plaques, in a wider clearing.

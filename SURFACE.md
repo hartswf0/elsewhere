@@ -98,3 +98,24 @@ HOME / film                          GROVE / tree open, orange picked
 - `orange.html`: a skip link, the written version of the film, contrast and focus fixes.
 - `grove.html`: a skip link and help text; a live announcer; honest search; focus management; roving tab order per tree; hit areas sized to spacing; the instant card; the boil only while acting; the basket easter egg.
 - Verified with axe-core (WCAG 2.1 A/AA and best practice): 0 violations on all three pages. Keyboard flows were scripted in Playwright.
+
+## Revision: the grove becomes a walk
+
+**Cut:**
+- the step-into-a-tree mode (a zoom you had to pay for before you could click anything);
+- the hint bubble, the frame counter, and the back button;
+- the gate's subtitle and the basket;
+- the duplicate group-by-tree list;
+- the meters on the signs.
+
+**Now:**
+- Scrolling down, or swiping and dragging sideways, is the camera dolly. He walks with you, his steps matched to the distance.
+- Trees are laid out wide, so every orange can be clicked in place at walking zoom (about 45px targets).
+- **Most used first:**
+  - every repository gets a usefulness score: authored edits, hand-picked status, a live page, ripeness, recent activity, and size;
+  - the "Picked first" stall at the gate holds the top 12;
+  - trees appear in order of how useful their best work is;
+  - within each tree, the best fruit hangs lowest and largest.
+- **The stops bar** shows where you are and jumps anywhere. The arrow keys and the ‹ › buttons step from stop to stop.
+- **The index** ranks all 311 by use, with edit counts. It can be sorted (most used, A–Z, recently tended, ripeness) and filtered by tree and ripeness, and it shares the grove's search; **/** focuses the search box.
+- **Tab order:** only the oranges in front of you can be reached by Tab. A picked orange that scrolls out of view is put back.

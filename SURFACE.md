@@ -41,6 +41,8 @@ The film and the grove are the art. They must never stand between a visitor and 
 | Pick animation as a gate | Nothing true | **Cut**; it plays alongside the open card |
 | Hidden game (face, Konami code) | A different way to read the work | Keep; labeled honestly, with its on/off state announced |
 | The basket | A random ripe orange | Keep; labeled, reachable only in the grove overview |
+| Tricks (keepie-uppie, breakdance, duct tape) | He is a character, not a cursor; duct tape proposes a new work from three real ones | Keep: a labeled menu plus J, B and T; disabled while a pick is active; each trick announced; the camera pushes in only to show it; skipped under reduced motion (the outcome is still announced); one unprompted trick per visit after 15 seconds idle |
+| Grove doorway on the homepage | Search, the 11 trees, and tricks, one click from the work | Keep; the search opens the grove filtered (`grove.html?q=`), each tree links to `#tree=`, each trick to `#trick=` |
 
 ## 4. State map
 
@@ -81,7 +83,7 @@ HOME / film                          GROVE / tree open, orange picked
 7. Targets are at least 40px tall and hold still while you aim.
 8. Text is at least 4.5:1; focus rings are at least 3:1 (ink, 16:1).
 9. Reduced motion: the camera cuts instead of moving, he arrives without walking, and the nudge doesn't bounce.
-10. Easter eggs stay: the hidden game, the Konami code, the basket, the exposure sheet. Each is labeled truthfully and reachable without a mouse.
+10. Easter eggs stay: the hidden game, the Konami code, the basket, the exposure sheet, and the tricks. Each is labeled truthfully and reachable without a mouse.
 
 ## 7. Failure
 

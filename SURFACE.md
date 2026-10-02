@@ -194,3 +194,42 @@ The view is remembered, and `?view=` links to one.
 - the bird pecks and the rings go out.
 
 The writing fingerpost's whole sign boards are links. Under reduced motion, each shows its finished state. The written version of the film and the work list below still hold every link for keyboard and screen-reader users.
+
+## Revision: trees that are trees, places with landmarks, birds, and a Watson who says he's a button
+
+**Trees:**
+- Each tree has a trunk with a root flare, and limbs that fork into the canopy.
+- The canopy has two layers: shaded back clumps, then lit front clumps with leafy edges. The limbs show between the clumps.
+- A big theme is now a stand of several trees, about 34 oranges each, not one giant blob.
+- Every tree sways slowly on its own. It flexes harder when he walks under it, and shakes when an orange is picked. The movement is under 2px at the fruit, so targets hold still enough to aim at.
+
+**Places:** each theme's clearing has a landmark:
+- a lectern whose book turns a page;
+- a flickering television;
+- a robot scarecrow that waves when he's near;
+- a swing;
+- a sundial whose shadow follows the real hour;
+- a gramophone with rising notes;
+- stacked archive crates;
+- a turning wireframe cube;
+- a cave with a fire;
+- a chalkboard;
+- a wheelbarrow of the rest.
+
+The signs stand below the fruit and never cover it.
+
+**Birds:**
+- Birds perch on the canopies and peck.
+- When he walks up, or when a tree is shaken, they fly ahead to another tree.
+- A flock crosses the far sky.
+
+**Watson says he's a button:**
+- When he stands still, a thought bubble shows the next trick's tool (a ball, a boombox, a roll of tape) and "TAP ME". The bubble is itself the button.
+- The bubble never covers an orange: it takes the first clear spot beside his head, or stays hidden.
+- On hover he waves.
+- After three taps in a session, the bubble only appears on hover.
+- The walking hint now says "tap him for a trick".
+
+**Reduced motion:** nothing sways or flies. The birds sit, and every landmark shows its still frame.
+
+All of it is decoration: hidden from assistive technology and transparent to clicks. axe-core finds 0 violations.

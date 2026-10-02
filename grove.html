@@ -56,7 +56,8 @@ button{font:inherit;color:inherit}
 .btn.primary:focus-visible{outline-offset:3px}
 .skip{position:fixed;left:50%;margin-left:-8rem;top:.6rem;z-index:100;padding:.7rem 1rem;border-radius:999px;background:var(--ink);color:var(--paper);font:600 .8rem/1 var(--sans);text-decoration:none;transform:translateY(-200%)}
 .skip:focus{transform:none}
-@media(pointer:coarse){.chip{min-height:44px}.cnav .btn{min-height:44px}}
+@media(pointer:coarse){.chip{min-height:44px}.cnav [hidden]{display:none}
+.cnav .btn{min-height:44px}}
 .res{position:absolute;left:0;right:0;top:calc(100% + 6px);margin:0;padding:.3rem;list-style:none;background:var(--card);border:1px solid var(--ink);border-radius:12px;box-shadow:0 10px 30px rgba(20,20,18,.18);z-index:40;max-height:60vh;overflow:auto}
 .res[hidden]{display:none}
 .res button{width:100%;display:grid;grid-template-columns:1rem 1fr auto;gap:.6rem;align-items:center;text-align:left;padding:.5rem .6rem;border:0;border-radius:8px;background:transparent;cursor:pointer}
@@ -96,6 +97,15 @@ button{font:inherit;color:inherit}
 .pan.l{left:.8rem}.pan.r{right:.8rem}
 .pan[disabled]{opacity:.3;cursor:default}
 .back{position:absolute;left:.8rem;top:.8rem}
+.tricks{position:absolute;left:.8rem;top:.8rem;z-index:15;display:flex;flex-direction:column;align-items:flex-start;gap:.35rem}
+.stage.mode-tree .tricks{left:8.6rem}
+.tbtn{background:rgba(251,250,245,.94)}
+.tmenu{display:flex;flex-direction:column;gap:.3rem;padding:.4rem;background:var(--card);border:1px solid var(--ink);border-radius:14px;box-shadow:4px 4px 0 var(--warm)}
+.tmenu[hidden]{display:none}
+.tmenu .btn{justify-content:space-between;gap:.8rem;min-width:11rem}
+.tmenu kbd{font:600 .62rem/1 var(--mono);padding:.15rem .3rem;border:1px solid var(--rule);border-radius:4px;color:var(--muted)}
+.tmenu .btn:disabled{opacity:.4;cursor:default}
+@media(max-width:700px){.stage.mode-tree .tricks{left:auto;right:.8rem}.stage.carded .tricks{display:none}}
 .stage:not(.mode-tree) .back{display:none!important}
 #xsheet{position:absolute;left:1rem;bottom:.6rem;margin:0;font:500 .6rem/1 var(--mono);letter-spacing:.08em;color:var(--ink2);opacity:.6;white-space:nowrap}
 
@@ -198,9 +208,17 @@ footer{margin-top:2rem;padding:2rem 0;border-top:1px solid var(--rule);font:500 
 </div>
 
 <div class="stage" id="stage" tabindex="0" role="region" aria-roledescription="grove" aria-label="The grove" aria-describedby="how">
-  <p class="vh" id="how">Left and right arrows move between trees. Tab to a tree and press Enter to step in. Inside a tree, Tab moves between oranges and Enter picks one. Escape steps back. Every orange is also in the plain list below the grove.</p>
+  <p class="vh" id="how">Left and right arrows move between trees. Tab to a tree and press Enter to step in. Inside a tree, Tab moves between oranges and Enter picks one. Escape steps back. Press J, B, or T for a trick: keepie-uppie with an orange, a breakdance, or duct-taping three projects into something new. Every orange is also in the plain list below the grove.</p>
   <svg id="cel" class="mode-grove" aria-hidden="false"></svg>
   <button class="btn back" id="back" type="button">‹ The grove</button>
+  <div class="tricks" id="tricks">
+    <button class="btn tbtn" id="tricksBtn" type="button" aria-expanded="false" aria-controls="trickMenu">✦ Tricks</button>
+    <div class="tmenu" id="trickMenu" hidden>
+      <button class="btn" type="button" data-trick="juggle">Keepie-uppie <kbd>J</kbd></button>
+      <button class="btn" type="button" data-trick="break">Breakdance <kbd>B</kbd></button>
+      <button class="btn" type="button" data-trick="tape">Duct tape <kbd>T</kbd></button>
+    </div>
+  </div>
   <button class="pan l" id="panL" type="button" aria-label="Previous tree">‹</button>
   <button class="pan r" id="panR" type="button" aria-label="Next tree">›</button>
   <p class="hint" id="hint" aria-hidden="true">Drag or use ‹ › to walk the grove · tap a tree to step in</p>
@@ -696,7 +714,8 @@ function limbD(a,b,L,sgn,jr){
 }
 function drawFigure(o,P,seed){
   const jr=R(seed),dir=P.dir,d1=dir||1,m=P.mirror?-1:1;
-  o.g.setAttribute('transform','translate('+n1(P.x)+' '+n1(P.y)+') scale('+m*Math.round(P.sx*FS*100)/100+' '+Math.round(P.sy*FS*100)/100+')');
+  const rot=P.rot||0,cr=Math.cos(rot),dyR=rot?-Math.max(-90+90*cr,-90-48*cr):0;
+  o.g.setAttribute('transform','translate('+n1(P.x)+' '+n1(P.y+dyR)+')'+(rot?' rotate('+n1(rot*57.3)+' 0 -90)':'')+' scale('+m*Math.round(P.sx*FS*100)/100+' '+Math.round(P.sy*FS*100)/100+')');
   o.shadow.setAttribute('cx',n1(P.x));o.shadow.setAttribute('cy',n1(P.y+2));
   const hip=[0,-P.hipH],neck=[hip[0]+Math.sin(P.lean)*32,hip[1]-Math.cos(P.lean)*32],sh=[neck[0],neck[1]+5];
   const ha=P.lean*.6+P.tilt,hc=[neck[0]+Math.sin(ha)*17+dir*2,neck[1]-Math.cos(ha)*17];
@@ -843,6 +862,7 @@ for(let i=0;i<3;i++)crownLeaves.push(E('path',SHAPE(i===1?C.dark:C.tree,1.1,{d:'
 /* the figure and the orange he holds */
 const hero=Figure(pMain,C.warm);
 const held=E('g',{opacity:0},pMain);const heldShape={el:null};
+const trickG=E('g',{'aria-hidden':'true'},pMain);
 /* the label that follows hover and focus, at constant screen size */
 const tip=E('g',{opacity:0,'pointer-events':'none'},pMain);const tipBg=E('rect',{rx:6,fill:C.white,stroke:C.ink,'stroke-width':1.2},tip);const tipT=E('text',{'font-size':13,'font-family':SERIF,fill:C.ink,'text-anchor':'middle'},tip);const tipS=E('text',{'font-size':8.5,'font-family':SANS,'font-weight':700,'letter-spacing':1,fill:C.ink,opacity:.6,'text-anchor':'middle'},tip);
 /* foreground: grass and a fence, close to the lens */
@@ -944,7 +964,7 @@ function closeCard(){stage.classList.remove('carded');card.classList.remove('ope
 function stepPick(d){if(!ST.pick)return;const o=ST.pick.tree.order,i=o.indexOf(ST.pick),useF=o.filter(x=>x.match).length>1;let k=i;for(let n=0;n<o.length;n++){k=(k+d+o.length)%o.length;if(!useF||o[k].match)break;}go('#pick='+encodeURIComponent(o[k].name));}
 document.getElementById('cPrev').addEventListener('click',()=>{byKey=true;stepPick(-1);});
 document.getElementById('cNext').addEventListener('click',()=>{byKey=true;stepPick(1);});
-document.getElementById('cBack').addEventListener('click',()=>{const t=ST.pick&&ST.pick.tree;go(t?'#tree='+t.id:'#grove');});
+document.getElementById('cBack').addEventListener('click',()=>{if(ST.tape){endTape(false);return;}const t=ST.pick&&ST.pick.tree;go(t?'#tree='+t.id:'#grove');});
 document.getElementById('back').addEventListener('click',()=>go('#grove'));
 
 /* ---- router: the URL is the state ---- */
@@ -957,8 +977,10 @@ function setTabbable(){const active=filt!=='all'||!!query;fruits.forEach(f=>{con
   document.querySelectorAll('.strip a').forEach(a=>a.setAttribute('aria-current',ST.tree&&a.dataset.t===ST.tree.id?'true':'false'));}
 function route(instant){
   const h=decodeURIComponent(location.hash.slice(1));
+  if(FIG.trick)endTrick(true);if(ST.tape)endTape(true);
   let m;
   if((m=/^pick=(.+)$/.exec(h))){const f=byName[m[1].toLowerCase()];if(!f)return;enterTree(f.tree,instant,true,f);pick(f,instant);}
+  else if((m=/^trick=(juggle|break|tape)$/.exec(h))){const k=m[1];history.replaceState(null,'','#grove');route(instant);setTimeout(()=>startTrick(k),instant?700:250);return;}
   else if(h==='basket'){const ripe=fruits.filter(f=>f.s===3&&f.match!==false);const f=ripe[Math.floor(Math.random()*ripe.length)]||fruits[0];history.replaceState(null,'','#pick='+encodeURIComponent(f.name));route(instant);return;}
   else if((m=/^tree=(.+)$/.exec(h))){const t=trees.find(x=>x.id===m[1]);if(!t)return;putBack(instant);enterTree(t,instant,false);
     const nm=t.order.filter(f=>f.match).length,act=filt!=='all'||!!query;if(!instant)say('In the tree '+t.name+'. '+t.n+' oranges'+(act?', '+nm+' match':'')+'. Tab to move between them.');
@@ -1008,8 +1030,9 @@ stage.addEventListener('keydown',e=>{
   else if(e.key==='ArrowLeft'){e.preventDefault();stepTree(-1);}
   else if(e.key==='Escape'){if(ST.pick)go('#tree='+ST.pick.tree.id);else if(ST.mode==='tree')go('#grove');}
   else if(e.key==='Enter'&&e.target===stage&&ST.mode==='grove'){byKey=true;go('#tree='+trees[focusTree].id);}
+  else if(!e.metaKey&&!e.ctrlKey&&!e.altKey&&({j:'juggle',b:'break',t:'tape'})[e.key.toLowerCase()]){byKey=true;startTrick(({j:'juggle',b:'break',t:'tape'})[e.key.toLowerCase()]);}
 });
-card.addEventListener('keydown',e=>{if(e.key==='Escape'){const t=ST.pick&&ST.pick.tree;go(t?'#tree='+t.id:'#grove');}});
+card.addEventListener('keydown',e=>{if(e.key==='Escape'){if(ST.tape){endTape(false);return;}const t=ST.pick&&ST.pick.tree;go(t?'#tree='+t.id:'#grove');}});
 /* hover and focus label */
 function showTip(f){ST.hover=f;tipT.textContent=f.name;tipS.textContent=(RIPE[f.s]+(f.rp[7]?' · HAND-PICKED':'')).toUpperCase();tip.setAttribute('opacity',1);}
 function hideTip(f){if(ST.hover===f){ST.hover=null;tip.setAttribute('opacity',0);}}
@@ -1021,6 +1044,7 @@ function hint(){hintEl.textContent=ST.mode==='grove'?(narrow?'Drag or ‹ › to
 /* ---- the animation: camera, figure, picking ---- */
 const xs=document.getElementById('xsheet');let last=0,lastSheet='';
 function figurePose(time,dt){
+  if(FIG.trick){const P=trickPose(FIG.trick,time-FIG.trick.t0);P.x=FIG.x;P.y=0;return P;}
   let P=stand();P.y=0;
   const a=FIG.act,goal=FIG.goal==null?FIG.x:FIG.goal,dist=goal-FIG.x;
   /* travel: walk, or zip when it is far (cartoon physics, never slow) */
@@ -1051,6 +1075,135 @@ function figurePose(time,dt){
   if(!RM&&!P.blink&&frac(time/3600)<.03)P.blink=1;
   return P;
 }
+
+/* ---- tricks: keepie-uppie, breakdance, duct tape. Delight, labeled, never in the way ---- */
+const tricksBtn=document.getElementById('tricksBtn'),trickMenu=document.getElementById('trickMenu');
+tricksBtn.addEventListener('click',()=>{const open=trickMenu.hidden;trickMenu.hidden=!open;tricksBtn.setAttribute('aria-expanded',open?'true':'false');if(open)trickMenu.querySelector('button').focus();});
+trickMenu.addEventListener('click',e=>{const b=e.target.closest('[data-trick]');if(!b)return;trickMenu.hidden=true;tricksBtn.setAttribute('aria-expanded','false');byKey=true;startTrick(b.dataset.trick);tricksBtn.focus();});
+trickMenu.addEventListener('keydown',e=>{if(e.key==='Escape'){trickMenu.hidden=true;tricksBtn.setAttribute('aria-expanded','false');tricksBtn.focus();}});
+let lastInteract=performance.now(),autoDone=false,trickBusyShown=null;
+['pointerdown','keydown','wheel'].forEach(ev=>window.addEventListener(ev,()=>{lastInteract=performance.now();},{passive:true}));
+function idleCheck(time){
+  const busy=!!(FIG.act||ST.pick||FIG.trick||ST.tape);
+  if(busy!==trickBusyShown){trickBusyShown=busy;trickMenu.querySelectorAll('button').forEach(b=>b.disabled=busy);}
+  if(RM||autoDone||busy||ST.mode!=='grove'||performance.now()-lastInteract<15000||document.visibilityState!=='visible')return;
+  const r=stage.getBoundingClientRect();if(r.bottom<80||r.top>innerHeight-80)return;
+  autoDone=true;startTrick(Math.random()<.5?'juggle':'break');
+}
+function pickSome(n,pred){const pool=fruits.filter(pred),out=[];while(out.length<n&&pool.length){out.push(pool.splice(Math.floor(Math.random()*pool.length),1)[0]);}return out;}
+function startTrick(k){
+  if(FIG.act||ST.pick||FIG.trick||ST.tape)return;
+  FIG.goal=FIG.x;const tr={k:k,t0:tNow,x0:FIG.x,n:0};
+  if(k==='juggle'){
+    const f=pickSome(1,x=>x.s===3)[0]||fruits[0];tr.f=f;
+    /* contact sheet: where the ball meets him, and when */
+    tr.seq=[['hand',8,-72],['R',15,-16],['L',-15,-16],['R',15,-16],['knee',9,-50],['L',-15,-16],['head',3,-150],['R',15,-16],['catch',10,-70]];
+    tr.T=tr.seq.map((s,i)=>i===0?0:260+(i-1)*540);tr.end=tr.T[tr.T.length-1]+600;
+    if(RM){say('Keepie-uppie: '+f.name+', kept up for 7 touches.');return;}
+    tr.ball=E('g',{},trickG);shapeFruit(tr.ball,3,1.5);tr.count=E('text',{'font-size':15,'font-family':SANS,'font-weight':700,'text-anchor':'middle',fill:C.ink,opacity:0},trickG);
+    tr.tag=E('text',{'font-size':11,'font-family':SERIF,'text-anchor':'middle',fill:C.ink,opacity:0},trickG);tr.tag.textContent=f.name;
+    say('Keepie-uppie with '+f.name+'.');
+  }else if(k==='break'){
+    tr.end=4500;if(RM){say('Breakdance: toprock, headspin, freeze. Ta-da.');return;}
+    tr.lines=E('path',INK(2.2,{opacity:0}),trickG);say('Breakdance.');
+  }else if(k==='tape'){
+    const parts=pickSome(3,x=>x.s===3||x.s===2);tr.parts=parts;tr.end=5200;
+    if(RM){openTape(parts);return;}
+    const g=tr.g=E('g',{},trickG);tr.cart=E('g',{},g);
+    tr.o=parts.map((f,i)=>{const og=E('g',{},tr.cart);shapeFruit(og,f.s,1.35);return og;});
+    tr.strips=[0,1,2].map(i=>E('rect',{rx:1.5,fill:'#a7abaf',stroke:C.ink,'stroke-width':1,opacity:0},tr.cart));
+    tr.wheels=[0,1].map(i=>{const w=E('g',{opacity:0},tr.cart);E('circle',{r:7.5,fill:C.ink},w);E('path',{d:'M-5 0H5M0 -5V5',stroke:C.white,'stroke-width':1.6},w);return w;});
+    tr.rip=E('text',{'font-size':13,'font-family':SANS,'font-weight':800,'letter-spacing':1,fill:C.ink,opacity:0},g);tr.rip.textContent='RRRIP';
+    say('Duct tape.');
+  }
+  FIG.trick=tr;
+  /* the camera comes in close for the trick, and goes back after */
+  tr.back={x:tgt.x,y:tgt.y,z:tgt.z};const z=clamp(H*.62/200,1.1,2.6);Object.assign(tgt,{x:FIG.x+(k==='tape'?60:10),y:-95,z:z});
+}
+function endTrick(silent){
+  const tr=FIG.trick;if(!tr)return;FIG.trick=null;
+  if(!silent&&tr.back&&tr.k!=='tape')Object.assign(tgt,tr.back);
+  if(tr.k==='tape'&&!silent){openTape(tr.parts,tr);return;}
+  trickG.innerHTML='';
+  if(silent)return;
+  if(tr.k==='juggle')say('Kept '+tr.f.name+' up for '+tr.n+' touches.');
+  if(tr.k==='break')say('Toprock, headspin, freeze. Ta-da.');
+}
+function openTape(parts,tr){
+  ST.tape={parts:parts,g:tr&&tr.g,back:tr&&tr.back};
+  cK.textContent='Duct tape · something new';cN.textContent=parts.map(f=>f.name).join(' + ');
+  cD.textContent='Three projects taped into one thing. Should it exist?';cM.textContent='Each part goes back to its tree.';cH.hidden=true;cA.innerHTML='';
+  parts.forEach(f=>{const a=document.createElement('a');a.className='btn';a.href='#pick='+encodeURIComponent(f.name);a.textContent=f.name;a.setAttribute('aria-label',f.name+', from '+f.tree.name);cA.appendChild(a);});
+  document.getElementById('cPrev').hidden=true;document.getElementById('cNext').hidden=true;document.getElementById('cBack').textContent='Take it apart';
+  stage.classList.add('carded');card.hidden=false;card.classList.add('open');ST.cardOpen=true;
+  say('He taped '+parts.map(f=>f.name).join(', ')+' into something new. Should it exist?');
+  if(byKey){cN.focus({preventScroll:true});byKey=false;}
+}
+function endTape(silent){
+  if(!ST.tape)return;const bk=ST.tape.back;ST.tape=null;trickG.innerHTML='';if(!silent&&bk)Object.assign(tgt,bk);
+  document.getElementById('cPrev').hidden=false;document.getElementById('cNext').hidden=false;document.getElementById('cBack').textContent='Put it back';
+  stage.classList.remove('carded');card.classList.remove('open');card.hidden=true;ST.cardOpen=false;
+  if(!silent){say('Taken apart. Back in the grove.');tricksBtn.focus({preventScroll:true});}
+}
+function trickPose(tr,t){
+  let P=stand();P.dir=0;P.mirror=false;P.mouth='smile';
+  if(t>=tr.end){setTimeout(()=>endTrick(false),0);return P;}
+  if(tr.k==='juggle'){
+    const b=ballAt(tr,t),x0=tr.x0;P.gaze=[clamp((b[0]-x0)/50,-1,1),clamp((b[1]+120)/60,-1,1)];
+    P.hF=[24,12];P.hB=[-24,12];P.mouth='o';
+    tr.seq.forEach((s,i)=>{const w=bumpT(t,tr.T[i],150);if(w<=0)return;
+      if(s[0]==='R')P.fA=[lerp(8,16,w),-20*w];
+      if(s[0]==='L')P.fB=[lerp(-7,-16,w),-20*w];
+      if(s[0]==='knee'){P.fA=[lerp(8,4,w),-32*w];P.hipH=40-3*w;}
+      if(s[0]==='head'){P.tilt=-.22*w;P.sy=1-.04*w;}
+      if(s[0]==='hand'||s[0]==='catch'){P.hF=[lerp(24,10,w),lerp(12,-2,w)];P.hB=[lerp(-24,4,w),lerp(12,-2,w)];}});
+    if(t>tr.T[tr.T.length-1]){P.hF=[10,-2];P.hB=[4,-2];P.mouth='smile';P.gaze=[0,0];}
+  }else if(tr.k==='break'){
+    if(t<1000){const s=Math.sin(t/1000*Math.PI*4);P.fA=[8+10*s,0];P.fB=[-7+10*s,0];P.hF=[-12*s,8];P.hB=[12*s,8];P.sy=1-.04*Math.abs(s);P.dir=s*.6;P.gaze=[s*.5,0];}
+    else if(t<1300){const c=ss(K(t,1000,1300));P.hipH=40-22*c;P.hF=[14,lerp(8,46,c)];P.hB=[-14,lerp(8,46,c)];P.mouth='o';}
+    else if(t<2900){const u=K(t,1300,1450),sp=(t-1300)/1000*2*Math.PI*2.4;P.rot=Math.PI*ss(u);P.sx=t>1450?Math.cos(sp)*.95+(Math.cos(sp)>=0?.05:-.05):1;
+      P.fA=[24,-4];P.fB=[-24,-4];P.hF=[18,-36];P.hB=[-18,-36];P.mouth='o';P.gaze=[0,0];}
+    else if(t<3700){const u=ss(K(t,2900,3150));P.rot=lerp(Math.PI,-1.2,u);P.fA=[18,-22];P.fB=[-2,-30];P.hF=[22,-20];P.hB=[-20,40];P.mouth='smile';}
+    else{const u=ss(K(t,3700,3950));P.rot=lerp(-1.2,0,u);P.hF=[lerp(22,16,u),lerp(-20,-34,u)];P.hB=[lerp(-20,-16,u),lerp(40,-34,u)];P.mouth='smile';P.blink=t>4200&&t<4300?1:0;}
+  }else if(tr.k==='tape'){
+    P.dir=.5;P.gaze=[.6,.5];
+    if(t<600){P.gaze=[.4,-1+t/600*1.4];P.mouth='o';}
+    else if(t<900){const u=ss(K(t,600,900));P.hF=[lerp(11,34,u),lerp(31,-6,u)];P.hB=[lerp(-11,4,u),lerp(31,-4,u)];}
+    else if(t<3200){const s=Math.sin((t-900)/140);P.hipH=32;P.lean=.25;P.hF=[30+6*s,22+8*Math.cos((t-900)/140)];P.hB=[22-5*s,24];P.gaze=[.8,.8];}
+    else if(t<3800){P.hF=[16,8];P.hB=[-10,26];P.gaze=[.8,.5];}
+    else{P.hF=[9,16];P.hB=[-9,16];P.gaze=[.9,.2];P.blink=t>4600&&t<4700?1:0;}
+  }
+  return P;
+}
+function bumpT(t,c,w){const d=Math.abs(t-c);return d>=w?0:Math.cos(d/w*Math.PI/2);}
+function ballAt(tr,t){
+  const T=tr.T,s=tr.seq,x0=tr.x0;let i=0;while(i<T.length-2&&t>=T[i+1])i++;
+  if(t>=T[T.length-1])return[x0+s[s.length-1][1],s[s.length-1][2]];
+  const u=clamp((t-T[i])/(T[i+1]-T[i]),0,1),a=s[i],b=s[i+1],H=b[0]==='head'||a[0]==='head'?40:72;
+  return[x0+lerp(a[1],b[1],u),lerp(a[2],b[2],u)-H*4*u*(1-u)];
+}
+function trickDraw(tr,t){
+  if(tr.k==='juggle'){const b=ballAt(tr,t);tr.ball.setAttribute('transform','translate('+pt(b)+') rotate('+n1(t/3)+')');
+    tr.tag.setAttribute('x',n1(b[0]));tr.tag.setAttribute('y',n1(b[1]-24));tr.tag.setAttribute('x',n1(b[0]+(b[1]<-110?46:0)));tr.tag.setAttribute('opacity',t<700?K(t,0,200):1);
+    let n=0,lastC=-1;tr.seq.forEach((s,i)=>{if(s[0]!=='hand'&&s[0]!=='catch'&&t>=tr.T[i]){n++;lastC=i;}});tr.n=n;
+    if(lastC>=0){const age=t-tr.T[lastC];tr.count.textContent=n;tr.count.setAttribute('x',n1(tr.x0+tr.seq[lastC][1]+22));tr.count.setAttribute('y',n1(tr.seq[lastC][2]-10-age*.04));tr.count.setAttribute('opacity',n1(Math.max(0,1-age/500)*100)/100);}}
+  else if(tr.k==='break'){const on=t>1450&&t<2900;tr.lines.setAttribute('opacity',on?.55:0);
+    if(on){const x=tr.x0,a=(t/90)%6.28;tr.lines.setAttribute('d','M'+pt([x-46,-150+Math.sin(a)*4])+'q46 -22 92 0M'+pt([x-34,-176+Math.cos(a)*4])+'q34 -14 68 0');}}
+  else if(tr.k==='tape'){
+    const bx=tr.x0+52,pos=[[-13,-10],[13,-10],[0,-30]],roll=ss(K(t,3800,5000))*90;
+    tr.cart.setAttribute('transform','translate('+n1(bx+roll)+' 0)');
+    tr.o.forEach((og,i)=>{const u=K(t,i*150,i*150+420),y=lerp(-220,pos[i][1],u*u),land=bumpT(t,i*150+420,90);
+      og.setAttribute('transform','translate('+n1(pos[i][0])+' '+n1(y+land*3)+') scale('+n1((1+land*.25)*100)/100+' '+n1((1-land*.25)*100)/100+')');});
+    const S=[[-26,-14,52,7,0],[-4,-44,7,40,0],[-22,-30,46,6,-28]];
+    tr.strips.forEach((r,i)=>{const t0=1000+i*700,u=ss(K(t,t0,t0+450));const s=S[i];
+      r.setAttribute('opacity',u>0?1:0);r.setAttribute('x',s[0]);r.setAttribute('y',s[1]);r.setAttribute('width',n1(Math.max(.1,s[2]*(s[3]>s[2]?1:u))));r.setAttribute('height',n1(Math.max(.1,s[3]*(s[3]>s[2]?u:1))));
+      r.setAttribute('transform','rotate('+s[4]+' 0 -16)');});
+    const rp=[600,1000,1700,2400].map(c=>bumpT(t,c+120,220)).reduce((a,b)=>Math.max(a,b),0);
+    tr.rip.setAttribute('opacity',n1(rp*100)/100);tr.rip.setAttribute('x',n1(bx+roll+28));tr.rip.setAttribute('y',n1(-58-rp*8));
+    tr.wheels.forEach((w,i)=>{const u=K(t,3200+i*200,3400+i*200);w.setAttribute('opacity',u>0?1:0);w.setAttribute('transform','translate('+(i?17:-17)+' '+n1(lerp(-30,2,u))+') rotate('+n1(roll*4)+')');});
+  }
+}
+
 let wob=null;
 function wobble(t,time){wob={t:t,t0:time};crownLeaves.forEach((l,i)=>{l.dataset.x=t.x+(i-1)*t.rx*.3;l.dataset.y=t.cy+t.ry*.5;});}
 function frame(time){
@@ -1059,8 +1212,10 @@ function frame(time){
   const kf=RM?1:1-Math.exp(-dt/150);
   cam.x+=(tgt.x-cam.x)*kf;cam.y+=(tgt.y-cam.y)*kf;cam.z+=(tgt.z-cam.z)*kf;shoot();
   /* in the grove, the figure keeps pace with the camera */
-  if(ST.mode==='grove'&&!FIG.act)FIG.goal=clamp(cam.x-(narrow?W*.18:W*.28)/cam.z,WMIN+60,WMAX);
-  const busy=!!FIG.act&&FIG.act.k!=='hold'||Math.abs((FIG.goal==null?FIG.x:FIG.goal)-FIG.x)>2||!!FIG.ret;
+  if(ST.mode==='grove'&&!FIG.act&&!FIG.trick)FIG.goal=clamp(cam.x-(narrow?W*.18:W*.28)/cam.z,WMIN+60,WMAX);
+  if(FIG.trick)trickDraw(FIG.trick,time-FIG.trick.t0);
+  idleCheck(time);
+  const busy=!!FIG.trick||!!FIG.act&&FIG.act.k!=='hold'||Math.abs((FIG.goal==null?FIG.x:FIG.goal)-FIG.x)>2||!!FIG.ret;
   const boil=RM||!busy?1:1+Math.floor(time/115)%3;
   const P=figurePose(time,dt),hand=drawFigure(hero,P,boil*13);FIG.hand=hand;
   const a=FIG.act;
@@ -1087,7 +1242,9 @@ function frame(time){
 }
 
 /* ---- go ---- */
-size();setGroveAt(-300,true);FIG.x=-430;FIG.goal=-430;applyFilter();
+size();setGroveAt(-300,true);FIG.x=-430;FIG.goal=-430;
+(function(){const qp=new URLSearchParams(location.search).get('q');if(qp){q.value=qp;query=qp.trim().toLowerCase();}})();
+applyFilter();if(query)renderResults();
 route(true);hint();
 window.addEventListener('resize',()=>{size();if(ST.mode==='grove')setGroveAt(tgt.x,true);else if(ST.pick)Object.assign(tgt,holdView(ST.pick));else if(ST.tree)Object.assign(tgt,treeView(ST.tree,false));});
 requestAnimationFrame(frame);

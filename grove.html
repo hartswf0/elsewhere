@@ -84,6 +84,28 @@ button,select,input{font:inherit;color:inherit}
 #cel .fruit.match .hit{fill:rgba(251,250,245,.85);stroke:#141412;stroke-width:2.5;stroke-dasharray:4 3}
 .cue{position:absolute;left:50%;bottom:4.6rem;transform:translateX(-50%);margin:0;padding:.5rem .9rem;border-radius:999px;background:var(--ink);color:var(--paper);font:700 .64rem/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;pointer-events:none;transition:opacity .4s;white-space:nowrap}
 .cue.gone{opacity:0}
+.stage .thickb{left:calc(.7rem + 52px);width:auto;padding:0 .8rem 0 .6rem;border-radius:999px;gap:.35rem}
+.thickb path{stroke:var(--ink);opacity:.22}.thickb path:first-child{opacity:1}
+.thickb[data-k="1"] .t1,.thickb[data-k="2"] .t1,.thickb[data-k="2"] .t2,.thickb[data-k="3"] .t1,.thickb[data-k="3"] .t2,.thickb[data-k="3"] .t3{opacity:1}
+.tk-lbl{font:700 .6rem/1 var(--sans);letter-spacing:.06em;text-transform:uppercase}
+.web .silk{opacity:.6}.web .far{display:none}.web .far.hot{display:inline}
+.web.focus>g{opacity:.12}.web .hot{opacity:1}.web .hot .silk{stroke:#e7833b;stroke-width:2.4;opacity:1}
+#cel .fruit.kin .hit{fill:rgba(251,250,245,.8);stroke:#e7833b;stroke-width:2.4}
+.side .d[hidden],.side .m[hidden]{display:none}
+.thick{border-top:1px solid var(--rule);padding-top:.6rem}
+.tk-top{display:flex;align-items:center;gap:.6rem;margin-bottom:.4rem}
+.tk-rind svg{display:block;width:44px;height:44px}
+.tk-ctl{display:flex;align-items:center;gap:.4rem;flex:1;flex-wrap:wrap}
+.tk-b{min-height:40px;padding:.3rem .7rem;border:1.5px solid var(--ink);border-radius:999px;background:var(--card);cursor:pointer;font:600 .66rem/1 var(--sans);letter-spacing:.04em}
+.tk-b:disabled{opacity:.35;cursor:default}
+.tk-dots{display:flex;gap:3px}.tk-dots i{display:block;width:9px;height:9px;border-radius:50%;border:1.2px solid var(--ink)}.tk-dots i.on{background:var(--warm)}
+.tk-body{display:grid;gap:.45rem}
+.tk-l{margin:0;padding-left:.6rem;border-left:3px solid #e9d6b8;font-size:.92rem;line-height:1.48;color:var(--ink2)}
+.tk-l b{display:block;font:700 .56rem/1.5 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+.tk-l.new{animation:rind .5s ease-out}
+@keyframes rind{from{opacity:0;transform:translateY(-4px)}}
+.tk-read{border-left-color:var(--warm);font-style:italic}
+.tk-cite{margin:0;font:500 .62rem/1.45 var(--mono);color:var(--muted)}
 .skyb{position:absolute;left:.7rem;top:.7rem;z-index:7;width:44px;height:44px;border:1.5px solid var(--ink);border-radius:50%;background:var(--card);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:2px 2px 0 var(--warm)}
 .stage .skyb svg{position:static;inset:auto;width:22px;height:22px;fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 .skyb g,.skyb path.i-moon{display:none}.skyb[data-sky="day"] .i-sun,.skyb[data-sky="dusk"] .i-dusk{display:inline}.skyb[data-sky="night"] .i-moon{display:inline;fill:#f4f1de}
@@ -266,10 +288,11 @@ footer{padding:2rem 0;border-top:1px solid var(--rule);font:500 .72rem/1.7 var(-
 
 <section class="walk on" id="walk" data-view="walk" aria-label="Walk">
   <div class="stage" id="stage" tabindex="0" role="region" aria-roledescription="grove" aria-label="The grove, a walk past every tree" aria-describedby="how">
-    <p class="vh" id="how">Scroll down, swipe sideways, or use the left and right arrow keys to walk from tree to tree. Tab moves between the oranges on the tree in front of you; Enter opens one. Watson is a button too: press him for a trick. The round button at the top left changes the time of day; at night there are fireflies, lanterns and an owl. The Play button opens six games, and Watson plays against you; Catch is played under the tree in front of you. The Crate and List views show every project as larger targets.</p>
+    <p class="vh" id="how">Scroll down, swipe sideways, or use the left and right arrow keys to walk from tree to tree. Tab moves between the oranges on the tree in front of you; Enter opens one. Watson is a button too: press him for a trick. The round button at the top left changes the time of day, and the one beside it thickens the description: names, then webs of related projects, then field notes; at night there are fireflies, lanterns and an owl. The Play button opens six games, and Watson plays against you; Catch is played under the tree in front of you. The Crate and List views show every project as larger targets.</p>
     <svg id="cel"></svg>
     <p class="cue" id="cue" aria-hidden="true">Scroll or swipe · tap any orange · tap him for a trick</p>
     <button type="button" class="skyb" id="skyBtn" aria-label="Time of day. Change it."><svg viewBox="0 0 24 24" aria-hidden="true"><g class="i-sun"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"/></g><g class="i-dusk"><path d="M3 16h18M6 16a6 6 0 0 1 12 0M12 5v3M5.5 9.5l2 1.5M18.5 9.5l-2 1.5M8 20h8"/></g><path class="i-moon" d="M19 14.5A7.5 7.5 0 0 1 9.5 5a7.5 7.5 0 1 0 9.5 9.5Z"/></svg></button>
+    <button type="button" class="skyb thickb" id="thickBtn" aria-label="Description: thin. Thicken it."><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16" style="stroke-width:1px"/><path class="t1" d="M4 10.5h16" style="stroke-width:1.8px"/><path class="t2" d="M4 15h16" style="stroke-width:2.6px"/><path class="t3" d="M4 19.5h16" style="stroke-width:3.4px"/></svg><span class="tk-lbl" aria-hidden="true">Thin</span></button>
     <section class="gpanel" id="gpanel" hidden aria-labelledby="gpH">
       <div class="gp-top"><h2 id="gpH">Games</h2><button type="button" class="gp-back" id="gpBack" hidden>All games</button><button type="button" class="gp-x" id="gpX" aria-label="Close the games">✕</button></div>
       <div id="gpBody"></div>
@@ -1084,6 +1107,7 @@ footer{padding:2rem 0;border-top:1px solid var(--rule);font:500 .72rem/1.7 var(-
       <p class="d" id="pD"></p>
       <p class="m" id="pM"></p>
       <p class="hpk" id="pH" hidden></p>
+      <div class="thick" id="pT"></div>
       <div class="acts" id="pA"></div>
       <div class="pn" id="pNav"><button class="btn" id="pPrev" type="button">‹ Previous</button><button class="btn" id="pNext" type="button">Next ›</button></div>
     </div>
@@ -1215,8 +1239,8 @@ function drawFigure(o,P,seed){
   const px=gx*2.9,py=gy*2.9;
   o.pL.setAttribute('x',n1(-7.5+s3+px-1.7));o.pL.setAttribute('y',n1(-3+py-1.7));
   o.pR.setAttribute('x',n1(7.5+s3+px-1.7));o.pR.setAttribute('y',n1(-3+py-1.7));
-  o.lids.setAttribute('d',P.blink?'M'+(-11+s3)+' -3L'+(-4+s3)+' -3M'+(4+s3)+' -3L'+(11+s3)+' -3':'');
-  o.pL.setAttribute('opacity',P.blink?0:1);o.pR.setAttribute('opacity',P.blink?0:1);
+  o.lids.setAttribute('d',P.blink?'M'+(-11+s3)+' -3L'+(-4+s3)+' -3M'+(4+s3)+' -3L'+(11+s3)+' -3':P.wink?'M'+(4+s3)+' -2.4Q'+(7.5+s3)+' -5 '+(11+s3)+' -2.4':'');
+  o.pL.setAttribute('opacity',P.blink?0:1);o.pR.setAttribute('opacity',P.blink||P.wink?0:1);
   const mo=P.mouth,mx=s3,my=8.5;
   o.mouth.setAttribute('d',mo==='o'?'M'+(mx-2.6)+' '+my+'a2.6 3 0 1 0 5.2 0a2.6 3 0 1 0 -5.2 0':
     mo==='smile'?'M'+(mx-5)+' '+(my-1)+'Q'+mx+' '+(my+4)+' '+(mx+5)+' '+(my-1):'M'+(mx-3.6)+' '+my+'L'+(mx+3.6)+' '+my);
@@ -1525,7 +1549,7 @@ function skin(){if(RM)return;pS.innerHTML='';const n=8;for(let i=0;i<n;i++){cons
 function fillPeel(f){
   const rp=f.rp;cur=f;
   pK.innerHTML='<i class="fr s'+f.s+'"></i>';pK.appendChild(document.createTextNode(RIPE[f.s]+' · #'+rp[10]));
-  pN.textContent=f.name;pD.textContent=rp[2]||'No description yet.';
+  pN.textContent=f.name;pD.textContent=rp[2]||'No description yet.';pD.hidden=true;pM.hidden=true;renderThick(f);
   pM.textContent=f.tree.name+' · '+(rp[8]?rp[8]+(rp[11]?' commits · ':' authored edits · '):'')+'planted '+ym(rp[5])+' · tended '+ym(rp[6])+(rp[11]?' · new this season':'');
   if(rp[7]){pH.hidden=false;pH.innerHTML='<b>Hand-picked</b>';pH.appendChild(document.createTextNode(rp[7]));}else pH.hidden=true;
   pA.innerHTML='';const gh='https://github.com/hartswf0/'+rp[0],page='https://hartswf0.github.io/'+rp[0]+'/';
@@ -2172,6 +2196,113 @@ function magicUpdate(time,dt){eyesUpdate(time,dt);magicBits(time,dt);catsUpdate(
 (function(){const q=new URLSearchParams(location.search).get('sky');setSky(SKIES[q]?q:clockSky());
   const b=document.getElementById('skyBtn');if(b)b.addEventListener('click',()=>{const order=['day','dusk','night'];setSky(order[(order.indexOf(SKY)+1)%3],true);});})();
 
+/* ---- thick description (after Clifford Geertz): the same orange, described thinly or thickly.
+   The grove has a dial: thin, named, webs of significance, field notes. Each card thickens in five layers. ---- */
+const STOP=new Set('this that with from into your what when where which while have will been were they them their there about using based simple project projects repository repo page site html github test testing tool tools version make made more than also some each other just like only very into over under upon onto http https www index main code data experiments experiment exploring explore exploration build built'.split(' '));
+const TOK=G.repos.map(r=>{const w=(r[0].replace(/[-_.]/g,' ')+' '+(r[2]||'')).toLowerCase().match(/[a-z][a-z0-9]{3,}/g)||[];return [...new Set(w.filter(x=>!STOP.has(x)))];});
+const DF={};TOK.forEach(ws=>ws.forEach(w=>DF[w]=(DF[w]||0)+1));
+const IDF=w=>Math.log(G.repos.length/(DF[w]||1));
+const KEYW=TOK.map(ws=>ws.filter(w=>DF[w]>1&&DF[w]<40).sort((a,b)=>IDF(b)-IDF(a)).slice(0,3));
+let REL=null;
+function related(){if(REL)return REL;const idx={};TOK.forEach((ws,j)=>ws.forEach(w=>{if(DF[w]>1&&DF[w]<40)(idx[w]=idx[w]||[]).push(j);}));
+  REL=TOK.map((ws,j)=>{const sc={};ws.forEach(w=>(idx[w]||[]).forEach(k=>{if(k!==j)sc[k]=(sc[k]||0)+IDF(w);}));
+    return Object.keys(sc).map(k=>[+k,sc[k]]).filter(x=>x[1]>3).sort((a,b)=>b[1]-a[1]).slice(0,3);});return REL;}
+const RIPEMEAN=['Mostly an intention so far: a name waiting for its work.','A first probe, made in a sitting or a few.','Published and growing, not yet load-bearing.','Load-bearing: worked on for months, and other work leans on it.','On the ground now, unpublished or untouched for a year, but still there to be read.'];
+const fruitOfJ=j=>fruits.find(f=>f.j===j);
+
+/* ---------- the dial ---------- */
+let THICK=0;try{THICK=+(localStorage.getItem('grove-thick')||0)||0;}catch(e){}
+const thickL=E('g',{'aria-hidden':'true','pointer-events':'none'},pMain);
+const labelsL=E('g',{style:'display:none'},thickL),webL=E('g',{'class':'web',style:'display:none'},thickL),notesL=E('g',{style:'display:none'},thickL);
+let built={labels:false,web:false,notes:false},edgesBy={};
+function buildLabels(){if(built.labels)return;built.labels=true;
+  fruits.forEach(f=>{const t=E('text',{x:n1(f.x),y:n1(f.y+(f.s===4?14:f.k*7+12)),'font-size':9,'text-anchor':'middle','font-family':SERIF,fill:C.ink,stroke:'#fbfaf5','stroke-width':3,'paint-order':'stroke','stroke-linejoin':'round'},labelsL);
+    t.textContent=f.name.length>14?f.name.slice(0,13)+'…':f.name;});}
+function buildWeb(){if(built.web)return;built.web=true;const R2=related(),seen=new Set();
+  fruits.forEach(f=>{(R2[f.j]||[]).slice(0,2).forEach(([k])=>{const key=Math.min(f.j,k)+'-'+Math.max(f.j,k);if(seen.has(key))return;seen.add(key);
+    const g=fruitOfJ(k);if(!g)return;const d=Math.hypot(g.x-f.x,g.y-f.y),sag=Math.min(140,d*.14),mx=(f.x+g.x)/2,my=(f.y+g.y)/2+sag;
+    const dd='M'+pt([f.x,f.y])+'Q'+pt([mx,my+sag*.4])+' '+pt([g.x,g.y]);
+    const e=E('g',Math.abs(g.x-f.x)>650?{'class':'far'}:{},webL);E('path',{d:dd,fill:'none',stroke:C.ink,'stroke-width':2.4,opacity:.16},e);E('path',{d:dd,fill:'none',stroke:'#fffbe8','stroke-width':1.1,'class':'silk'},e);
+    const u=.5,qx=(1-u)*(1-u)*f.x+2*(1-u)*u*mx+u*u*g.x,qy=(1-u)*(1-u)*f.y+2*(1-u)*u*(my+sag*.4)+u*u*g.y;E('circle',{cx:n1(qx),cy:n1(qy),r:1.8,fill:'#fffbe8',stroke:C.ink,'stroke-width':.5},e);
+    (edgesBy[f.j]=edgesBy[f.j]||[]).push([e,g]);(edgesBy[k]=edgesBy[k]||[]).push([e,f]);});});
+  /* a spider tends the web from whichever tree is in front of you */
+  spider.g=E('g',{},webL);spider.line=E('path',INK(.8,{opacity:.7}),spider.g);spider.body=E('g',{},spider.g);
+  E('ellipse',{cx:0,cy:0,rx:4.5,ry:5.5,fill:C.ink},spider.body);E('circle',{cx:0,cy:-6,r:3,fill:C.ink},spider.body);
+  E('path',INK(1,{d:'M-3 -2L-9 -6M-3 0L-10 0M-3 2L-9 6M-3 3L-7 9M3 -2L9 -6M3 0L10 0M3 2L9 6M3 3L7 9'}),spider.body);
+  E('circle',{cx:-1.2,cy:-6.6,r:.8,fill:C.white},spider.body);E('circle',{cx:1.2,cy:-6.6,r:.8,fill:C.white},spider.body);}
+const spider={g:null};
+function wrap(t,n){const w=t.split(' '),out=[];let l='';w.forEach(x=>{if((l+' '+x).trim().length>n){out.push(l.trim());l=x;}else l+=' '+x;});if(l.trim())out.push(l.trim());return out;}
+function fieldNote(x,y,text,rot,to){const g=E('g',{transform:'translate('+n1(x)+' '+n1(y)+') rotate('+n1(rot)+')'},notesL),lines=wrap(text,30);
+  lines.forEach((l,i)=>{const t=E('text',{x:0,y:i*15,'font-size':13,'font-style':'italic','font-family':SERIF,fill:'#3a382f',stroke:'#fbfaf5','stroke-width':3.5,'paint-order':'stroke'},g);t.textContent=l;});
+  E('path',INK(1,{d:'M0 '+(lines.length*15-8)+'q20 3 40 0t40 0',opacity:.5}),g);
+  if(to){E('path',INK(1,{d:'M'+pt([x+20,y+lines.length*15-4])+'L'+pt([to.x,to.y-10]),'stroke-dasharray':'3 4',opacity:.45}),notesL);}
+  return g;}
+let winkNote=null;
+function buildNotes(){if(built.notes)return;built.notes=true;
+  const ym=d=>{if(!d)return'';const m=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];return m[+d.slice(5,7)-1]+' '+d.slice(0,4);};
+  trees.forEach(T=>{const fs=fruits.filter(f=>f.tree===T),c0=T.crowns[0],cm=T.crowns[Math.floor(T.crowns.length/2)],cz=T.crowns[T.crowns.length-1];
+    const cnt=s=>fs.filter(f=>f.s===s).length,top=fs.slice().sort((a,b)=>(b.rp[8]||0)-(a.rp[8]||0))[0];
+    const dated=fs.filter(f=>f.rp[5]).sort((a,b)=>a.rp[5].localeCompare(b.rp[5])),old=dated[0],nw=dated[dated.length-1];
+    const yTop=Math.min.apply(null,T.crowns.map(c=>c.cy-c.ry*1.06)),y1=yTop-44,y2=y1-70,lx=c0.x-235,rx2=cz.x+25;
+    fieldNote(lx,y1,T.n+' oranges here: '+cnt(3)+' ripe, '+cnt(2)+' ripening, '+cnt(0)+' still in blossom.',-2.5);
+    if(top&&top.rp[8])fieldNote(rx2,y1,'Most tended: '+top.name+', '+top.rp[8]+' edits by hand.',2,top);
+    if(old&&nw&&old!==nw)fieldNote(rx2,y2,'Oldest, '+old.name+' ('+ym(old.rp[5])+'); newest, '+nw.name+' ('+ym(nw.rp[5])+').',-1.5);
+    /* the word this tree shares most with another */
+    const R2=related(),tally={};fs.forEach(f=>(R2[f.j]||[]).forEach(([k])=>{const g=fruitOfJ(k);if(g&&g.tree!==T){const w=TOK[f.j].find(x=>TOK[k].includes(x)&&DF[x]>1&&DF[x]<40);if(w){const key=w+'|'+g.tree.name;tally[key]=(tally[key]||0)+1;}}}));
+    const best=Object.keys(tally).sort((a,b)=>tally[b]-tally[a])[0];
+    if(best){const [w,tn]=best.split('|');fieldNote(lx,y2,'Shares the word “'+w+'” with '+tn+'.',1.5);}
+  });
+  fieldNote(STAND.x0-40,-360,'Field notes, October 2026. Every orange here was planted by one hand; read them as a culture, not a list.',-2);
+  winkNote=fieldNote(0,0,'A twitch, or a wink? It depends how thickly you read.',-3);
+}
+function setThick(k,announce){THICK=k;try{localStorage.setItem('grove-thick',k);}catch(e){}
+  if(k>=1)buildLabels();if(k>=2)buildWeb();if(k>=3)buildNotes();
+  labelsL.style.display=k>=1?'':'none';webL.style.display=k>=2?'':'none';notesL.style.display=k>=3?'':'none';
+  const b=document.getElementById('thickBtn');if(b){b.querySelector('.tk-lbl').textContent=['Thin','Named','Webs','Field notes'][k];b.dataset.k=k;b.setAttribute('aria-label','Description: '+['thin','named','webs','field notes'][k]+'. Thicken it.');}
+  if(announce)say(['Thin: just the oranges.','Named: every orange has its name.','Webs: silk threads join projects that share words, across the trees. Point at an orange to see its web.','Field notes: what an observer would write down. Watson winks.'][k]);}
+function thickUpdate(time){
+  if(THICK>=2&&spider.g){const cr=crowns.reduce((b,c)=>Math.abs(c.x-cam.x)<Math.abs(b.x-cam.x)?c:b,crowns[0]),sx=cr.x+cr.rx*.35,top=cr.cy+cr.ry*.2;
+    const drop=RM?60:60+Math.sin(time/1400)*26+(time-spider.tap<1600?-Math.sin((time-spider.tap)/1600*Math.PI)*50:0);
+    spider.line.setAttribute('d','M'+pt([sx,top])+'V'+n1(top+drop-6));spider.body.setAttribute('transform','translate('+pt([sx,top+drop])+')');}
+  if(THICK>=3&&winkNote)winkNote.setAttribute('transform','translate('+n1(FIG.x+40)+' -232) rotate(-3)');
+}
+spider.tap=-1e9;
+/* point at an orange: its web lights up and its kin glow */
+let hot=null;
+function heat(f){if(THICK<2||!built.web)return;cool();hot=f;webL.classList.add('focus');(edgesBy[f.j]||[]).forEach(([e,g])=>{e.classList.add('hot');g.a.classList.add('kin');});}
+function cool(){if(!hot)return;webL.classList.remove('focus');(edgesBy[hot.j]||[]).forEach(([e,g])=>{e.classList.remove('hot');g.a.classList.remove('kin');});hot=null;}
+fruits.forEach(f=>{f.a.addEventListener('pointerenter',()=>heat(f));f.a.addEventListener('pointerleave',cool);f.a.addEventListener('focus',()=>heat(f));f.a.addEventListener('blur',cool);});
+
+/* ---------- the card thickens in five layers ---------- */
+let CARDK=3;try{CARDK=+(localStorage.getItem('card-thick')||3)||3;}catch(e){}
+function thickHTML(f,k){
+  const rp=f.rp,T=f.tree,esc2=s=>esc(String(s==null?'':s)),R2=related(),rel=(R2[f.j]||[]).map(([j])=>fruitOfJ(j)).filter(Boolean);
+  const ym2=d=>{if(!d)return'';const m=['January','February','March','April','May','June','July','August','September','October','November','December'];return m[+d.slice(5,7)-1]+' '+d.slice(0,4);};
+  const sameMonth=rp[5]?G.repos.filter(r=>r!==rp&&r[5]&&r[5].slice(0,7)===rp[5].slice(0,7)).length:0;
+  const pick=(n,label)=>'<a href="#pick='+encodeURIComponent(n)+'">'+esc2(label||n)+'</a>';
+  const L=[];
+  L.push('<p class="tk-l"><b>Thin</b>A repository called '+esc2(f.name)+'.</p>');
+  if(k>=2)L.push('<p class="tk-l"><b>What it does</b>'+(rp[2]?esc2(rp[2]):'It hasn’t said yet.')+'</p>');
+  if(k>=3)L.push('<p class="tk-l"><b>Where it grows</b>On the '+esc2(T.name)+' tree'+(rel.length?', among '+rel.map(g=>pick(g.name)+(g.tree!==T?' (over on '+esc2(g.tree.name)+')':'')).join(', '):'')+'.</p>');
+  if(k>=4)L.push('<p class="tk-l"><b>When, and how much</b>Planted '+ym2(rp[5])+(sameMonth?', in a month when '+sameMonth+' other'+(sameMonth===1?' was':'s were')+' planted too':'')+'; tended until '+ym2(rp[6])+(rp[8]?'; '+rp[8]+(rp[11]?' commits':' edits by hand'):'')+'. '+RIPE[f.s]+': '+RIPEMEAN[f.s]+'</p>');
+  if(k>=5){const kw=KEYW[f.j];
+    L.push('<p class="tk-l tk-read"><b>A thick reading</b>To call '+esc2(f.name)+' “a repository” is thin. Read thickly, it is '+(['an intention','a sketch','a work in progress','an instrument','a fallen fruit'][f.s])+' in the '+esc2(T.name)+' part of one person’s practice'+(rp[5]?', started '+ym2(rp[5]):'')+(kw.length?', speaking the words '+kw.map(w=>'“'+esc2(w)+'”').join(', '):'')+(rel.length?', and kin to '+rel.slice(0,2).map(g=>pick(g.name)).join(' and '):'')+'.'+(rp[7]?' Watson hand-picked it.':'')+' What it means depends on what it is answering.</p>'+
+      '<p class="tk-cite">The difference between a twitch and a wink is not in the eyelid. After Clifford Geertz, <i>Thick Description</i> (1973).</p>');}
+  return L.join('');
+}
+function rindSVG(k,s){let h='';for(let i=k;i>=1;i--)h+='<circle cx="22" cy="23" r="'+(8+i*2.6)+'" fill="'+(i===k?'#fbf3e3':'none')+'" stroke="#141412" stroke-width="'+(i===1?1.6:.9)+'" opacity="'+(i===1?1:.35+i*.1)+'"/>';
+  return '<svg viewBox="0 0 44 44" aria-hidden="true">'+h+'<circle cx="22" cy="23" r="8" fill="'+['#fbfaf5','#9dbb55','#f0b047','#e7833b','#7a5a34'][s]+'" stroke="#141412" stroke-width="1.4"/><path d="M22 15q4 -5 9 -2q-4 4 -9 2Z" fill="#7ea292" stroke="#141412" stroke-width=".7"/></svg>';}
+function renderThick(f){const box=document.getElementById('pT');if(!box||!f)return;
+  box.innerHTML='<div class="tk-top"><span class="tk-rind">'+rindSVG(CARDK,f.s)+'</span><div class="tk-ctl" role="group" aria-label="How thickly to describe it"><button type="button" class="tk-b" data-d="-1" aria-label="Thinner"'+(CARDK<=1?' disabled':'')+'>Thinner</button><span class="tk-dots" aria-hidden="true">'+[1,2,3,4,5].map(i=>'<i class="'+(i<=CARDK?'on':'')+'"></i>').join('')+'</span><button type="button" class="tk-b" data-d="1" aria-label="Thicker"'+(CARDK>=5?' disabled':'')+'>Thicker</button></div></div>'+
+    '<div class="tk-body" aria-live="polite">'+thickHTML(f,CARDK)+'</div>';
+  box.querySelectorAll('.tk-b').forEach(b=>b.addEventListener('click',()=>{CARDK=clamp(CARDK+ +b.dataset.d,1,5);try{localStorage.setItem('card-thick',CARDK);}catch(e){}renderThick(f);
+    const nb=box.querySelector('.tk-b[data-d="'+b.dataset.d+'"]');(nb&&!nb.disabled?nb:box.querySelector('.tk-b:not([disabled])')).focus();
+    const ls=box.querySelectorAll('.tk-body .tk-l'),last=ls[ls.length-1];if(last&&+b.dataset.d>0&&!RM)last.classList.add('new');}));
+  box.querySelectorAll('.tk-body a[href^="#pick="]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();const n=decodeURIComponent(a.getAttribute('href').slice(6));const g=byName[n.toLowerCase()];if(g)openPeel(g);}));
+}
+(function(){const q=new URLSearchParams(location.search).get('thick');if(q!=null&&/^[0-3]$/.test(q))THICK=+q;setThick(THICK);
+  const b=document.getElementById('thickBtn');if(b)b.addEventListener('click',()=>setThick((THICK+1)%4,true));})();
+
 /* ---- games in the grove: Catch is played under the tree in front of you; the quizzes walk you to their answers ---- */
 const gp=document.getElementById('gpanel'),gpBody=document.getElementById('gpBody'),gpBack=document.getElementById('gpBack'),playBtn=document.getElementById('playBtn');
 let GAME=null,quiz=null;
@@ -2441,6 +2572,7 @@ function frame(time){
   const P=figurePose(time,dt);
   if(GAME){if(GAME.pose)GAME.pose(P,time);else{P.hF=[17,22];P.hB=[7,23];P.mouth='o';P.gaze=[0,-.6];}}
   else if(FIG.cheer)cheerPose(P,time);
+  if(THICK===3&&!busy&&!RM&&!P.blink&&frac(time/4200)<.08)P.wink=1;
   else if(avHover&&!busy&&!RM){const s=Math.sin(time/110);P.hB=[-24+s*5,-24];P.mouth='smile';P.gaze=[0,0];}
   const hand=drawFigure(hero,P,boil*13);FIG.hand=hand;
   avatar.setAttribute('transform','translate('+n1(FIG.x)+' 0)');
@@ -2450,7 +2582,7 @@ function frame(time){
     held.setAttribute('opacity',1);held.setAttribute('transform','translate('+pt([x,y])+') scale('+n1(lerp(1,.7,u)*100)/100+')');
     if(u>=1){held.setAttribute('opacity',0);r.pos.a.style.opacity='';FIG.ret=null;}}
   else held.setAttribute('opacity',0);
-  lifeUpdate(time,dt);magicUpdate(time,dt);bubbleUpdate(time,P,busy);
+  lifeUpdate(time,dt);magicUpdate(time,dt);thickUpdate(time);bubbleUpdate(time,P,busy);
   if(wob){const t=time-wob.t0;
     crownLeaves.forEach((l,i)=>{const u=K(t,0,1300);l.setAttribute('opacity',u<1?1:0);const x=+l.dataset.x+Math.sin(u*7+i*2)*24,y=lerp(+l.dataset.y,-2,Math.pow(u,1.2));
       l.setAttribute('transform','translate('+pt([x,y])+') rotate('+n1(Math.sin(u*9+i)*70)+')');});

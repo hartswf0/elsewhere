@@ -337,3 +337,33 @@ axe-core finds 0 violations on the grove and the shed.
 - The tap targets sit on canopy tops and the ground, away from the oranges.
 - Under reduced motion nothing drifts, flies or crawls, and each creature shows its still state.
 - axe-core finds 0 violations.
+
+## Revision: thick description (after Clifford Geertz)
+
+Geertz's point: a twitch and a wink are the same movement of an eyelid. What separates them is how thickly you describe the context. The grove now lets you choose.
+
+**The Thicken dial** (beside the sky button, remembered; `?thick=0–3`):
+- **Thin:** only the oranges.
+- **Named:** every orange carries its name.
+- **Webs:** silk threads with dewdrops join projects that share distinctive words (IDF-weighted overlap of name and description).
+  - Nearby threads show at rest; long threads across the grove appear only for the orange you point at or focus.
+  - Its web turns orange and its kin are ringed.
+  - A spider hangs from the tree in front of you.
+- **Field notes:** an observer's handwritten notes over each tree:
+  - counts by ripeness;
+  - the most tended;
+  - the oldest and newest;
+  - the word it shares most with another tree.
+
+  A note at the gate frames the grove as a culture, not a list. Watson winks, under a note asking "A twitch, or a wink?"
+
+**Each card thickens** (remembered):
+1. **Thin:** a repository called X.
+2. **What it does.**
+3. **Where it grows:** its tree and its kin, which open in place.
+4. **When, and how much:** planted, with how many others that month; tended until; edits; and what its ripeness means.
+5. **A thick reading:** one composed sentence, ending on the twitch and the wink, with a citation.
+
+The orange beside the control gains a rind for each layer.
+
+All the layers are decoration or plain text. axe-core finds 0 violations.

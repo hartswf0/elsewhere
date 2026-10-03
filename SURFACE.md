@@ -460,3 +460,17 @@ Verified: the failure path (request blocked) and the success path (a mocked rain
 - **The card:** a tile opens the usual card on top of the sheet. Its Previous and Next step through the sheet's own filtered list. Closing the card returns to the sheet with focus on the tile; closing the sheet returns focus to where you came from.
 
 axe-core finds 0 violations at desktop and phone widths.
+
+## Revision: a quieter operational surface
+
+**The tree sheet, cut to what it's for:**
+- **Header:** one row with ‹ (previous tree), the emblem, the name and the count, › (next tree), and ✕. The tree's colour is a thin rule at the top, no longer a filled block. The neighbouring trees' names are in each arrow's label and tooltip.
+- **Filters:** one scrolling row with All and its count, then ✦ (hand-picked) and a dot for each ripeness, each with its count. The words live in labels and tooltips. The sort control is a small menu at the end of the row.
+- **Projects:** a dense list, with a ripeness dot, the name, the planted month in a column on the right, and one line of description, separated by hairlines. About 14 rows fit on a phone screen, against 5 cards before.
+- **The bottom of the list:** "Walk to this tree" (a text button) and the recently opened projects.
+
+**The grove bar on phones:** two rows, not three. The title remains for screen readers. The filter menu sits beside the search, and the six tools share the second row with smaller labels.
+
+**Signs** now stand at the centre of their stand, beside Watson rather than behind him.
+
+axe-core finds 0 violations.

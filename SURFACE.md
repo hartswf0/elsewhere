@@ -367,3 +367,19 @@ Geertz's point: a twitch and a wink are the same movement of an eyelid. What sep
 The orange beside the control gains a rind for each layer.
 
 All the layers are decoration or plain text. axe-core finds 0 violations.
+
+## Revision: the film, thickened
+
+The homepage film has its own Thicken button in the film bar, beside "Skip the film". Its setting is remembered.
+- **Thin:** the film as it was.
+- **Glossed:**
+  - Each drawn work carries a handwritten margin note, with a leader line, taken from that work's own description in the work list ("It translates a model's claim into legal parts…").
+  - The cinema gets one note listing its films as verbs.
+- **Webbed:** silk threads with a dewdrop join works that share a tension (authorship, abundance, opacity, misclassification). The tension is written on the thread in orange.
+- **Field notes:**
+  - An observer's note fades in at each scene: the blank page, the hole, the fall, the landing, the cinema, the four machines, the signpost, the grove, and the pencil handed over.
+  - At the end Watson winks beside "A twitch, or a wink?"
+
+**One source for both readings:** the field notes are written once, in the film's written version, under "Read thickly: field notes on the film". Screen readers read them there, and the drawing builds its notes from that list. The glosses and webs come from the work list's own data (`data-phrase`, `data-ten`), so they stay true if the work list changes.
+
+axe-core finds 0 violations.

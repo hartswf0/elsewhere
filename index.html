@@ -79,6 +79,11 @@ body.play .topbar .face svg rect{fill:var(--paper)!important}
 .skip{position:fixed;left:50%;margin-left:-5.5rem;top:.6rem;z-index:100;padding:.7rem 1rem;border-radius:999px;background:var(--ink);color:var(--paper);font:600 .8rem/1 var(--sans);text-decoration:none;transform:translateY(-250%)}
 .skip:focus{transform:none}
 body.play .work+.open{display:inline-block;margin:-.4rem 0 .6rem 2.4rem}
+.thk{flex:none;display:inline-flex;align-items:center;gap:.35rem;min-height:44px;padding:.45rem .8rem .45rem .6rem;border:1px solid var(--ink);border-radius:999px;background:var(--card);cursor:pointer;font:600 .66rem/1 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--ink)}
+.thk svg{width:18px;height:18px;fill:none;stroke:var(--ink);stroke-linecap:round}.thk path{opacity:.22}.thk path:first-child{opacity:1}
+.thk[data-k="1"] .t1,.thk[data-k="2"] .t1,.thk[data-k="2"] .t2,.thk[data-k="3"] .t1,.thk[data-k="3"] .t2,.thk[data-k="3"] .t3{opacity:1}
+.thk:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+@media(max-width:680px){.thk span{display:none}.thk{padding:.4rem .6rem}}
 .skipf{flex:none;display:inline-flex;align-items:center;min-height:44px;padding:.45rem .9rem;border:1px solid var(--ink);border-radius:999px;background:var(--card);font:600 .66rem/1 var(--sans);letter-spacing:.06em;text-transform:uppercase;text-decoration:none}
 .sys{cursor:pointer}.sys:hover .sys-l,.sys:hover text{text-decoration:underline}
 .scard{position:absolute;z-index:6;left:clamp(.8rem,3vw,2rem);bottom:4.6rem;width:min(22rem,calc(100% - 1.6rem));padding:.8rem .9rem .5rem;background:var(--card);border:1px solid var(--ink);border-radius:12px;box-shadow:5px 5px 0 var(--warm);opacity:0;transform:translateY(6px);transition:opacity .25s,transform .25s}
@@ -232,6 +237,18 @@ body.play .work .open:hover{border-color:var(--ink);color:var(--ink)}
         <li>He walks into a grove of orange trees. Everything I have made is still on the tree.</li>
         <li>At the grove's gate he meets someone and hands over his pencil. Not in the prompt. Not in the output. In the encounter that changes what can happen next. <a href="grove.html">Walk into the grove</a>.</li>
       </ol>
+      <h3>Read thickly: field notes on the film</h3>
+      <ul id="thick-notes">
+        <li data-a="0" data-b=".135" data-x="95" data-y="-70" data-r="-2">A figure, a blank page. He is not illustrating the poem; he is standing in it.</li>
+        <li data-a=".14" data-b=".25" data-x="170" data-y="-215" data-r="1.5">He draws a hole around his own feet. Thin: a doodle. Thick: an author writing himself out of the frame.</li>
+        <li data-a=".3" data-b=".4" data-x="190" data-y="760" data-r="-1.5">Falling through the poem’s lines. The description now has consequences for the one inside it.</li>
+        <li data-a=".43" data-b=".58" data-x="300" data-y="1150" data-r="2">Landing changes the genre: above, a page; below, a place.</li>
+        <li data-a=".585" data-b=".665" data-x="330" data-y="1070" data-r="-2">A cinema of verbs. The portrait in the lobby is the fieldworker, inside the field.</li>
+        <li data-a=".675" data-b=".815" data-x="1500" data-y="1030" data-r="1.5">Four machines, one question: what does a model do with a description it was given?</li>
+        <li data-a=".82" data-b=".875" data-x="2630" data-y="1145" data-r="-1.5">The signpost points both ways. The essays are directions, not destinations.</li>
+        <li data-a=".875" data-b=".95" data-x="3020" data-y="1080" data-r="2">Everything still on the tree: kept, not curated away.</li>
+        <li data-a=".95" data-b="2" data-x="3075" data-y="1245" data-r="-2">He hands over the pencil. Authorship distributed; responsibility not. The difference between a twitch and a wink is not in the eyelid (after Clifford Geertz).</li>
+      </ul>
     </div>
     <svg id="cel" role="img" aria-hidden="true" preserveAspectRatio="none"></svg>
     <div class="it" data-a="-1" data-b=".072" aria-hidden="true">
@@ -255,7 +272,7 @@ body.play .work .open:hover{border-color:var(--ink);color:var(--ink)}
         <button type="button" data-p="0">Title</button><button type="button" data-p=".14">The page</button><button type="button" data-p=".3">The fall</button><button type="button" data-p=".6">Cinema</button><button type="button" data-p=".7">Systems</button><button type="button" data-p=".835">Writing</button><button type="button" data-p=".9">The grove</button>
         <i class="prog" id="prog"></i>
       </nav>
-      <a class="skipf" href="#about">Skip the film ↓</a>
+      <button type="button" class="thk" id="thk" aria-label="Description: thin. Thicken it."><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16" style="stroke-width:1px"/><path class="t1" d="M4 10.5h16" style="stroke-width:1.8px"/><path class="t2" d="M4 15h16" style="stroke-width:2.6px"/><path class="t3" d="M4 19.5h16" style="stroke-width:3.4px"/></svg><span>Thin</span></button><a class="skipf" href="#about">Skip the film ↓</a><p class="vh" id="thkLive" aria-live="polite"></p>
     </div>
     <p id="xsheet" aria-hidden="true"></p>
     <div id="cue" aria-hidden="true">Scroll<svg viewBox="0 0 14 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 1v15M2 11l5 5 5-5"/></svg></div>
@@ -854,8 +871,8 @@ function drawFigure(o,P,seed,mirror){
     const px=gx*2.9,py=gy*2.9;
     o.pL.setAttribute('x',n1(-7.5+s3+px-1.7));o.pL.setAttribute('y',n1(-3+py-1.7));
     o.pR.setAttribute('x',n1(7.5+s3+px-1.7));o.pR.setAttribute('y',n1(-3+py-1.7));
-    o.lids.setAttribute('d',P.blink?'M'+(-11+s3)+' -3L'+(-4+s3)+' -3M'+(4+s3)+' -3L'+(11+s3)+' -3':'');
-    o.pL.setAttribute('opacity',P.blink?0:1);o.pR.setAttribute('opacity',P.blink?0:1);
+    o.lids.setAttribute('d',P.blink?'M'+(-11+s3)+' -3L'+(-4+s3)+' -3M'+(4+s3)+' -3L'+(11+s3)+' -3':P.wink?'M'+(4+s3)+' -2.4Q'+(7.5+s3)+' -5 '+(11+s3)+' -2.4':'');
+    o.pL.setAttribute('opacity',P.blink?0:1);o.pR.setAttribute('opacity',P.blink||P.wink?0:1);
   }else{
     o.pL.setAttribute('cx',n1(-6+s3+gx*1.8));o.pL.setAttribute('cy',n1(-3+gy*1.8));
     o.pR.setAttribute('cx',n1(6+s3+gx*1.8));o.pR.setAttribute('cy',n1(-3+gy*1.8));
@@ -973,6 +990,7 @@ function render(time){
   holeLine.setAttribute('stroke-dashoffset',1-K(p,.162,.236));holeFill.setAttribute('opacity',ss(K(p,.244,.258)));
   /* hero */
   const P=heroPose(p,time),dt=Math.max(1,time-lastT);
+  if(FT===3&&p>.955&&!RM&&!P.blink&&frac(time/3200)<.12)P.wink=1;
   if(last){const vx=(P.x-last.x)/dt*16,vy=(P.y-last.y)/dt*16;
     let tx=-vx*.5+(P.dir>.5&&Math.abs(vx)<.2?-.25:0),ty=-vy*.5+1;const L=Math.hypot(tx,ty)||1;tx/=L;ty/=L;
     const kf=RM?1:.14;scarf=[lerp(scarf[0],tx,kf),lerp(scarf[1],ty,kf)];}
@@ -994,11 +1012,60 @@ function render(time){
   titles.forEach(t=>{const o=ss(K(p,t.a,t.a+.012))*(1-ss(K(p,t.b-.012,t.b)));const v=t.a<0?1-ss(K(p,t.b-.012,t.b)):o;
     t.e.style.opacity=v;t.e.style.visibility=v<.01?'hidden':'visible';});
   if(cue)cue.style.opacity=1-K(p,.004,.03);
-  hudUpdate(p,time);
+  hudUpdate(p,time);filmThick(p,time,P);
   if(sheet){let s=SHOTS[0],n=1;SHOTS.forEach((x,i)=>{if(p>=x[0]){s=x;n=i+1;}});
     const txt='SC '+String(n).padStart(2,'0')+' · '+s[1]+' · '+s[2]+' · FR '+String(Math.round(p*2160)).padStart(4,'0');
     if(txt!==lastSheet){sheet.textContent=txt;lastSheet=txt;}}
 }
+
+/* ---- thick description (after Clifford Geertz): the film can be read thin or thick.
+   Glossed: each drawn work carries a margin note from its own description. Webbed: works that share a tension are tied with silk.
+   Field notes: an observer's reading of each scene, from the written version above. ---- */
+const thickL=E('g',{'aria-hidden':'true','pointer-events':'none'},setp);
+const glossL=E('g',{style:'display:none'},thickL),webL=E('g',{style:'display:none'},thickL),fnL=E('g',{style:'display:none'},thickL);
+let FT=0;try{FT=+(localStorage.getItem('film-thick')||0)||0;}catch(e){}
+const fbuilt={g:false,w:false,f:false};
+function wrapT(t,n){const w=t.split(' '),o=[];let l='';w.forEach(x=>{if((l+' '+x).trim().length>n){o.push(l.trim());l=x;}else l+=' '+x;});if(l.trim())o.push(l.trim());return o;}
+function hand(par,x,y,text,rot,n,size){const g=E('g',{transform:'translate('+n1(x)+' '+n1(y)+') rotate('+n1(rot||0)+')'},par),ls=wrapT(text,n||28);
+  ls.forEach((l,i)=>{const t=E('text',{x:0,y:i*(size||13)*1.18,'font-size':size||13,'font-style':'italic','font-family':SERIF,fill:'#3a382f',stroke:'#f2f0e8','stroke-width':3.5,'paint-order':'stroke'},g);t.textContent=l;});
+  E('path',INK(1,{d:'M0 '+n1(ls.length*(size||13)*1.18-7)+'q18 3 36 0t36 0',opacity:.5}),g);return{g:g,h:ls.length*(size||13)*1.18};}
+/* where each drawn work sits, and what the page below says about it */
+function works(){
+  const toSetp=el=>{const b=el.getBBox(),m=setp.getScreenCTM().inverse().multiply(el.getScreenCTM());return[m.a*(b.x+b.width/2)+m.c*(b.y+b.height/2)+m.e,m.b*(b.x+b.width/2)+m.d*(b.y+b.height/2)+m.f];};
+  const info={};document.querySelectorAll('#work .work,#work .post,.sec .work,.sec .post').forEach(w=>{const t=w.querySelector('.title');if(t)info[t.textContent.trim()]=w;});
+  return [...setp.querySelectorAll('a[aria-label]')].map(a=>{const w=info[a.getAttribute('aria-label')];return w?{a:a,name:a.getAttribute('aria-label'),pos:toSetp(a),phrase:w.dataset.phrase,ten:w.dataset.ten,op:w.dataset.op}:null;}).filter(Boolean);
+}
+let WK=null;
+function buildGloss(){if(fbuilt.g)return;fbuilt.g=true;WK=WK||works();
+  WK.forEach((w,i)=>{if(!w.phrase)return;const [x,y]=w.pos,cinema=Math.abs(x-720)<200&&y<GY-150,post=Math.abs(x-2540)<150;
+    if(cinema)return;
+    const gx=post?x-360:x-90,gy=post?y-10:y-200,n=post?hand(glossL,gx,gy,'It '+w.phrase+'.',0,40,11):hand(glossL,gx,gy,'It '+w.phrase+'.',(i%3-1)*1.5,26,12.5);
+    E('path',INK(1,{d:'M'+pt([gx+40,gy+n.h-2])+'L'+pt([x,y-20]),'stroke-dasharray':'3 4',opacity:.45}),glossL);});
+  const cin=WK.filter(w=>Math.abs(w.pos[0]-720)<200&&w.pos[1]<GY-150&&w.op),ops=[...new Set(cin.map(w=>w.op))];
+  if(cin.length)hand(glossL,720+190,GY-310,'Now showing, as verbs: '+ops.join(', ')+'. Each film does something to footage, text or an image.',-2,26,12.5);}
+function buildWeb(){if(fbuilt.w)return;fbuilt.w=true;WK=WK||works();const by={};WK.forEach(w=>{if(w.ten)(by[w.ten]=by[w.ten]||[]).push(w);});
+  Object.keys(by).forEach(t=>{const ws=by[t].sort((a,b)=>a.pos[0]-b.pos[0]);for(let i=0;i<ws.length-1;i++){const a=ws[i].pos,b=ws[i+1].pos;if(Math.hypot(b[0]-a[0],b[1]-a[1])<30)continue;
+    const mx=(a[0]+b[0])/2,sag=Math.min(160,Math.abs(b[0]-a[0])*.12+20),my=Math.max(a[1],b[1])+sag,d='M'+pt(a)+'Q'+pt([mx,my])+' '+pt(b);
+    E('path',{d:d,fill:'none',stroke:C.ink,'stroke-width':2.4,opacity:.15},webL);E('path',{d:d,fill:'none',stroke:'#fffbe8','stroke-width':1.2},webL);
+    const tx=.25*a[0]+.5*mx+.25*b[0],ty=.25*a[1]+.5*my+.25*b[1];E('circle',{cx:n1(tx),cy:n1(ty+4),r:2,fill:'#fffbe8',stroke:C.ink,'stroke-width':.5},webL);
+    const lb=E('text',{x:n1(tx),y:n1(ty+18),'text-anchor':'middle','font-size':12,'font-style':'italic','font-family':SERIF,fill:C.warm,stroke:'#f2f0e8','stroke-width':3,'paint-order':'stroke'},webL);lb.textContent=t;}});}
+const FNOTES=[...document.querySelectorAll('#thick-notes li')].map(li=>({a:+li.dataset.a,b:+li.dataset.b,x:+li.dataset.x,y:+li.dataset.y,r:+(li.dataset.r||0),text:li.textContent.trim(),g:null}));
+let winkN=null;
+function buildNotes(){if(fbuilt.f)return;fbuilt.f=true;FNOTES.forEach(n=>{n.g=hand(fnL,n.x,n.y,n.text,n.r,30,14).g;n.g.setAttribute('opacity',0);});
+  winkN=hand(fnL,0,0,'A twitch, or a wink?',-3,30,14).g;winkN.setAttribute('opacity',0);}
+function setFT(k,announce){FT=k;try{localStorage.setItem('film-thick',k);}catch(e){}
+  if(k>=1)buildGloss();if(k>=2)buildWeb();if(k>=3)buildNotes();
+  glossL.style.display=k>=1?'':'none';webL.style.display=k>=2?'':'none';fnL.style.display=k>=3?'':'none';
+  const b=document.getElementById('thk');if(b){b.dataset.k=k;b.querySelector('span').textContent=['Thin','Glossed','Webbed','Field notes'][k];b.setAttribute('aria-label','Description: '+['thin','glossed','webbed','field notes'][k]+'. Thicken it.');}
+  if(announce){const l=document.getElementById('thkLive');if(l)l.textContent=['Thin: just the film.','Glossed: each work carries a note in the margin.','Webbed: works that share a tension are tied with silk, the tension written on the thread.','Field notes: an observer’s reading of each scene. The same notes are in the written version of the film.'][k];}
+  render(performance.now());}
+function filmThick(p,time,P){
+  if(FT<3||!fbuilt.f)return;
+  FNOTES.forEach(n=>{n.g.setAttribute('opacity',n1(ss(K(p,n.a,n.a+.012))*(1-ss(K(p,n.b-.012,n.b)))));});
+  if(winkN){winkN.setAttribute('opacity',n1(ss(K(p,.955,.97))));winkN.setAttribute('transform','translate('+n1(P.x-215)+' '+n1(P.y-125)+') rotate(-3)');}
+}
+
+(function(){const b=document.getElementById('thk');if(b)b.addEventListener('click',()=>setFT((FT+1)%4,true));})();
 /* ---- the film bar: scenes you can jump to, cards that hold still, a nudge when you stop ---- */
 const sceneBtns=[].slice.call(document.querySelectorAll('.scenes button')),scards=[].slice.call(stage.querySelectorAll('.scard')),nudge=document.getElementById('nudge');
 let lastMove=performance.now(),lastP=-1,lastScene=-1;
@@ -1019,7 +1086,7 @@ function loop(time){
   render(time);requestAnimationFrame(loop);
 }
 function start(){if(!running){running=true;requestAnimationFrame(loop);}}
-size();pS=target();render(0);
+size();pS=target();render(0);setFT(FT);
 window.addEventListener('resize',()=>{size();render(performance.now());});
 if('IntersectionObserver' in window){new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)start();else running=false;});},{rootMargin:'120px'}).observe(film);}else start();
 window.__film={seek:function(v){pS=v;size();render(performance.now());}};

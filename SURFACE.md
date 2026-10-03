@@ -443,3 +443,20 @@ Verified: the failure path (request blocked) and the success path (a mocked rain
   - it sits where the real sun is, on an arc from east at sunrise to west at sunset; at night the moon follows the night's arc;
   - it rises into place when the page opens and glides when the time of day is changed by hand;
   - it jumps straight there under reduced motion.
+
+## Revision: the signs open each tree; every tree is its own colour and emblem
+
+**Distinct trees.** Each theme has its own colour and a drawn emblem: a book, a television, a robot, a pointer, an hourglass, a note, a box, a cube, a flame, a chalkboard, an orange. Its sign also has one of four board shapes (plain, pill, arrow, banner). The colour and emblem repeat on the sign, in the stops bar and in the sheet, so a tree is recognised wherever it appears.
+
+**The sheet: the easy view.**
+- **Ways in:** tap a tree's sign, tap the stop you're already standing at, or follow `#open=<tree>`.
+- **Layout:** a dialog in the tree's colour (full screen on phones), showing the name, count, number ripe and years planted.
+- **Moving between trees:** previous and next trees (with their emblems) and "Walk to this tree". Swipe sideways, or use ← and →, to change trees.
+- **Finding a project:**
+  - filter chips with counts (all, hand-picked, each ripeness);
+  - sort by most used, newest planted, recently tended, or A to Z;
+  - every project as a large tile (orange, name, two-line description, ripeness, planted date).
+- **Recently opened:** a row of the last ten projects opened anywhere, one tap to reopen. It is kept in the browser.
+- **The card:** a tile opens the usual card on top of the sheet. Its Previous and Next step through the sheet's own filtered list. Closing the card returns to the sheet with focus on the tile; closing the sheet returns focus to where you came from.
+
+axe-core finds 0 violations at desktop and phone widths.

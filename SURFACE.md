@@ -309,3 +309,31 @@ axe-core finds 0 violations on the grove and the shed.
 - `grove.html#play=toss` (or any game) opens a game directly.
 - The Shed has More work? and Pairs, and links to Toss in the grove.
 - The GAMES board in the grove now has six plaques, in a wider clearing.
+
+## Revision: magic
+
+**Trees:**
+- Every trunk has a sleepy face. The eyes open as he comes near, follow him, blink, and smile when he's close. The tree looks surprised when one of its oranges is picked.
+- Ripe and hand-picked oranges catch the light (a small glint).
+- Pollen drifts up from the canopies by day, and leaves let go and flutter down.
+- Picking an orange throws a ring and a burst of sparkles.
+
+**Light that follows the visitor's clock:**
+- Day (7–5), dusk (5–7:30 and at dawn), night otherwise.
+- At dusk: a rose sky and a low sun; lanterns in every tree.
+- At night: a navy sky with twinkling stars and a moon, glowing eyes in the trunks, fireflies, lit lanterns, sleeping birds, an owl, and bats in place of the flock.
+- A round button at the top left of the grove cycles day → dusk → night, with its label and an announcement. `?sky=` sets it from the URL.
+- The fruit and the signs are never tinted.
+
+**Creatures:**
+- Birds come in four kinds (dove, robin, bluebird, goldfinch). They sing (notes rise from the beak) and hop and sing when tapped.
+- Cats sleep under some trees, with zzz's and breathing. They sit up and watch him as he passes, swish their tails, and purr with hearts when tapped.
+- Butterflies wander the blossoming trees. When he stands still a few seconds, one lands on his head, and it leaves when he walks.
+- Snails with orange shells cross slowly under the trees, leaving a shimmering trail. Tapped, they hide in the shell.
+- The owl (dusk and night) watches him and hoots when tapped.
+
+**Accessibility:**
+- All of it is decoration, hidden from assistive technology.
+- The tap targets sit on canopy tops and the ground, away from the oranges.
+- Under reduced motion nothing drifts, flies or crawls, and each creature shows its still state.
+- axe-core finds 0 violations.

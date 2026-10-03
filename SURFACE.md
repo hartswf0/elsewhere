@@ -433,3 +433,13 @@ Tapping the set changes the channel: a burst of static and a jump ahead. Under r
 - **Graceful failure:** if the request fails, is blocked, or takes over 6 seconds, the status says so plainly. The weather stays fair, and the time of day still follows the visitor's clock. If geolocation is refused or unavailable, the time zone guess stays. Nothing breaks.
 
 Verified: the failure path (request blocked) and the success path (a mocked rain response), at desktop and mobile widths and under reduced motion. axe-core finds 0 violations.
+
+## Revision: the fall reads, the umbrella is held, the sun moves
+
+- **The fall:** below the page edge are ten real lines of a poem, falling past him at near-camera depth, with a paper halo so they read over the scribbles. They are part of the written version of the film. They fade out at the landing.
+- **The film's sun** crosses the sky as you scroll, from the landing to the grove, and turns golden at the encounter.
+- **The grove's umbrella** hangs from his actual hand.
+- **The grove's sun:**
+  - it sits where the real sun is, on an arc from east at sunrise to west at sunset; at night the moon follows the night's arc;
+  - it rises into place when the page opens and glides when the time of day is changed by hand;
+  - it jumps straight there under reduced motion.

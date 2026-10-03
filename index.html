@@ -229,7 +229,7 @@ body.play .work .open:hover{border-color:var(--ink);color:var(--ink)}
         <li>A figure with square glasses and an orange scarf stands on an empty page. Title: Interfaces for worlds that don't exist yet, and the tools to find out if they should. Watson Hartsoe, digital media artist and researcher, PhD candidate in Digital Media at Georgia Tech.</li>
         <li>He looks at the empty page. How does one person describe a world strongly enough that another person can enter it?</li>
         <li>He crouches and draws a hole around his own feet. Description has acquired consequences.</li>
-        <li>He falls through the lines of a poem and lands in a landscape. The poem becomes a place.</li>
+        <li>He falls through the lines of a poem: “a world, described strongly enough that someone else could walk in. Here is a field the colour of paper, a road that only goes forward, a cinema, a gumball machine, a door, trees heavy with everything I have made. Every noun a floor. Every verb a wall. Say it slowly and it starts to hold you. The page gives way, and you are inside the description now.” He lands in a landscape. The poem becomes a place.</li>
         <li>He walks. My medium is context.</li>
         <li>He stops at a cinema showing five films: Where You Go When You Leave, CINEOSIS, Play, Freedom, and AI Films, The Machinery of Meaning, and Machinery of Meaning: Fluid.</li>
         <li>He walks past four systems: the Gumball Emotion Machine, Can a Model Build with LEGO?, Centaur Box, and Coaxing the Ripples. I do not understand context engineering as giving the model more detail. I understand it as applying pressure against the model's default world.</li>
@@ -558,7 +558,7 @@ function plane(fx,fy,fz){const g=E('g',{},root);planes.push({g:g,fx:fx,fy:fy,fz:
 const r0=R(7);
 /* PLANE 6: sky */
 const sky=plane(.04,.9,.05);
-E('path',SHAPE(C.sun,2,{d:circD(-390,1030,44,44,2.2,r0,16)}),sky);
+const filmSun=E('path',SHAPE(C.sun,2,{d:circD(-390,1030,44,44,2.2,r0,16)}),sky);
 [[-170,930,70],[40,900,52],[260,985,64],[430,935,46],[-380,975,58]].forEach(c=>{
   const x=c[0],y=c[1],w=c[2];
   E('path',SHAPE(C.white,1.2,{'stroke-opacity':.38,d:smooth(jit([[x-w,y],[x-w*.6,y-w*.34],[x-w*.1,y-w*.5],[x+w*.35,y-w*.36],[x+w*.8,y-w*.3],[x+w,y],[x+w*.3,y+w*.12],[x-w*.5,y+w*.12]],2,r0),true)}),sky);
@@ -778,6 +778,10 @@ E('path',INK(2.4,{d:lineD(-3200,0,3200,0,1.2,r0,70)}),page);
 const holeD=circD(0,5,53,13.5,1,R(5),18);
 const holeFill=E('path',{d:holeD,fill:C.ink,opacity:0},page);
 const holeLine=E('path',INK(2.3,{d:holeD,pathLength:1,'stroke-dasharray':1,'stroke-dashoffset':1}),page);
+/* the poem he falls through: real lines, readable as he passes them */
+const poemText=plane(0,1.08,1);
+['a world, described strongly enough','that someone else could walk in.','Here is a field the colour of paper,','a road that only goes forward,','a cinema, a gumball machine, a door,','trees heavy with everything I have made.','Every noun a floor. Every verb a wall.','Say it slowly and it starts to hold you.','The page gives way, and','you are inside the description now.'].forEach((l,i)=>{
+  const t=E('text',{x:(i%2?1:-1)*18,y:520+i*78,'font-size':i===9?27:23,'font-style':'italic','font-family':SERIF,'text-anchor':'middle',fill:C.ink,stroke:C.paper,'stroke-width':5,'paint-order':'stroke','stroke-linejoin':'round',opacity:.88},poemText);t.textContent=l;});
 /* PLANE 2: figures in front */
 const frontL=plane(1,1,1);
 const dustG=E('g',{},frontL);
@@ -987,6 +991,9 @@ function render(time){
     pl.g.setAttribute('transform','translate('+n1(VW/2)+' '+n1(AY)+') scale('+Math.round(zf*1000)/1000+') translate('+n1(-cam.x*pl.fx)+' '+n1(-cam.y*pl.fy)+')');});
   wash.setAttribute('opacity',ss(K(cam.y,150,1050)));
   const fade=1-ss(K(cam.y,1020,1330));poemFar.concat(poemNear).forEach(g=>g.setAttribute('opacity',fade));
+  poemText.setAttribute('opacity',n1((1-ss(K(p,.39,.43)))*ss(K(cam.y,40,180))));
+  /* the sun crosses the sky as the film goes on, and sets golden by the grove */
+  {const f=ss(K(p,.4,1));filmSun.setAttribute('transform','translate('+n1(f*900)+' '+n1(-Math.sin(f*Math.PI)*150+f*60)+')');filmSun.setAttribute('fill',p>.86?'#f2a65a':C.sun);}
   holeLine.setAttribute('stroke-dashoffset',1-K(p,.162,.236));holeFill.setAttribute('opacity',ss(K(p,.244,.258)));
   /* hero */
   const P=heroPose(p,time),dt=Math.max(1,time-lastT);

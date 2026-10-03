@@ -2423,9 +2423,24 @@ function weatherUpdate(time,dt,P){
   if(WXK==='storm'&&!RM&&time>nextFlash){nextFlash=time+4000+Math.random()*7000;flash.setAttribute('opacity',.55);setTimeout(()=>flash.setAttribute('opacity',0),90);setTimeout(()=>{flash.setAttribute('opacity',.3);setTimeout(()=>flash.setAttribute('opacity',0),60);},180);}
   /* he holds up an umbrella when it rains, unless he's busy */
   const hold=rain&&!GAME&&!FIG.trick&&!FIG.act;umb.setAttribute('opacity',hold?1:0);
-  if(hold){umb.setAttribute('transform','translate('+n1(FIG.x+8)+' -196) rotate('+n1(-WIND*10+(RM?0:Math.sin(time/500)*2))+' 0 60)');}
+  if(hold&&FIG.hand){const h=FIG.hand;umb.setAttribute('transform','translate('+n1(h[0]+2)+' '+n1(h[1]-64)+') rotate('+n1(-WIND*10+(RM?0:Math.sin(time/500)*2))+' 0 64)');}
+  sunUpdate(time,dt);
   return hold;
 }
+
+/* the sun (or the moon) sits where it really is: an arc from the east at sunrise to the west at sunset.
+   It rises into place when the page opens and glides when the time of day is changed by hand. */
+let sunShown=0,sunTarget=.5;
+function sunFrac(){const now=Date.now();
+  if(SKYMODE!=='live')return SKY==='day'?.5:SKY==='dusk'?.94:.5;
+  if(!SUNT||SUNT.polar)return .5;const r=SUNT.rise.getTime(),s2=SUNT.set.getTime();
+  if(SKY!=='night')return clamp((now-r)/(s2-r),0,1);
+  const len=864e5-(s2-r),since=now>s2?now-s2:now+864e5-s2;return clamp(since/len,0,1);}
+function sunUpdate(time,dt){
+  sunTarget=sunFrac();sunShown+=(sunTarget-sunShown)*(RM?1:1-Math.exp(-dt/700));
+  const f=sunShown,zf=Math.pow(cam.z,.05),tx=W*(.12+.76*f),ty=H*(.46-.3*Math.sin(Math.PI*f));
+  const x=cam.x*.03+(tx-W/2)/zf,y=cam.y*.35+(ty-H/2)/zf,tr='translate('+n1(x+60)+' '+n1(y+470)+')';
+  sunEl.setAttribute('transform',tr);moonCut.setAttribute('transform',tr);}
 
 /* ---- the sky panel: live or by hand, and an honest status line ---- */
 (function(){

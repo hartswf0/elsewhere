@@ -383,3 +383,15 @@ The homepage film has its own Thicken button in the film bar, beside "Skip the f
 **One source for both readings:** the field notes are written once, in the film's written version, under "Read thickly: field notes on the film". Screen readers read them there, and the drawing builds its notes from that list. The glosses and webs come from the work list's own data (`data-phrase`, `data-ten`), so they stay true if the work list changes.
 
 axe-core finds 0 violations.
+
+## Revision: the television plays a film
+
+The Media Theory landmark is now a larger set, playing a 13-second multiplane loop inside its screen (clipped):
+1. A tiny Watson walks. The sky, far hills and middle trees pan at different speeds, and the sun crosses.
+2. He reaches an orange tree and picks the orange. It grows to fill the screen.
+3. It peels into eight segments, and a film strip runs through, its frames showing the same scene.
+4. A television inside the television shows the scene, and the camera zooms into it until it becomes the screen. Static, then the loop begins again (the medium is the message).
+
+A ticker along the bottom scrolls the names of the real projects on the Media Theory tree.
+
+Tapping the set changes the channel: a burst of static and a jump ahead. Under reduced motion it holds one still frame.

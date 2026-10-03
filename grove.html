@@ -1843,12 +1843,65 @@ const LANDMARK={
     E('path',SHAPE(C.white,1.8,{d:'M0 -70Q-16 -80 -32 -74L-30 -66Q-15 -72 0 -64Z'}),g);E('path',SHAPE(C.white,1.8,{d:'M0 -70Q16 -80 32 -74L30 -66Q15 -72 0 -64Z'}),g);
     const pg=E('path',SHAPE(C.white,1.4,{d:'M0 -70Q12 -80 26 -76L25 -68Q12 -73 0 -66Z',opacity:0}),g);
     return t=>{const u=frac(t/5200);pg.setAttribute('opacity',u<.18?1:0);if(u<.18)pg.setAttribute('transform','scale('+n1(Math.cos(u/.18*Math.PI)*100)/100+' 1)');};},
-  media(g,r){ /* a television on a crate; the picture flickers */
-    E('path',SHAPE('#c9a46a',2,{d:rectD(-34,-40,68,40,.8,r)}),g);
-    E('path',SHAPE(C.white,2.2,{d:rectD(-40,-100,80,60,1,r)}),g);E('path',INK(2,{d:'M-12 -100L-24 -118M12 -100L24 -118'}),g);
-    const scr=E('rect',{x:-32,y:-93,width:52,height:46,rx:5,fill:C.far,stroke:C.ink,'stroke-width':1.6},g);
-    const lines=E('path',INK(1.1,{opacity:.5}),g);E('circle',{cx:30,cy:-80,r:3,fill:C.ink},g);E('circle',{cx:30,cy:-66,r:3,fill:C.ink},g);
-    return t=>{const k=Math.floor(t/140)%4;let d='';for(let i=0;i<5;i++){const y=-88+i*9+k*2;d+='M-28 '+y+'h'+(20+((i*7+k*5)%24));}lines.setAttribute('d',d);scr.setAttribute('fill',k%2?C.far:'#d3e0d9');};},
+  media(g,r){ /* a television on a crate, playing a little multiplane film: a walk, an orange, a peel, a film strip, and a television inside the television */
+    E('path',SHAPE('#c9a46a',2,{d:rectD(-40,-38,80,38,.8,r)}),g);E('path',INK(1.1,{d:'M-36 -26h72M-36 -13h72',opacity:.45}),g);
+    E('path',INK(2,{d:'M-14 -116L-28 -138M14 -116L28 -138'}),g);E('circle',{cx:-28,cy:-139,r:2.4,fill:C.ink},g);E('circle',{cx:28,cy:-139,r:2.4,fill:C.ink},g);
+    E('path',SHAPE(C.white,2.3,{d:rectD(-52,-116,104,78,1,r)}),g);
+    const W=74,Hh=58,SX=-46,SY=-110;
+    const defs2=E('defs',{},g),cid='tvclip'+Math.floor(r()*1e6);E('rect',{x:0,y:0,width:W,height:Hh,rx:6},E('clipPath',{id:cid},defs2));
+    const scr=E('g',{transform:'translate('+SX+' '+SY+')'},g),view=E('g',{'clip-path':'url(#'+cid+')'},scr);
+    /* the scene: three planes, a walker, a tree with one orange */
+    const scape=E('g',{id:cid+'s'},defs2);
+    const sky=E('rect',{x:0,y:0,width:W,height:Hh,fill:'#d6e4ec'},scape);
+    const sun=E('circle',{r:5,fill:C.sun,stroke:C.ink,'stroke-width':.8},scape);
+    const far=E('path',{fill:'#b9cfc6',stroke:C.ink,'stroke-width':.7},scape),farD=(()=>{let d='M0 '+Hh;for(let x=0;x<=W*3;x+=6)d+='L'+x+' '+n1(30-6*Math.sin(x*.07)-3*Math.sin(x*.19));return d+'L'+(W*3)+' '+Hh+'Z';})();far.setAttribute('d',farD);
+    const mid=E('g',{},scape);for(let i=0;i<9;i++){const x=i*22+6;E('path',INK(1,{d:'M'+x+' 44V36'}),mid);E('circle',{cx:x,cy:33,r:4.5,fill:C.tree,stroke:C.ink,'stroke-width':.8},mid);}
+    E('rect',{x:0,y:43,width:W,height:Hh-43,fill:C.sand},scape);E('path',INK(.9,{d:'M0 43H'+W}),scape);
+    const tree=E('g',{},scape);E('path',INK(1.6,{d:'M0 43V30',stroke:C.bark}),tree);E('circle',{cx:0,cy:24,r:9,fill:C.leaf,stroke:C.ink,'stroke-width':.9},tree);
+    const orange=E('circle',{r:2.4,fill:C.warm,stroke:C.ink,'stroke-width':.7},scape);
+    const man=E('g',{},scape);E('rect',{x:-2.6,y:-12,width:5.2,height:4.6,rx:1,fill:C.white,stroke:C.ink,'stroke-width':.6},man);
+    E('path',INK(1.1,{d:'M0 -7.4V-2.6'}),man);const legs=E('path',INK(1,{}),man),arm=E('path',INK(.9,{}),man);E('path',{d:'M-.6 -7.4h1.4v3h-1.4z',fill:C.warm},man);
+    E('use',{href:'#'+cid+'s'},view);
+    /* the peel and the film strip */
+    const big=E('g',{},view),segs=[];for(let i=0;i<8;i++){const a0=i/8*Math.PI*2,a1=(i+1)/8*Math.PI*2;
+      segs.push(E('path',{d:'M0 0L'+n1(Math.cos(a0)*22)+' '+n1(Math.sin(a0)*22)+'A22 22 0 0 1 '+n1(Math.cos(a1)*22)+' '+n1(Math.sin(a1)*22)+'Z',fill:i%2?C.warm:'#f0a050',stroke:C.ink,'stroke-width':.8},big));}
+    const strip=E('g',{},view);E('rect',{x:-10,y:12,width:300,height:30,fill:C.ink},strip);
+    for(let i=0;i<12;i++){const x=i*24;E('rect',{x:x-6,y:14,width:4,height:3,fill:C.white},strip);E('rect',{x:x-6,y:37,width:4,height:3,fill:C.white},strip);
+      const fr=E('g',{transform:'translate('+(x-8)+' 19) scale(.24)'},strip);E('rect',{x:0,y:0,width:W,height:Hh,fill:'#d6e4ec'},fr);E('use',{href:'#'+cid+'s'},fr);}
+    /* the television inside the television */
+    const inner=E('g',{},view);E('rect',{x:-15,y:-12,width:30,height:24,rx:3,fill:C.white,stroke:C.ink,'stroke-width':1},inner);
+    const innerS=E('g',{transform:'translate(-12 -9) scale(.324)'},inner);E('use',{href:'#'+cid+'s'},innerS);
+    const noise=E('path',INK(1,{opacity:0}),view);
+    /* the ticker: the names on the Media Theory tree */
+    const T=trees.find(t=>t.id==='media'),names=T?fruits.filter(f=>f.tree===T).map(f=>f.name):[];
+    const tick=E('g',{},scr);E('rect',{x:0,y:Hh-9,width:W,height:9,fill:C.ink},tick);const tt=E('text',{y:Hh-2.3,'font-size':6,'font-family':SANS,'font-weight':700,'letter-spacing':.4,fill:'#fbfaf5'},tick);
+    tt.textContent=names.join('  ·  ')||'the medium is the message';const tclip=E('rect',{x:0,y:0,width:W,height:Hh,rx:6,fill:'none',stroke:C.ink,'stroke-width':1.8},scr);
+    tick.setAttribute('clip-path','url(#'+cid+')');
+    E('circle',{cx:40,cy:-92,r:3.2,fill:C.ink},g);E('circle',{cx:40,cy:-78,r:3.2,fill:C.ink},g);E('path',INK(1,{d:'M37 -60h6M37 -56h6M37 -52h6',opacity:.6}),g);
+    /* tap the set: change the channel */
+    const hit=E('rect',{x:-52,y:-116,width:104,height:78,fill:'rgba(0,0,0,0)','pointer-events':'all',class:'critter'},g);
+    let off=0,flick=-1e9;hit.addEventListener('click',e=>{e.preventDefault();off+=3000;flick=tNow;say('Channel change.');});
+    const LOOP=13000,set=(el,k,v)=>el.setAttribute(k,v);
+    return t=>{
+      const tm=t+off,u=frac(tm/LOOP),walk=Math.min(u/.3,1),pan=ss(walk)*W*1.4;
+      /* A: the walk; B: the orange; C: the peel and the strip; D: the television inside; then static */
+      set(sun,'cx',n1(14+u*40));set(sun,'cy',n1(12+Math.sin(u*Math.PI)*-4));
+      set(far,'transform','translate('+n1(-pan*.25)+' 0)');set(mid,'transform','translate('+n1(-pan*.55)+' 0)');
+      const treeX=W*1.4+30-pan;set(tree,'transform','translate('+n1(treeX)+' 0)');
+      const ph=tm/140,step=u<.3?Math.sin(ph):0;set(legs,'d','M0 -2.6L'+n1(-2*step)+' 1M0 -2.6L'+n1(2*step)+' 1');
+      const reach=ss(clamp((u-.3)/.06,0,1));set(arm,'d','M0 -6.6L'+n1(2+reach*3)+' '+n1(-4.8-reach*6));
+      set(man,'transform','translate(26 43)');
+      const held=u>.36,ox=held?28+reach*3:treeX+3,oy=held?32-(u>.4?0:0):22;
+      const grow=ss(clamp((u-.4)/.1,0,1));
+      set(orange,'cx',n1(lerp(ox,W/2,grow)));set(orange,'cy',n1(lerp(oy,Hh/2,grow)));set(orange,'r',n1(2.4+grow*20));set(orange,'opacity',u<.5?1:0);
+      const peel=clamp((u-.5)/.1,0,1),stripOn=u>=.5&&u<.74;set(big,'opacity',u>=.5&&u<.62?1:0);
+      segs.forEach((s,i)=>{const a=(i+.5)/8*Math.PI*2,d=ss(peel)*30;set(s,'transform','translate('+n1(W/2+Math.cos(a)*d)+' '+n1(Hh/2+Math.sin(a)*d)+') rotate('+n1(peel*90*(i%2?1:-1))+')');});
+      set(strip,'opacity',stripOn?Math.min(1,(u-.52)/.04):0);set(strip,'transform','translate('+n1(-((tm/30)%24))+' 0)');
+      const z=clamp((u-.74)/.18,0,1),sc=lerp(.6,3.6,ss(z));set(inner,'opacity',u>=.72&&u<.92?1:0);set(inner,'transform','translate('+n1(W/2)+' '+n1(Hh/2)+') scale('+n1(sc*100)/100+')');
+      const st=u>.92||tm-flick<350;let d='';if(st){for(let i=0;i<9;i++){const y=(i*7+Math.floor(tm/60)*13)%Hh;d+='M'+((i*17)%30)+' '+y+'h'+(14+(i*11+Math.floor(tm/60))%40);}}
+      set(noise,'d',d);set(noise,'opacity',st?.8:0);set(sky,'fill',st?'#c9cfcc':'#d6e4ec');
+      set(tt,'x',n1(W-((tm/40)%(tt.getComputedTextLength?tt.getComputedTextLength()+W:400))));
+    };},
   ai(g,r){ /* a robot scarecrow; it waves when he comes near */
     E('path',INK(4,{d:'M0 0L0 -62',stroke:C.bark}),g);
     E('path',SHAPE(C.white,2.1,{d:rectD(-18,-96,36,36,.8,r)}),g);E('path',SHAPE(C.white,2.1,{d:rectD(-13,-124,26,24,.7,r)}),g);

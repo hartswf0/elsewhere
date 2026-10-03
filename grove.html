@@ -84,6 +84,42 @@ button,select,input{font:inherit;color:inherit}
 #cel .fruit.match .hit{fill:rgba(251,250,245,.85);stroke:#141412;stroke-width:2.5;stroke-dasharray:4 3}
 .cue{position:absolute;left:50%;bottom:4.6rem;transform:translateX(-50%);margin:0;padding:.5rem .9rem;border-radius:999px;background:var(--ink);color:var(--paper);font:700 .64rem/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;pointer-events:none;transition:opacity .4s;white-space:nowrap}
 .cue.gone{opacity:0}
+#cel .signlink{cursor:pointer}#cel .signlink:hover path:nth-of-type(2){stroke-width:3}
+.stops .sti{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;margin-right:.35rem;border:1.2px solid var(--ink);border-radius:50%;vertical-align:-6px}
+.stops .sti svg{width:14px;height:14px;fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tsheet{--tc:#efe6d2;width:min(64rem,calc(100% - 2rem));max-height:calc(100% - 2rem);padding:0;border:1.5px solid var(--ink);border-radius:18px;background:var(--paper);color:var(--ink);box-shadow:8px 8px 0 var(--warm);display:none;flex-direction:column;overflow:hidden}
+.tsheet[open]{display:flex}
+.tsheet::backdrop{background:rgba(20,20,18,.45)}
+.td-head{display:flex;align-items:center;gap:.8rem;padding:.8rem 1rem;background:var(--tc);border-bottom:1.5px solid var(--ink)}
+.td-ic{flex:none;width:48px;height:48px;border:1.5px solid var(--ink);border-radius:50%;background:#fbfaf5;display:flex;align-items:center;justify-content:center}
+.td-ic svg{width:28px;height:28px;fill:none;stroke:var(--ink);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.td-t{flex:1;min-width:0}.td-t h2{margin:0;font-weight:400;font-size:clamp(1.3rem,3vw,1.8rem);letter-spacing:-.01em;line-height:1.1}.td-t p{margin:.2rem 0 0;font:600 .66rem/1.3 var(--sans);letter-spacing:.05em;text-transform:uppercase;color:var(--ink2)}
+.td-head .x{flex:none;width:44px;height:44px;border:1.5px solid var(--ink);border-radius:50%;background:var(--card);cursor:pointer;font-size:1.05rem}
+.td-nav{display:flex;gap:.5rem;padding:.6rem 1rem;border-bottom:1px solid var(--rule);background:var(--card)}
+.td-tree{flex:1 1 0;min-width:0;display:flex;align-items:center;gap:.4rem;min-height:46px;padding:.3rem .7rem;border:1.5px solid var(--ink);border-radius:12px;background:var(--tc);cursor:pointer;font:600 .74rem/1.15 var(--sans);text-align:left}
+#tdNext{justify-content:flex-end;text-align:right}
+.td-tree svg{flex:none;width:18px;height:18px;fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.td-tree .tdn{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.td-walk{flex:none;min-height:46px;padding:.3rem .9rem;border:1.5px solid var(--ink);border-radius:12px;background:var(--ink);color:var(--paper);cursor:pointer;font:600 .72rem/1 var(--sans)}
+.td-body{overflow:auto;padding:.8rem 1rem 1.2rem}
+.td-tools{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin-bottom:.7rem}
+.td-chips{display:flex;flex-wrap:wrap;gap:.35rem;flex:1}
+.td-chips button,.td-rrow button{display:inline-flex;align-items:center;gap:.35rem;min-height:40px;padding:.3rem .75rem;border:1.5px solid var(--rule);border-radius:999px;background:var(--card);cursor:pointer;font:600 .7rem/1 var(--sans)}
+.td-chips button small{font-weight:500;color:var(--muted)}
+.td-chips button[aria-pressed="true"]{border-color:var(--ink);background:var(--ink);color:var(--paper)}.td-chips button[aria-pressed="true"] small{color:var(--rule)}
+.td-sl select{min-height:40px;padding:.3rem .6rem;border:1.5px solid var(--ink);border-radius:10px;background:var(--card);font:600 .72rem/1 var(--sans)}
+.td-recent{margin-bottom:.8rem}.td-k{margin:0 0 .3rem;font:700 .58rem/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.td-rrow{display:flex;gap:.35rem;overflow-x:auto;padding-bottom:.2rem}.td-rrow button{flex:none;font-family:var(--serif);font-weight:400;font-size:.92rem}
+.td-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(13rem,1fr));gap:.6rem}
+.td-grid button{width:100%;height:100%;display:grid;grid-template-columns:44px 1fr;grid-template-rows:auto 1fr auto;column-gap:.7rem;row-gap:.15rem;padding:.8rem;border:1.5px solid var(--rule);border-radius:14px;background:var(--card);cursor:pointer;text-align:left;font-family:var(--serif);color:var(--ink)}
+.td-grid button:hover,.td-grid button:focus-visible{border-color:var(--ink);box-shadow:4px 4px 0 var(--warm)}
+.td-grid .o{grid-row:1 / span 3;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--ink)}
+.td-grid .o.s3{background:#e7833b}.td-grid .o.s2{background:#f0b047}.td-grid .o.s1{background:#9dbb55}.td-grid .o.s0{background:radial-gradient(circle,#f1c84f 0 22%,#fbfaf5 23%)}.td-grid .o.s4{background:#7a5a34;border-radius:50% 50% 45% 45%/60% 60% 40% 40%}
+.td-grid b{font-weight:400;font-size:1.05rem;line-height:1.2;overflow-wrap:anywhere}.td-grid .hp{font-size:.8rem}
+.td-grid .d{font-size:.84rem;line-height:1.35;color:var(--ink2);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.td-grid small{font:600 .58rem/1.3 var(--sans);letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.td-none{color:var(--muted)}
+@media(max-width:640px){.tsheet{width:100%;max-width:100%;height:100%;max-height:100%;border-radius:0;border:0;box-shadow:none}.td-nav{flex-wrap:wrap}.td-walk{order:3;flex:1 1 100%}.td-grid{grid-template-columns:1fr}}
 .skyp{position:absolute;left:.7rem;top:3.7rem;z-index:9;width:min(21rem,calc(100% - 1.4rem));padding:.8rem .9rem .9rem;background:var(--card);border:1.5px solid var(--ink);border-radius:14px;box-shadow:4px 4px 0 var(--warm);user-select:text;-webkit-user-select:text;touch-action:auto}
 .skyp[hidden]{display:none}
 .skyp h2{margin:0 0 .3rem;font-weight:400;font-size:1.05rem}
@@ -298,7 +334,7 @@ footer{padding:2rem 0;border-top:1px solid var(--rule);font:500 .72rem/1.7 var(-
 
 <section class="walk on" id="walk" data-view="walk" aria-label="Walk">
   <div class="stage" id="stage" tabindex="0" role="region" aria-roledescription="grove" aria-label="The grove, a walk past every tree" aria-describedby="how">
-    <p class="vh" id="how">Scroll down, swipe sideways, or use the left and right arrow keys to walk from tree to tree. Tab moves between the oranges on the tree in front of you; Enter opens one. Watson is a button too: press him for a trick. The round button at the top left changes the time of day, and the one beside it thickens the description: names, then webs of related projects, then field notes; at night there are fireflies, lanterns and an owl. The Play button opens six games, and Watson plays against you; Catch is played under the tree in front of you. The Crate and List views show every project as larger targets.</p>
+    <p class="vh" id="how">Scroll down, swipe sideways, or use the left and right arrow keys to walk from tree to tree. Tab moves between the oranges on the tree in front of you; Enter opens one. Each tree’s sign is a button: it opens a sheet with every project on that tree as a large tile, with filters, sorting, and buttons to the previous and next trees. Tapping the stop you’re already at opens it too. Watson is a button too: press him for a trick. The round button at the top left changes the time of day, and the one beside it thickens the description: names, then webs of related projects, then field notes; at night there are fireflies, lanterns and an owl. The Play button opens six games, and Watson plays against you; Catch is played under the tree in front of you. The Crate and List views show every project as larger targets.</p>
     <svg id="cel"></svg>
     <p class="vh">At the end of the walk stands the house that language built. It assembles as you walk toward it, with a rhyme beside it: This is the house that language built. This is the noun that laid the floor, on which the verbs raised the walls, that hold the sentence up for a roof, where a prompt hangs as the door, and a metaphor lets in the light, while a story rises from the chimney, and the reader walks in.</p>
     <p class="cue" id="cue" aria-hidden="true">Scroll or swipe · tap any orange · tap him for a trick</p>
@@ -1116,6 +1152,16 @@ footer{padding:2rem 0;border-top:1px solid var(--rule);font:500 .72rem/1.7 var(-
   </footer>
 </main>
 
+<dialog class="tsheet" id="treeD" aria-labelledby="tdN">
+  <div class="td-head"><span class="td-ic" id="tdIc" aria-hidden="true"></span><div class="td-t"><h2 id="tdN"></h2><p id="tdM"></p></div><button class="x" id="tdX" type="button" aria-label="Close">✕</button></div>
+  <div class="td-nav"><button class="td-tree" id="tdPrev" type="button"></button><button class="td-walk" id="tdWalk" type="button">Walk to this tree</button><button class="td-tree" id="tdNext" type="button"></button></div>
+  <div class="td-body">
+    <div class="td-tools"><div class="td-chips" id="tdChips" role="group" aria-label="Show"></div>
+      <label class="td-sl"><span class="vh">Sort by</span><select id="tdSort"><option value="rank">Most used</option><option value="new">Newest planted</option><option value="tended">Recently tended</option><option value="az">A to Z</option></select></label></div>
+    <div class="td-recent" id="tdRecent" hidden></div>
+    <ul class="td-grid" id="tdGrid" aria-label="Projects on this tree"></ul>
+  </div>
+</dialog>
 <dialog class="peel" id="peel" aria-labelledby="pN">
   <div class="pl">
     <div class="ph"><span class="k" id="pK"></span><h2 id="pN" tabindex="-1"></h2><button class="x" id="pX" type="button" aria-label="Close">✕</button></div>
@@ -1348,6 +1394,12 @@ const standFruit=[];
   top.forEach((rp,i)=>{const row=i<6?0:1,col=i%6,x=x0+44+col*(w-88)/5,y=row?-62:-168;standFruit.push({name:rp[0],x:x,y:y,label:E('text',{x:x,y:y+(col%2?44:30),'font-size':10.5,'text-anchor':'middle','font-family':SERIF,fill:C.ink,'aria-hidden':'true'},g)});standFruit[i].label.textContent=rp[0].length>14?rp[0].slice(0,12)+'…':rp[0];});
 })();
 const TREE_START=trees.length?trees[0].x-trees[0].rx:STAND.x1;
+/* each tree's own colour and emblem: on its sign, in the stops bar, and in its sheet */
+const TSTYLE={other:{col:'#efe6d2'},narrative:{col:'#f6d3b4'},media:{col:'#cfe0e6'},ai:{col:'#dcd3ec'},interactive:{col:'#f8e3a0'},time:{col:'#e6dccb'},sound:{col:'#f4c9c3'},archives:{col:'#dcc8a0'},'3d':{col:'#cde6d5'},cave:{col:'#d9cdb9'},teaching:{col:'#c9dbbf'}};
+const TICON={other:'M12 8a6 6 0 1 1 0 12a6 6 0 0 1 0-12zM12 8c1-3 4-4 6-3c-1 3-4 4-6 3',narrative:'M3 6c3-1.5 6-1.5 9 0v13c-3-1.5-6-1.5-9 0zM21 6c-3-1.5-6-1.5-9 0v13c3-1.5 6-1.5 9 0z',media:'M3 8h18v12H3zM8 3l4 5l4-5',
+  ai:'M6 8h12v11H6zM12 4v4M9.5 12.5v1M14.5 12.5v1M9 16.5h6',interactive:'M6 3l13 7l-6 2l-3 7z',time:'M7 3h10M7 21h10M8 3c0 5 8 5 8 9s-8 4-8 9M16 3c0 5-8 5-8 9s8 4 8 9',
+  sound:'M9 18V5l10-2v13M9 18a2.5 2.5 0 1 1-5 0a2.5 2.5 0 0 1 5 0zM19 16a2.5 2.5 0 1 1-5 0a2.5 2.5 0 0 1 5 0z',archives:'M3 8h18v12H3zM2 4h20v4H2zM10 12h4',
+  '3d':'M12 2l9 5v10l-9 5l-9-5V7zM12 12l9-5M12 12v10M12 12L3 7',cave:'M12 21c-4 0-6-3-6-6c0-4 4-6 4-10c3 2 4 5 4 7c1-1 2-2 2-4c2 2 2 5 2 7c0 3-2 6-6 6z',teaching:'M3 4h18v12H3zM8 20l4-4l4 4M7 9h6M7 12h4'};
 /* the trees: a trunk that forks into limbs, a shaded back canopy, lit front clumps, the fruit on top.
    Each crown sways on its own, and flexes when he walks under it. The best fruit hangs lowest and largest. */
 const crownLeaves=[];
@@ -1425,14 +1477,24 @@ trees.forEach(T=>{
     for(let k=0;k<300;k++){x=(r()-.5)*cr.rx*1.8;y=10+r()*18;if(Math.abs(x)<44||ground.some(q=>Math.hypot(q[0]-cr.x-x,q[1]-y)<26))continue;break;}
     ground.push([cr.x+x,y]);placeFruit(j,T,cr,x,y,cr.g);});
   T.order.sort((a,b)=>b.rp[9]-a.rp[9]);
-  /* the sign stands in front of the first tree, below the fruit */
-  const sg=E('g',{'aria-hidden':'true','pointer-events':'none'},pMain),bx=c0.x+Math.min(c0.rx*.5,100),words=T.name.split(' '),l1=[],l2=[];
-  words.forEach(w=>{(l1.join(' ').length+w.length<20&&!l2.length?l1:l2).push(w);});
-  E('path',INK(4,{d:lineD(bx-50,0,bx-50,-30,.5,r,12)+lineD(bx+50,0,bx+50,-30,.5,r,12)}),sg);
-  E('path',SHAPE(C.white,2,{d:rectD(bx-88,-78,176,58,.9,r)}),sg);
-  E('text',{x:bx,y:l2.length?-58:-52,'font-size':14,'text-anchor':'middle','font-family':SERIF,fill:C.ink},sg).textContent=l1.join(' ');
-  if(l2.length)E('text',{x:bx,y:-42,'font-size':14,'text-anchor':'middle','font-family':SERIF,fill:C.ink},sg).textContent=l2.join(' ');
-  E('text',{x:bx,y:-28,'font-size':9,'text-anchor':'middle','font-family':SANS,'font-weight':700,'letter-spacing':1.3,fill:C.ink,opacity:.6},sg).textContent=T.n+(T.n===1?' ORANGE':' ORANGES');
+  /* the sign: each tree's own colour, emblem and board shape, so it's remembered; it opens the tree */
+  const st=TSTYLE[T.id]||TSTYLE.other,bx=c0.x+Math.min(c0.rx*.5,100),words=T.name.split(' '),l1=[],l2=[];
+  words.forEach(w=>{(l1.join(' ').length+w.length<18&&!l2.length?l1:l2).push(w);});
+  const sg=E('a',{href:'#open='+T.id,'class':'signlink',tabindex:-1,role:'button','aria-label':'Open '+T.name+', '+T.n+' oranges'},pMain);
+  E('path',INK(4,{d:lineD(bx-50,0,bx-50,-30,.5,r,12)+lineD(bx+50,0,bx+50,-30,.5,r,12),stroke:C.bark}),sg);
+  const x0=bx-96,x1=bx+96,y0=-82,y1=-20,shape=T.i%4;
+  const board=shape===1?'M'+(x0+22)+' '+y0+'H'+(x1-22)+'A31 31 0 0 1 '+(x1-22)+' '+y1+'H'+(x0+22)+'A31 31 0 0 1 '+(x0+22)+' '+y0+'Z':
+    shape===2?polyD([[x0,y0],[x1-18,y0],[x1+6,(y0+y1)/2],[x1-18,y1],[x0,y1]],.8,r):
+    shape===3?polyD([[x0,y0],[x1,y0],[x1,y1],[bx+12,y1],[bx,y1+8],[bx-12,y1],[x0,y1]],.8,r):rectD(x0,y0,192,62,.9,r);
+  E('path',SHAPE(st.col,2.2,{d:board}),sg);
+  E('path',{d:board,fill:'none',stroke:C.ink,'stroke-width':1,opacity:.25,transform:'translate(3 3)'},sg);
+  E('circle',{cx:x0+28,cy:(y0+y1)/2,r:17,fill:'#fbfaf5',stroke:C.ink,'stroke-width':1.6},sg);
+  E('path',{d:TICON[T.id]||TICON.other,transform:'translate('+(x0+16)+' '+((y0+y1)/2-12)+')',fill:'none',stroke:C.ink,'stroke-width':1.8,'stroke-linecap':'round','stroke-linejoin':'round'},sg);
+  const tx=x0+54;
+  E('text',{x:tx,y:l2.length?y0+24:y0+30,'font-size':14,'font-family':SERIF,fill:C.ink},sg).textContent=l1.join(' ');
+  if(l2.length)E('text',{x:tx,y:y0+40,'font-size':14,'font-family':SERIF,fill:C.ink},sg).textContent=l2.join(' ');
+  E('text',{x:tx,y:y1-8,'font-size':8.5,'font-family':SANS,'font-weight':700,'letter-spacing':1.1,fill:C.ink,opacity:.7},sg).textContent=T.n+(T.n===1?' ORANGE':' ORANGES')+' · OPEN';
+  sg.addEventListener('click',e=>{e.preventDefault();openTree(T,sg);});
 });
 
 /* stall fruit: the same oranges, also hung here so the best are one click from the gate */
@@ -1589,11 +1651,11 @@ function fillPeel(f){
 }
 function openPeel(f){
   if(!dlg.open){opener=document.activeElement;dlg.showModal();document.documentElement.style.overflow='hidden';}
-  fillPeel(f);skin();pN.focus({preventScroll:true});
+  fillPeel(f);skin();pN.focus({preventScroll:true});noteRecent(f);
   say('Opened '+f.name+'. '+RIPE[f.s]+', '+f.tree.name+'. '+(f.rp[2]||''));
 }
 function closePeel(){if(!dlg.open)return;dlg.close();}
-dlg.addEventListener('close',()=>{document.documentElement.style.overflow='';pF.removeAttribute('src');readmeReq++;
+dlg.addEventListener('close',()=>{document.documentElement.style.overflow=treeD.open?'hidden':'';pF.removeAttribute('src');readmeReq++;
   if(ST.tape){endTape(false);}
   const was=cur;cur=null;if(ST.pick)putBack(false);
   if(/^#pick=/.test(location.hash))history.replaceState(null,'','#');
@@ -1601,7 +1663,7 @@ dlg.addEventListener('close',()=>{document.documentElement.style.overflow='';pF.
   if(back&&back.isConnected&&back.focus)setTimeout(()=>back.focus({preventScroll:true}),0);});
 dlg.addEventListener('click',e=>{if(e.target===dlg)closePeel();});
 document.getElementById('pX').addEventListener('click',closePeel);
-function stepPeel(d){if(!cur)return;const order=fruits.filter(f=>f.match!==false).sort((a,b)=>a.rp[10]-b.rp[10]);const i=order.indexOf(cur);const f=order[(i+d+order.length)%order.length];if(f)go('#pick='+encodeURIComponent(f.name));}
+function stepPeel(d){if(!cur)return;if(PEELCTX&&PEELCTX.includes(cur)){const i=PEELCTX.indexOf(cur);openPeel(PEELCTX[(i+d+PEELCTX.length)%PEELCTX.length]);return;}const order=fruits.filter(f=>f.match!==false).sort((a,b)=>a.rp[10]-b.rp[10]);const i=order.indexOf(cur);const f=order[(i+d+order.length)%order.length];if(f)go('#pick='+encodeURIComponent(f.name));}
 document.getElementById('pPrev').addEventListener('click',()=>stepPeel(-1));
 document.getElementById('pNext').addEventListener('click',()=>stepPeel(1));
 dlg.addEventListener('keydown',e=>{if(e.target.tagName==='IFRAME')return;if(e.key==='ArrowRight'&&!e.altKey&&cur){stepPeel(1);}else if(e.key==='ArrowLeft'&&!e.altKey&&cur){stepPeel(-1);}});
@@ -1640,6 +1702,7 @@ function route(instant){
   const h=decodeURIComponent(location.hash.slice(1));let m;
   if(FIG.trick)endTrick(true);
   if((m=/^pick=(.+)$/.exec(h))){const f=byName[m[1].toLowerCase()];if(f)pick(f,instant);}
+  else if((m=/^open=(.+)$/.exec(h))){const t=trees.find(x=>x.id===m[1]);if(t){if(VIEW!=='walk')setView('walk',true);openTree(t);}}
   else if((m=/^tree=(.+)$/.exec(h))){const t=trees.find(x=>x.id===m[1]);closePeel();if(t){if(VIEW!=='walk')setView('walk',true);scrollToX(t.x,!instant);}}
   else if((m=/^play=(catch|toss|older|which|more|pairs|watson)$/.exec(h))){history.replaceState(null,'','#');setTimeout(()=>openGames(m[1]==='watson'?'catch':m[1]),instant?500:60);if(m[1]==='watson')setTimeout(()=>startGame('catch',{auto:true}),instant?560:120);}
   else if((m=/^trick=(juggle|break|tape)$/.exec(h))){history.replaceState(null,'','#');if(VIEW!=='walk')setView('walk',true);setTimeout(()=>startTrick(m[1]),instant?600:120);}
@@ -2866,6 +2929,63 @@ function tossHere(){
   return{camX:camX,update:update,pose:pose,stop:()=>{if(st.running)cleanup();}};
 }
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+/* ---- the tree sheet: tap a tree's sign (or its stop twice) for an easy view of everything on it.
+   Big tiles, filters, sorting, swipe or arrows to the next tree, recently opened projects one tap away. ---- */
+const treeD=document.getElementById('treeD'),tdGrid=document.getElementById('tdGrid'),tdChips=document.getElementById('tdChips'),tdSort=document.getElementById('tdSort');
+let curTree=null,tdFilter='all',PEELCTX=null,tdOpener=null;
+let RECENT=[];try{RECENT=JSON.parse(localStorage.getItem('grove-recent')||'[]').filter(n=>byName[n.toLowerCase()]);}catch(e){}
+function noteRecent(f){RECENT=[f.name].concat(RECENT.filter(n=>n!==f.name)).slice(0,10);try{localStorage.setItem('grove-recent',JSON.stringify(RECENT));}catch(e){}}
+const icoSVG=id=>'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="'+(TICON[id]||TICON.other)+'"/></svg>';
+const ymS=d=>{if(!d)return'';const m=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];return m[+d.slice(5,7)-1]+' '+d.slice(0,4);};
+function openTree(T,from){
+  if(dlg.open)closePeel();curTree=T;tdFilter='all';
+  if(!treeD.open){tdOpener=from&&from.focus?from:document.activeElement;treeD.showModal();document.documentElement.style.overflow='hidden';}
+  try{history.replaceState(null,'','#open='+T.id);}catch(e){}
+  renderTree(true);say(T.name+': '+T.n+' oranges. Previous and next trees are at the top; swipe or use the arrow keys.');
+}
+function closeTree(){if(treeD.open)treeD.close();}
+treeD.addEventListener('close',()=>{PEELCTX=null;document.documentElement.style.overflow='';if(/^#open=/.test(location.hash))try{history.replaceState(null,'','#');}catch(e){}
+  if(tdOpener&&document.contains(tdOpener))try{tdOpener.focus({preventScroll:true});}catch(e){}});
+treeD.addEventListener('click',e=>{if(e.target===treeD)closeTree();});
+document.getElementById('tdX').addEventListener('click',closeTree);
+function tdList(){const T=curTree,sort=tdSort.value;let L=fruits.filter(f=>f.tree===T);
+  if(tdFilter==='hp')L=L.filter(f=>f.rp[7]);else if(tdFilter!=='all')L=L.filter(f=>f.s===+tdFilter);
+  const cmp={rank:(a,b)=>a.rp[10]-b.rp[10],new:(a,b)=>(b.rp[5]||'').localeCompare(a.rp[5]||''),tended:(a,b)=>(b.rp[6]||'').localeCompare(a.rp[6]||''),az:(a,b)=>a.name.localeCompare(b.name)}[sort];
+  return L.sort(cmp);}
+function renderTree(focusFirst){
+  const T=curTree,i=trees.indexOf(T),prev=trees[(i-1+trees.length)%trees.length],next=trees[(i+1)%trees.length],st=TSTYLE[T.id]||TSTYLE.other;
+  treeD.style.setProperty('--tc',st.col);
+  document.getElementById('tdIc').innerHTML=icoSVG(T.id);document.getElementById('tdN').textContent=T.name;
+  const all=fruits.filter(f=>f.tree===T),cnt=s=>all.filter(f=>f.s===s).length,years=all.map(f=>(f.rp[5]||'').slice(0,4)).filter(Boolean).sort();
+  document.getElementById('tdM').textContent=T.n+' oranges · '+cnt(3)+' ripe'+(years.length?' · planted '+years[0]+(years[0]!==years[years.length-1]?'–'+years[years.length-1]:''):'');
+  const pb=document.getElementById('tdPrev'),nb=document.getElementById('tdNext');
+  pb.innerHTML='<span aria-hidden="true">‹</span> '+icoSVG(prev.id)+'<span class="tdn"></span>';pb.querySelector('.tdn').textContent=prev.name;pb.setAttribute('aria-label','Previous tree: '+prev.name);pb.style.setProperty('--tc',(TSTYLE[prev.id]||st).col);
+  nb.innerHTML=icoSVG(next.id)+'<span class="tdn"></span> <span aria-hidden="true">›</span>';nb.querySelector('.tdn').textContent=next.name;nb.setAttribute('aria-label','Next tree: '+next.name);nb.style.setProperty('--tc',(TSTYLE[next.id]||st).col);
+  const chips=[['all','All',all.length],['hp','✦ Hand-picked',all.filter(f=>f.rp[7]).length],['3','Ripe',cnt(3)],['2','Ripening',cnt(2)],['1','Green',cnt(1)],['0','Blossom',cnt(0)],['4','Fallen',cnt(4)]].filter(c=>c[0]==='all'||c[2]>0);
+  tdChips.innerHTML=chips.map(c=>'<button type="button" data-f="'+c[0]+'" aria-pressed="'+(tdFilter===c[0])+'">'+(/^[0-4]$/.test(c[0])?'<i class="fr s'+c[0]+'"></i>':'')+c[1]+' <small>'+c[2]+'</small></button>').join('');
+  tdChips.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{tdFilter=b.dataset.f;renderTree();const nb2=tdChips.querySelector('[data-f="'+tdFilter+'"]');nb2&&nb2.focus();}));
+  const rec=RECENT.map(n=>byName[n.toLowerCase()]).filter(Boolean),rb=document.getElementById('tdRecent');
+  rb.hidden=!rec.length;rb.innerHTML=rec.length?'<p class="td-k">Recently opened</p><div class="td-rrow">'+rec.map(f=>'<button type="button" data-n="'+esc(f.name)+'"><i class="fr s'+f.s+'"></i>'+esc(f.name)+'</button>').join('')+'</div>':'';
+  rb.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{PEELCTX=rec;openPeel(byName[b.dataset.n.toLowerCase()]);}));
+  const L=tdList();
+  tdGrid.innerHTML=L.map(f=>'<li><button type="button" data-n="'+esc(f.name)+'"><span class="o s'+f.s+'" aria-hidden="true"></span><b>'+esc(f.name)+(f.rp[7]?' <span class="hp" title="Hand-picked">✦</span>':'')+'</b><span class="d">'+esc(f.rp[2]||'')+'</span><small>'+RIPE[f.s]+' · '+ymS(f.rp[5])+'</small></button></li>').join('')||'<li class="td-none">Nothing here with that filter.</li>';
+  tdGrid.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{PEELCTX=tdList();openPeel(byName[b.dataset.n.toLowerCase()]);}));
+  if(focusFirst){const f=tdGrid.querySelector('button');(f||document.getElementById('tdX')).focus({preventScroll:true});tdGrid.scrollTop=0;treeD.querySelector('.td-body').scrollTop=0;}
+}
+function stepTree(d){const i=trees.indexOf(curTree);openTree(trees[(i+d+trees.length)%trees.length]);}
+document.getElementById('tdPrev').addEventListener('click',()=>stepTree(-1));
+document.getElementById('tdNext').addEventListener('click',()=>stepTree(1));
+document.getElementById('tdWalk').addEventListener('click',()=>{const T=curTree;closeTree();if(VIEW!=='walk')setView('walk',true);scrollToX(T.x,true);say('Walking to '+T.name+'.');});
+tdSort.addEventListener('change',()=>renderTree());
+treeD.addEventListener('keydown',e=>{if(dlg.open||e.target.closest('select,input'))return;if(e.key==='ArrowRight'){e.preventDefault();stepTree(1);}else if(e.key==='ArrowLeft'){e.preventDefault();stepTree(-1);}});
+(function(){let sx=null,sy=0;treeD.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse'||e.target.closest('.td-chips,.td-rrow'))return;sx=e.clientX;sy=e.clientY;});
+  treeD.addEventListener('pointerup',e=>{if(sx==null)return;const dx=e.clientX-sx,dy=e.clientY-sy;sx=null;if(Math.abs(dx)>80&&Math.abs(dx)>Math.abs(dy)*1.5)stepTree(dx<0?1:-1);});})();
+/* the stops bar wears each tree's emblem; tapping the stop you're already at opens its sheet */
+stopBtns.forEach((b,i)=>{const s=stops[i];if(!s.tree)return;const st=TSTYLE[s.tree.id]||TSTYLE.other;
+  const ic=document.createElement('span');ic.className='sti';ic.style.background=st.col;ic.innerHTML=icoSVG(s.tree.id);b.insertBefore(ic,b.firstChild);
+  b.addEventListener('click',()=>{if(currentStop()===i&&Math.abs(cam.x-s.x)<W*.3/cam.z)openTree(s.tree,b);});
+  b.setAttribute('title','Walk to '+s.tree.name+' (tap again to open it)');});
 
 /* ---- the frame ---- */
 const cue=document.getElementById('cue');let last=0,startX=null;

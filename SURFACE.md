@@ -395,3 +395,41 @@ The Media Theory landmark is now a larger set, playing a 13-second multiplane lo
 A ticker along the bottom scrolls the names of the real projects on the Media Theory tree.
 
 Tapping the set changes the channel: a burst of static and a jump ahead. Under reduced motion it holds one still frame.
+
+## Revision: every landmark tells a story; the house that language built; the live sky
+
+**Landmark stories** (loops of 11–14 seconds; still under reduced motion):
+- **Lectern:** a page turns; "once", "upon" and "a time" rise out of the book, fold into paper birds, and fly off.
+- **Robot scarecrow:** a crow lands on its arm instead of fleeing. Its light turns into a heart, its head tilts, and the crow leaves. It still waves at Watson.
+- **Swing:** an orange swings higher and higher, lets go, and arcs into a basket that fills up. Another drops onto the seat.
+- **Sundial:** keeps the real hour. Beside it a seed grows into a tree, flowers, fruits, drops its orange, and starts again.
+- **Gramophone:** the record spins, a bird keeps time on the horn, and the notes curl into a spiral.
+- **Archive:** the lid opens and the papers (named after that tree's projects) fly out, lay themselves in a row, and file back in.
+- **Wireframe:** the cube rounds itself into a sphere, becomes an orange that bounces, and squares up again.
+- **Plato's cave:** the fire throws shadow puppets across the wall: a bird, an orange, a figure in glasses.
+- **Chalkboard:** chalk writes "thin → thick", "say · see · do" and "describe ≠ depict"; then the eraser sweeps.
+- **Wheelbarrow:** one orange hops out, rolls off to look for its tree, looks around, and comes back.
+- **Television:** the multiplane film, as before.
+
+**The house that language built:** a new place at the end of the walk, and the last stop in the stops bar.
+- As he walks toward it, it assembles from words: nouns lay the floor, verbs are the bricks, the roof is the sentence "interfaces for worlds that don't exist yet", the door is "prompt", the two windows read "meta" and "phor", and "story" rises letter by letter from the chimney.
+- A cumulative rhyme grows on a sign beside it, ending "and the reader walks in."
+- The rhyme is also in the page for screen readers.
+
+**The live sky:**
+- **Location:** a city guessed from the browser's time zone (no prompt, about 75 zones; otherwise a longitude from the UTC offset). "Use my location" asks the browser; the result is rounded to two decimals and kept only for the visit.
+- **Sunrise and sunset** are computed locally (SunCalc/NOAA formulas). Day, dusk and night follow them, including polar day and night.
+- **Weather** comes from Open-Meteo:
+  - cloud cover greys the day sky and brings more clouds;
+  - wind strengthens the trees' sway;
+  - rain or drizzle falls in slanted streaks, and Watson holds an umbrella;
+  - snow drifts;
+  - fog lies in bands over the far rows;
+  - storms add lightning flashes;
+  - fireflies and pollen stay in when it's wet.
+
+  Results are cached for 30 minutes in the session.
+- **The sun button** opens a small panel: an honest status line (where, how the place was found, sunrise, sunset, temperature in °F or °C by locale, conditions), Live/Day/Dusk/Night, Live/Clear/Rain/Snow/Fog/Storm, "Use my location", and a note on what is shared. `?sky=` and `?wx=` set it from the URL.
+- **Graceful failure:** if the request fails, is blocked, or takes over 6 seconds, the status says so plainly. The weather stays fair, and the time of day still follows the visitor's clock. If geolocation is refused or unavailable, the time zone guess stays. Nothing breaks.
+
+Verified: the failure path (request blocked) and the success path (a mocked rain response), at desktop and mobile widths and under reduced motion. axe-core finds 0 violations.

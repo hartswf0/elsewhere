@@ -501,3 +501,45 @@ axe-core finds 0 violations.
 - **Search** reaches inside: under the projects it lists "Inside the projects" matches by page title, file name, description or kind. "futbol" finds the Fútbolmas games; "game" finds games.
 - **The tree sheet** has a Projects / Inside switch. Inside lists the pages of this tree, or of the whole grove (identical copies across repositories shown once), filtered by kind.
 - **llms.txt** lists the four best pages of every repository with four or more pages, for crawlers.
+
+## Round 24: where the juice is (quality, read from evidence)
+
+The question: inside each repository, what is actually *good*?
+
+**How pages are read.** `tools/assess-pages.py` opens the best page of every family (4,297 pages in 286 repositories), plus the local scripts it loads, and records evidence:
+- what you can do in it: canvas, game loop, 3D, shaders, keys, touch, gamepad, score and physics, sound, camera, voice, model calls, networking, saving, export and import, the number of controls;
+- how big it is: lines of code;
+- whether it is ready for a stranger: a real title, phone layout, instructions, labels, a favicon, placeholder text;
+- whether it works on its own: missing local files;
+- the words a visitor meets first: headings and buttons.
+
+`tools/juice.py` turns that evidence into a reading:
+- **Five marks out of three:** Play, Craft (versions and code, by corpus quantile), Polish, Reach, Distinct (rare words across the grove).
+- **A verdict** naming the strongest pattern. Counts are for the current crawl:
+
+  | Verdict | Pages | What it means |
+  |---|---|---|
+  | Gem | 272 | Play 3, polished, reaches phones, real craft, top 7% |
+  | Long work | 203 | |
+  | Instrument | 622 | |
+  | Toy | 806 | |
+  | Reading | 374 | |
+  | Sketch | 743 | |
+  | Solid | 1,011 | |
+  | Rough | 266 | Missing files or unfinished |
+
+- **"Good:"** phrases such as "15 versions · game loop · 3D · keys + touch · sound".
+- **"Needs:"** phrases such as "no instructions", "no phone layout", "3 missing files", "unlabelled controls".
+- **Juice**, a weighted sum used for ranking: play counts most, then craft, polish, reach and distinctiveness.
+
+This is evidence, not taste. The text says so: "It tells you where to look first; only opening the page tells you if it is good."
+
+**Where it shows:**
+- **Grove card, Inside:** pages ranked by juice. Each row has a five-bar mark and "Verdict · good things". The open page gets a full reading (bars, Good, Needs). "Ranked by juice: how pages are read" explains the rubric.
+- **Tree sheet, Inside:** rows carry the mark and the reading, and the whole-grove list is ranked by juice.
+- **Search:** "gem", "toys" and so on find pages by verdict.
+- **The Shed has a new view, Juice ("Where the juice is"):** every page across the grove, with filters by verdict, search, sort by any mark (or versions, or most needs), copies folded, and "☆ Feature" to feature the page's repository (published like any curation). A side list gives the juiciest repositories.
+- **Shed pruning:** each card shows what is inside the repository (counts of gems, long works and instruments, and its juiciest page). There are new "Most juice inside" and "Least juice inside" piles.
+- **llms.txt:** the 30 juiciest pages across the grove, with verdicts and reasons; each repository's top pages carry their reasons.
+
+**Refresh:** run `python3 tools/crawl-inside.py`, then `python3 tools/assess-pages.py`, then the build.

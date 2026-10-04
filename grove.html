@@ -103,6 +103,16 @@ button,select,input{font:inherit;color:inherit}
 .in-vl{flex:1 1 100%;list-style:none;margin:0 0 .4rem 1.2rem;padding:0}.in-vl[hidden]{display:none}
 .in-p2{min-height:30px;border:0;background:transparent;cursor:pointer;font:500 .66rem/1.2 var(--mono);color:var(--ink2);text-align:left;overflow-wrap:anywhere}
 .in-p2:hover{text-decoration:underline}
+.jm{display:inline-block;vertical-align:-1px}
+.in-p em.gem{color:var(--ink2)}
+.in-now{margin:.1rem 0 .5rem;padding:.45rem .55rem;border-left:3px solid var(--warm);background:rgba(231,131,59,.07);font-size:.82rem;line-height:1.35}
+.in-now p{margin:.1rem 0}.in-now p b{font:700 .62rem/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;margin-right:.35rem}
+.jd{list-style:none;margin:.3rem 0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:.35rem}
+.jd li{display:flex;flex-direction:column;gap:.15rem;font:500 .58rem/1 var(--mono);color:var(--muted)}
+.jd i{display:block;height:5px;background:linear-gradient(90deg,var(--ink) calc(var(--v)*33.34%),var(--rule) 0)}.jd li:first-child i{background:linear-gradient(90deg,var(--warm) calc(var(--v)*33.34%),var(--rule) 0)}
+.jw{color:var(--ink2)}.jn{color:var(--muted)}
+.in-how{margin:0 0 .3rem;font-size:.78rem;color:var(--ink2)}.in-how summary{cursor:pointer;min-height:32px;display:flex;align-items:center;font:600 .66rem/1 var(--sans);color:var(--muted);text-decoration:underline dotted}
+.in-how dl{display:grid;grid-template-columns:auto 1fr;gap:.1rem .6rem;margin:.3rem 0}.in-how dt{font-weight:700}.in-how dd{margin:0}.in-how p{margin:.3rem 0}
 .in-more{margin-top:.4rem;min-height:36px;border:0;background:transparent;cursor:pointer;font:600 .7rem/1 var(--sans);text-decoration:underline}
 .res .pgh{padding:.5rem .6rem .2rem;font:700 .56rem/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .res .pg{grid-template-columns:1rem 1fr}.res .pg small{grid-column:2;text-align:left}
@@ -3041,7 +3051,7 @@ function renderPagesMode(focusFirst){
   tdChips.querySelectorAll('[data-k]').forEach(b=>b.addEventListener('click',()=>{inKind=b.dataset.k;tdMore=false;renderTree();const n=tdChips.querySelector('[data-k="'+inKind+'"]');n&&n.focus();}));
   tdChips.querySelector('[data-a]').addEventListener('click',()=>{inAll=!inAll;tdMore=false;renderTree();tdChips.querySelector('[data-a]').focus();});
   const L=tdPagesList(),show=tdMore?L.slice(0,800):L.slice(0,60);
-  tdGrid.innerHTML=show.map((m,i)=>'<li><button type="button" data-i="'+i+'"><span class="o kq" style="background:'+KCOL[m.x[1]]+'"></span><b>'+esc(m.x[0])+'</b><small>'+esc(m.f.name)+'</small><span class="d">'+(m.x[3]>1?m.x[3]+' versions · ':'')+KONE[m.x[1]]+(m.x[5]?' · '+esc(m.x[5]):'')+'</span></button></li>').join('')||'<li class="td-none">Nothing inside here of that kind.</li>';
+  tdGrid.innerHTML=show.map((m,i)=>'<li><button type="button" data-i="'+i+'"><span class="o kq" style="background:'+KCOL[m.x[1]]+'"></span><b>'+esc(m.x[0])+'</b><small>'+esc(m.f.name)+'</small><span class="d">'+(m.x[7]?markSVG(m.x)+' '+esc(juiceLine(m.x)):(m.x[3]>1?m.x[3]+' versions · ':'')+KONE[m.x[1]]+(m.x[5]?' · '+esc(m.x[5]):''))+'</span></button></li>').join('')||'<li class="td-none">Nothing inside here of that kind.</li>';
   if(L.length>show.length)tdGrid.insertAdjacentHTML('beforeend','<li class="td-none"><button type="button" class="td-walk" id="tdMore">Show all '+L.length+'</button></li>');
   tdGrid.querySelectorAll('button[data-i]').forEach(b=>b.addEventListener('click',()=>{const m=show[+b.dataset.i];PEELCTX=null;openPage(m.f,m.x[2],m.x[0]);}));
   const mb=document.getElementById('tdMore');if(mb)mb.addEventListener('click',()=>{tdMore=true;renderTree();});
@@ -3054,6 +3064,22 @@ function renderPagesMode(focusFirst){
 const KNAME={game:'Games',tool:'Tools',world:'Worlds',film:'Film',music:'Music',talk:'Talks',text:'Texts',page:'Other pages'};
 const KONE={game:'game',tool:'tool',world:'world',film:'film',music:'music',talk:'talk',text:'text',page:'page'};
 const KCOL={game:'#e7833b',tool:'#5f87b6',world:'#7ea292',film:'#c97a4a',music:'#b07ac0',talk:'#c9a46a',text:'#6a665d',page:'#cbc7ba'};
+/* a reading of each page, from evidence in its code: five marks, a verdict, what is good in it, what it needs */
+const JV={g:'Gem',w:'Long work',i:'Instrument',t:'Toy',r:'Reading',s:'Sketch',u:'Rough',o:'Solid'};
+const JVD={g:'plays well, is finished and opens on a phone',w:'many versions and a lot of code: years of tending',i:'a tool: it takes input and gives something back',t:'small and playful',r:'mostly words',s:'a quick study',u:'parts are missing or it is unfinished',o:'works, without a single stand-out quality'};
+const JDIM=['Play','Craft','Polish','Reach','Distinct'];
+const JDIMD=['what you can do in it: input, motion, sound, mechanics','how much went into it: versions, code','ready for a stranger: title, phone layout, instructions, labels','opens and works: no missing files, phone-ready','unlike the rest of the grove'];
+function whyOf(x){const out=[],inp=[];(x[8]||'').split(' ').forEach(c=>{if(!c)return;const h=c[0],n=c.slice(1);
+  const t={G:'game loop',A:'animated','3':'3D',F:'shaders',S:'sound',C:'camera',V:'voice',M:'talks to a model',N:'networked',s:'saves',e:'exports',i:'opens files',H:'instructions',m:'phone-ready',R:'long read'}[h];
+  if(h==='v')out.push(n+' versions');else if('KTPJ'.includes(h)){if(!inp.length)out.push(null);inp.push({K:'keys',T:'touch',P:'mouse',J:'gamepad'}[h]);}
+  else if(h==='b')out.push(n+' controls');else if(h==='L')out.push((+n/10)+'k lines');else if(t)out.push(t);});
+  return out.map(v=>v===null?inp.join(' + '):v);}
+function needsOf(x){return(x[9]||'').split(' ').filter(Boolean).map(c=>{const n=c.slice(1);return{x:n+' missing file'+(n==='1'?'':'s'),p:'no phone layout',h:'no instructions',t:'no real title',l:'placeholder text',a:'unlabelled controls'}[c[0]];}).filter(Boolean);}
+/* five little bars, Tufte-small: play craft polish reach distinct */
+function markSVG(x){const m=x[6]||'';if(!m)return'';
+  return'<svg class="jm" viewBox="0 0 29 12" width="29" height="12" role="img" aria-label="'+JDIM.map((d,i)=>d+' '+m[i]).join(', ')+' of 3"><title>'+JDIM.map((d,i)=>d+' '+m[i]).join(' · ')+'</title>'+
+    [0,1,2,3,4].map(i=>'<rect x="'+(i*6)+'" y="0" width="4.4" height="12" fill="var(--rule)" opacity=".45"/><rect x="'+(i*6)+'" y="'+(12-4*m[i])+'" width="4.4" height="'+(4*m[i])+'" fill="'+(i===0?'var(--warm)':'var(--ink)')+'"/>').join('')+'</svg>';}
+function juiceLine(x){if(!x[7])return x[5]||'';const w=whyOf(x).slice(0,4);return JV[x[7]]+(w.length?' · '+w.join(' · '):'');}
 function insideOf(f){const v=(window.__INSIDE||{})[f.name];return v&&v[2]&&v[2].length?{b:v[0],n:v[1],fams:v[2]}:null;}
 function pageURL(f,path){
   const repo=f.name,d=(window.__INSIDE||{})[repo],segs=p=>p.split('/').map(encodeURIComponent).join('/');
@@ -3069,6 +3095,9 @@ function loadPage(f,path,title){
   pF.onload=()=>{if(req===readmeReq){clearTimeout(loadT);pMsg.hidden=true;}};
   renderInside(f);say('Showing '+(title||path)+'.');
 }
+function readingHTML(x){const w=whyOf(x),n=needsOf(x);
+  return'<div class="in-now" aria-live="polite"><p><b>'+JV[x[7]]+'</b> '+esc(x[0])+'</p><ul class="jd">'+JDIM.map((d,i)=>'<li><span>'+d+'</span><i style="--v:'+x[6][i]+'"></i></li>').join('')+'</ul>'+
+    (w.length?'<p class="jw">Good: '+esc(w.join(', '))+'.</p>':'')+(n.length?'<p class="jn">Needs: '+esc(n.join(', '))+'.</p>':'')+'</div>';}
 function openPage(f,path,title){openPeel(f);loadPage(f,path,title);}
 /* the "Inside" list in the card */
 function renderInside(f){
@@ -3076,10 +3105,13 @@ function renderInside(f){
   if(!I||I.fams.length<2&&!(I.fams[0]&&I.fams[0][3]>1)){box.hidden=true;box.innerHTML='';return;}
   box.hidden=false;const kinds={};I.fams.forEach(x=>kinds[x[1]]=(kinds[x[1]]||0)+1);
   const fams=I.fams.filter(x=>inKind==='all'||x[1]===inKind),show=box.dataset.more==='1'?fams:fams.slice(0,10);
+  const now=pageNow&&I.fams.find(y=>y[2]===pageNow);
   box.innerHTML='<p class="in-h"><b>Inside</b> '+I.fams.length+' pages'+(I.n>I.fams.length?' <span>('+I.n+' files, versions folded together)</span>':'')+'</p>'+
+    (now&&now[7]?readingHTML(now):'')+
+    '<details class="in-how"><summary>Ranked by juice: how pages are read</summary><p>Each page is read for evidence in its code, not for taste. Five marks, each out of three:</p><dl>'+JDIM.map((d,i)=>'<dt>'+d+'</dt><dd>'+JDIMD[i]+'</dd>').join('')+'</dl><p>A verdict names the strongest pattern: '+Object.keys(JV).map(k=>'<b>'+JV[k]+'</b> '+JVD[k]).join('; ')+'. It is a guide to where to look first. Open the page and judge.</p></details>'+
     '<div class="in-k" role="group" aria-label="Kinds of page"><button type="button" data-k="all" aria-pressed="'+(inKind==='all')+'">All</button>'+
     Object.keys(KNAME).filter(k=>kinds[k]).map(k=>'<button type="button" data-k="'+k+'" aria-pressed="'+(inKind===k)+'"><i style="background:'+KCOL[k]+'"></i>'+KNAME[k]+' <small>'+kinds[k]+'</small></button>').join('')+'</div>'+
-    '<ol class="in-l">'+show.map((x,i)=>'<li><button type="button" class="in-p" data-p="'+esc(x[2])+'" aria-current="'+(pageNow===x[2])+'"><i style="background:'+KCOL[x[1]]+'"></i><span><b>'+esc(x[0])+'</b>'+(x[5]?'<em>'+esc(x[5])+'</em>':'')+'</span><small>'+KONE[x[1]]+(i<3&&inKind==='all'&&box.dataset.more!=='1'?' · best':'')+'</small></button>'+
+    '<ol class="in-l">'+show.map((x,i)=>'<li><button type="button" class="in-p" data-p="'+esc(x[2])+'" aria-current="'+(pageNow===x[2])+'"><i style="background:'+KCOL[x[1]]+'"></i><span><b>'+esc(x[0])+'</b>'+(juiceLine(x)?'<em'+(x[7]==='g'?' class="gem"':'')+'>'+esc(juiceLine(x))+'</em>':'')+'</span><small>'+(markSVG(x)||KONE[x[1]])+'</small></button>'+
       (x[3]>1?'<button type="button" class="in-v" aria-expanded="false" aria-label="'+x[3]+' versions of '+esc(x[0])+'">'+x[3]+' versions</button><ul class="in-vl" hidden>'+x[4].map(p=>'<li><button type="button" class="in-p2" data-p="'+esc(p)+'">'+esc(p)+'</button></li>').join('')+'</ul>':'')+'</li>').join('')+'</ol>'+
     (fams.length>10&&box.dataset.more!=='1'?'<button type="button" class="in-more">Show all '+fams.length+'</button>':'');
   box.querySelectorAll('.in-k button').forEach(b=>b.addEventListener('click',()=>{inKind=b.dataset.k;renderInside(f);const n=box.querySelector('.in-k [data-k="'+inKind+'"]');n&&n.focus();}));
@@ -3089,11 +3121,11 @@ function renderInside(f){
 }
 /* search reaches inside: page titles across every repository */
 function pageMatches(qq,lim){const out=[];if(!qq||qq.length<2)return out;
-  fruits.forEach(f=>{const I=insideOf(f);if(!I)return;I.fams.forEach((x,i)=>{const t=x[0].toLowerCase();if(t.includes(qq)||x[2].toLowerCase().includes(qq)||(x[5]||'').toLowerCase().includes(qq)||KONE[x[1]]===qq||KNAME[x[1]].toLowerCase()===qq)out.push({f:f,x:x,r:(t.startsWith(qq)?0:1)*100+i});});});
+  fruits.forEach(f=>{const I=insideOf(f);if(!I)return;I.fams.forEach((x,i)=>{const t=x[0].toLowerCase();if(t.includes(qq)||x[2].toLowerCase().includes(qq)||(x[5]||'').toLowerCase().includes(qq)||KONE[x[1]]===qq||KNAME[x[1]].toLowerCase()===qq||(x[7]&&(JV[x[7]].toLowerCase()===qq||JV[x[7]].toLowerCase()+'s'===qq)))out.push({f:f,x:x,r:(t.startsWith(qq)?0:1)*100-(x[10]||0)});});});
   return out.sort((a,b)=>a.r-b.r).slice(0,lim);}
 /* the sheet's "Pages" mode: everything worth opening on this tree, or in the whole grove */
 function tdPagesList(){const out=[],src=inAll?fruits:fruits.filter(f=>f.tree===curTree);
-  src.forEach(f=>{const I=insideOf(f);if(!I)return;I.fams.forEach((x,i)=>{if(inKind==='all'||x[1]===inKind)out.push({f:f,x:x,r:i*10-(f.rp[9]||0)});});});
+  src.forEach(f=>{const I=insideOf(f);if(!I)return;I.fams.forEach((x,i)=>{if(inKind==='all'||x[1]===inKind)out.push({f:f,x:x,r:-(x[10]==null?i:x[10])});});});
   out.sort((a,b)=>a.r-b.r);if(!inAll)return out;const seen=new Set();return out.filter(m=>{const k=m.x[0].toLowerCase().replace(/[^a-z]+/g,'');if(k.length>4&&seen.has(k))return false;seen.add(k);return true;});}
 
 /* the inside list arrives a moment after the page; refresh whatever is open */

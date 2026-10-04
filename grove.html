@@ -84,6 +84,29 @@ button,select,input{font:inherit;color:inherit}
 #cel .fruit.match .hit{fill:rgba(251,250,245,.85);stroke:#141412;stroke-width:2.5;stroke-dasharray:4 3}
 .cue{position:absolute;left:50%;bottom:4.6rem;transform:translateX(-50%);margin:0;padding:.5rem .9rem;border-radius:999px;background:var(--ink);color:var(--paper);font:700 .64rem/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;pointer-events:none;transition:opacity .4s;white-space:nowrap}
 .cue.gone{opacity:0}
+.inside{border-top:1px solid var(--rule);padding-top:.6rem}
+.inside[hidden]{display:none}
+.in-h{margin:0 0 .35rem;font-size:.9rem}.in-h b{font:700 .62rem/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;margin-right:.3rem}.in-h span{color:var(--muted);font-size:.8rem}
+.in-k{display:flex;gap:.1rem;overflow-x:auto;scrollbar-width:none;margin-bottom:.3rem}.in-k::-webkit-scrollbar{display:none}
+.in-k button{flex:none;display:inline-flex;align-items:center;gap:.25rem;min-height:36px;padding:0 .45rem;border:0;border-bottom:2px solid transparent;background:transparent;cursor:pointer;font:600 .66rem/1 var(--sans);color:var(--ink2)}
+.in-k button[aria-pressed="true"]{border-bottom-color:var(--ink);color:var(--ink)}.in-k small{font:500 .62rem/1 var(--mono);color:var(--muted)}
+.in-k i,.in-p i,.pg .kd{display:inline-block;flex:none;width:9px;height:9px;border-radius:2px;border:1px solid var(--ink)}
+.in-l{list-style:none;margin:0;padding:0}
+.in-l>li{display:flex;flex-wrap:wrap;align-items:baseline;border-bottom:1px solid var(--rule)}
+.in-p{flex:1;min-width:0;display:grid;grid-template-columns:12px 1fr auto;column-gap:.5rem;align-items:baseline;padding:.45rem 0;border:0;background:transparent;cursor:pointer;text-align:left;font-family:var(--serif);color:var(--ink)}
+.in-p span{min-width:0}.in-p b{display:block;font-weight:400;font-size:.92rem;line-height:1.25;overflow-wrap:anywhere}
+.in-p em{display:block;font-style:normal;font-size:.76rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.in-p small{font:500 .6rem/1 var(--mono);color:var(--muted)}
+.in-p[aria-current="true"] b{text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--warm);text-decoration-thickness:2px}
+.in-p:hover b{text-decoration:underline;text-underline-offset:3px}
+.in-v{min-height:32px;padding:0 .3rem;border:0;background:transparent;cursor:pointer;font:500 .62rem/1 var(--mono);color:var(--ink2);text-decoration:underline dotted}
+.in-vl{flex:1 1 100%;list-style:none;margin:0 0 .4rem 1.2rem;padding:0}.in-vl[hidden]{display:none}
+.in-p2{min-height:30px;border:0;background:transparent;cursor:pointer;font:500 .66rem/1.2 var(--mono);color:var(--ink2);text-align:left;overflow-wrap:anywhere}
+.in-p2:hover{text-decoration:underline}
+.in-more{margin-top:.4rem;min-height:36px;border:0;background:transparent;cursor:pointer;font:600 .7rem/1 var(--sans);text-decoration:underline}
+.res .pgh{padding:.5rem .6rem .2rem;font:700 .56rem/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.res .pg{grid-template-columns:1rem 1fr}.res .pg small{grid-column:2;text-align:left}
+.side{overflow-x:hidden;min-width:0}.pl>*{min-width:0}.in-k{width:100%;max-width:100%}.in-vl{min-width:0;max-width:100%}.in-vl li{min-width:0}.in-p2{display:block;width:100%;white-space:normal;word-break:break-all}
 #cel .signlink{cursor:pointer}#cel .signlink:hover path:nth-of-type(2){stroke-width:3}
 .stops .sti{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;margin-right:.35rem;border:1.2px solid var(--ink);border-radius:50%;vertical-align:-6px}
 .stops .sti svg{width:14px;height:14px;fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
@@ -102,6 +125,8 @@ button,select,input{font:inherit;color:inherit}
 .td-chips button{flex:none;display:inline-flex;align-items:center;gap:.25rem;min-height:40px;padding:0 .5rem;border:0;border-bottom:2px solid transparent;background:transparent;cursor:pointer;font:600 .7rem/1 var(--sans);color:var(--ink2)}
 .td-chips button small{font:500 .66rem/1 var(--mono);color:var(--muted)}
 .td-chips button[aria-pressed="true"]{border-bottom-color:var(--ink);color:var(--ink)}
+.td-mode{display:flex;flex:none;border:1px solid var(--ink);border-radius:8px;overflow:hidden}.td-mode button{min-height:34px;padding:0 .55rem;border:0;background:transparent;cursor:pointer;font:600 .66rem/1 var(--sans)}.td-mode button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.td-sl[hidden]{display:none}.kq{display:inline-block;width:10px;height:10px;border-radius:2px;border:1px solid var(--ink)}.td-grid .o.kq{width:11px;height:11px;border-radius:2px}
 .td-sl select{min-height:36px;padding:0 .2rem;border:0;background:transparent;font:600 .68rem/1 var(--sans);color:var(--ink2);cursor:pointer}
 .td-body{overflow:auto}
 .td-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(17rem,1fr));column-gap:1.2rem;padding:0 .8rem}
@@ -1157,7 +1182,7 @@ footer{padding:2rem 0;border-top:1px solid var(--rule);font:500 .72rem/1.7 var(-
     <button class="td-arr" id="tdNext" type="button"></button>
     <button class="td-x" id="tdX" type="button" aria-label="Close">✕</button>
   </div>
-  <div class="td-tools"><div class="td-chips" id="tdChips" role="group" aria-label="Show"></div>
+  <div class="td-tools"><div class="td-mode" id="tdMode" role="group" aria-label="What to list"></div><div class="td-chips" id="tdChips" role="group" aria-label="Show"></div>
     <label class="td-sl"><span class="vh">Sort by</span><select id="tdSort"><option value="rank">Most used</option><option value="new">Newest</option><option value="tended">Tended</option><option value="az">A–Z</option></select></label></div>
   <div class="td-body">
     <ul class="td-grid" id="tdGrid" aria-label="Projects on this tree"></ul>
@@ -1180,6 +1205,7 @@ footer{padding:2rem 0;border-top:1px solid var(--rule);font:500 .72rem/1.7 var(-
       <p class="hpk" id="pH" hidden></p>
       <div class="thick" id="pT"></div>
       <div class="acts" id="pA"></div>
+      <div class="inside" id="pIn" hidden></div>
       <div class="pn" id="pNav"><button class="btn" id="pPrev" type="button">‹ Previous</button><button class="btn" id="pNext" type="button">Next ›</button></div>
     </div>
   </div>
@@ -1603,6 +1629,14 @@ function renderResults(){
     b.addEventListener('click',()=>{res.hidden=true;go('#pick='+encodeURIComponent(f.name));});
     b.addEventListener('keydown',e=>{const bs=[...res.querySelectorAll('button')];if(e.key==='ArrowDown'){e.preventDefault();(bs[i+1]||bs[0]).focus();}else if(e.key==='ArrowUp'){e.preventDefault();(i?bs[i-1]:q).focus();}else if(e.key==='Escape'){res.hidden=true;q.focus();}});
     li.appendChild(b);res.appendChild(li);});
+  const pm=pageMatches(query,6);
+  if(pm.length){const h=document.createElement('li');h.className='pgh';h.textContent='Inside the projects';res.appendChild(h);if(!resItems.length)res.querySelector('.none')&&res.querySelector('.none').remove();}
+  pm.forEach(m=>{const li=document.createElement('li'),b=document.createElement('button');b.type='button';b.className='pg';
+    b.setAttribute('aria-label',m.x[0]+', a '+KONE[m.x[1]]+' inside '+m.f.name);
+    b.innerHTML='<i class="kd"></i><b></b><small></small>';b.querySelector('.kd').style.background=KCOL[m.x[1]];b.querySelector('b').textContent=m.x[0];b.querySelector('small').textContent=KONE[m.x[1]]+' · '+m.f.name;
+    b.addEventListener('click',()=>{res.hidden=true;openPage(m.f,m.x[2],m.x[0]);});
+    b.addEventListener('keydown',e=>{const bs=[...res.querySelectorAll('button')],i=bs.indexOf(b);if(e.key==='ArrowDown'){e.preventDefault();(bs[i+1]||bs[0]).focus();}else if(e.key==='ArrowUp'){e.preventDefault();(i?bs[i-1]:q).focus();}else if(e.key==='Escape'){res.hidden=true;q.focus();}});
+    li.appendChild(b);res.appendChild(li);});
   res.hidden=false;
 }
 q.addEventListener('input',()=>{query=q.value.trim().toLowerCase();applyFilter();renderResults();});
@@ -1642,15 +1676,17 @@ function fillPeel(f){
   pA.innerHTML='';const gh='https://github.com/hartswf0/'+rp[0],page='https://hartswf0.github.io/'+rp[0]+'/';
   const mk=(href,txt,cls)=>{const a=document.createElement('a');a.className='btn'+(cls?' '+cls:'');a.href=href;a.textContent=txt;a.target='_blank';a.rel='noopener';pA.appendChild(a);};
   if(rp[1])mk(page,'Open in a new tab','primary');mk(gh,rp[1]?'Code':'Open the code',rp[1]?'':'primary');
-  pNav.hidden=false;
+  pNav.hidden=false;pageNow=null;inKind='all';document.getElementById('pIn').dataset.more='';
   /* the view: the live page if there is one, otherwise the README */
   const req=++readmeReq;clearTimeout(loadT);pMsg.hidden=true;
   if(rp[1]){pR.hidden=true;pF.hidden=false;pF.title='Live: '+f.name;pF.src=page;
     loadT=setTimeout(()=>{if(req===readmeReq){pMsg.hidden=false;pMsg.innerHTML='Still loading. If it stays blank, the page may not allow embedding: <a href="'+page+'" target="_blank" rel="noopener">open it in a new tab</a>.';}},6000);
     pF.onload=()=>{if(req===readmeReq){clearTimeout(loadT);pMsg.hidden=true;}};}
+  else if(insideOf(f)){const b=insideOf(f).fams[0];loadPage(f,b[2],b[0]);return;}
   else{pF.hidden=true;pF.removeAttribute('src');pR.hidden=false;pR.innerHTML='<p>Loading the README…</p>';
     fetch('https://raw.githubusercontent.com/hartswf0/'+rp[0]+'/HEAD/README.md').then(r=>r.ok?r.text():Promise.reject()).then(t=>{if(req===readmeReq)pR.innerHTML=md(t);})
       .catch(()=>{if(req===readmeReq)pR.innerHTML='<p>No README to show. This one lives in its code: <a href="'+gh+'" target="_blank" rel="noopener">open it on GitHub</a>.</p>';});}
+  renderInside(f);
 }
 function openPeel(f){
   if(!dlg.open){opener=document.activeElement;dlg.showModal();document.documentElement.style.overflow='hidden';}
@@ -2936,13 +2972,13 @@ function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random
 /* ---- the tree sheet: tap a tree's sign (or its stop twice) for an easy view of everything on it.
    Big tiles, filters, sorting, swipe or arrows to the next tree, recently opened projects one tap away. ---- */
 const treeD=document.getElementById('treeD'),tdGrid=document.getElementById('tdGrid'),tdChips=document.getElementById('tdChips'),tdSort=document.getElementById('tdSort');
-let curTree=null,tdFilter='all',PEELCTX=null,tdOpener=null;
+let curTree=null,tdFilter='all',PEELCTX=null,tdOpener=null,tdMode='projects',tdMore=false;
 let RECENT=[];try{RECENT=JSON.parse(localStorage.getItem('grove-recent')||'[]').filter(n=>byName[n.toLowerCase()]);}catch(e){}
 function noteRecent(f){RECENT=[f.name].concat(RECENT.filter(n=>n!==f.name)).slice(0,10);try{localStorage.setItem('grove-recent',JSON.stringify(RECENT));}catch(e){}}
 const icoSVG=id=>'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="'+(TICON[id]||TICON.other)+'"/></svg>';
 const ymS=d=>{if(!d)return'';const m=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];return m[+d.slice(5,7)-1]+' '+d.slice(0,4);};
 function openTree(T,from){
-  if(dlg.open)closePeel();curTree=T;tdFilter='all';
+  if(dlg.open)closePeel();curTree=T;tdFilter='all';tdMore=false;
   if(!treeD.open){tdOpener=from&&from.focus?from:document.activeElement;treeD.showModal();document.documentElement.style.overflow='hidden';}
   try{history.replaceState(null,'','#open='+T.id);}catch(e){}
   renderTree(true);say(T.name+': '+T.n+' oranges. Previous and next trees are at the top; swipe or use the arrow keys.');
@@ -2971,6 +3007,12 @@ function renderTree(focusFirst){
   const rec=RECENT.map(n=>byName[n.toLowerCase()]).filter(Boolean),rb=document.getElementById('tdRecent');
   rb.hidden=!rec.length;rb.innerHTML=rec.length?'<p class="td-k">Recently opened</p><div class="td-rrow">'+rec.map(f=>'<button type="button" data-n="'+esc(f.name)+'"><i class="fr s'+f.s+'"></i>'+esc(f.name)+'</button>').join('')+'</div>':'';
   rb.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{PEELCTX=rec;openPeel(byName[b.dataset.n.toLowerCase()]);}));
+  /* mode: the tree's projects, or the pages inside them */
+  const md=document.getElementById('tdMode');
+  md.innerHTML='<button type="button" data-m="projects" aria-pressed="'+(tdMode==='projects')+'">Projects</button><button type="button" data-m="pages" aria-pressed="'+(tdMode==='pages')+'">Inside</button>';
+  md.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{tdMode=b.dataset.m;inKind='all';tdMore=false;renderTree();md.querySelector('[data-m="'+tdMode+'"]').focus();}));
+  tdSort.parentNode.hidden=tdMode==='pages';
+  if(tdMode==='pages'){renderPagesMode(focusFirst);return;}
   const L=tdList();
   tdGrid.innerHTML=L.map(f=>'<li><button type="button" data-n="'+esc(f.name)+'"><span class="o s'+f.s+'" title="'+RIPE[f.s]+'"></span><span class="vh">'+RIPE[f.s]+', </span><b>'+esc(f.name)+(f.rp[7]?' <span class="hp" title="Hand-picked">✦</span>':'')+'</b><small>'+ymS(f.rp[5])+'</small><span class="d">'+esc(f.rp[2]||'')+'</span></button></li>').join('')||'<li class="td-none">Nothing here with that filter.</li>';
   tdGrid.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{PEELCTX=tdList();openPeel(byName[b.dataset.n.toLowerCase()]);}));
@@ -2989,6 +3031,73 @@ stopBtns.forEach((b,i)=>{const s=stops[i];if(!s.tree)return;const st=TSTYLE[s.tr
   const ic=document.createElement('span');ic.className='sti';ic.style.background=st.col;ic.innerHTML=icoSVG(s.tree.id);b.insertBefore(ic,b.firstChild);
   b.addEventListener('click',()=>{if(currentStop()===i&&Math.abs(cam.x-s.x)<W*.3/cam.z)openTree(s.tree,b);});
   b.setAttribute('title','Walk to '+s.tree.name+' (tap again to open it)');});
+
+function renderPagesMode(focusFirst){
+  const src=inAll?fruits:fruits.filter(f=>f.tree===curTree),kinds={};let total=0;
+  src.forEach(f=>{const I=insideOf(f);if(I)I.fams.forEach(x=>{kinds[x[1]]=(kinds[x[1]]||0)+1;total++;});});
+  tdChips.innerHTML='<button type="button" data-a="1" aria-pressed="'+inAll+'" title="Every tree">'+(inAll?'Whole grove':'This tree')+'</button>'+
+    '<button type="button" data-k="all" aria-pressed="'+(inKind==='all')+'">All<small>'+total+'</small></button>'+
+    Object.keys(KNAME).filter(k=>kinds[k]).map(k=>'<button type="button" data-k="'+k+'" aria-pressed="'+(inKind===k)+'" aria-label="'+KNAME[k]+', '+kinds[k]+'"><i class="kq" style="background:'+KCOL[k]+'"></i>'+KNAME[k]+'<small>'+kinds[k]+'</small></button>').join('');
+  tdChips.querySelectorAll('[data-k]').forEach(b=>b.addEventListener('click',()=>{inKind=b.dataset.k;tdMore=false;renderTree();const n=tdChips.querySelector('[data-k="'+inKind+'"]');n&&n.focus();}));
+  tdChips.querySelector('[data-a]').addEventListener('click',()=>{inAll=!inAll;tdMore=false;renderTree();tdChips.querySelector('[data-a]').focus();});
+  const L=tdPagesList(),show=tdMore?L.slice(0,800):L.slice(0,60);
+  tdGrid.innerHTML=show.map((m,i)=>'<li><button type="button" data-i="'+i+'"><span class="o kq" style="background:'+KCOL[m.x[1]]+'"></span><b>'+esc(m.x[0])+'</b><small>'+esc(m.f.name)+'</small><span class="d">'+(m.x[3]>1?m.x[3]+' versions · ':'')+KONE[m.x[1]]+(m.x[5]?' · '+esc(m.x[5]):'')+'</span></button></li>').join('')||'<li class="td-none">Nothing inside here of that kind.</li>';
+  if(L.length>show.length)tdGrid.insertAdjacentHTML('beforeend','<li class="td-none"><button type="button" class="td-walk" id="tdMore">Show all '+L.length+'</button></li>');
+  tdGrid.querySelectorAll('button[data-i]').forEach(b=>b.addEventListener('click',()=>{const m=show[+b.dataset.i];PEELCTX=null;openPage(m.f,m.x[2],m.x[0]);}));
+  const mb=document.getElementById('tdMore');if(mb)mb.addEventListener('click',()=>{tdMore=true;renderTree();});
+  document.getElementById('tdRecent').hidden=true;
+  if(focusFirst){const f=tdGrid.querySelector('button');(f||document.getElementById('tdX')).focus({preventScroll:true});treeD.querySelector('.td-body').scrollTop=0;}
+}
+
+/* ---- inside each repository: every page, versions folded together, the good stuff first.
+   Pages from repositories without a site open through raw.githack, so nothing is out of reach. ---- */
+const KNAME={game:'Games',tool:'Tools',world:'Worlds',film:'Film',music:'Music',talk:'Talks',text:'Texts',page:'Other pages'};
+const KONE={game:'game',tool:'tool',world:'world',film:'film',music:'music',talk:'talk',text:'text',page:'page'};
+const KCOL={game:'#e7833b',tool:'#5f87b6',world:'#7ea292',film:'#c97a4a',music:'#b07ac0',talk:'#c9a46a',text:'#6a665d',page:'#cbc7ba'};
+function insideOf(f){const v=(window.__INSIDE||{})[f.name];return v&&v[2]&&v[2].length?{b:v[0],n:v[1],fams:v[2]}:null;}
+function pageURL(f,path){
+  const repo=f.name,d=(window.__INSIDE||{})[repo],segs=p=>p.split('/').map(encodeURIComponent).join('/');
+  if(f.rp[1]){const p=path.replace(/(^|\/)index\.html?$/i,'$1');return(repo.toLowerCase()==='hartswf0.github.io'?'https://hartswf0.github.io/':'https://hartswf0.github.io/'+encodeURIComponent(repo)+'/')+segs(p);}
+  return'https://raw.githack.com/hartswf0/'+encodeURIComponent(repo)+'/'+encodeURIComponent(d?d[0]:'main')+'/'+segs(path);}
+let pageNow=null,inKind='all',inAll=false;
+/* show one page of the repository in the card's view */
+function loadPage(f,path,title){
+  const url=pageURL(f,path),req=++readmeReq;clearTimeout(loadT);pMsg.hidden=true;pageNow=path;
+  pR.hidden=true;pF.hidden=false;pF.title=(title||path)+' (from '+f.name+')';pF.src=url;
+  const a=pA.querySelector('a.primary')||pA.querySelector('a');if(a){a.href=url;a.textContent='Open this page ↗';}
+  loadT=setTimeout(()=>{if(req===readmeReq){pMsg.hidden=false;pMsg.innerHTML='Still loading. If it stays blank, this page may not allow embedding: <a href="'+url+'" target="_blank" rel="noopener">open it in a new tab</a>.';}},7000);
+  pF.onload=()=>{if(req===readmeReq){clearTimeout(loadT);pMsg.hidden=true;}};
+  renderInside(f);say('Showing '+(title||path)+'.');
+}
+function openPage(f,path,title){openPeel(f);loadPage(f,path,title);}
+/* the "Inside" list in the card */
+function renderInside(f){
+  const box=document.getElementById('pIn'),I=insideOf(f);if(!box)return;
+  if(!I||I.fams.length<2&&!(I.fams[0]&&I.fams[0][3]>1)){box.hidden=true;box.innerHTML='';return;}
+  box.hidden=false;const kinds={};I.fams.forEach(x=>kinds[x[1]]=(kinds[x[1]]||0)+1);
+  const fams=I.fams.filter(x=>inKind==='all'||x[1]===inKind),show=box.dataset.more==='1'?fams:fams.slice(0,10);
+  box.innerHTML='<p class="in-h"><b>Inside</b> '+I.fams.length+' pages'+(I.n>I.fams.length?' <span>('+I.n+' files, versions folded together)</span>':'')+'</p>'+
+    '<div class="in-k" role="group" aria-label="Kinds of page"><button type="button" data-k="all" aria-pressed="'+(inKind==='all')+'">All</button>'+
+    Object.keys(KNAME).filter(k=>kinds[k]).map(k=>'<button type="button" data-k="'+k+'" aria-pressed="'+(inKind===k)+'"><i style="background:'+KCOL[k]+'"></i>'+KNAME[k]+' <small>'+kinds[k]+'</small></button>').join('')+'</div>'+
+    '<ol class="in-l">'+show.map((x,i)=>'<li><button type="button" class="in-p" data-p="'+esc(x[2])+'" aria-current="'+(pageNow===x[2])+'"><i style="background:'+KCOL[x[1]]+'"></i><span><b>'+esc(x[0])+'</b>'+(x[5]?'<em>'+esc(x[5])+'</em>':'')+'</span><small>'+KONE[x[1]]+(i<3&&inKind==='all'&&box.dataset.more!=='1'?' · best':'')+'</small></button>'+
+      (x[3]>1?'<button type="button" class="in-v" aria-expanded="false" aria-label="'+x[3]+' versions of '+esc(x[0])+'">'+x[3]+' versions</button><ul class="in-vl" hidden>'+x[4].map(p=>'<li><button type="button" class="in-p2" data-p="'+esc(p)+'">'+esc(p)+'</button></li>').join('')+'</ul>':'')+'</li>').join('')+'</ol>'+
+    (fams.length>10&&box.dataset.more!=='1'?'<button type="button" class="in-more">Show all '+fams.length+'</button>':'');
+  box.querySelectorAll('.in-k button').forEach(b=>b.addEventListener('click',()=>{inKind=b.dataset.k;renderInside(f);const n=box.querySelector('.in-k [data-k="'+inKind+'"]');n&&n.focus();}));
+  box.querySelectorAll('.in-p,.in-p2').forEach(b=>b.addEventListener('click',()=>{const x=I.fams.find(y=>y[2]===b.dataset.p);loadPage(f,b.dataset.p,x?x[0]:b.dataset.p);}));
+  box.querySelectorAll('.in-v').forEach(b=>b.addEventListener('click',()=>{const l=b.nextElementSibling,o=l.hidden;l.hidden=!o;b.setAttribute('aria-expanded',o?'true':'false');}));
+  const m=box.querySelector('.in-more');if(m)m.addEventListener('click',()=>{box.dataset.more='1';renderInside(f);});
+}
+/* search reaches inside: page titles across every repository */
+function pageMatches(qq,lim){const out=[];if(!qq||qq.length<2)return out;
+  fruits.forEach(f=>{const I=insideOf(f);if(!I)return;I.fams.forEach((x,i)=>{const t=x[0].toLowerCase();if(t.includes(qq)||x[2].toLowerCase().includes(qq)||(x[5]||'').toLowerCase().includes(qq)||KONE[x[1]]===qq||KNAME[x[1]].toLowerCase()===qq)out.push({f:f,x:x,r:(t.startsWith(qq)?0:1)*100+i});});});
+  return out.sort((a,b)=>a.r-b.r).slice(0,lim);}
+/* the sheet's "Pages" mode: everything worth opening on this tree, or in the whole grove */
+function tdPagesList(){const out=[],src=inAll?fruits:fruits.filter(f=>f.tree===curTree);
+  src.forEach(f=>{const I=insideOf(f);if(!I)return;I.fams.forEach((x,i)=>{if(inKind==='all'||x[1]===inKind)out.push({f:f,x:x,r:i*10-(f.rp[9]||0)});});});
+  out.sort((a,b)=>a.r-b.r);if(!inAll)return out;const seen=new Set();return out.filter(m=>{const k=m.x[0].toLowerCase().replace(/[^a-z]+/g,'');if(k.length>4&&seen.has(k))return false;seen.add(k);return true;});}
+
+/* the inside list arrives a moment after the page; refresh whatever is open */
+window.addEventListener('load',()=>{if(dlg.open&&cur)renderInside(cur);if(treeD.open)renderTree();});
 
 /* ---- the frame ---- */
 const cue=document.getElementById('cue');let last=0,startX=null;
@@ -3043,5 +3152,6 @@ requestAnimationFrame(frame);
 window.__grove={trees:trees,fruits:fruits,cam:cam,go:go,stops:stops,setView:setView};
 })();
 </script>
+<script src="inside.js"></script>
 </body>
 </html>

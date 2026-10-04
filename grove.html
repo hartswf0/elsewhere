@@ -113,6 +113,10 @@ button,select,input{font:inherit;color:inherit}
 .jw{color:var(--ink2)}.jn{color:var(--muted)}
 .in-how{margin:0 0 .3rem;font-size:.78rem;color:var(--ink2)}.in-how summary{cursor:pointer;min-height:32px;display:flex;align-items:center;font:600 .66rem/1 var(--sans);color:var(--muted);text-decoration:underline dotted}
 .in-how dl{display:grid;grid-template-columns:auto 1fr;gap:.1rem .6rem;margin:.3rem 0}.in-how dt{font-weight:700}.in-how dd{margin:0}.in-how p{margin:.3rem 0}
+.in-p.th{grid-template-columns:56px 1fr auto;align-items:center}.in-p .tn{display:block;width:56px;height:35px;border:1px solid var(--ink);border-radius:4px;object-fit:cover;background:#1c1b18}
+.in-now .tn{float:right;width:96px;height:60px;margin:0 0 .3rem .5rem;border:1px solid var(--ink);border-radius:5px;object-fit:cover}.in-now .js{color:var(--ink)}.in-now q{display:block;font-style:italic;color:var(--ink2)}.in-now q::before,.in-now q::after{content:none}
+.td-grid button.th{grid-template-columns:64px 1fr auto;align-items:center}.td-grid .tn{grid-row:1/3;display:block;width:64px;height:40px;border:1px solid var(--ink);border-radius:4px;object-fit:cover;background:#1c1b18}
+.in-jb{display:inline-block;margin:0 0 .3rem;font:600 .66rem/1 var(--sans);color:var(--ink2)}
 .in-more{margin-top:.4rem;min-height:36px;border:0;background:transparent;cursor:pointer;font:600 .7rem/1 var(--sans);text-decoration:underline}
 .res .pgh{padding:.5rem .6rem .2rem;font:700 .56rem/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .res .pg{grid-template-columns:1rem 1fr}.res .pg small{grid-column:2;text-align:left}
@@ -3051,7 +3055,7 @@ function renderPagesMode(focusFirst){
   tdChips.querySelectorAll('[data-k]').forEach(b=>b.addEventListener('click',()=>{inKind=b.dataset.k;tdMore=false;renderTree();const n=tdChips.querySelector('[data-k="'+inKind+'"]');n&&n.focus();}));
   tdChips.querySelector('[data-a]').addEventListener('click',()=>{inAll=!inAll;tdMore=false;renderTree();tdChips.querySelector('[data-a]').focus();});
   const L=tdPagesList(),show=tdMore?L.slice(0,800):L.slice(0,60);
-  tdGrid.innerHTML=show.map((m,i)=>'<li><button type="button" data-i="'+i+'"><span class="o kq" style="background:'+KCOL[m.x[1]]+'"></span><b>'+esc(m.x[0])+'</b><small>'+esc(m.f.name)+'</small><span class="d">'+(m.x[7]?markSVG(m.x)+' '+esc(juiceLine(m.x)):(m.x[3]>1?m.x[3]+' versions · ':'')+KONE[m.x[1]]+(m.x[5]?' · '+esc(m.x[5]):''))+'</span></button></li>').join('')||'<li class="td-none">Nothing inside here of that kind.</li>';
+  tdGrid.innerHTML=show.map((m,i)=>'<li><button type="button" data-i="'+i+'"'+(tnHTML(m.f.name,m.x)?' class="th"':'')+'>'+(tnHTML(m.f.name,m.x)||'<span class="o kq" style="background:'+KCOL[m.x[1]]+'"></span>')+'<b>'+esc(m.x[0])+'</b><small>'+esc(m.f.name)+'</small><span class="d">'+(m.x[7]?markSVG(m.x)+' '+esc(jbOf(m.f.name,m.x)[1]||juiceLine(m.x)):(m.x[3]>1?m.x[3]+' versions · ':'')+KONE[m.x[1]]+(m.x[5]?' · '+esc(m.x[5]):''))+'</span></button></li>').join('')||'<li class="td-none">Nothing inside here of that kind.</li>';
   if(L.length>show.length)tdGrid.insertAdjacentHTML('beforeend','<li class="td-none"><button type="button" class="td-walk" id="tdMore">Show all '+L.length+'</button></li>');
   tdGrid.querySelectorAll('button[data-i]').forEach(b=>b.addEventListener('click',()=>{const m=show[+b.dataset.i];PEELCTX=null;openPage(m.f,m.x[2],m.x[0]);}));
   const mb=document.getElementById('tdMore');if(mb)mb.addEventListener('click',()=>{tdMore=true;renderTree();});
@@ -3079,6 +3083,20 @@ function needsOf(x){return(x[9]||'').split(' ').filter(Boolean).map(c=>{const n=
 function markSVG(x){const m=x[6]||'';if(!m)return'';
   return'<svg class="jm" viewBox="0 0 29 12" width="29" height="12" role="img" aria-label="'+JDIM.map((d,i)=>d+' '+m[i]).join(', ')+' of 3"><title>'+JDIM.map((d,i)=>d+' '+m[i]).join(' · ')+'</title>'+
     [0,1,2,3,4].map(i=>'<rect x="'+(i*6)+'" y="0" width="4.4" height="12" fill="var(--rule)" opacity=".45"/><rect x="'+(i*6)+'" y="'+(12-4*m[i])+'" width="4.4" height="'+(4*m[i])+'" fill="'+(i===0?'var(--warm)':'var(--ink)')+'"/>').join('')+'</svg>';}
+function jbOf(repo,x){return(window.__JB||{})[repo+'/'+x[2]]||['',''];}
+function tnHTML(repo,x){const j=jbOf(repo,x);return j[0]?'<img class="tn" src="thumbs/'+j[0]+'.webp" alt="" loading="lazy" decoding="async" width="56" height="35">':'';}
+function sentence(x){const c={};(x[8]||'').split(' ').forEach(t=>{if(t)c[t[0]]=t.slice(1);});const kind=x[1],adj=[];
+  if('3' in c)adj.push('3D');let noun;
+  if('G' in c)noun='game';else{noun={game:'game',tool:'tool',world:'world',film:'film piece',music:'music piece',talk:'talk',text:'text',page:'page'}[kind]||'page';if('A' in c&&noun!=='film piece')adj.unshift('animated');}
+  if(noun==='text'&&!adj.length&&'R' in c)return'A long read.'+('v' in c?' Tended across '+c.v+' versions.':'');
+  const art=adj[0]==='3D'?'A':((adj[0]||noun)[0].match(/[aeiou]/)?'An':'A');let s=art+' '+adj.concat([noun]).join(' ');
+  const inp=[['K','keys'],['T','touch'],['P','a mouse'],['J','a gamepad']].filter(q=>q[0] in c).map(q=>q[1]);
+  if(inp.length)s+=(noun==='game'?', played with ':', used with ')+(inp.length<3?inp.join(' or '):inp.slice(0,-1).join(', ')+' or '+inp[inp.length-1]);
+  const ex=[['S','sound'],['C','the camera'],['V','voice'],['F','shaders']].filter(q=>q[0] in c).map(q=>q[1]);
+  if(ex.length)s+=', with '+(ex.length<3?ex.join(' and '):ex.slice(0,-1).join(', ')+' and '+ex[ex.length-1]);s+='.';
+  const mo=[['M','talks to a language model'],['N','connects to others online'],['s','remembers your progress'],['e','lets you export what you make'],['i','opens your files']].filter(q=>q[0] in c).map(q=>q[1]);
+  if(mo.length)s+=' It '+(mo.length<3?mo.join(' and '):mo.slice(0,-1).join(', ')+' and '+mo[mo.length-1])+'.';
+  if('v' in c)s+=' Tended across '+c.v+' versions.';else if('R' in c)s+=' A long read.';return s;}
 function juiceLine(x){if(!x[7])return x[5]||'';const w=whyOf(x).slice(0,4);return JV[x[7]]+(w.length?' · '+w.join(' · '):'');}
 function insideOf(f){const v=(window.__INSIDE||{})[f.name];return v&&v[2]&&v[2].length?{b:v[0],n:v[1],fams:v[2]}:null;}
 function pageURL(f,path){
@@ -3095,8 +3113,8 @@ function loadPage(f,path,title){
   pF.onload=()=>{if(req===readmeReq){clearTimeout(loadT);pMsg.hidden=true;}};
   renderInside(f);say('Showing '+(title||path)+'.');
 }
-function readingHTML(x){const w=whyOf(x),n=needsOf(x);
-  return'<div class="in-now" aria-live="polite"><p><b>'+JV[x[7]]+'</b> '+esc(x[0])+'</p><ul class="jd">'+JDIM.map((d,i)=>'<li><span>'+d+'</span><i style="--v:'+x[6][i]+'"></i></li>').join('')+'</ul>'+
+function readingHTML(x,repo){const w=whyOf(x),n=needsOf(x),j=jbOf(repo,x);
+  return'<div class="in-now" aria-live="polite">'+(j[0]?'<img class="tn" src="thumbs/'+j[0]+'.webp" alt="">':'')+'<p><b>'+JV[x[7]]+'</b> '+esc(x[0])+'</p><p class="js">'+esc(sentence(x))+'</p>'+(j[1]?'<q>'+esc(j[1])+'</q>':'')+'<ul class="jd">'+JDIM.map((d,i)=>'<li><span>'+d+'</span><i style="--v:'+x[6][i]+'"></i></li>').join('')+'</ul>'+
     (w.length?'<p class="jw">Good: '+esc(w.join(', '))+'.</p>':'')+(n.length?'<p class="jn">Needs: '+esc(n.join(', '))+'.</p>':'')+'</div>';}
 function openPage(f,path,title){openPeel(f);loadPage(f,path,title);}
 /* the "Inside" list in the card */
@@ -3107,11 +3125,11 @@ function renderInside(f){
   const fams=I.fams.filter(x=>inKind==='all'||x[1]===inKind),show=box.dataset.more==='1'?fams:fams.slice(0,10);
   const now=pageNow&&I.fams.find(y=>y[2]===pageNow);
   box.innerHTML='<p class="in-h"><b>Inside</b> '+I.fams.length+' pages'+(I.n>I.fams.length?' <span>('+I.n+' files, versions folded together)</span>':'')+'</p>'+
-    (now&&now[7]?readingHTML(now):'')+
+    (now&&now[7]?readingHTML(now,f.name):'')+'<a class="in-jb" href="shed.html#juice">The juice bar: every page, pictured ↗</a>'+
     '<details class="in-how"><summary>Ranked by juice: how pages are read</summary><p>Each page is read for evidence in its code, not for taste. Five marks, each out of three:</p><dl>'+JDIM.map((d,i)=>'<dt>'+d+'</dt><dd>'+JDIMD[i]+'</dd>').join('')+'</dl><p>A verdict names the strongest pattern: '+Object.keys(JV).map(k=>'<b>'+JV[k]+'</b> '+JVD[k]).join('; ')+'. It is a guide to where to look first. Open the page and judge.</p></details>'+
     '<div class="in-k" role="group" aria-label="Kinds of page"><button type="button" data-k="all" aria-pressed="'+(inKind==='all')+'">All</button>'+
     Object.keys(KNAME).filter(k=>kinds[k]).map(k=>'<button type="button" data-k="'+k+'" aria-pressed="'+(inKind===k)+'"><i style="background:'+KCOL[k]+'"></i>'+KNAME[k]+' <small>'+kinds[k]+'</small></button>').join('')+'</div>'+
-    '<ol class="in-l">'+show.map((x,i)=>'<li><button type="button" class="in-p" data-p="'+esc(x[2])+'" aria-current="'+(pageNow===x[2])+'"><i style="background:'+KCOL[x[1]]+'"></i><span><b>'+esc(x[0])+'</b>'+(juiceLine(x)?'<em'+(x[7]==='g'?' class="gem"':'')+'>'+esc(juiceLine(x))+'</em>':'')+'</span><small>'+(markSVG(x)||KONE[x[1]])+'</small></button>'+
+    '<ol class="in-l">'+show.map((x,i)=>'<li><button type="button" class="in-p'+(tnHTML(f.name,x)?' th':'')+'" data-p="'+esc(x[2])+'" aria-current="'+(pageNow===x[2])+'">'+(tnHTML(f.name,x)||'<i style="background:'+KCOL[x[1]]+'"></i>')+'<span><b>'+esc(x[0])+'</b>'+(juiceLine(x)?'<em'+(x[7]==='g'?' class="gem"':'')+'>'+esc(juiceLine(x))+'</em>':'')+'</span><small>'+(markSVG(x)||KONE[x[1]])+'</small></button>'+
       (x[3]>1?'<button type="button" class="in-v" aria-expanded="false" aria-label="'+x[3]+' versions of '+esc(x[0])+'">'+x[3]+' versions</button><ul class="in-vl" hidden>'+x[4].map(p=>'<li><button type="button" class="in-p2" data-p="'+esc(p)+'">'+esc(p)+'</button></li>').join('')+'</ul>':'')+'</li>').join('')+'</ol>'+
     (fams.length>10&&box.dataset.more!=='1'?'<button type="button" class="in-more">Show all '+fams.length+'</button>':'');
   box.querySelectorAll('.in-k button').forEach(b=>b.addEventListener('click',()=>{inKind=b.dataset.k;renderInside(f);const n=box.querySelector('.in-k [data-k="'+inKind+'"]');n&&n.focus();}));
@@ -3185,5 +3203,6 @@ window.__grove={trees:trees,fruits:fruits,cam:cam,go:go,stops:stops,setView:setV
 })();
 </script>
 <script src="inside.js"></script>
+<script src="juicebar.js"></script>
 </body>
 </html>

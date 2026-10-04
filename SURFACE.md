@@ -543,3 +543,25 @@ This is evidence, not taste. The text says so: "It tells you where to look first
 - **llms.txt:** the 30 juiciest pages across the grove, with verdicts and reasons; each repository's top pages carry their reasons.
 
 **Refresh:** run `python3 tools/crawl-inside.py`, then `python3 tools/assess-pages.py`, then the build.
+
+## Round 25: the juice bar (pictures and plain words)
+
+**Pictures.** `tools/shoot-pages.js` opens the juiciest pages in headless Chromium and photographs them. That is 845 pages, chosen by `tools/pick-shots.py`: the top across the grove with copies folded, and at least three per repository.
+- Each page is served straight out of a blob-less git clone, so only the files the page asks for are fetched.
+- CDN libraries (jsDelivr, unpkg, esm.sh, cdnjs, Tailwind) are served from the npm registry, so three.js and WebGL scenes render for real.
+- Thumbnails are 480×300 WebP files of about 2–8 KB in `thumbs/`. Blank renders are dropped.
+
+**Plain words.** Each page gets two kinds of description:
+- **A sentence from its evidence**, for example "A 3D game, played with keys or touch, with sound and voice. It connects to others online. Tended across 15 versions."
+- **Its own words** where it has them: the meta description, or the first real paragraph. Instructions, code and placeholders are filtered out.
+
+**Where it shows:**
+- **Shed → Juice ("The juice bar")** is a picture grid. Each card has a thumbnail, verdict, title, repository, description, five-bar mark and what is good. "Ledger" switches to the dense list with small thumbnails.
+  - Tapping a card opens the **preview**: the live page beside its reading (the sentence, its own words, the marks, Good, Needs, Open, Feature, Find it in the grove).
+  - ← and → step through the list, and so does swiping on phones. Esc returns focus to the card.
+  - On phones it is two columns, with the filters in one sideways row.
+- **Grove card, Inside:** rows carry thumbnails, and the open page's reading adds its picture, sentence and own words. A link leads to the juice bar.
+- **Tree sheet, Inside:** rows carry thumbnails and the page's own words.
+- **Homepage, the Grove section:** a "From inside the grove" strip with the twelve juiciest pages, one per repository, each with a picture and a description (`juicetop.js`, about 4 KB).
+
+**Refresh:** run `python3 tools/crawl-inside.py`, `python3 tools/assess-pages.py`, `python3 tools/pick-shots.py` and `node tools/shoot-pages.js` (which needs playwright, sharp and semver), then the build.

@@ -130,3 +130,32 @@ def phrase(ev):
         elif h == 'm': out.append('phone-ready')
         elif h == 'R': out.append('long read')
     return [' + '.join(inp) if x is None else x for x in out]
+
+def sentence(ev, kind):
+    """A plain sentence from the evidence: what it is, how you use it, what else it does."""
+    c = {x[0]: x[1:] for x in ev.split() if x}
+    adj = []
+    if '3' in c: adj.append('3D')
+    if 'G' in c: noun = 'game'
+    else:
+        noun = {'game': 'game', 'tool': 'tool', 'world': 'world', 'film': 'film piece', 'music': 'music piece', 'talk': 'talk', 'text': 'text', 'page': 'page'}[kind]
+        if 'A' in c and noun not in ('film piece',): adj.insert(0, 'animated')
+    art = 'An' if (adj and adj[0][0] in 'aeiou3') or (not adj and noun[0] in 'aeiou') else 'A'
+    if adj and adj[0] == '3D': art = 'A'
+    if noun == 'text' and not adj and 'R' in c: return 'A long read.' + (' Tended across ' + c['v'] + ' versions.' if 'v' in c else '')
+    s = art + ' ' + ' '.join(adj + [noun])
+    inp = [w for k, w in (('K', 'keys'), ('T', 'touch'), ('P', 'mouse'), ('J', 'a gamepad')) if k in c]
+    if inp: s += ', played with ' + (' or '.join(inp) if len(inp) < 3 else ', '.join(inp[:-1]) + ' or ' + inp[-1]) if noun == 'game' else ', used with ' + ' or '.join(('a mouse' if w == 'mouse' else w) for w in inp)
+    ex = [w for k, w in (('S', 'sound'), ('C', 'the camera'), ('V', 'voice'), ('F', 'shaders')) if k in c]
+    if ex: s += ', with ' + (' and '.join(ex) if len(ex) < 3 else ', '.join(ex[:-1]) + ' and ' + ex[-1])
+    s += '.'
+    more = []
+    if 'M' in c: more.append('talks to a language model')
+    if 'N' in c: more.append('connects to others online')
+    if 's' in c: more.append('remembers your progress')
+    if 'e' in c: more.append('lets you export what you make')
+    if 'i' in c: more.append('opens your files')
+    if more: s += ' It ' + (' and '.join(more) if len(more) < 3 else ', '.join(more[:-1]) + ' and ' + more[-1]) + '.'
+    if 'v' in c: s += ' Tended across ' + c['v'] + ' versions.'
+    elif 'R' in c: s += ' A long read.'
+    return s

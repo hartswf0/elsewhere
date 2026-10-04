@@ -135,6 +135,14 @@ a.work:hover .title,a.post:hover .title{text-decoration:underline;text-decoratio
 .research p:last-child{margin-bottom:0}
 .grove-lede{margin:0 0 1.4rem;font-size:clamp(1.02rem,1.6vw,1.12rem);line-height:1.55;color:var(--ink2)}
 .tier{padding:.9rem 0 .4rem;border-top:1px solid var(--rule)}
+.sec-body.grove{min-width:0}.jbar{margin:1.4rem 0 .4rem;min-width:0;max-width:100%}.jbar ul{list-style:none;margin:.5rem 0 0;padding:0 0 .6rem;display:grid;grid-auto-flow:column;grid-auto-columns:minmax(13.5rem,16rem);gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:thin}
+.jbar li{scroll-snap-align:start}.jbar a{display:block;text-decoration:none;color:inherit}
+.jbar img{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;border:1px solid var(--ink);border-radius:4px;background:#1c1b18;transition:transform .3s ease}
+.jbar a:hover img,.jbar a:focus-visible img{transform:translateY(-3px)}
+.jbar b{display:block;margin-top:.45rem;font-weight:400;font-size:1rem;line-height:1.25}.jbar a:hover b{text-decoration:underline}
+.jbar small{display:block;font:500 .64rem/1.4 var(--sans);letter-spacing:.04em;color:var(--muted)}
+.jbar span{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;margin-top:.2rem;font-size:.86rem;line-height:1.4;color:var(--ink2)}
+.jbar-more{margin:.3rem 0 0;font-size:.92rem}
 .tier-name{margin:0 0 .5rem;display:flex;align-items:center;gap:.5rem;font:700 .64rem/1.3 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 .tier-name .dot{flex:none;width:.7rem;height:.7rem;border-radius:50%;border:1px solid var(--ink)}
 .node{display:grid;grid-template-columns:minmax(9rem,13rem) 1fr;gap:.2rem 1.2rem;padding:.38rem 0;text-decoration:none;color:inherit;align-items:baseline}
@@ -395,6 +403,11 @@ body.play .work .open:hover{border-color:var(--ink);color:var(--ink)}
           <input id="gq" name="q" type="search" placeholder="Search by name or idea" autocomplete="off">
           <button type="submit">Search</button>
         </form>
+        <div id="jbar" class="jbar" hidden><h3 class="tier-name">From inside the grove</h3><ul id="jbarL" aria-label="The juiciest pages inside the repositories"></ul><p class="jbar-more"><a href="shed.html#juice">The juice bar: every page, pictured</a></p></div>
+        <script src="juicetop.js"></script>
+        <script>(function(){var T=window.__JBTOP,el=document.getElementById('jbar');if(!T||!T.length||!el)return;
+          var e=function(t){return String(t).replace(/[&<>"]/g,function(x){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[x];});};
+          document.getElementById('jbarL').innerHTML=T.map(function(x){return '<li><a href="'+e(x[2])+'" target="_blank" rel="noopener"><img src="thumbs/'+e(x[3])+'.webp" alt="" loading="lazy" decoding="async" width="480" height="300"><b>'+e(x[0])+'</b><small>'+e(x[1])+'</small><span>'+e(x[5])+'</span></a></li>';}).join('');el.hidden=false;})();</script>
         <div id="colls" class="colls" hidden></div>
         <script src="curation.js"></script>
         <script>(function(){var c=window.__CURATION,el=document.getElementById('colls');if(!c||!el||!c.collections||!c.collections.length)return;

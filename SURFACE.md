@@ -474,3 +474,30 @@ axe-core finds 0 violations at desktop and phone widths.
 **Signs** now stand at the centre of their stand, beside Watson rather than behind him.
 
 axe-core finds 0 violations.
+
+## Revision: inside every repository, the good stuff first
+
+**The problem:** repositories hold many pages (momsaic alone has 217), named in versions (`game (3).html`, `game-v5-final.html`, `game_fixed.html`). Some aren't published at all, and the best work, like momsaic's games, was invisible.
+
+**The index** (`tools/crawl-inside.py`, giving `inside.js`):
+- For each repository it shallow-clones the Pages branch (or the default branch) without file contents and lists every HTML file.
+- It folds versions into families:
+  - by name stem, ignoring `(n)`, `vN`, `final`, `fixed`, `copy` and the like;
+  - by a shared first word when three or more files share it;
+  - by identical titles.
+- It fetches only the best page of each family, to read its `<title>` and description.
+- Ranking:
+  - versions count as evidence of care, capped so generated data folders don't dominate;
+  - then size and kind (game, tool, world, film, music, talk, text);
+  - then a description;
+  - test, backup and template pages sink.
+- 340 repositories and 9,883 files became 4,501 distinct pages: 278 games, 674 tools, 492 worlds and more. Eight repositories couldn't be cloned (empty).
+
+**Where it shows:**
+- **The card's "Inside" section:** the page count (and how many files were folded), kind tabs with counts, and the ten best pages ("best" marks the top three).
+  - A page loads straight into the card's view. "N versions" expands to the other versions.
+  - "Open this page ↗" follows whatever is showing.
+  - A repository without a site now opens on its best page, through raw.githack, instead of only its README.
+- **Search** reaches inside: under the projects it lists "Inside the projects" matches by page title, file name, description or kind. "futbol" finds the Fútbolmas games; "game" finds games.
+- **The tree sheet** has a Projects / Inside switch. Inside lists the pages of this tree, or of the whole grove (identical copies across repositories shown once), filtered by kind.
+- **llms.txt** lists the four best pages of every repository with four or more pages, for crawlers.

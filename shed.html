@@ -521,7 +521,7 @@ function renderJuice(){
     const top=Object.keys(RJ).filter(k=>byName[k]&&RJ[k]>0).sort((a,b)=>RJ[b]-RJ[a]).slice(0,14),mx=top.length?RJ[top[0]]:1;
     $('#jrepos').innerHTML=top.map(k=>{const g=INS[k][2].filter(x=>x[7]==='g').length;return'<li><button type="button" data-r="'+esc(k)+'">'+esc(k)+'</button><small>'+(g?g+' gem'+(g>1?'s':''):INS[k][2].length+' pages')+'</small><i class="jbar" style="width:'+Math.round(RJ[k]/mx*100)+'%" aria-hidden="true"></i></li>';}).join('');
     $$('#jrepos button').forEach(b=>b.addEventListener('click',()=>{$('#jq').value=b.dataset.r;jF='all';jMore=false;renderJuice();$('#jq').focus();}));}
-  const base=PAGES.filter(p=>!q||p.s.includes(q)||jbOf(p)[1].toLowerCase().includes(q)),cnt={};base.forEach(p=>cnt[p.x[7]]=(cnt[p.x[7]]||0)+1);
+  const base=PAGES.filter(p=>!q||p.s.includes(q)||jbOf(p)[1].toLowerCase().includes(q)||(jbOf(p)[4]||[]).join(' ').includes(q)),cnt={};base.forEach(p=>cnt[p.x[7]]=(cnt[p.x[7]]||0)+1);
   $('#jsum').innerHTML='<button type="button" data-f="all" aria-pressed="'+(jF==='all')+'">All <small>'+base.length+'</small></button>'+JORD.split('').filter(k=>cnt[k]).map(k=>'<button type="button" data-f="'+k+'" aria-pressed="'+(jF===k)+'">'+JV[k]+' <small>'+cnt[k]+'</small></button>').join('');
   $$('#jsum button').forEach(b=>b.addEventListener('click',()=>{jF=b.dataset.f;jMore=false;renderJuice();const n=$('#jsum [data-f="'+jF+'"]');n&&n.focus();}));
   let L=base.filter(p=>jF==='all'||p.x[7]===jF);
@@ -565,6 +565,9 @@ function fillPV(){const p=jShow[pvI];if(!p)return;{const lv=$('#jpvLive');if(lv)
   if(vs.length){$('#jpvInfo').insertAdjacentHTML('beforeend','<div class="jpv-v"><h3>Views · how it unfolds</h3><p class="jg">'+esc(opLine(vs))+'</p><div class="jvw">'+vs.map((v,i)=>'<button type="button" data-v="'+i+'" aria-pressed="'+(pvView===i)+'"><img src="views/'+esc(v[0])+'" alt="" loading="lazy">'+esc(v[1]==='opens'?'Opens':v[1])+'</button>').join('')+'</div></div>');
     $$('#jpvInfo .jpv-v button').forEach(b=>b.addEventListener('click',()=>showView(+b.dataset.v)));}
   if(pvView>=0&&vs[pvView])showView(pvView);pvView=-1;
+  const like=(jbOf(p)[3]||[]).map(key=>{const i=key.indexOf('/');return pageFrom(key.slice(0,i),key.slice(i+1));}).filter(Boolean);
+  if(like.length){$('#jpvInfo').insertAdjacentHTML('beforeend','<div class="jpv-v"><h3>Looks like · elsewhere in the grove</h3><div class="jvw">'+like.map((q,i)=>'<button type="button" data-l="'+i+'"><img src="thumbs/'+esc(jbOf(q)[0])+'.webp" alt="" loading="lazy">'+esc(q.x[0].slice(0,40))+' <small>'+esc(q.k)+'</small></button>').join('')+'</div></div>');
+    $$('#jpvInfo [data-l]').forEach(b=>b.addEventListener('click',()=>{jShow.splice(pvI+1,0,like[+b.dataset.l]);stepPV(1);}));}
   $('#jpvFeat').addEventListener('click',()=>toggleFeature(p.k));say((pvI+1)+' of '+jShow.length+': '+x[0]+'.');}
 function showView(i){const p=jShow[pvI],vs=vwOf(p);if(!vs[i])return;const F=$('#jpvF'),I=$('#jpvI');clearTimeout(pvT);I.src='about:blank';I.style.opacity='0';$('#jpvM').hidden=true;
   F.style.backgroundImage='url(views/'+vs[i][0]+')';F.style.backgroundSize='contain';

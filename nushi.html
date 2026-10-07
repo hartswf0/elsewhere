@@ -90,6 +90,8 @@ footer{max-width:70rem;margin:0 auto;padding:1.4rem clamp(1rem,4vw,2.4rem) 3rem;
       <p>Xsolla debuted Nushi, a robotic AI cat, at the Game Developers Conference in 2023. I made the AI image transformations that turned the cat's eye camera, “Nushi Vision”, into the styles of different game worlds for the on-site displays and the livestream, so developers walking by saw a familiar character crossing into their kind of world.</p>
       <p>The aim was to keep the character and the place recognisable while the style changed: an artistic bridge between game worlds, not a filter over them.</p>
       <p class="note">Campaign reach, as reported by the creative producer: 55M+ views and 465K+ followers in 10 days.</p>
+<figure class="mp-shot" data-shot="nushi" style="max-width:min(960px,calc(100vw - 32px));margin-left:auto;margin-right:auto"></figure>
+
     </div>
   </section>
 
@@ -206,5 +208,6 @@ if(RM||!('IntersectionObserver' in window))return;
 var io=new IntersectionObserver(function(es){es.forEach(function(e){var v=e.target;if(e.isIntersecting){v.preload='auto';var p=v.play();if(p&&p.catch)p.catch(function(){});}else v.pause();});},{rootMargin:'120px'});
 V.forEach(function(v){io.observe(v);});})();
 </script>
+<script src="cartoon/shots.js" defer></script><script src="cartoon/cartoon.js" defer></script>
 </body>
 </html>

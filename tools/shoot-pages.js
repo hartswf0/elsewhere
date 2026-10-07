@@ -81,10 +81,32 @@ async function shootRepo(browser,repo,items){
         const meta=(q('meta[name="description"]')||q('meta[property="og:description"]'));
         const ps=[...document.querySelectorAll('p, .lede, .subtitle, .tagline, header small, h2')].map(T).filter(t=>t.length>=40&&t.length<400&&!/cookie|javascript|loading|\{|\}/i.test(t));
         return {title:document.title,h1:T(q('h1')).slice(0,120),meta:meta?meta.content.trim().slice(0,300):'',para:(ps[0]||'').slice(0,300),text:T(document.body).length};}).catch(()=>({}));
-      const jpg=await page.screenshot({type:'jpeg',quality:80,timeout:15000});
+      const jpg0=await page.screenshot({type:'jpeg',quality:80,timeout:15000});
+      // step inside: press the start button if there is one, then nudge the controls, so the picture shows the experience, not its menu
+      let entered='';
+      try{entered=await page.evaluate(()=>{
+        const RX=/^\s*(▶|►|⏵)?\s*(enter|start|play|begin|launch|go|tap to|click to|continue|explore|open the|new game|let'?s go|initiali[sz]e|boot|run|build|try it|step inside|ready)/i;
+        const vis=e=>{const r=e.getBoundingClientRect(),cs=getComputedStyle(e);return r.width>20&&r.height>14&&r.bottom>0&&r.top<innerHeight&&cs.visibility!=='hidden'&&cs.display!=='none'&&+cs.opacity>0.05;};
+        const c=[...document.querySelectorAll('button,[role=button],input[type=button],input[type=submit],a')].filter(e=>{
+          const t=(e.innerText||e.value||e.getAttribute('aria-label')||'').trim();if(!t||t.length>40||!RX.test(t)||!vis(e))return false;
+          if(e.tagName==='A'){const h=e.getAttribute('href')||'';if(/^(https?:|mailto:)/i.test(h)&&!h.includes('repo.local'))return false;}return true;});
+        if(!c.length)return'';c.sort((a,b)=>{const A=a.getBoundingClientRect(),B=b.getBoundingClientRect();return B.width*B.height-A.width*A.height;});
+        const e=c[0];e.click();return(e.innerText||e.value||'').trim().slice(0,30);});}catch(e){}
+      if(entered){await page.waitForLoadState('load',{timeout:8000}).catch(()=>{});await page.waitForTimeout(1500);}
+      try{await page.mouse.move(640,400);await page.mouse.click(640,430);}catch(e){}
+      for(const key of ['Enter','ArrowUp','KeyW','ArrowRight','KeyD']){try{await page.keyboard.down(key);await page.waitForTimeout(key==='Enter'?120:450);await page.keyboard.up(key);}catch(e){}}
+      try{await page.mouse.move(760,360,{steps:8});}catch(e){}
+      await page.waitForTimeout(1600);
+      let jpg=jpg0,inside=0;
+      try{const jpg1=await page.screenshot({type:'jpeg',quality:80,timeout:15000});
+        const g=async b=>(await sharp(b).resize(64,40).greyscale().raw().toBuffer());const [a0,a1]=[await g(jpg0),await g(jpg1)];
+        let d=0;for(let i=0;i<a0.length;i++)d+=Math.abs(a0[i]-a1[i]);d/=a0.length;
+        const st1=await sharp(jpg1).stats(),sd1=st1.channels.slice(0,3).reduce((a,c)=>a+c.stdev,0)/3;
+        if(d>6&&sd1>=6){jpg=jpg1;inside=1;}}catch(e){}
       const st=await sharp(jpg).stats();const sd=st.channels.slice(0,3).reduce((a,c)=>a+c.stdev,0)/3;
       await sharp(jpg).resize(480,300).webp({quality:52}).toFile(OUT+k+'.webp');
-      out.push([it,{k,blank:sd<6?1:0,errs,...info}]);
+      await sharp(jpg0).resize(480,300).webp({quality:52}).toFile(OUT+k+'.menu.webp');
+      out.push([it,{k,blank:sd<6?1:0,errs,inside,entered,...info}]);
     }catch(e){out.push([it,{k,err:String(e.message||e).slice(0,80)}]);}
     await ctx.close();
   }

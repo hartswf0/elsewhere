@@ -565,3 +565,22 @@ This is evidence, not taste. The text says so: "It tells you where to look first
 - **Homepage, the Grove section:** a "From inside the grove" strip with the twelve juiciest pages, one per repository, each with a picture and a description (`juicetop.js`, about 4 KB).
 
 **Refresh:** run `python3 tools/crawl-inside.py`, `python3 tools/assess-pages.py`, `python3 tools/pick-shots.py` and `node tools/shoot-pages.js` (which needs playwright, sharp and semver), then the build.
+
+## Round 26: the employer's path
+
+The question: can someone hiring get the facts in one click, without clicking through a thing to reach a thing?
+
+- **Résumé.** `resume.html` is a printable résumé built only from facts already on the site. `resume.pdf` is generated from it in Chromium: two Letter pages, tagged and accessible.
+  - It covers education, selected work, publications and talks, recognition, skills, and earlier work.
+  - It has no dates and no employment history, because the site doesn't state them. Add them in `resume.html` and regenerate the PDF.
+- **Nav.** About · Work · Grove · Contact · a filled **Résumé PDF** button that links straight to the file. On phones: About · Work · Résumé.
+- **About → "At a glance".** Now, Education, Published, Recognition, Builds with, Methods. Below it: Download résumé (PDF) · Résumé on the web · Email · GitHub.
+  - "Builds with" lists only what the code in the grove shows: three.js/WebGL (863 pages), Web Audio (1,295), Canvas (1,541), LLM API calls (229), camera and vision (275), shaders (128), speech (122), networking (96), ARIA labelling (1,601).
+- **Every work item has a picture.** The pictures are rendered from the pages themselves and stored in `img/work/`; the film engines were photographed while playing. Items with no page to photograph get a typographic tile instead.
+  - Each item also carries a type label (Tool, Essay, Film engine, Talk · ELO 2026, Paper · NordiCHI 2024…) with ↗ for external links and → for internal ones.
+- **Selected projects, by body of work:** open by default, so no click is needed to see them.
+- **Keywords:**
+  - title: "Research Engineer and Creative Technologist · Generative Media, HCI, AI Filmmaking";
+  - a meta keywords tag, plus skills and methods in the JSON-LD `knowsAbout`;
+  - the résumé PDF as `subjectOf`, with its own ProfilePage JSON-LD;
+  - the résumé in the sitemap and in llms.txt.

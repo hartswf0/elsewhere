@@ -715,4 +715,4 @@ Every shot was checked as a contact sheet against the director's test, and fixed
 - Every shot has an alt description of the whole action.
 - The canvas films get the shot as a cold open, with "Skip to the film" (or Esc); the cold open closes itself after the shot ends.
 
-**Code:** `cartoon/cartoon.js` (engine) and `cartoon/shots.js` (twelve shots), about 50 KB together.
+**Code:** `cartoon/cartoon.js` (engine) and `cartoon/shots.js` (twelve shots), about 69 KB together.

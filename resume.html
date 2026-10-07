@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Watson Hartsoe · Résumé · Research Engineer and Creative Technologist</title>
 <meta name="description" content="Résumé of Watson Hartsoe: research engineer and creative technologist, PhD candidate in Digital Media at Georgia Tech, MS in Human-Computer Interaction. Generative media, AI filmmaking, HCI, three.js and WebGL, LLM interfaces.">
-<meta name="keywords" content="Watson Hartsoe, research engineer, creative technologist, human-computer interaction, HCI, generative AI, generative media, AI filmmaking, worldbuilding, prototyping, user research, JavaScript, three.js, WebGL, GLSL, Web Audio, LLM, prompt engineering, context engineering, Georgia Tech, PhD, Fulbright">
+<meta name="keywords" content="Watson Hartsoe, research engineer, Python, OpenCLIP, SAM 2.1, OpenCV, FFmpeg, privacy, UX research, participatory design, instructor, creative technologist, human-computer interaction, HCI, generative AI, generative media, AI filmmaking, worldbuilding, prototyping, user research, JavaScript, three.js, WebGL, GLSL, Web Audio, LLM, prompt engineering, context engineering, Georgia Tech, PhD, Fulbright">
 <link rel="canonical" href="https://hartswf0.github.io/elsewhere/resume.html">
 <link rel="alternate" type="application/pdf" href="resume.pdf" title="Résumé (PDF)">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M1 2h5v6H1zM10 2h5v6h-5z' fill='none' stroke='%23141412'/%3E%3C/svg%3E">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfilePage","mainEntity":{"@id":"https://hartswf0.github.io/elsewhere/#person","@type":"Person","name":"Watson Hartsoe","jobTitle":"Research engineer and creative technologist; PhD candidate in Digital Media","email":"mailto:watson.hartsoe@gmail.com","url":"https://hartswf0.github.io/elsewhere/","sameAs":["https://github.com/hartswf0","https://medium.com/@Wfh.iii"],"alumniOf":{"@type":"CollegeOrUniversity","name":"Georgia Institute of Technology"},"knowsAbout":["human-computer interaction","generative AI","generative media","AI filmmaking","worldbuilding","prototyping","user research","ethnography","JavaScript","three.js","WebGL","GLSL shaders","Web Audio","large language model interfaces","computer vision in the browser","WebRTC","accessibility"]}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfilePage","mainEntity":{"@id":"https://hartswf0.github.io/elsewhere/#person","@type":"Person","name":"Watson Hartsoe","jobTitle":"Research engineer and creative technologist; PhD candidate in Digital Media","email":"mailto:watson.hartsoe@gmail.com","url":"https://hartswf0.github.io/elsewhere/","alumniOf":{"@type":"CollegeOrUniversity","name":"Georgia Institute of Technology"},"sameAs":["https://github.com/hartswf0","https://www.linkedin.com/in/watson-hartsoe-1a239438/","https://medium.com/@Wfh.iii"],"homeLocation":{"@type":"Place","name":"Atlanta, GA"},"knowsAbout":["Python","OpenCLIP","SAM 2.1","OpenCV","FFmpeg","MoviePy","ControlNet","human-computer interaction","generative AI","generative media","AI filmmaking","worldbuilding","prototyping","user research","ethnography","JavaScript","three.js","WebGL","GLSL shaders","Web Audio","large language model interfaces","computer vision in the browser","WebRTC","accessibility"]}}</script>
 <style>
 :root{--ink:#141412;--ink2:#3a382f;--muted:#5f5b52;--rule:#cbc7ba;--warm:#c4621f;--paper:#fbfaf5;
   --serif:"Iowan Old Style","Palatino Linotype","Book Antiqua",Palatino,Georgia,serif;--sans:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
@@ -34,9 +34,13 @@ ul.items{margin:.3rem 0;padding-left:1.1rem}ul.items li{margin:.25rem 0;break-in
 ul.items a,.row a{color:var(--ink);text-decoration-color:var(--rule);text-underline-offset:3px}
 .skills{display:grid;grid-template-columns:9.5rem minmax(0,1fr);gap:.3rem 1rem;margin:.4rem 0}
 .skills dt{font:600 .74rem/1.5 var(--sans);letter-spacing:.03em;color:var(--ink2)}.skills dd{margin:0}
+.sum{margin:.8rem 0 0}.row i{font-style:italic}.row .what i{font-style:normal;color:var(--ink2)}.add{font-size:.92em;color:var(--ink2)}
+.row+ul.items{margin-top:.1rem}
 .url{font:500 .74rem/1.4 var(--sans);color:var(--muted);word-break:break-all}
 @media(max-width:560px){.row{grid-template-columns:1fr}.row .where{text-align:left}.skills{grid-template-columns:1fr}.skills dd{margin-bottom:.4rem}header h1{font-size:1.8rem}}
-@media print{html,body{background:#fff}.bar{display:none}.page{max-width:none;margin:0;padding:0;box-shadow:none;background:#fff}body{font-size:10.4pt}h2{margin-top:12pt}a{text-decoration:none}.url{display:inline}}
+@media print{html,body{background:#fff}h2{margin-top:10pt}ul.items li{margin:.12rem 0}.row{margin:.3rem 0}.bar{display:none}.page{max-width:none;margin:0;padding:0;box-shadow:none;background:#fff}body{font-size:10.4pt}h2{margin-top:12pt}a{text-decoration:none}.sum{margin:.8rem 0 0}.row i{font-style:italic}.row .what i{font-style:normal;color:var(--ink2)}.add{font-size:.92em;color:var(--ink2)}
+.row+ul.items{margin-top:.1rem}
+.url{display:inline}}
 @page{size:Letter;margin:.55in .6in}
 </style>
 </head>
@@ -45,59 +49,72 @@ ul.items a,.row a{color:var(--ink);text-decoration-color:var(--rule);text-underl
 <main class="page">
 <header>
   <h1>Watson Hartsoe</h1>
-  <p class="role">Research engineer and creative technologist · PhD candidate, Digital Media, Georgia Tech</p>
+  <p class="role">Research Engineer and Creative Technologist</p>
   <ul class="contact">
+    <li>Atlanta, GA</li>
     <li><a href="mailto:watson.hartsoe@gmail.com">watson.hartsoe@gmail.com</a></li>
-    <li><a href="https://hartswf0.github.io/elsewhere/">hartswf0.github.io/elsewhere</a></li>
-    <li><a href="https://github.com/hartswf0">github.com/hartswf0</a></li>
+    <li><a href="https://hartswf0.github.io/elsewhere/">Portfolio</a></li>
+    <li><a href="https://github.com/hartswf0">GitHub</a></li>
+    <li><a href="https://www.linkedin.com/in/watson-hartsoe-1a239438/">LinkedIn</a></li>
   </ul>
 </header>
 
-<h2>Summary</h2>
-<p>I build working tools for generative media, filmmaking and worldbuilding. Machines now produce more images, video, code and possible worlds than people can inspect, organize or shape; my work turns that abundance into usable instruments: browser-based filmmaking systems, networked 3D environments, and compilers that translate formal languages into interactive experiences. I work by building the system, testing it with real users, watching where it fails, and revising it.</p>
+<p class="sum">I build browser tools and Python pipelines for generative media, interactive 3D, and film production. My work combines software development, privacy and participatory research, and coordination of creative and technical teams. PhD candidate in Digital Media at Georgia Tech.</p>
+
+<h2>Research and professional experience</h2>
+<div class="row"><b>Georgia Institute of Technology</b><span class="where">2023–present</span><span class="what"><i>Doctoral Researcher, Digital Media</i> · Atlanta, GA</span></div>
+<ul class="items">
+  <li>Develop thick prompting, a research method for studying generative workflows through documented prompt variation, output comparison, and traceable media records.</li>
+  <li>Coauthored participatory Emotion AI auditing research published at NordiCHI 2024; develop interactive privacy and ethics prototypes.</li>
+  <li>Instructor, Intro to Media Studies (LMC 2400 B1), Spring 2026; mentor undergraduate researchers in the Art &amp; AI VIP Program.</li>
+</ul>
+<div class="row"><b>Xsolla</b><span class="where">Jan–Jun 2023</span><span class="what"><i>Consultant</i> · Babka UX Researcher, Trust, Privacy &amp; Security; Nushi AI Artist</span></div>
+<ul class="items">
+  <li>Built and tested a system of 200+ custom chatbots through company-wide workshops exploring privacy in conversational commerce.</li>
+  <li>Created AI image transformations for Nushi at GDC 2023, supporting camera-based visuals, on-site displays, and livestreams; built Python/MoviePy video preparation tools for ControlNet and Runway GEN-1.</li>
+  <li>Served as a deputized producer, coordinating photographers, roboticists, performers, and media handoffs across capture, AI processing, and delivery. Campaign reach reported by the creative producer: 55M+ views and 465K+ followers in 10 days.</li>
+</ul>
+<div class="row"><b>Genesis STEAM</b><span class="where">2016–2021</span><span class="what"><i>Lead Instructor</i> · Los Angeles, CA</span></div>
+<ul class="items">
+  <li>Created curriculum and training resources for teachers and nonprofits; taught prototyping, computational thinking, 360 filmmaking, and virtual placemaking with museum, design, and development teams.</li>
+  <li>Co-inventor, published U.S. patent application US20210241650A1 (2021): Collaborative system for teaching design and critical thinking skills.</li>
+</ul>
+<div class="row"><b>Ojo Joven and Artes Sin Fronteras</b><span class="where">2013–2015</span><span class="what"><i>Founder, Ojo Joven</i> · Fulbright Scholar; Princeton in Latin America Fellow · Honduras</span></div>
+<ul class="items">
+  <li>Founded and managed a participatory youth photography program; developed curriculum and media methods, led training, and facilitated community conversations.</li>
+  <li>Conducted year-long ethnographic fieldwork using participant observation, focus groups, and interviews. Presented community media methods at the Community Development Society Conference (2015).</li>
+</ul>
+<p class="add">Additional experience: Emory research collaboration (2023–2024); IDDS sanitation research and co-design, Guatemala (2017); Episcopal School of Los Angeles Teaching Fellow (2015–2016).</p>
 
 <h2>Education</h2>
-<div class="row"><b>PhD candidate, Digital Media</b><span class="where">Georgia Institute of Technology</span><span class="what">School of Literature, Media, and Communication. Research on how people work with generative systems, through a method called thick prompting.</span></div>
-<div class="row"><b>MS, Human-Computer Interaction</b><span class="where">Georgia Institute of Technology</span></div>
-<div class="row"><b>Fulbright research, ethnographic fieldwork</b><span class="where">Honduras</span><span class="what">Arts-based and participatory research with communities in Central America.</span></div>
+<div class="row"><b>PhD candidate, Digital Media</b><span class="where">Georgia Institute of Technology · 2023–present</span></div>
+<div class="row"><b>MS, Human-Computer Interaction</b><span class="where">Georgia Institute of Technology · 2023</span></div>
+<div class="row"><b>BA, Cultural Anthropology, summa cum laude</b><span class="where">Sewanee: The University of the South · 2013</span></div>
 
-<h2>Selected work</h2>
-<div class="row"><b><a href="https://hartswf0.github.io/abc-flix/">CINEOSIS</a></b><span class="where">Tool</span><span class="what">A browser-based instrument for assembling abundant generated footage: assembly as sampling, not cutting.</span></div>
-<div class="row"><b>Where You Go When You Leave</b><span class="where">Feature film, in production</span><span class="what">With poet and filmmaker Mark Anthony Thomas: carrying a poet's language into a generative medium.</span></div>
-<div class="row"><b><a href="https://hartswf0.github.io/elsewhere/watson-hartsoe-site/machinery_of_meaning_legible_film.html">The Machinery of Meaning</a></b><span class="where">Film engine</span><span class="what">A procedural film engine you can read while it runs; every diagram, transition and claim comes from one inspectable timeline.</span></div>
-<div class="row"><b><a href="https://hartswf0.github.io/elsewhere/watson-hartsoe-site/can_a_language_model_build_with_lego__2_.html">Can a Model Build with LEGO?</a></b><span class="where">Interactive essay</span><span class="what">Translates a language model's claims into legal LDraw parts, exact placements and real connections that can be checked.</span></div>
-<div class="row"><b><a href="https://hartswf0.github.io/elsewhere/watson-hartsoe-site/centaur-box-presentation-concrete.html">Centaur Box</a></b><span class="where">Talk</span><span class="what">Exposes the hidden run record beneath a persuasive human–AI conversation.</span></div>
-<div class="row"><b><a href="https://www.youtube.com/watch?v=Uoitq8hpcCM">Gumball Emotion Machine</a></b><span class="where">Physical computing</span><span class="what">Reads a face, assigns an emotion, returns a gumball: emotion classification made physical.</span></div>
-<div class="row"><b><a href="https://hartswf0.github.io/elsewhere/grove.html">The Grove</a></b><span class="where">340 repositories</span><span class="what">An index of every project: games, tools, 3D worlds and film systems, each assessed and previewed.</span></div>
+<h2>Selected research and technical work</h2>
+<div class="row"><b>CINEOSIS and <i>Where You Go When You Leave</i></b><span class="where"><a href="https://hartswf0.github.io/cineosis-lab/lab/videotext-studio.html">Demo</a> · <a href="https://github.com/hartswf0/cineosis-lab">Code</a></span><span class="what">Chief AI Operations with Mark Anthony Thomas; feature film in production. Built browser tools for searching, comparing, and assembling footage with synchronized playback, editable branches, source tracking, and EDL export; Python media workflows use OpenCLIP, SAM 2.1, OpenCV, and FFmpeg.</span></div>
+<div class="row"><b>WAG and LDraw Authoring Tools</b><span class="where"><a href="https://hartswf0.github.io/tractor-dce-gyo/wag-primitive-editor.html">Editor</a> · <a href="https://github.com/hartswf0/tractor-dce-gyo/blob/main/WAG-PRIMITIVE-EDITOR-README.md">Code</a></span><span class="what">Built JavaScript/Three.js interfaces linking editable LDraw source with 3D scenes: part selection, protected edits, undo/redo, and independent scene states.</span></div>
+<div class="row"><b>Privacy Nutrition Label</b><span class="where"><a href="https://github.com/hartswf0/privacy-value-labels">Source</a></span><span class="what">Built a browser prototype translating contextual and multidimensional privacy concepts into editable labels, comparison views, and learning scenarios, with JSON import/export. Richmond Wong’s Project Studio, 2025.</span></div>
+<div class="row"><b>LEGOS</b><span class="where"><a href="https://hartswf0.github.io/LEGOS/">Project</a> · <a href="https://github.com/hartswf0/LEGOS">Code</a></span><span class="what">Developed a narrative grammar and browser tools for specifying locations, entities, goals, obstacles, shifts, and solutions. Presented in the TRANSFORMER 2025 workshop; a precursor to related ELO 2026 work.</span></div>
 
-<h2>Publications and talks</h2>
+<h2>Selected publications, presentations and recognition</h2>
 <ul class="items">
-  <li><a href="https://dl.acm.org/doi/fullHtml/10.1145/3679318.3685411">Auditing Emotion AI</a>. NordiCHI 2024. Documents where emotion-recognition systems mislabel affect.</li>
-  <li><a href="https://hartswf0.github.io/elsewhere/watson-hartsoe-site/ripples-conference-presentation-rebuilt.html">Coaxing the Ripples</a>. Electronic Literature Organization (ELO) 2026. Can a generative system remember what already happened in its world?</li>
-  <li><a href="https://hartswf0.github.io/elsewhere/watson-hartsoe-site/operative-ekphrasis-relational-essay.html">Operative Ekphrasis: From Imagetext to Worldtext</a>. With Jay David Bolter.</li>
-  <li><a href="https://hartswf0.github.io/elsewhere/watson-hartsoe-site/after-the-scene-legos-essay__1_.html">After the Scene</a>. The LEGOS framework for what a model writes after a scene feels finished.</li>
-  <li><a href="https://hartswf0.github.io/elsewhere/watson-hartsoe-site/aphoristic-social-models/index.html">Growing Entanglements</a>. Captain Cook and seven agent-based models of a historical encounter.</li>
-</ul>
-
-<h2>Recognition</h2>
-<ul class="items">
-  <li>ITU AI for Good platform</li>
-  <li>Georgia Tech AI Competition</li>
-  <li>CREATE-X, Georgia Tech</li>
-  <li>Neu Wave AI Film Festival</li>
-  <li>Fulbright</li>
+  <li><a href="https://doi.org/10.1145/3679318.3685411">Reflective Design for Informal Participatory Algorithm Auditing: A Case Study with Emotion AI.</a> With Noura Howell, Jacob Amin, and Vyshnavi Namani. NordiCHI 2024; published paper.</li>
+  <li><a href="https://stars.library.ucf.edu/elo2026/hypertextsandfictions/schedule/17/">Coaxing the Ripples: thoughts on distant writing of interactive works.</a> With Terhi Marttila and Jay David Bolter. ELO, July 2026; conference talk.</li>
+  <li><a href="https://www.taig.dev/2025/schedule#sun-07a">Forging Realities: AI as Material, Memory, and Resistance.</a> TRANSFORMER, 2025; workshop leader.</li>
+  <li><a href="https://www.linkedin.com/posts/digital-media-281436264_dm-talk-with-watson-hartsoe-the-ai-box-experiment-activity-7159278288022945792-q2sT">The AI Box Experiment: Centaurs and Synthetic Humans.</a> Georgia Tech Digital Media, February 2024; talk.</li>
+  <li><a href="https://www.youtube.com/watch?v=9lSkFhQslqk">STEM Pop-Up Lab.</a> With Magalis Martinez. Talks at Google, 2016.</li>
+  <li><a href="https://devpost.com/software/wagyo">ImmerseGT winner, 2023: WAGYO.</a> Co-created with Yago Arconada; AI-assisted 3D scene creation.</li>
 </ul>
 
 <h2>Skills</h2>
 <dl class="skills">
-  <dt>Interfaces and graphics</dt><dd>JavaScript, HTML and CSS; three.js and WebGL; GLSL shaders; Canvas and SVG; Web Audio; responsive, touch-first and accessible interfaces (ARIA).</dd>
-  <dt>AI systems</dt><dd>Large language model interfaces and APIs; prompt and context engineering; computer vision and speech in the browser; evaluation of model behaviour.</dd>
-  <dt>Networked media</dt><dd>WebRTC and WebSockets; browser-based film and media pipelines; static publishing on GitHub Pages.</dd>
-  <dt>Research methods</dt><dd>Prototyping and iterative design; user testing; ethnographic fieldwork; participatory design with museums and youth programs; thick prompting.</dd>
+  <dt>Programming and graphics</dt><dd>JavaScript, Python, HTML/CSS, Three.js, WebGL, GLSL, Canvas, SVG, Web Audio.</dd>
+  <dt>AI and media</dt><dd>LLM APIs, prompt/context engineering, OpenCLIP, SAM 2.1, OpenCV, FFmpeg, MoviePy, ControlNet.</dd>
+  <dt>Interfaces and delivery</dt><dd>Responsive interfaces, WebSockets, WebRTC, Git/GitHub, GitHub Pages.</dd>
+  <dt>Research and collaboration</dt><dd>Ethnography, interviews, focus groups, usability testing, participatory design, qualitative synthesis, technical facilitation, production coordination.</dd>
+  <dt>Languages</dt><dd>English; Spanish, high proficiency.</dd>
 </dl>
-
-<h2>Earlier work</h2>
-<p>Participatory worldmaking with museums and youth programs: museum collections as social VR spaces (Hubs Cloud), environmental futures as web VR worlds (Future Oceans), civic futures prototyping (Future Scouts, Leimert Phone Company), and youth photography as community narrative in Honduras (Ojo Joven).</p>
 </main>
 </body>
 </html>

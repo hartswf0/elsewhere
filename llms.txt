@@ -2,6 +2,8 @@
 
 > Research engineer, creative technologist, and PhD candidate in Digital Media at Georgia Tech (School of Literature, Media, and Communication). He builds interfaces for worlds that don't exist yet, and the tools to find out if they should: working tools for generative media, AI filmmaking, and worldbuilding.
 
+Experience: doctoral researcher and instructor (LMC 2400), Georgia Tech, 2023–present; consultant at Xsolla (trust, privacy and security research; AI artist for Nushi at GDC 2023); lead instructor, Genesis STEAM, 2016–2021 (co-inventor, US20210241650A1); founder of Ojo Joven and Fulbright Scholar, Honduras, 2013–2015. BA in Cultural Anthropology, Sewanee, 2013. Builds with JavaScript, Python, three.js/WebGL, OpenCLIP, SAM 2.1, OpenCV and FFmpeg. LinkedIn: https://www.linkedin.com/in/watson-hartsoe-1a239438/
+
 Recognized by the ITU AI for Good platform, Georgia Tech's AI Competition, CREATE-X, and the Neu Wave AI Film Festival. MS in Human-Computer Interaction, Georgia Tech. Fulbright fieldwork in Honduras. Method: thick prompting, a documented way of studying how a model interprets, transforms, and resists intention. Contact: watson.hartsoe@gmail.com.
 
 ## Pages

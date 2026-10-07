@@ -625,3 +625,25 @@ The best view becomes the page's thumbnail. Each idea leads with its most visual
 - **llms.txt** lists the 25 ideas, each with its best page and how that page unfolds.
 
 **Coverage:** 667 views of 295 pages. Pictured: 97 of the top 100 pages, 287 of the top 300 and 225 of 235 gems. The rest stay dark without a GPU, a video file or a camera.
+
+## Round 29: the real résumé, Nushi, local CLIP, and a way in for large media
+
+- **Résumé from the source.** `resume.html` and `resume.pdf` now follow Watson's own résumé (Research Engineer and Creative Technologist):
+  - experience with dates: Georgia Tech, Xsolla (Babka privacy research; Nushi AI artist), Genesis STEAM (patent application US20210241650A1), Ojo Joven / Fulbright;
+  - the BA from Sewanee;
+  - the four selected works with Demo, Code and Source links;
+  - six publications and talks with their records;
+  - skills including Python, OpenCLIP, SAM 2.1, OpenCV and FFmpeg; Spanish; LinkedIn.
+  The PDF is two Letter pages, tagged.
+- **Homepage "At a glance"** gains Experience, the BA, talks and awards, Python and the media-AI tools, and LinkedIn (also in Contact and the JSON-LD `sameAs`). llms.txt gains the same facts.
+- **Nushi and VideoChopper** joins the systems list, linking to the VideoChopper video, until its media arrives.
+- **CLIP, run locally.** `tools/clip_embed.py` is meant for Watson's own machine, where OpenCLIP already runs for CINEOSIS:
+  - it embeds `views/` and `thumbs/`;
+  - it scores each picture against a small vocabulary of looks (title screen, menu, 3D scene, film still, dashboard…);
+  - it writes `tools/clip.json`.
+  When that file is committed, the build:
+  - marks down title screens, menus and blank screens when choosing each page's best view;
+  - finds six look-alikes per page across the grove, shown in the preview as "Looks like · elsewhere in the grove";
+  - makes the look tags searchable.
+  Without the file, the build behaves exactly as before.
+- **Large media.** `tools/media-intake.sh <project> <files>` turns videos into a poster, three stills and a 6-second silent loop (WebM and MP4, usually under 2 MB), and images into 1600px WebP. The output goes to `media/<project>/` with a manifest. Full-length videos belong on YouTube or Vimeo, linked from the manifest.

@@ -584,3 +584,13 @@ The question: can someone hiring get the facts in one click, without clicking th
   - a meta keywords tag, plus skills and methods in the JSON-LD `knowsAbout`;
   - the résumé PDF as `subjectOf`, with its own ProfilePage JSON-LD;
   - the résumé in the sitemap and in llms.txt.
+
+## Round 27: pictures from inside the experience
+
+Many first-pass thumbnails showed a title screen ("THUNDER RIGS · ENTER THE FIELD"), so pages from the same family looked the same. `tools/shoot-pages.js` now steps inside before taking the picture:
+1. It presses the largest visible start control ("Enter…", "Start", "Play", "Initialize", "Build", "Continue"…) and waits for the next page if the button navigates.
+2. It clicks the stage, presses Enter, and holds ↑/W and →/D for a moment.
+3. It keeps the new picture only if the screen actually changed and isn't blank; otherwise it keeps the first screen.
+4. The first screen is kept too, as `<key>.menu.webp`, so it can be compared later or left out of any CLIP embedding.
+
+Result: 834 pages re-shot, and 221 of them now show the experience itself (3D scenes, games mid-play, tools with content) instead of the menu. Pages that weren't re-shot keep their first-pass picture.

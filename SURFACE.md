@@ -671,3 +671,48 @@ After the environment's network was opened to Notion, the public page "AI Tempor
 Videos play only on screen; with reduced motion they wait for a Play button. The two inspiration images (other people's work) are linked, not copied.
 
 The homepage's Nushi item now opens the case study, with a real picture. The case study is also in the sitemap and llms.txt.
+
+## Round 31: a multiplane cartoon on every work page
+
+Each work page now opens with a short hand-drawn shot of its argument, built by the studio method in `cartoon/STUDIO.md` (Watson's directive):
+1. the dramatic action as one sentence;
+2. beats, then numbered keys (K01…) and breakdowns (B01…);
+3. an exposure sheet (24 fps, drawings on twos, with hold, slow-in, slow-out and overshoot);
+4. planes at depths with real parallax and occlusion;
+5. a camera that moves only when it reveals something.
+
+Every shot was checked as a contact sheet against the director's test, and fixed where it failed:
+- the bird was too small to read in silhouette;
+- the projection room was too dark for a black figure;
+- the reveal in Centaur Box was spoiled by the record peeking out;
+- the pencil was drawing hidden behind the curtain;
+- text mirrored when a character turned.
+
+| Page | Shot |
+|---|---|
+| Play, Freedom, and AI Films | the image arrives before he can draw; he recoils, considers, adds his mark |
+| The Machinery of Meaning | cold open: he reads the film strip while it runs, then the screen says it |
+| Machinery of Meaning: Fluid | cold open: he grabs at a frame and finds a melted field |
+| Coaxing the Ripples | the bird eats the berry; turn 3 and it is back; double take |
+| Can a Model Build with LEGO? | "a castle!"; one brick lands illegally; he nudges it until the check passes |
+| Centaur Box | the door won't open; the camera trucks past the pillar to the run record |
+| Operative Ekphrasis | he writes "tree" and a tree grows; he writes "sun" and it rises |
+| After the Scene | the curtain falls on a finished scene; a giant pencil draws the next world |
+| Growing Entanglements | the ship rides in over parallax waves; the shore splits into seven worlds |
+| The Pronoun Alibi | applause: "I"; a crash: he hands the robot "it" |
+| The Adviser Leaves the Room | "trust me"; the adviser walks out; he is left holding the decision |
+| Nushi Vision | the cat walks; the hall is repainted behind its eye |
+
+**The player** offers:
+- Play, plus ‹ › to flip from drawing to drawing;
+- Onion skin (previous drawing in red, next in blue);
+- Planes, which pulls the sheets apart with their depths labelled;
+- "How this shot is drawn", with the action, beats, keys (tap one to see it), the exposure sheet, the planes and the reason for the camera.
+
+**Motion and access:**
+- Shots autoplay once when scrolled into view and pause when scrolled away.
+- With reduced motion, a shot shows its poster frame and plays only on request.
+- Every shot has an alt description of the whole action.
+- The canvas films get the shot as a cold open, with "Skip to the film" (or Esc); the cold open closes itself after the shot ends.
+
+**Code:** `cartoon/cartoon.js` (engine) and `cartoon/shots.js` (twelve shots), about 69 KB together.

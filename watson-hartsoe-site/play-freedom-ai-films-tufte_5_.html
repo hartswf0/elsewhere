@@ -51,6 +51,8 @@ footer{width:min(91vw,74rem);margin:auto;border-top:1px solid var(--rule);paddin
     <div><strong>Cecile Yangminming Zhang</strong><span>PhD Student · Georgia Institute of Technology · United States</span></div>
   </div>
 </header>
+<figure class="mp-shot" data-shot="playfreedom" style="max-width:min(960px,calc(100vw - 32px));margin-left:auto;margin-right:auto"></figure>
+
 <div class="hero-strip" aria-label="Four films in the Gen:48 corpus">
   <a class="hero-frame" href="https://www.youtube.com/watch?v=dUK6lHpoMKY"><img src="https://img.youtube.com/vi/dUK6lHpoMKY/hqdefault.jpg" alt="Frame from Yago Arconada Alvarez's Gen:48 film"><span>Wonder</span></a>
   <a class="hero-frame" href="https://www.youtube.com/watch?v=t48to-rwwB8"><img src="https://img.youtube.com/vi/t48to-rwwB8/hqdefault.jpg" alt="Frame from Namit Kapoor's Gen:48 film"><span>Fracture</span></a>
@@ -602,5 +604,6 @@ document.querySelectorAll('[data-copy]').forEach(b=>b.addEventListener('click',(
 const copyAll=document.querySelector('[data-copy-all]');if(copyAll)copyAll.addEventListener('click',async e=>{const text=[...document.querySelectorAll('pre')].map(p=>p.innerText).join('\n\n--------------------\n\n');await navigator.clipboard.writeText(text);const b=e.currentTarget;b.textContent='Copied all';setTimeout(()=>b.textContent='Copy all',1200)});
 const openAll=document.querySelector('[data-open-all]');if(openAll)openAll.addEventListener('click',e=>{const ds=[...document.querySelectorAll('details')];const open=ds.some(d=>!d.open);ds.forEach(d=>d.open=open);e.currentTarget.textContent=open?'Close all':'Open all'});
 </script>
+<script src="../cartoon/shots.js" defer></script><script src="../cartoon/cartoon.js" defer></script>
 </body>
 </html>

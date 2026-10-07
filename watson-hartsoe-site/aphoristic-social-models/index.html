@@ -48,6 +48,8 @@ section{margin:0 0 clamp(6rem,12vw,10rem);scroll-margin-top:5rem}.section-head{d
   <p class="hero-note">The simulations isolate mechanisms. They do not reconstruct Hawaiian experience or settle the Sahlins–Obeyesekere debate.</p>
  </div>
 </header>
+<figure class="mp-shot" data-shot="cook" style="max-width:min(960px,calc(100vw - 32px));margin-left:auto;margin-right:auto"></figure>
+
 <nav class="toc" aria-label="Paper sections"><a href="#encounter">Encounter</a><a href="#readings">Two readings</a><a href="#plot">PLoT</a><a href="#pie">PIE</a><a href="#models">Seven models</a><a href="#ethnography">Ethnography</a><a href="#entanglement">Entanglement</a><a href="#apparatuses">Apparatuses</a><a href="#references">References</a></nav>
 
 <section id="encounter">
@@ -368,5 +370,6 @@ function side(v,a,b){return v<38?a:v>62?b:`${a} and ${b}`}
 function updatePIE(){const p=+document.getElementById('pPractical').value,i=+document.getElementById('pIndividual').value,e=+document.getElementById('pEntropy').value;document.getElementById('oPractical').value=p;document.getElementById('oIndividual').value=i;document.getElementById('oEntropy').value=e;reading.textContent=`This setting reads the encounter through ${side(p,'symbolic obligation','practical pressure')}, ${side(i,'collective schema','individual choice')}, and ${side(e,'reorganization','breakdown')}.`}
 sliders.forEach(([id])=>document.getElementById(id).addEventListener('input',updatePIE));updatePIE();
 </script>
+<script src="../../cartoon/shots.js" defer></script><script src="../../cartoon/cartoon.js" defer></script>
 </body>
 </html>

@@ -36,6 +36,12 @@
   </style>
 </head>
 <body>
+<div class="mp-cold" id="mpCold" role="dialog" aria-modal="false" aria-label="Cold open"><figure class="mp-shot" data-shot="legible" data-cap="0" style="width:min(960px,92vw);margin:0"></figure><button type="button" class="mp-skip" id="mpSkip">Skip to the film →</button></div>
+<style>.mp-cold{position:fixed;inset:0;z-index:60;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6rem;background:#f4efe3;overflow:auto;padding:1rem}.mp-cold .mp-how{display:none}.mp-skip{min-height:44px;padding:0 1.1rem;border:1.5px solid #141412;border-radius:999px;background:#141412;color:#f4efe3;font:600 .8rem/1 Inter,Helvetica,sans-serif;cursor:pointer}.mp-cold[hidden]{display:none}</style>
+<script>(function(){var c=document.getElementById('mpCold'),b=document.getElementById('mpSkip');function go(){c.hidden=true;var p=document.getElementById('play');if(p)p.focus();}
+b.addEventListener('click',go);document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!c.hidden)go();});
+c.querySelector('.mp-shot').addEventListener('mp-end',function(){setTimeout(go,1600);});})();</script>
+
 <div id="stage">
   <canvas id="film" width="1920" height="1080" aria-label="Procedural film canvas"></canvas>
 </div>
@@ -1003,5 +1009,6 @@
   requestAnimationFrame(tick);
 })();
 </script>
+<script src="../cartoon/shots.js" defer></script><script src="../cartoon/cartoon.js" defer></script>
 </body>
 </html>

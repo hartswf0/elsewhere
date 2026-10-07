@@ -1,0 +1,24 @@
+# Multiplane cartoons
+
+One hand-drawn shot per page, built the way a classical studio builds a shot, after the house directive in `STUDIO.md`.
+
+- `cartoon.js`: the engine. Planes at depths, a camera (near planes move more, `screen_motion ∝ camera_motion / depth`), rigs (Watson, robot, bird, Nushi, props), lines that boil on twos, and a player with Play, ‹ › (flip drawing to drawing), Onion skin, Planes (pulls the sheets apart), and "How this shot is drawn" (action, beats, keys, exposure sheet, planes, camera reason).
+- `shots.js`: the shots. Each is a page's argument as one dramatic action.
+
+## A shot, in the studio's terms
+
+| Studio | In `shots.js` |
+|---|---|
+| Phase 1, interpret: one sentence of dramatic action | `action` |
+| Beats: the minimum readable events | `beats` |
+| Layout, multiplane stack | `planes` (`depth`: near < 1 < far; `why` says what each plane is for) |
+| Model sheet | the rig and its `base` pose |
+| Key drawings, breakdowns | `drawings` named `K01…`, `B01…` |
+| Exposure sheet | `seq`: `[drawing, frames, spacing, note]`, at 24 fps, drawn on twos |
+| Spacing | `hold`, `snap`, `linear`, `out` (slow-out), `in` (slow-in), `inout`, `overshoot` |
+| Camera, and why it moves | `camera` (same format as `seq`) and `cameraWhy` |
+| Peak check | `poster`, the frame shown to people who prefer reduced motion |
+
+To add a shot, write the action sentence first, then the keys, and play only the keys (› steps key to key) before adding breakdowns. Put a figure on the page with `<figure class="mp-shot" data-shot="name"></figure>`, followed by `shots.js` and then `cartoon.js`.
+
+People who prefer reduced motion get a still frame (the poster) and play only on request. Every shot has an `alt` description of the whole action.

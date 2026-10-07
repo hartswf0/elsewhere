@@ -9,6 +9,7 @@ Recognized by the ITU AI for Good platform, Georgia Tech's AI Competition, CREAT
 ## Pages
 
 - [Résumé](https://hartswf0.github.io/elsewhere/resume.html) ([PDF](https://hartswf0.github.io/elsewhere/resume.pdf)): education, selected work, publications, recognition, skills.
+- [Nushi Vision and VideoChopper](https://hartswf0.github.io/elsewhere/nushi.html): case study. AI image transformations for Xsolla's robotic cat at GDC 2023, the booth's camera-to-screen path, and VideoChopper (Python/MoviePy) cutting video into 95-frame sections and keyframes for ControlNet and Runway GEN-1. Role: AI artist and deputized producer.
 - [Home](https://hartswf0.github.io/elsewhere/): films, systems, writing, research, and a scroll cartoon about description becoming a world.
 - [The Grove](https://hartswf0.github.io/elsewhere/grove.html): all 340 repositories on 11 trees by theme, searchable, sorted by ripeness (ripe, ripening, green, blossom, fallen).
 - [The Orange Tree](https://hartswf0.github.io/elsewhere/orange.html): a short multiplane scroll cartoon.

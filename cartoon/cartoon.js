@@ -43,6 +43,7 @@ const RIGS={
     s+='<path d="'+limb([sh[0]+3,sh[1]],hF,36,1)+'" stroke="'+body+'" stroke-width="'+(lw-1)+'" fill="none" stroke-linecap="round"/>';
     s+='<circle cx="'+n1(hF[0])+'" cy="'+n1(hF[1])+'" r="3.4" fill="'+PAPER+'" stroke="'+INK+'" stroke-width="1.6"/>';
     if(P.pen){const a=P.penA||-.8,t=[hF[0]+Math.cos(a)*16,hF[1]+Math.sin(a)*16];s+='<path d="M'+pt([hF[0]-Math.cos(a)*5,hF[1]-Math.sin(a)*5])+'L'+pt(t)+'" stroke="'+WARM+'" stroke-width="3.2" stroke-linecap="round"/><path d="M'+pt(t)+'l'+n1(Math.cos(a)*3)+' '+n1(Math.sin(a)*3)+'" stroke="'+INK+'" stroke-width="2"/>';}
+    if(P.holdB)s+='<g transform="translate('+n1(hB[0])+' '+n1(hB[1])+') scale('+d+' 1)">'+P.holdB+'</g>';
     if(P.hold)s+='<g transform="translate('+n1(hF[0])+' '+n1(hF[1])+') rotate('+n1(P.holdA||0)+') scale('+d+' 1)">'+P.hold+'</g>';
     /* head */
     s+='<g transform="translate('+n1(hc[0])+' '+n1(hc[1])+') rotate('+n1(ha*57.3)+')">';
@@ -101,16 +102,16 @@ function poseAt(A,f){return at(A.tl,f,d=>drawingOf(A,d));}
 /* ---------- the player ---------- */
 function mount(fig){
   const id=fig.dataset.shot,shot=(window.MP_SHOTS||{})[id];if(!shot||fig.dataset.on)return;fig.dataset.on='1';build(shot);
-  const W=shot.w||960,H=shot.h||540,uid='mp'+Math.random().toString(36).slice(2,7);
-  fig.innerHTML='<div class="mp-stage"><svg viewBox="0 0 '+W+' '+H+'" role="img" aria-labelledby="'+uid+'t"><title id="'+uid+'t">'+esc(shot.alt||shot.title)+'</title>'+
+  const W=shot.w||960,H=shot.h||540,uid='mp'+Math.random().toString(36).slice(2,7),mini=fig.classList.contains('mp-mini');
+  fig.innerHTML='<div class="mp-stage"><svg viewBox="0 0 '+W+' '+H+'"'+(mini?' preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">':' role="img" aria-labelledby="'+uid+'t"><title id="'+uid+'t">'+esc(shot.alt||shot.title)+'</title>')+
     '<defs><filter id="'+uid+'b" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".03" numOctaves="2" seed="1"/><feDisplacementMap in="SourceGraphic" scale="'+(RM?0:2.4)+'"/></filter>'+
     '<filter id="'+uid+'g"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="7"/><feColorMatrix values="0 0 0 0 .3  0 0 0 0 .25  0 0 0 0 .2  0 0 0 .07 0"/></filter></defs>'+
     '<rect width="'+W+'" height="'+H+'" fill="'+(shot.paper||PAPER)+'"/><g class="mp-world" filter="url(#'+uid+'b)"></g><rect width="'+W+'" height="'+H+'" filter="url(#'+uid+'g)" pointer-events="none"/>'+
-    '<g class="mp-labels" font-family="Inter,Helvetica,sans-serif" font-size="13" font-weight="700"></g></svg></div>'+
+    '<g class="mp-labels" font-family="Inter,Helvetica,sans-serif" font-size="13" font-weight="700"></g></svg></div>'+(mini?'':
     '<div class="mp-bar" role="group" aria-label="Shot controls"><button type="button" data-a="play">Play</button><button type="button" data-a="prev" aria-label="Previous drawing">‹</button><button type="button" data-a="next" aria-label="Next drawing">›</button>'+
     '<button type="button" data-a="onion" aria-pressed="false">Onion skin</button><button type="button" data-a="planes" aria-pressed="false">Planes</button><span class="mp-read" aria-live="off"></span></div>'+
     (fig.dataset.cap!=='0'?'<figcaption>'+esc(shot.caption||'')+'</figcaption>':'')+
-    '<details class="mp-how"><summary>How this shot is drawn</summary>'+how(shot)+'</details>';
+    '<details class="mp-how"><summary>How this shot is drawn</summary>'+how(shot)+'</details>');
   const svg=fig.querySelector('svg'),world=fig.querySelector('.mp-world'),labels=fig.querySelector('.mp-labels'),read=fig.querySelector('.mp-read'),turb=fig.querySelector('feTurbulence');
   const planes={};shot.planes.forEach(p=>{const g=document.createElementNS(NS,'g');g.setAttribute('data-plane',p.id);g.innerHTML='<g class="bg">'+(typeof p.art==='function'?'':(p.art||''))+'</g><g class="on"></g><g class="ac"></g><rect class="mp-sheet" x="-2" y="-2" width="'+(W+4)+'" height="'+(H+4)+'" fill="none" stroke="'+WARM+'" stroke-width="5" stroke-dasharray="14 8" opacity="0"/>';world.appendChild(g);planes[p.id]={p,g,ac:g.querySelector('.ac'),on:g.querySelector('.on')};});
   let f=0,playing=false,raf=0,last=0,onion=false,exploded=false,st={};shot.actors.forEach(A=>st[A.id]={scarf:0,px:null});
@@ -132,23 +133,23 @@ function mount(fig){
     labels.innerHTML=exploded?shot.planes.map((p,i)=>{const m=shot.planes.length-1,j=m-i;return '<text x="'+n1(W*.2+j*-W*.05+W*.62+8)+'" y="'+n1(H*.1+j*-H*.09+m*H*.06+H*.62-6)+'" fill="'+WARM+'" paint-order="stroke" stroke="#f4efe3" stroke-width="4">'+esc(p.id+' · depth '+p.depth)+'</text>';}).join(''):'';
     if(turb&&!RM)turb.setAttribute('seed',String(1+((fq/2)|0)%7));
     const main=shot.actors.find(A=>A.onion)||shot.actors[0],c=main._cur;
-    read.textContent='f '+String(f+1).padStart(3,'0')+'/'+shot.len+' · '+c.e.d+(c.e.note?' · '+c.e.note:'');
+    if(read)read.textContent='f '+String(f+1).padStart(3,'0')+'/'+shot.len+' · '+c.e.d+(c.e.note?' · '+c.e.note:'');
     if(!quiet)fig.dataset.frame=f;}
   function tick(ts){if(!playing)return;if(!last)last=ts;const step=1000/shot.fps;while(ts-last>=step){last+=step;if(f>=shot.len-1){stop();fig.dispatchEvent(new CustomEvent('mp-end'));return;}render(f+1,true);}raf=requestAnimationFrame(tick);}
-  function play(){if(f>=shot.len-1)render(0);playing=true;last=0;btn.textContent='Pause';raf=requestAnimationFrame(tick);}
-  function stop(){playing=false;cancelAnimationFrame(raf);btn.textContent=f>=shot.len-1?'Replay':'Play';}
+  function play(){if(f>=shot.len-1)render(0);playing=true;last=0;if(btn)btn.textContent='Pause';raf=requestAnimationFrame(tick);}
+  function stop(){playing=false;cancelAnimationFrame(raf);if(btn)btn.textContent=f>=shot.len-1?'Replay':'Play';}
   const btn=fig.querySelector('[data-a="play"]');
-  fig.querySelector('.mp-bar').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const a=b.dataset.a;
+  if(!mini)fig.querySelector('.mp-bar').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const a=b.dataset.a;
     if(a==='play'){playing?stop():play();}
     else if(a==='prev'||a==='next'){stop();const m=a==='next'?marks.find(x=>x>f):[...marks].reverse().find(x=>x<f);render(m==null?(a==='next'?shot.len-1:0):m);}
     else if(a==='onion'){onion=!onion;b.setAttribute('aria-pressed',onion);render(f);}
     else if(a==='planes'){exploded=!exploded;b.setAttribute('aria-pressed',exploded);render(f);}});
-  fig.querySelector('.mp-stage').addEventListener('click',()=>{playing?stop():play();});
+  if(!mini)fig.querySelector('.mp-stage').addEventListener('click',()=>{playing?stop():play();});
   /* the storyboard of keys inside "How this shot is drawn" */
   fig.querySelectorAll('.mp-k').forEach(k=>{const fr=+k.dataset.f;k.addEventListener('click',()=>{stop();render(fr);fig.scrollIntoView({block:'nearest',behavior:RM?'auto':'smooth'});});});
-  fig._mp={render:fr=>{stop();render(fr);},len:shot.len,shot};
+  fig._mp={render:fr=>{stop();render(fr);},play:()=>{render(0);play();},stop,len:shot.len,shot};
   render(RM?(shot.poster==null?0:shot.poster):0);
-  if(!RM&&'IntersectionObserver' in window){const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting&&!fig.dataset.played){fig.dataset.played='1';play();}else if(!e.isIntersecting&&playing)stop();});},{threshold:.45});io.observe(fig);}
+  if(!RM&&'IntersectionObserver' in window){const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting&&!fig.dataset.played){fig.dataset.played='1';play();}else if(!e.isIntersecting&&playing)stop();});},{threshold:mini?.6:.45});io.observe(fig);}
 }
 /* the shot's paperwork: dramatic action, beats, keys, exposure sheet, planes, camera */
 function how(shot){let h='<div class="mp-paper"><p class="mp-act"><b>Action.</b> '+esc(shot.action)+'</p>';
@@ -171,7 +172,7 @@ function css(){if(document.getElementById('mp-css'))return;const s=document.crea
   '.mp-paper{padding:.6rem 0}.mp-act{margin:.3rem 0}.mp-beats{margin:.3rem 0;padding-left:1.3rem}.mp-h{margin:.8rem 0 .3rem;font:700 .62rem/1 inherit;letter-spacing:.08em;text-transform:uppercase;color:#5f5b52}'+
   '.mp-keys{display:flex;flex-wrap:wrap;gap:.35rem}.mp-k{display:flex;flex-direction:column;align-items:flex-start;gap:.15rem;min-height:44px;padding:.35rem .55rem;border:1px solid #cbc7ba;border-radius:6px;background:#fffdf7;cursor:pointer;text-align:left;font:500 .7rem/1.25 inherit;color:#3a382f}.mp-k b{font:700 .74rem/1 ui-monospace,Menlo,monospace;color:#141412}'+
   '.mp-xs{overflow-x:auto}.mp-xs table{border-collapse:collapse;font:500 .72rem/1.35 ui-monospace,Menlo,monospace;min-width:34rem}.mp-xs th,.mp-xs td{padding:.2rem .5rem;border-bottom:1px solid #e1dccd;text-align:left;vertical-align:top}.mp-xs th{font-family:inherit;color:#5f5b52}'+
-  '.mp-pl{margin:.2rem 0;padding-left:1.1rem}';document.head.appendChild(s);}
+  '.mp-pl{margin:.2rem 0;padding-left:1.1rem}.mp-mini{display:block;margin:0}.mp-mini .mp-stage{border:0;border-radius:0;cursor:inherit;height:100%}.mp-mini .mp-stage svg{width:100%;height:100%}';document.head.appendChild(s);}
 function boot(){css();document.querySelectorAll('.mp-shot[data-shot]').forEach(mount);}
 window.MP={mount,boot,RIGS,SP};
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();

@@ -280,5 +280,86 @@ S.nushi={title:'Nushi Vision',alt:'A blue robot cat walks across a grey conventi
       seq:[['a',1,'hold'],['b',130,'linear','walks'],['K01',10,'in','stops'],['K02',8,'overshoot','looks at us'],['K03',8,'snap'],['K04',8,'snap','record'],['K03',8,'snap'],['K04',7,'snap']]}],
   camera:[[{x:-300,y:0,z:0},1,'hold'],[{x:160,y:0,z:0},130,'linear','tracks with the cat'],[{x:180,y:-20,z:.1},20,'in','settles on it'],[{x:180,y:-20,z:.1},29,'hold']]};
 
+
+/* WHERE YOU GO WHEN YOU LEAVE — "The poem becomes a place." */
+S.wygwyl={title:'Where You Go When You Leave',alt:'At dusk Watson reads from a page. The words lift off it and drift to the horizon, where they become a road and a small lit house. He lowers the page, steps onto the road and walks toward the house as the camera follows his gaze.',
+  caption:'The poem becomes a place: the words leave the page and lay down a road.',
+  action:'A reader reads a poem aloud; its words drift to the horizon and become a road and a house, and he walks toward them.',
+  beats:['reads','the words lift','they drift to the horizon','a road and a house appear','he lowers the page','he walks in'],
+  cameraWhy:'Holds on the reading, then pushes toward the horizon as he walks: we go where the words went.',poster:150,
+  planes:[{id:'sky',depth:18,art:sky('#e9b38a','#f4e3c8')+'<circle cx="700" cy="230" r="34" fill="#f6d36b" opacity=".8"/>'},
+    {id:'hills',depth:5,art:hill(300,'#9c8aa8',40)},
+    {id:'road',depth:1.6,why:'the road the words become',art:''},
+    {id:'action',depth:1,art:ground(430,'#c9b48c')},{id:'near',depth:.55,art:tuft(80,560,2.4)+tuft(880,560,2.8)+tuft(150,560,1.6)}],
+  actors:[
+    {id:'house',name:'the house',rig:'prop',plane:'road',art:'<path d="M-30 0V-34L0 -58L30 -34V0z" fill="#e7d1b0" stroke="'+INK+'" stroke-width="2.4"/><rect x="-8" y="-24" width="14" height="14" fill="#f6d36b" stroke="'+INK+'" stroke-width="2"/>',base:{x:690,y:292,o:0,s:.6},drawings:{a:{},b:{o:1,s:1}},seq:[['a',70,'hold'],['b',16,'overshoot','a house'],['b',94,'hold']]},
+    {id:'road',name:'the road',rig:'prop',plane:'road',art:'<path d="M640 300L700 300L980 560L360 560z" fill="#b39a74" stroke="'+INK+'" stroke-width="2.4"/><path d="M670 304V320M672 340V370M676 400V440M680 470V520" stroke="#f4efe3" stroke-width="4"/>',base:{x:0,y:0,o:0},drawings:{a:{},b:{o:1}},seq:[['a',58,'hold'],['b',16,'in','a road'],['b',106,'hold']]},
+    {id:'words',name:'the words',rig:'prop',plane:'action',art:p=>txt(0,0,'where you go',30,INK,'middle')+txt(0,36,'when you leave',30,INK,'middle'),base:{x:300,y:250,o:0,s:1},drawings:{a:{o:0},b:{o:1,y:230},c:{x:690,y:180,s:.3,o:0}},seq:[['a',16,'hold'],['b',12,'out','the words lift'],['b',14,'hold'],['c',36,'inout','drift to the horizon'],['c',102,'hold']]},
+    {id:'w',name:'Watson',rig:'figure',plane:'action',onion:true,base:{x:240,y:430,k:1.8,gaze:[1,.4],hF:[26,-8],hold:'<rect x="-6" y="-28" width="34" height="26" fill="#fffdf6" stroke="#141412" stroke-width="2.2" transform="rotate(-12)"/>'},
+      drawings:{K01:{gaze:[1,.6],tilt:.1,mouth:'o'},K02:{gaze:[.6,-.6],tilt:-.1,mouth:'flat'},K03:{gaze:[1,-.4],tilt:-.15,hF:[10,26],hold:'',mouth:'smile'},K04:{gaze:[1,-.3],hF:[10,26],hold:'',mouth:'smile',lean:.08}},
+      seq:[['K01',30,'hold','reads aloud'],['K02',12,'inout','the words lift'],['K02',36,'hold','watches them go'],['K03',14,'inout','lowers the page'],['K03',16,'hold']]}],
+  camera:[[{x:0,y:0,z:0},90,'hold','on the reader'],[{x:200,y:-40,z:.16},70,'inout','push toward the house'],[{x:200,y:-40,z:.16},20,'hold']]};
+(function(){const A=S.wygwyl.actors[3];A.seq=A.seq.concat(walk(A,'w',240,560,5,6,{hF:[10,26],hold:'',gaze:[1,-.3],mouth:'smile'}));A.drawings.K05={x:560,hF:[10,26],hold:'',gaze:[1,-.4],mouth:'smile'};A.seq.push(['K05',12,'in','arrives'],['K05',8,'hold'])})();
+
+/* CINEOSIS — "Assembly is sampling, not cutting." */
+S.cineosis={title:'CINEOSIS',alt:'Generated film frames pour down like rain. Watson snips at them with scissors and cannot keep up. He drops the scissors, thinks, picks up a sampling hoop on a stick and catches frames one by one, laying them on a timeline that lights up and plays.',
+  caption:'When footage is abundant, cutting down is the wrong verb. Sample.',
+  action:'An editor drowning in generated footage gives up cutting, and starts sampling frames into a timeline that plays.',
+  beats:['frames pour down','he snips','he can’t keep up','drops the scissors','thinks','samples with a hoop','lays frames on the timeline','it plays'],
+  cameraWhy:'Starts close on the scissors, then pulls back to show how much footage there is: the abundance is the problem.',poster:200,
+  planes:[{id:'wall',depth:8,art:'<rect x="-400" y="-300" width="1760" height="1140" fill="#26304d"/>'},
+    {id:'rain',depth:1.4,why:'the abundance',art:''},
+    {id:'action',depth:1,art:ground(440,'#3a4566')},
+    {id:'strip',depth:.8,why:'the timeline he builds',art:'<rect x="80" y="470" width="800" height="56" fill="#141412"/>'+Array.from({length:10},(_,i)=>'<rect x="'+(92+i*78)+'" y="478" width="66" height="40" fill="#2b2f3e" stroke="#7d86a3" stroke-width="2"/>').join('')}],
+  actors:[
+    {id:'rain',name:'frames',rig:'prop',plane:'rain',art:p=>{let g='';for(let i=0;i<42;i++){const x=(i*137)%1100-60,sp=60+(i*53)%90,y=((p.t*sp/10+i*97)%640)-80,c=['#e7833b','#5f87b6','#b07ac0','#7ea292','#f0b047'][i%5];g+='<g transform="translate('+x+' '+y.toFixed(1)+') rotate('+((i*31)%40-20)+')"><rect width="46" height="32" fill="'+c+'" stroke="#141412" stroke-width="2"/><rect x="6" y="6" width="34" height="20" fill="#fff" opacity=".25"/></g>';}return g;},base:{x:0,y:0,t:0},drawings:{a:{t:0},b:{t:900}},seq:[['a',1,'hold'],['b',200,'linear','pouring']]},
+    {id:'lit',name:'timeline',rig:'prop',plane:'strip',art:p=>Array.from({length:10},(_,i)=>i<Math.round(p.k)?'<rect x="'+(92+i*78)+'" y="478" width="66" height="40" fill="'+['#e7833b','#5f87b6','#b07ac0','#7ea292','#f0b047'][i%5]+'" stroke="#fff" stroke-width="'+(Math.round(p.play)%10===i?4:2)+'"/>':'').join(''),
+      base:{x:0,y:0,k:0,play:0},drawings:{a:{k:0},b:{k:10},c:{k:10,play:30}},seq:[['a',112,'hold'],['b',50,'linear','samples laid down'],['c',38,'linear','it plays']]},
+    {id:'w',name:'Watson',rig:'figure',plane:'action',onion:true,base:{x:440,y:440,k:1.8,gaze:[0,-1]},drawings:{},seq:[]}]};
+(function(){const A=S.cineosis.actors[2],sc='<g transform="rotate(-30)"><path d="M0 0L26 -6M0 0L26 6" stroke="#c9c9c9" stroke-width="4"/><circle cx="-6" cy="-5" r="5" fill="none" stroke="#e7833b" stroke-width="3"/><circle cx="-6" cy="5" r="5" fill="none" stroke="#e7833b" stroke-width="3"/></g>',
+  hoop='<path d="M0 0L18 -40" stroke="#7a5a34" stroke-width="4"/><circle cx="24" cy="-56" r="18" fill="#fff" fill-opacity=".15" stroke="#f6d36b" stroke-width="4"/>';
+  Object.assign(A.drawings,{K01:{hF:[30,-40],hold:sc,gaze:[.4,-1],mouth:'flat'},K02:{hF:[40,-56],hold:sc,lean:.06,gaze:[.6,-1],mouth:'o'},K03:{hF:[24,-30],hold:sc,lean:-.04,gaze:[-.4,-1],mouth:'o',sweat:true},
+    K04:{hF:[18,28],hold:'',gaze:[0,.4],tilt:.25,mouth:'flat'},K05:{hF:[14,-14],gaze:[.6,-1],tilt:.1,mouth:'flat'},K06:{hF:[30,-50],hold:hoop,gaze:[.6,-1],mouth:'smile'},K07:{hF:[50,0],hold:hoop,lean:.25,gaze:[1,1],mouth:'smile'},K08:{hF:[30,-50],hold:hoop,gaze:[0,-1],mouth:'smile'},K09:{hF:[20,-20],hold:hoop,gaze:[.4,1],mouth:'grin'}});
+  A.seq=[['K01',20,'hold','snips at the rain'],['K02',6,'snap','snip'],['K01',6,'snap'],['K02',6,'snap','snip'],['K03',10,'in','can’t keep up'],['K04',14,'inout','drops the scissors'],['K05',20,'hold','thinks'],['K06',12,'overshoot','a sampling hoop'],
+    ['K07',10,'inout','lays a frame down'],['K08',10,'inout','catches another'],['K07',10,'inout'],['K08',10,'inout'],['K07',10,'inout'],['K09',56,'inout','it plays']];
+  S.cineosis.camera=[[{x:-20,y:-20,z:.3},40,'hold','close on the scissors'],[{x:0,y:20,z:-.08},40,'inout','pulls back: so much footage'],[{x:0,y:20,z:-.08},120,'hold']];})();
+
+/* GUMBALL EMOTION MACHINE — "The label is probably wrong. The gumball is real." */
+S.gumball={title:'Gumball Emotion Machine',alt:'Watson leans toward a gumball machine with a camera eye and gives it a big grin. Its little screen reads SAD 87 percent. A gumball rolls down the chute; he catches it, looks at the label, looks at the gumball, and holds it up to us, smiling anyway.',
+  caption:'Reads a face, assigns an emotion, returns a gumball. The label is probably wrong. The gumball is real.',
+  action:'A man grins at a machine that calls him sad, and it pays him in a real gumball anyway.',
+  beats:['approaches','grins at the camera','the label: SAD','he is baffled','a gumball rolls out','he catches it','holds it up'],
+  cameraWhy:'Pushes in on the label when it appears, then back out for the gumball: the wrong label and the real object get one beat each.',poster:180,
+  planes:[{id:'wall',depth:7,art:'<rect x="-400" y="-300" width="1760" height="1140" fill="#f2d9df"/><path d="M-400 120H1360" stroke="#e5bfc8" stroke-width="30"/>'},
+    {id:'machine',depth:1.2,why:'the machine and its label',art:'<rect x="560" y="300" width="160" height="150" fill="#c0392b" stroke="'+INK+'" stroke-width="3"/><circle cx="640" cy="230" r="96" fill="#fdf7f2" fill-opacity=".7" stroke="'+INK+'" stroke-width="3"/>'+[[600,200,'#e7833b'],[650,180,'#5f87b6'],[620,250,'#7ea292'],[680,240,'#f0b047'],[640,280,'#b07ac0'],[590,260,'#5f87b6'],[690,200,'#c0392b']].map(c=>'<circle cx="'+c[0]+'" cy="'+c[1]+'" r="18" fill="'+c[2]+'" stroke="'+INK+'" stroke-width="2"/>').join('')+'<circle cx="600" cy="330" r="16" fill="#141412"/><circle cx="600" cy="330" r="6" fill="#e74c3c"/><rect x="630" y="318" width="76" height="34" fill="#141412"/><path d="M700 400h40v14h-40z" fill="#8f2a20" stroke="'+INK+'" stroke-width="2"/><path d="M590 450v20M690 450v20" stroke="'+INK+'" stroke-width="6"/>'},
+    {id:'action',depth:1,art:ground(470,'#d8b9a3')}],
+  actors:[
+    {id:'label',name:'the label',rig:'prop',plane:'machine',art:p=>'<text x="668" y="342" font-family="ui-monospace,Menlo,monospace" font-size="15" font-weight="700" fill="'+(p.n>0?'#ff6b6b':'#7d86a3')+'" text-anchor="middle">'+(p.n>0?'SAD '+Math.round(p.n)+'%':'…')+'</text>',base:{x:0,y:0,n:0},drawings:{a:{n:0},b:{n:87}},seq:[['a',56,'hold'],['b',10,'linear','SAD'],['b',114,'hold']]},
+    {id:'ball',name:'the gumball',rig:'prop',plane:'action',art:'<circle r="13" fill="#f0b047" stroke="#141412" stroke-width="2.4"/><circle cx="-4" cy="-4" r="3" fill="#fff" opacity=".7"/>',base:{x:740,y:402,o:0},drawings:{a:{},b:{o:1},c:{x:800,y:440,o:1},d:{x:430,y:330,o:1}},seq:[['a',100,'hold'],['b',2,'snap','a gumball'],['c',10,'out','rolls out'],['c',8,'hold'],['d',12,'inout','into his hand'],['d',48,'hold']]},
+    {id:'w',name:'Watson',rig:'figure',plane:'action',onion:true,base:{x:240,y:470,k:1.8,gaze:[1,0]},drawings:{},seq:[]}],
+  camera:[[{x:0,y:0,z:0},56,'hold','static'],[{x:200,y:-40,z:.35},14,'inout','push in on the label'],[{x:200,y:-40,z:.35},26,'hold'],[{x:0,y:0,z:0},16,'inout','back out for the gumball'],[{x:0,y:0,z:0},68,'hold']]};
+(function(){const A=S.gumball.actors[2];A.seq=walk(A,'w',240,470,3,6,{});
+  Object.assign(A.drawings,{K01:{x:470,lean:.3,gaze:[1,.2],mouth:'flat'},K02:{x:470,lean:.32,gaze:[1,.1],mouth:'grin',hF:[24,6]},K03:{x:470,lean:.05,gaze:[1,-.3],mouth:'o',tilt:.25,hF:[12,-14]},
+    K04:{x:470,lean:.2,hF:[60,14],gaze:[1,1],mouth:'o'},K05:{x:470,lean:0,hF:[-34,-60],gaze:[0,-1],mouth:'smile',dir:1},K06:{x:470,hF:[-34,-60],gaze:[-1,0],mouth:'smile',tilt:-.1}});
+  A.seq.push(['K01',10,'in','leans in'],['K02',8,'overshoot','a big grin'],['K02',20,'hold'],['K03',10,'snap','SAD?'],['K03',34,'hold','baffled'],['K04',14,'inout','catches it'],['K05',12,'overshoot','holds it up'],['K06',40,'inout','smiles anyway']);})();
+
+/* AUDITING EMOTION AI — "Documents where emotion-recognition systems mislabel affect." */
+S.emotionai={title:'Auditing Emotion AI',alt:'A camera on a tripod watches Watson, who holds a clipboard and a pen. He laughs; the label over the camera says ANGRY. He frowns; it says HAPPY. Each time he marks the clipboard with a red cross, then turns to us and taps the tally.',
+  caption:'Make a face, read the label, write it down: an audit is a record of where the classifier is wrong.',
+  action:'An auditor makes faces at an emotion classifier and records each time it gets him wrong.',
+  beats:['the camera watches','he laughs','it says ANGRY','he marks it','he frowns','it says HAPPY','he marks it','he shows us the tally'],
+  cameraWhy:'Static; the label is the only thing that moves fast, so every mislabel lands in the same place.',poster:190,
+  planes:[{id:'wall',depth:7,art:'<rect x="-400" y="-300" width="1760" height="1140" fill="#e4e8e3"/>'+Array.from({length:12},(_,i)=>'<path d="M'+(i*90-100)+' -300V800" stroke="#d3d9d2" stroke-width="2"/>').join('')},
+    {id:'rig',depth:1.15,why:'the camera and its label',art:'<path d="M700 470L740 300L780 470M740 300V470" stroke="'+INK+'" stroke-width="5"/><rect x="690" y="250" width="110" height="60" rx="8" fill="#3a382f" stroke="'+INK+'" stroke-width="3"/><circle cx="700" cy="280" r="20" fill="#141412" stroke="#9fb3c8" stroke-width="3"/><path d="M680 270L420 160L420 400z" fill="#fff6c2" opacity=".18"/>'},
+    {id:'action',depth:1,art:ground(470,'#cfd5cc')}],
+  actors:[
+    {id:'label',name:'the label',rig:'prop',plane:'rig',art:p=>{const t=['','ANGRY 91%','HAPPY 78%'][Math.round(p.n)];return t?'<rect x="660" y="190" width="170" height="40" fill="#141412"/><text x="745" y="217" font-family="ui-monospace,Menlo,monospace" font-size="20" font-weight="700" fill="#ff6b6b" text-anchor="middle">'+t+'</text>':'';},base:{x:0,y:0,n:0},drawings:{a:{n:0},b:{n:1},c:{n:2}},seq:[['a',40,'hold'],['b',2,'snap','ANGRY'],['b',50,'hold'],['c',2,'snap','HAPPY'],['c',96,'hold']]},
+    {id:'w',name:'Watson',rig:'figure',plane:'action',onion:true,base:{x:380,y:470,k:1.8,gaze:[1,0],pen:true,penA:-.6,hB:[24,16]},drawings:{},seq:[]}],
+  camera:[[{x:0,y:0,z:0},190,'hold','static']]};
+(function(){const A=S.emotionai.actors[1],cb=n=>'<g transform="translate(0 16) rotate(-10) scale(.85)"><rect x="-4" y="-46" width="40" height="52" fill="#c9a46a" stroke="#141412" stroke-width="2.4"/><rect x="2" y="-40" width="28" height="40" fill="#fffdf6"/>'+(n>0?'<path d="M7 -34l8 8M15 -34l-8 8" stroke="#c0392b" stroke-width="2.6"/>':'')+(n>1?'<path d="M17 -34l8 8M25 -34l-8 8" stroke="#c0392b" stroke-width="2.6"/>':'')+'</g>';
+  Object.assign(A.drawings,{K01:{gaze:[1,0],mouth:'flat',holdB:cb(0)},K02:{gaze:[1,-.2],mouth:'grin',lean:-.12,tilt:-.15,holdB:cb(0)},K03:{gaze:[-.2,1],mouth:'flat',hF:[30,4],lean:.1,holdB:cb(1),hB:[24,16]},
+    K04:{gaze:[1,0],mouth:'frown',lean:.05,tilt:.1,holdB:cb(1)},K05:{gaze:[-.2,1],mouth:'flat',hF:[30,4],lean:.1,holdB:cb(2),hB:[24,16]},K06:{gaze:[-1,-.1],mouth:'smile',dir:1,hF:[34,-6],holdB:cb(2),hB:[30,4],tilt:-.1}});
+  A.seq=[['K01',30,'hold','faces the camera'],['K02',8,'overshoot','laughs'],['K02',20,'hold','reads: ANGRY'],['K03',10,'inout','marks it wrong'],['K03',14,'hold'],['K04',8,'in','frowns'],['K04',20,'hold','reads: HAPPY'],['K05',10,'inout','marks it wrong'],['K05',14,'hold'],['K06',14,'inout','shows us the tally'],['K06',42,'hold']];})();
+
 window.MP_SHOTS=Object.assign(window.MP_SHOTS||{},S);
 })();

@@ -594,3 +594,34 @@ Many first-pass thumbnails showed a title screen ("THUNDER RIGS · ENTER THE FIE
 4. The first screen is kept too, as `<key>.menu.webp`, so it can be compared later or left out of any CLIP embedding.
 
 Result: 834 pages re-shot, and 221 of them now show the experience itself (3D scenes, games mid-play, tools with content) instead of the menu. Pages that weren't re-shot keep their first-pass picture.
+
+## Round 28: ideas, and many views of each page
+
+**Ideas.** One idea lives in many repositories and many pages. For example, CINEOSIS spans 205 pages in 14 repositories, and Thunder Rigs 16 pages in 6. `tools/ideas.py` groups pages into ideas in two ways:
+- **Known lineages:** CINEOSIS, Thunder Rigs, Fútbolmas, ICARO, Ripples, LEGOS, TRACTOR/WAG…
+- **Recurring names:** two-word title phrases that recur across two or more repositories.
+
+Copies are folded together, which leaves 59 ideas.
+
+**Views.** `tools/shoot-views.js` opens the top pages of each idea, plus every top page that still had no picture (325 pages in all), and photographs each page in several states:
+1. the first screen;
+2. after its start control;
+3. after a nudge of the keys and pointer;
+4. after each of up to four modes, tabs or menu choices (with destructive and settings controls skipped);
+5. scrolled down.
+
+Views that look the same (64-bit difference hash) are folded. Each view keeps the **operation that produced it** and the heading on screen, so a page's views read as an operational description. For example: "Opens on THUNDER RIGS; press “ENTER WORKBENCH” → HELLO; open “WORLD” → WORLD."
+
+**Choosing the best image.** CLIP cannot run here, because the model host is blocked. Instead, a local visual score ranks the views:
+- it rewards colour (Hasler–Süsstrunk), structure (edge density), tonal range (entropy), and the share of the screen that is canvas, video or images;
+- it penalises screens that are mostly text.
+
+The best view becomes the page's thumbnail. Each idea leads with its most visual page, and no two ideas lead with the same page or a near-identical picture.
+
+**Where it shows:**
+- **The juice bar opens on Ideas.** Each card shows the idea's best picture, its page and repository counts, how its best page unfolds, and a strip of four other pages.
+- **Opening an idea lists its most visual pages,** each with its views and their operations. Tapping a view opens the preview on that view.
+- **The preview** has "Views · how it unfolds": the operation line and the views, one tap each, with a "Live page" button to go back.
+- **llms.txt** lists the 25 ideas, each with its best page and how that page unfolds.
+
+**Coverage:** 667 views of 295 pages. Pictured: 97 of the top 100 pages, 287 of the top 300 and 225 of 235 gems. The rest stay dark without a GPU, a video file or a camera.

@@ -647,3 +647,27 @@ The best view becomes the page's thumbnail. Each idea leads with its most visual
   - makes the look tags searchable.
   Without the file, the build behaves exactly as before.
 - **Large media.** `tools/media-intake.sh <project> <files>` turns videos into a poster, three stills and a 6-second silent loop (WebM and MP4, usually under 2 MB), and images into 1600px WebP. The output goes to `media/<project>/` with a manifest. Full-length videos belong on YouTube or Vimeo, linked from the manifest.
+
+## Round 30: Nushi, from the Notion page
+
+After the environment's network was opened to Notion, the public page "AI Temporal Media Pipeline" was read through Notion's API. All 31 of its files were downloaded with signed links: 17 images and 14 videos, 979 MB.
+
+`tools/media-intake.sh nushi` made them web-sized (31 MB) in `media/nushi/`, with a manifest that records the source page. Two choices were made by looking at the footage:
+- The hero loop was re-cut from a stretch where the live feed is actually restyled.
+- The 36-second camera pass was identified as the source of the nine 4-second sections.
+
+**`nushi.html`** is a case study laid out as the research guide recommends:
+- the title and a role/client/date/status/tools block;
+- the hero loop of Nushi Vision as streamed;
+- what it was, with campaign reach attributed to the creative producer;
+- **from camera to screen**: the booth wiring diagram (ATEM switcher, three operators, two screens) and the four handoffs;
+- **VideoChopper**: the two problems, the three pipeline diagrams, the method, and the Colab and YouTube links;
+- **one clip, end to end**: the driving footage, the source clip, nine sections with their key frames, and the Space Invaders key style;
+- what didn't work yet;
+- reuse after GDC, with a student remix credited to Vaishali Jain;
+- the tools used;
+- shared credits.
+
+Videos play only on screen; with reduced motion they wait for a Play button. The two inspiration images (other people's work) are linked, not copied.
+
+The homepage's Nushi item now opens the case study, with a real picture. The case study is also in the sitemap and llms.txt.

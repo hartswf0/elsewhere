@@ -24,7 +24,7 @@ for src in "$@"; do
         add type image file "$base.webp" source "$(basename "$f")" ;;
       *)
         d=$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$f" | cut -d. -f1); d=${d:-6}
-        mid=$(( d / 3 )); len=$(( d < 6 ? d : 6 ))
+        if [ "$d" -le 8 ]; then mid=0; len=$(( d > 0 ? d : 3 )); else mid=$(( d / 3 )); len=6; fi
         ffmpeg -nostdin -loglevel error -y -ss "$mid" -i "$f" -vf "scale='min(1280,iw)':-2" -frames:v 1 -c:v libwebp -q:v 75 "$out/$base.poster.webp"
         ffmpeg -nostdin -loglevel error -y -ss "$mid" -t "$len" -i "$f" -an -vf "scale='min(960,iw)':-2,fps=24" -c:v libvpx-vp9 -b:v 0 -crf 40 -row-mt 1 "$out/$base.loop.webm"
         ffmpeg -nostdin -loglevel error -y -ss "$mid" -t "$len" -i "$f" -an -vf "scale='min(960,iw)':-2,fps=24" -c:v libx264 -crf 30 -preset slow -pix_fmt yuv420p -movflags +faststart "$out/$base.loop.mp4"

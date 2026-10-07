@@ -716,3 +716,17 @@ Every shot was checked as a contact sheet against the director's test, and fixed
 - The canvas films get the shot as a cold open, with "Skip to the film" (or Esc); the cold open closes itself after the shot ends.
 
 **Code:** `cartoon/cartoon.js` (engine) and `cartoon/shots.js` (twelve shots), about 69 KB together.
+
+## Round 32: cartoons in the homepage work list
+
+Every work item on the homepage now has a mini player in its picture slot. The cartoon plays once when the item scrolls into view, then fades into the real picture of the page; hovering or focusing the item replays it.
+
+The mini player has no controls of its own, because it sits inside the link, and it is hidden from screen readers, since the link text already says what the work is. With reduced motion, items with a real picture show only the picture; items without one show the cartoon's still poster.
+
+Four new shots cover the items that had none:
+- **Where You Go When You Leave:** the poem's words drift to the horizon and lay down a road and a house; he walks in.
+- **CINEOSIS:** frames pour down; he gives up the scissors and samples with a hoop into a timeline that plays.
+- **Gumball Emotion Machine:** he grins; the machine says SAD 87%; a real gumball rolls out anyway.
+- **Auditing Emotion AI:** he laughs and the label says ANGRY; he frowns and it says HAPPY; he marks each one wrong and shows us the tally.
+
+That makes 16 shots in `cartoon/shots.js`.

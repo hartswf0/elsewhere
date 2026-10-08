@@ -48,7 +48,6 @@ section{margin:0 0 clamp(6rem,12vw,10rem);scroll-margin-top:5rem}.section-head{d
   <p class="hero-note">The simulations isolate mechanisms. They do not reconstruct Hawaiian experience or settle the Sahlins–Obeyesekere debate.</p>
  </div>
 </header>
-<figure class="mp-shot" data-shot="cook" style="max-width:min(960px,calc(100vw - 32px));margin-left:auto;margin-right:auto"></figure>
 
 <nav class="toc" aria-label="Paper sections"><a href="#encounter">Encounter</a><a href="#readings">Two readings</a><a href="#plot">PLoT</a><a href="#pie">PIE</a><a href="#models">Seven models</a><a href="#ethnography">Ethnography</a><a href="#entanglement">Entanglement</a><a href="#apparatuses">Apparatuses</a><a href="#references">References</a></nav>
 
@@ -59,7 +58,7 @@ section{margin:0 0 clamp(6rem,12vw,10rem);scroll-margin-top:5rem}.section-head{d
   <p>The ships left after the festival. A storm damaged the <em>Resolution</em>’s mast, and they returned on 12 February. Relations had changed. A cutter was taken. On 14 February, Cook tried to bring Kalaniʻōpuʻu aboard as leverage for its return. A crowd gathered at the water. Cook was killed.</p>
  </div>
  <figure class="wide-figure">
-<svg viewBox="0 0 1200 620" role="img" aria-labelledby="bay-title bay-desc" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 1200 620" data-film="bay" role="img" aria-labelledby="bay-title bay-desc" xmlns="http://www.w3.org/2000/svg">
 <title id="bay-title">Kealakekua Bay, 1779</title>
 <desc id="bay-desc">A schematic bay with two British ships offshore, canoes crossing the water, ritual and political sites on shore, and three dated moments in the encounter.</desc>
 <rect width="1200" height="620" fill="#f8f5ed"/>
@@ -110,7 +109,7 @@ section{margin:0 0 clamp(6rem,12vw,10rem);scroll-margin-top:5rem}.section-head{d
   <p class="strike">The archive can remain the same while the agents, motives, and causes change.</p>
  </div>
  <figure class="wide-figure">
-<svg viewBox="0 0 1100 480" role="img" aria-labelledby="debate-title" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 1100 480" data-film="debate" role="img" aria-labelledby="debate-title" xmlns="http://www.w3.org/2000/svg">
 <title id="debate-title">The same event read through two causal worlds</title>
 <rect width="1100" height="480" fill="#fbfaf5"/>
 <line x1="550" y1="48" x2="550" y2="430" stroke="#cec7bb" stroke-width="2"/>
@@ -140,7 +139,7 @@ section{margin:0 0 clamp(6rem,12vw,10rem);scroll-margin-top:5rem}.section-head{d
   <p class="lead">PLoT translates language into a probabilistic world. In the familiar tug-of-war example, the system never observes strength. It observes wins and losses, then infers the hidden qualities that could have produced them.</p>
  </div>
  <figure class="wide-figure">
-<svg viewBox="0 0 1100 420" role="img" aria-labelledby="plot-title" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 1100 420" data-film="infer" role="img" aria-labelledby="plot-title" xmlns="http://www.w3.org/2000/svg">
 <title id="plot-title">A tug-of-war example turns observed outcomes into inferred strength</title>
 <rect width="1100" height="420" fill="#fbfaf5"/>
 <text x="60" y="56" font-family="system-ui,sans-serif" font-size="14" font-weight="800" letter-spacing="1.8" fill="#6f685d">OBSERVED</text>
@@ -223,7 +222,7 @@ section{margin:0 0 clamp(6rem,12vw,10rem);scroll-margin-top:5rem}.section-head{d
  <div class="section-head"><span class="section-tag">06</span><h2>A rule should have a traceable past.</h2></div>
  <div class="prose"><p class="lead">Narrative evidence does not become an agent rule by itself. Someone names an actor, selects a motive, fixes a threshold, and decides what counts as an outcome.</p></div>
  <figure class="wide-figure">
-<svg viewBox="0 0 1200 460" role="img" aria-labelledby="pipe-title" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 1200 460" data-film="pipe" role="img" aria-labelledby="pipe-title" xmlns="http://www.w3.org/2000/svg">
 <title id="pipe-title">A story-and-simulation loop</title>
 <rect width="1200" height="460" fill="#fbfaf5"/>
 <g font-family="system-ui,sans-serif" font-size="13" font-weight="800" letter-spacing="1.5" fill="#6f685d">
@@ -252,7 +251,7 @@ section{margin:0 0 clamp(6rem,12vw,10rem);scroll-margin-top:5rem}.section-head{d
  <div class="section-head"><span class="section-tag">07</span><h2>The model changes what it can see.</h2></div>
  <div class="prose"><p>Barad calls the boundary that produces a phenomenon an agential cut. In a simulation, the cut appears wherever the modeler decides that a person is an agent, a rite is a belief, a conflict is an output, or a relationship can be held constant.</p></div>
  <figure class="wide-figure">
-<svg viewBox="0 0 1100 460" role="img" aria-labelledby="dif-title" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 1100 460" data-film="runs" role="img" aria-labelledby="dif-title" xmlns="http://www.w3.org/2000/svg">
 <title id="dif-title">Three model runs overlap to reveal differences</title>
 <rect width="1100" height="460" fill="#fbfaf5"/>
 <g opacity=".68" fill="none" stroke-width="5">
@@ -370,6 +369,6 @@ function side(v,a,b){return v<38?a:v>62?b:`${a} and ${b}`}
 function updatePIE(){const p=+document.getElementById('pPractical').value,i=+document.getElementById('pIndividual').value,e=+document.getElementById('pEntropy').value;document.getElementById('oPractical').value=p;document.getElementById('oIndividual').value=i;document.getElementById('oEntropy').value=e;reading.textContent=`This setting reads the encounter through ${side(p,'symbolic obligation','practical pressure')}, ${side(i,'collective schema','individual choice')}, and ${side(e,'reorganization','breakdown')}.`}
 sliders.forEach(([id])=>document.getElementById(id).addEventListener('input',updatePIE));updatePIE();
 </script>
-<script src="../../cartoon/shots.js" defer></script><script src="../../cartoon/cartoon.js" defer></script>
+<script src="../../cartoon/cartoon.js" defer></script><script src="../../cartoon/films.js" defer></script><script src="../../cartoon/dfilm.js" defer></script>
 </body>
 </html>

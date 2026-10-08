@@ -111,7 +111,7 @@ HOME / film                          GROVE / tree open, orange picked
 **Now:**
 - Scrolling down, or swiping and dragging sideways, is the camera dolly. He walks with you, his steps matched to the distance.
 - Trees are laid out wide, so every orange can be clicked in place at walking zoom (about 45px targets).
-- **Most used first:**
+- **Most worked on first** (a ranking from the repository record, not visitor telemetry):
   - every repository gets a usefulness score: authored edits, hand-picked status, a live page, ripeness, recent activity, and size;
   - the "Picked first" stall at the gate holds the top 12;
   - trees appear in order of how useful their best work is;

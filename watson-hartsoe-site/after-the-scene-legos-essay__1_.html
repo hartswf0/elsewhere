@@ -111,7 +111,6 @@ footer{margin-top:4rem;padding-top:1.5rem;border-top:1px solid var(--rule);color
   <p class="subtitle">LEGOS and the problem of keeping a world after artificial intelligence has written the next one</p>
   <div class="byline"><strong>Watson Hartsoe</strong><br>Design research · 2026</div>
 </header>
-<figure class="mp-shot" data-shot="legos" style="max-width:min(960px,calc(100vw - 32px));margin-left:auto;margin-right:auto"></figure>
 
 
 <section class="deck">
@@ -130,7 +129,7 @@ footer{margin-top:4rem;padding-top:1.5rem;border-top:1px solid var(--rule);color
 </section>
 
 <figure class="figure">
-<svg viewBox="0 0 1200 560" role="img" aria-label="A fluent scene dissolving into contradictory future scenes">
+<svg viewBox="0 0 1200 560" data-film="fluent" role="img" aria-label="A fluent scene dissolving into contradictory future scenes">
   <rect width="1200" height="560" fill="#f5f1e9"/>
   <text x="70" y="65" font-family="Arial,sans-serif" font-size="18" font-weight="700" letter-spacing="3" fill="#9a3328">ONE PERFECT SCENE</text>
   <rect x="70" y="95" width="360" height="360" rx="4" fill="#fff" stroke="#d8d3ca"/>
@@ -176,7 +175,7 @@ footer{margin-top:4rem;padding-top:1.5rem;border-top:1px solid var(--rule);color
 </section>
 
 <figure class="figure">
-<svg viewBox="0 0 1200 620" role="img" aria-label="A city retaining identity while changing narrative role">
+<svg viewBox="0 0 1200 620" data-film="city" role="img" aria-label="A city retaining identity while changing narrative role">
   <rect width="1200" height="620" fill="#f5f1e9"/>
   <text x="70" y="62" font-family="Arial,sans-serif" font-size="18" font-weight="700" letter-spacing="3" fill="#9a3328">ONE CITY, THREE LIVES</text>
   <circle cx="600" cy="310" r="105" fill="#fff" stroke="#181817" stroke-width="3"/>
@@ -209,7 +208,7 @@ footer{margin-top:4rem;padding-top:1.5rem;border-top:1px solid var(--rule);color
 </section>
 
 <figure class="figure">
-<svg viewBox="0 0 1200 520" role="img" aria-label="A cycle of narrative state changes">
+<svg viewBox="0 0 1200 520" data-film="cycle" role="img" aria-label="A cycle of narrative state changes">
   <rect width="1200" height="520" fill="#f5f1e9"/>
   <text x="70" y="60" font-family="Arial,sans-serif" font-size="18" font-weight="700" letter-spacing="3" fill="#9a3328">A WORLD THAT DOES NOT END AT RESOLUTION</text>
   <g font-family="Arial,sans-serif" font-weight="700" text-anchor="middle">
@@ -253,7 +252,7 @@ footer{margin-top:4rem;padding-top:1.5rem;border-top:1px solid var(--rule);color
 </section>
 
 <figure class="figure">
-<svg viewBox="0 0 1200 610" role="img" aria-label="A branching narrative preserving lineage and distinct state">
+<svg viewBox="0 0 1200 610" data-film="branch" role="img" aria-label="A branching narrative preserving lineage and distinct state">
   <rect width="1200" height="610" fill="#f5f1e9"/>
   <text x="70" y="60" font-family="Arial,sans-serif" font-size="18" font-weight="700" letter-spacing="3" fill="#9a3328">THE CHOICE DOES NOT ERASE THE OTHER WORLD</text>
   <circle cx="160" cy="300" r="18" fill="#181817"/>
@@ -336,6 +335,6 @@ footer{margin-top:4rem;padding-top:1.5rem;border-top:1px solid var(--rule);color
 <script>
 (()=>{const bar=document.getElementById("progress");function update(){const r=document.documentElement,m=r.scrollHeight-r.clientHeight;bar.style.width=`${(m>0?r.scrollTop/m:0)*100}%`}addEventListener("scroll",update,{passive:true});addEventListener("resize",update);update()})();
 </script>
-<script src="../cartoon/shots.js" defer></script><script src="../cartoon/cartoon.js" defer></script>
+<script src="../cartoon/cartoon.js" defer></script><script src="../cartoon/films.js" defer></script><script src="../cartoon/dfilm.js" defer></script>
 </body>
 </html>

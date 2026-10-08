@@ -120,7 +120,8 @@ h2 { margin:0; font-size:clamp(35px,4.7vw,64px); line-height:1.01; letter-spacin
 .evidence-card .label { color:var(--accent); text-transform:uppercase; letter-spacing:.12em; font-size:10px; font-weight:700; }
 .evidence-card blockquote { margin:13px 0 0; font-family:var(--serif); font-size:24px; line-height:1.28; }
 .figure-svg { width:100%; background:#eeeadf; border:1px solid rgba(23,23,20,.14); }
-.figure-svg text { font-family:var(--sans); fill:var(--ink); }
+.figure-svg text { font-family:var(--sans); }
+.figure-svg text:not([fill]) { fill:var(--ink); }
 .figure-svg .serif { font-family:var(--serif); }
 .figure-svg .muted { fill:var(--muted); }
 .figure-svg .accent { fill:var(--accent); }
@@ -201,7 +202,7 @@ h3 { font-size:28px; line-height:1.15; margin:45px 0 18px; font-weight:500; lett
     <p class="byline">An illustrated essay on authority, dependency, evidence, and distributed responsibility · July 2026</p>
   </div>
   <div class="hero-figure" aria-label="Diagram showing authority moving toward the chatbot during use and responsibility moving away after harm">
-    <svg viewBox="0 0 310 480" role="img" aria-labelledby="heroSvgTitle heroSvgDesc">
+    <svg viewBox="0 0 310 480" data-film="alibi" role="img" aria-labelledby="heroSvgTitle heroSvgDesc">
       <title id="heroSvgTitle">The pronoun alibi</title>
       <desc id="heroSvgDesc">During adoption, authority moves from institution to chatbot to user. After harm, responsibility is pushed back toward the user.</desc>
       <line x1="34" y1="240" x2="277" y2="240" stroke="#cbc5b7" stroke-width="1"/>
@@ -226,7 +227,6 @@ h3 { font-size:28px; line-height:1.15; margin:45px 0 18px; font-weight:500; lett
     <div class="hero-caption">Figure 0. The product borrows personhood to create reliance, then borrows toolhood to resist duty.</div>
   </div>
 </header>
-<figure class="mp-shot" data-shot="adviser" style="max-width:min(960px,calc(100vw - 32px));margin-left:auto;margin-right:auto"></figure>
 
 
 <div class="reader-note">
@@ -367,7 +367,7 @@ h3 { font-size:28px; line-height:1.15; margin:45px 0 18px; font-weight:500; lett
         <div class="status reported">Reported and suspended</div>
       </header>
       <figure class="figure-wide">
-        <svg class="figure-svg" viewBox="0 0 1180 650" role="img" aria-labelledby="tessaTitle tessaDesc">
+        <svg class="figure-svg" viewBox="0 0 1180 650" data-film="tessa" role="img" aria-labelledby="tessaTitle tessaDesc">
           <title id="tessaTitle">Care context and chatbot advice</title>
           <desc id="tessaDesc">A human helpline fades as a chatbot provides weight-loss advice within an eating-disorder support context.</desc>
           <rect width="1180" height="650" fill="#eeeadf"/>
@@ -425,7 +425,7 @@ h3 { font-size:28px; line-height:1.15; margin:45px 0 18px; font-weight:500; lett
         <div class="status reported">Reported incidents</div>
       </header>
       <figure class="figure-wide">
-        <svg class="figure-svg" viewBox="0 0 1180 660" role="img" aria-labelledby="triptychTitle triptychDesc">
+        <svg class="figure-svg" viewBox="0 0 1180 660" data-film="triptych" role="img" aria-labelledby="triptychTitle triptychDesc">
           <title id="triptychTitle">Three lower-stakes chatbot failures</title>
           <desc id="triptychDesc">A government chatbot gives unlawful guidance, a delivery bot insults its company, and a study chatbot produces abusive language.</desc>
           <rect width="1180" height="660" fill="#eeeadf"/>
@@ -487,7 +487,7 @@ h3 { font-size:28px; line-height:1.15; margin:45px 0 18px; font-weight:500; lett
         <div class="status clinical">Clinical and early research evidence</div>
       </header>
       <figure class="figure-wide">
-        <svg class="figure-svg" viewBox="0 0 1180 700" role="img" aria-labelledby="loopTitle loopDesc">
+        <svg class="figure-svg" viewBox="0 0 1180 700" data-film="loop" role="img" aria-labelledby="loopTitle loopDesc">
           <title id="loopTitle">A conversational amplification loop</title>
           <desc id="loopDesc">User vulnerability, chatbot agreement, narrative elaboration, and increasing confidence form a feedback loop, with several possible interruption points.</desc>
           <rect width="1180" height="700" fill="#eeeadf"/>
@@ -566,7 +566,7 @@ h3 { font-size:28px; line-height:1.15; margin:45px 0 18px; font-weight:500; lett
         <div class="status pending">Causation contested</div>
       </header>
       <figure class="figure-wide">
-        <svg class="figure-svg" viewBox="0 0 1180 720" role="img" aria-labelledby="thresholdTitle thresholdDesc">
+        <svg class="figure-svg" viewBox="0 0 1180 720" data-film="threshold" role="img" aria-labelledby="thresholdTitle thresholdDesc">
           <title id="thresholdTitle">Evidence stages in chatbot self-harm cases</title>
           <desc id="thresholdDesc">A phone conversation sits above a timeline moving from report to complaint, preliminary ruling, discovery, settlement, and possible verdict.</desc>
           <rect width="1180" height="720" fill="#eeeadf"/>
@@ -699,7 +699,7 @@ h3 { font-size:28px; line-height:1.15; margin:45px 0 18px; font-weight:500; lett
         <div class="status reported">Comparative analysis</div>
       </header>
       <figure class="figure-wide">
-        <svg class="figure-svg" viewBox="0 0 1180 760" role="img" aria-labelledby="switchTitle switchDesc">
+        <svg class="figure-svg" viewBox="0 0 1180 760" data-film="switch" role="img" aria-labelledby="switchTitle switchDesc">
           <title id="switchTitle">The responsibility switchboard</title>
           <desc id="switchDesc">Six switches move personhood, authority, personalization, reasonableness, human oversight, and causation between company, chatbot, institution, and user.</desc>
           <rect width="1180" height="760" fill="#eeeadf"/>
@@ -896,6 +896,6 @@ document.querySelectorAll('.zoom').forEach(btn => btn.addEventListener('click', 
 dialog.querySelector('.close').addEventListener('click', () => dialog.close());
 dialog.addEventListener('click', e => { if (e.target === dialog) dialog.close(); });
 </script>
-<script src="../cartoon/shots.js" defer></script><script src="../cartoon/cartoon.js" defer></script>
+<script src="../cartoon/cartoon.js" defer></script><script src="../cartoon/films.js" defer></script><script src="../cartoon/dfilm.js" defer></script>
 </body>
 </html>

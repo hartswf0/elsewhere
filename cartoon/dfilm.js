@@ -36,14 +36,25 @@ function parts(svg){const bg=svg.viewBox&&svg.viewBox.baseVal;const out=[];
     if(!out.length&&t==='rect'&&bg&&+el.getAttribute('width')===bg.width&&+el.getAttribute('height')===bg.height&&!el.getAttribute('x'))return;
     out.push(el);});return out;}
 
-function mount(svg){
-  const id=svg.dataset.film,F=(window.DF_FILMS||{})[id];if(!F||svg.dataset.dfOn)return;svg.dataset.dfOn='1';
-  const els=parts(svg),fps=24,len=F.len;
+/* A raster diagram (<img data-film>) cannot be taken apart, so it is lit instead: a veil the colour of the page
+   covers it, and the film's regions open holes in the veil, station by station. The last frame removes the veil. */
+function mountImg(img){const id=img.dataset.film,F=(window.DF_FILMS||{})[id];if(!F||img.dataset.dfOn)return;
+  if(!img.complete||!img.naturalWidth){img.addEventListener('load',()=>mountImg(img),{once:true});return;}img.dataset.dfOn='1';
+  const NS='http://www.w3.org/2000/svg',W=img.naturalWidth,H=img.naturalHeight,k=W/(F.w||W),uid='df'+Math.random().toString(36).slice(2,7);
+  let bg=F.paper;for(let n=img.parentNode;!bg&&n&&n.nodeType===1;n=n.parentNode){const c=getComputedStyle(n).backgroundColor;if(c&&c!=='transparent'&&!/rgba\(.*,\s*0\)$/.test(c))bg=c;}
+  const wrap=document.createElement('span');wrap.className='df-wrap';img.parentNode.insertBefore(wrap,img);wrap.appendChild(img);
+  const ov=document.createElementNS(NS,'svg');ov.setAttribute('viewBox','0 0 '+(F.w||W)+' '+(F.h||H*(F.w||W)/W));ov.setAttribute('class','df-over');ov.setAttribute('aria-hidden','true');
+  ov.innerHTML='<defs><mask id="'+uid+'"><rect width="100%" height="100%" fill="#fff"/>'+F.regions.map(r=>'<rect x="'+r[0]+'" y="'+r[1]+'" width="'+r[2]+'" height="'+r[3]+'" rx="10" fill="#000"/>').join('')+'</mask></defs>'+
+    '<rect width="100%" height="100%" fill="'+(bg||'#fff')+'" opacity="'+(F.veil||.86)+'" mask="url(#'+uid+')"/>';
+  wrap.appendChild(ov);mount(ov,{els:[...ov.querySelectorAll('mask rect')].slice(1),anchor:wrap,film:id,img:true});}
+function mount(svg,opt){opt=opt||{};
+  const id=opt.film||svg.dataset.film,F=(window.DF_FILMS||{})[id];if(!F||svg.dataset.dfOn)return;svg.dataset.dfOn='1';
+  const els=opt.els||parts(svg),fps=24,len=F.len;
   const cues=(F.cue||[]).map(c=>({ids:[].concat(c[0]),f0:c[1],n:Math.max(1,c[2]),how:c[3],amp:c[5]==null?.14:c[5],sp:SP[c[4]]||(c[3]==='pop'?SP.overshoot:SP.inout)}));
   /* what each element was, so the last frame can give it back */
   const orig=new Map();cues.forEach(c=>c.ids.forEach(i=>{const el=els[i];if(!el||orig.has(el))return;
     let L=0;try{L=el.getTotalLength?el.getTotalLength():0;}catch(e){}
-    orig.set(el,{text:el.tagName.toLowerCase()==='text'?el.textContent:null,L,first:Infinity});}));
+    orig.set(el,{text:el.tagName.toLowerCase()==='text'?el.textContent:null,L,first:Infinity,g:['x','y','width','height'].map(a=>+el.getAttribute(a))});}));
   cues.forEach(c=>{if(c.how==='pulse'||c.how==='dim')return;c.ids.forEach(i=>{const o=els[i]&&orig.get(els[i]);if(o)o.first=Math.min(o.first,c.f0);});});
   /* the cast sits on its own sheet above the diagram */
   const NS='http://www.w3.org/2000/svg',cast=document.createElementNS(NS,'g');cast.setAttribute('class','df-cast');cast.setAttribute('aria-hidden','true');svg.appendChild(cast);
@@ -52,8 +63,11 @@ function mount(svg){
     return Object.assign({},a,{keys:a.keys.map(k=>{p=Object.assign({},p,k[1]);return {f:k[0],p,sp:SP[k[2]]||SP.inout};})});});
   /* controls and the subtitle */
   const fig=svg.closest('.figure')||svg.parentNode,bar=document.createElement('div');bar.className='df-bar';
-  bar.innerHTML='<button type="button" data-a="play">Play</button><button type="button" data-a="prev" aria-label="Previous step">‹</button><button type="button" data-a="next" aria-label="Next step">›</button><span class="df-sub"></span><span class="df-note">drawn sequence, not a recorded run</span>';
-  svg.insertAdjacentElement('afterend',bar);
+  bar.innerHTML='<button type="button" class="df-b" data-a="play">Play</button><button type="button" class="df-b" data-a="prev" aria-label="Previous step">‹</button><button type="button" class="df-b" data-a="next" aria-label="Next step">›</button><span class="df-sub"></span><span class="df-note">drawn sequence, not a recorded run</span>';
+  (opt.anchor||svg.closest('button,a')||svg).insertAdjacentElement('afterend',bar);/* never inside a zoom button or link */
+  /* a flex row or grid would seat the controls beside the diagram; put them on their own line under it */
+  {const ps=getComputedStyle(bar.parentNode);bar.style.flexBasis='100%';bar.style.gridColumn='1 / -1';
+   if(ps.display.indexOf('flex')>-1&&ps.flexDirection.indexOf('row')===0){bar.parentNode.style.flexWrap='wrap';bar.parentNode.style.alignContent='center';}}
   const btn=bar.querySelector('[data-a="play"]'),sub=bar.querySelector('.df-sub'),beats=F.beats||[];
   let f=len-1,playing=false,raf=0,last=0,played=false;
 
@@ -73,6 +87,7 @@ function mount(svg){
 
   function render(fr){f=Math.max(0,Math.min(len-1,fr));const fq=f-(f%2),fin=f>=len-1;
     orig.forEach((o,el)=>{const st=el.style;st.opacity='';st.transform='';st.strokeDasharray='';st.strokeDashoffset='';st.fillOpacity='';st.markerEnd='';st.transformBox='';st.transformOrigin='';
+      if(opt.img){el.setAttribute('x',o.g[0]);el.setAttribute('y',o.g[1]);el.setAttribute('width',o.g[2]);el.setAttribute('height',o.g[3]);}
       if(o.text!=null)setText(el,o.text);if(!fin&&o.first!==Infinity&&fq<o.first)st.opacity='0';if(fin&&!el.getAttribute('style'))el.removeAttribute('style');});
     if(!fin)cues.forEach(c=>{if(fq<c.f0)return;const t=clamp((fq-c.f0)/c.n),e=c.sp(t);if(t>=1&&c.how!=='dim'&&c.how!=='pulse')return;
       c.ids.forEach(i=>{const el=els[i];if(!el)return;const o=orig.get(el),st=el.style;
@@ -83,6 +98,7 @@ function mount(svg){
         else if(c.how==='words'){const w=o.text.split(' ');typed(el,o.text,w.slice(0,Math.ceil(w.length*clamp(e))).join(' ').length);}
         else if(c.how==='count'){setText(el,o.text.replace(/\d+(?:\.\d+)?/g,m=>{const dp=(m.split('.')[1]||'').length;return (parseFloat(m)*clamp(e)).toFixed(dp);}));}
         else if(c.how==='fade'){st.opacity=String(clamp(e));}
+        else if(c.how==='open'){const g=o.g,q=Math.max(0,e);el.setAttribute('x',g[0]+g[2]*(1-q)/2);el.setAttribute('y',g[1]+g[3]*(1-q)/2);el.setAttribute('width',g[2]*q);el.setAttribute('height',g[3]*q);}
         else if(c.how==='pulse'){st.transform='scale('+(1+c.amp*Math.sin(Math.PI*t)).toFixed(3)+')';}
         else if(c.how==='dim'){st.opacity=String(1-.7*Math.min(clamp(t*4),clamp((1-t)*4)));}
 });});
@@ -94,7 +110,7 @@ function mount(svg){
       let P=k.p;if(n&&fq>k.f)P=lerp(k.p,n.p,n.sp(clamp((fq-k.f)/Math.max(1,n.f-k.f))));
       if(fq<A.keys[0].f||P.o===0)return;
       h+=A.rig==='prop'?'<g transform="translate('+P.x.toFixed(1)+' '+P.y.toFixed(1)+') rotate('+(P.r||0)+') scale('+(P.s||1).toFixed(3)+')" opacity="'+(P.o==null?1:P.o).toFixed(2)+'">'+A.art+'</g>':window.MP.RIGS[A.rig](P,{scarf:Math.sin(fq/5)*.4},A);});
-    cast.innerHTML=h;
+    cast.innerHTML=h;if(opt.img)svg.style.display=fin?'none':'';
     let b='';for(const x of beats)if(f>=x[0])b=x[1];sub.textContent=fin&&!played?'':b;
     btn.textContent=playing?'Pause':(fin?'Replay':'Play');}
 
@@ -114,12 +130,13 @@ function mount(svg){
 }
 function css(){if(document.getElementById('df-css'))return;const s=document.createElement('style');s.id='df-css';s.textContent=
   '.df-bar{display:flex;flex-wrap:wrap;align-items:center;gap:.35rem;margin-top:.5rem;font:500 .78rem/1.35 ui-sans-serif,-apple-system,"Segoe UI",Arial,sans-serif;color:#3a382f}'+
-  '.df-bar button{min-height:36px;min-width:40px;padding:0 .75rem;border:1.5px solid #141412;border-radius:999px;background:transparent;color:#141412;font:700 .72rem/1 inherit;cursor:pointer}'+
-  '.df-bar [data-a="play"]{background:#141412;color:#fffdf6}.df-bar button:focus-visible{outline:3px solid #a25a1b;outline-offset:2px}'+
+  '.df-bar button.df-b{all:unset;box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;width:auto;margin:0;min-height:36px;min-width:40px;padding:0 .75rem;border:1.5px solid #141412;border-radius:999px;background:transparent;color:#141412;font:700 .72rem/1 inherit;cursor:pointer}'+
+  '.df-bar button.df-b[data-a="play"]{background:#141412;color:#fffdf6}.df-bar button.df-b:focus-visible{outline:3px solid #a25a1b;outline-offset:2px}'+
   '.df-sub{flex:1 1 14rem;min-height:1.35em;font:500 .95rem/1.35 Georgia,"Times New Roman",serif;color:#141412;padding-left:.3rem}'+
   '.df-note{font:500 .66rem/1.3 ui-monospace,Menlo,monospace;color:#67645d}'+
-  '@media print{.df-bar{display:none}}';document.head.appendChild(s);}
-function boot(){if(!window.MP)return setTimeout(boot,50);css();document.querySelectorAll('svg[data-film]').forEach(mount);}
+  '.df-wrap{position:relative;display:block}.df-wrap>img{display:block}.df-over{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}'+
+  '@media print{.df-bar,.df-over{display:none!important}}';document.head.appendChild(s);}
+function boot(){if(!window.MP)return setTimeout(boot,50);css();document.querySelectorAll('svg[data-film]').forEach(s=>mount(s));document.querySelectorAll('img[data-film]').forEach(mountImg);}
 window.DF={mount,boot,SP};
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
 })();

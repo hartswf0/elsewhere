@@ -110,7 +110,7 @@ function mount(fig){
     '<g class="mp-labels" font-family="Inter,Helvetica,sans-serif" font-size="13" font-weight="700"></g></svg></div>'+(mini?'':
     '<div class="mp-bar" role="group" aria-label="Shot controls"><button type="button" data-a="play">Play</button><button type="button" data-a="prev" aria-label="Previous drawing">‹</button><button type="button" data-a="next" aria-label="Next drawing">›</button>'+
     '<button type="button" data-a="onion" aria-pressed="false">Onion skin</button><button type="button" data-a="planes" aria-pressed="false">Planes</button><span class="mp-read" aria-live="off"></span></div>'+
-    (fig.dataset.cap!=='0'?'<figcaption>'+esc(shot.caption||'')+'</figcaption>':'')+
+    '<figcaption><span class="mp-ill">Illustration · a drawn cartoon of the idea, not footage of the work.</span>'+(fig.dataset.cap!=='0'&&shot.caption?' '+esc(shot.caption):'')+'</figcaption>'+
     '<details class="mp-how"><summary>How this shot is drawn</summary>'+how(shot)+'</details>');
   const svg=fig.querySelector('svg'),world=fig.querySelector('.mp-world'),labels=fig.querySelector('.mp-labels'),read=fig.querySelector('.mp-read'),turb=fig.querySelector('feTurbulence');
   const planes={};shot.planes.forEach(p=>{const g=document.createElementNS(NS,'g');g.setAttribute('data-plane',p.id);g.innerHTML='<g class="bg">'+(typeof p.art==='function'?'':(p.art||''))+'</g><g class="on"></g><g class="ac"></g><rect class="mp-sheet" x="-2" y="-2" width="'+(W+4)+'" height="'+(H+4)+'" fill="none" stroke="'+WARM+'" stroke-width="5" stroke-dasharray="14 8" opacity="0"/>';world.appendChild(g);planes[p.id]={p,g,ac:g.querySelector('.ac'),on:g.querySelector('.on')};});
@@ -167,7 +167,7 @@ function css(){if(document.getElementById('mp-css'))return;const s=document.crea
   '.mp-stage{position:relative;cursor:pointer;border:1.5px solid #141412;border-radius:6px;overflow:hidden;background:#f4efe3}.mp-stage svg{display:block;width:100%;height:auto}'+
   '.mp-bar{display:flex;flex-wrap:wrap;align-items:center;gap:.35rem;margin-top:.45rem}.mp-bar button{min-height:36px;min-width:40px;padding:0 .7rem;border:1.5px solid #141412;border-radius:999px;background:transparent;color:#141412;font:600 .72rem/1 inherit;cursor:pointer}'+
   '.mp-bar button[aria-pressed="true"],.mp-bar [data-a="play"]{background:#141412;color:#f4efe3}.mp-read{margin-left:auto;font:500 .7rem/1.3 ui-monospace,Menlo,monospace;color:#5f5b52}'+
-  '.mp-shot figcaption{margin:.45rem 0 0;font-size:.82rem;line-height:1.45;color:#3a382f}'+
+  '.mp-ill{display:block;font:500 .66rem/1.3 ui-monospace,Menlo,monospace;color:#5f5b52;margin-bottom:.15rem}.mp-shot figcaption{margin:.45rem 0 0;font-size:.82rem;line-height:1.45;color:#3a382f}'+
   '.mp-how{margin-top:.5rem;font-size:.86rem;color:#3a382f}.mp-how summary{cursor:pointer;min-height:36px;display:flex;align-items:center;font-weight:600;text-decoration:underline dotted}'+
   '.mp-paper{padding:.6rem 0}.mp-act{margin:.3rem 0}.mp-beats{margin:.3rem 0;padding-left:1.3rem}.mp-h{margin:.8rem 0 .3rem;font:700 .62rem/1 inherit;letter-spacing:.08em;text-transform:uppercase;color:#5f5b52}'+
   '.mp-keys{display:flex;flex-wrap:wrap;gap:.35rem}.mp-k{display:flex;flex-direction:column;align-items:flex-start;gap:.15rem;min-height:44px;padding:.35rem .55rem;border:1px solid #cbc7ba;border-radius:6px;background:#fffdf7;cursor:pointer;text-align:left;font:500 .7rem/1.25 inherit;color:#3a382f}.mp-k b{font:700 .74rem/1 ui-monospace,Menlo,monospace;color:#141412}'+

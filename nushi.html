@@ -90,7 +90,6 @@ footer{max-width:70rem;margin:0 auto;padding:1.4rem clamp(1rem,4vw,2.4rem) 3rem;
       <p>Xsolla debuted Nushi, a robotic AI cat, at the Game Developers Conference in 2023. I made the AI image transformations that turned the cat's eye camera, “Nushi Vision”, into the styles of different game worlds for the on-site displays and the livestream, so developers walking by saw a familiar character crossing into their kind of world.</p>
       <p>The aim was to keep the character and the place recognisable while the style changed: an artistic bridge between game worlds, not a filter over them.</p>
       <p class="note">Campaign reach, as reported by the creative producer: 55M+ views and 465K+ followers in 10 days.</p>
-<figure class="mp-shot" data-shot="nushi" style="max-width:min(960px,calc(100vw - 32px));margin-left:auto;margin-right:auto"></figure>
 
     </div>
   </section>
@@ -98,7 +97,7 @@ footer{max-width:70rem;margin:0 auto;padding:1.4rem clamp(1rem,4vw,2.4rem) 3rem;
   <section class="sg" aria-labelledby="path-h">
     <h2 id="path-h">From camera to screen<small>The booth, and the handoffs I owned</small></h2>
     <div class="body">
-      <figure class="wide"><img src="media/nushi/05-Group_722.webp" alt="Booth wiring diagram: an ATEM Mini Extreme ISO switcher feeds TV 1 and records to an external drive and a field monitor. Button 1 shows Nushi Vision, button 2 the walls.io social wall. TV 2 always shows the x.la/gdc QR code from a thumb drive. Three operators: ATEM control, Photo Mosh and walls.io, and the robot pilot." width="1600" height="1726" loading="lazy" decoding="async"><figcaption>The booth as wired. Dashed lines are switcher buttons; solid lines are video, USB and power.</figcaption></figure>
+      <figure class="wide"><img src="media/nushi/05-Group_722.webp" data-film="booth" alt="Booth wiring diagram: an ATEM Mini Extreme ISO switcher feeds TV 1 and records to an external drive and a field monitor. Button 1 shows Nushi Vision, button 2 the walls.io social wall. TV 2 always shows the x.la/gdc QR code from a thumb drive. Three operators: ATEM control, Photo Mosh and walls.io, and the robot pilot." width="1600" height="1726" loading="lazy" decoding="async"><figcaption>The booth as wired. Dashed lines are switcher buttons; solid lines are video, USB and power.</figcaption></figure>
       <ol class="steps">
         <li><b>Capture.</b> The pilot (operator 3) drives Nushi; its eye camera is one input to an ATEM Mini Extreme ISO switcher, which also records to an external drive.</li>
         <li><b>Transform.</b> On the Photo Mosh station (operator 2), the camera feed is restyled; offline, the same footage goes through VideoChopper, ControlNet and Runway GEN-1 for the blended pieces.</li>
@@ -208,6 +207,6 @@ if(RM||!('IntersectionObserver' in window))return;
 var io=new IntersectionObserver(function(es){es.forEach(function(e){var v=e.target;if(e.isIntersecting){v.preload='auto';var p=v.play();if(p&&p.catch)p.catch(function(){});}else v.pause();});},{rootMargin:'120px'});
 V.forEach(function(v){io.observe(v);});})();
 </script>
-<script src="cartoon/shots.js" defer></script><script src="cartoon/cartoon.js" defer></script>
+<script src="cartoon/cartoon.js" defer></script><script src="cartoon/films.js" defer></script><script src="cartoon/dfilm.js" defer></script>
 </body>
 </html>

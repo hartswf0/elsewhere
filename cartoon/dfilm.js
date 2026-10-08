@@ -12,7 +12,9 @@
      cue     [[index or [indices], start, frames, how, spacing?, pulse size?]]
              how: draw (the stroke inks along its length, then the fill comes in), pop (scales up from its own centre),
                   type (letters appear), words (words appear), count (numbers count up from zero), fade,
-                  pulse (an already-visible thing swells once), dim (an already-visible thing steps back, then returns)
+                  pulse (an already-visible thing swells once), dim (an already-visible thing steps back, then returns),
+                  enter (slides in from an offset [dx,dy] given in place of the pulse size), grow (a bar grows from its left edge),
+                  open (image films only: a region of the veil opens)
      slips   [{segs:[[f0,f1,from,to,spacing?,arc?], ...], hide?:frame}]  from/to: [x,y]; or a segment [f0,f1,{p:index},spacing] rides that element's path
      cast    [{rig:'figure'|'prop', base:{...}, keys:[[f,{pose},spacing?]], art?}]
      beats   [[f,'subtitle']] read under the diagram while it plays; ‹ › step between them */
@@ -31,7 +33,7 @@ const clamp=v=>v<0?0:v>1?1:v;
 const SLIP='<ellipse cx="2" cy="13" rx="12" ry="3" fill="'+INK+'" opacity=".13"/><rect x="-14" y="-10" width="28" height="20" rx="4" fill="#fffdf6" stroke="'+INK+'" stroke-width="2.2"/><path d="M-8 -3h16M-8 3.5h10" stroke="'+WARM+'" stroke-width="2.6" stroke-linecap="round"/>';
 
 function parts(svg){const bg=svg.viewBox&&svg.viewBox.baseVal;const out=[];
-  svg.querySelectorAll('*').forEach(el=>{const t=el.tagName.toLowerCase();if(el.closest('defs')||/^(g|defs|marker|tspan|title|desc|style)$/.test(t))return;
+  svg.querySelectorAll('*').forEach(el=>{const t=el.tagName.toLowerCase();if(el.closest('defs')||/^(g|defs|marker|tspan|textpath|title|desc|style|lineargradient|radialgradient|stop|clippath|filter)$/.test(t))return;
     if(el.closest('.df-cast'))return;
     if(!out.length&&t==='rect'&&bg&&+el.getAttribute('width')===bg.width&&+el.getAttribute('height')===bg.height&&!el.getAttribute('x'))return;
     out.push(el);});return out;}
@@ -50,11 +52,12 @@ function mountImg(img){const id=img.dataset.film,F=(window.DF_FILMS||{})[id];if(
 function mount(svg,opt){opt=opt||{};
   const id=opt.film||svg.dataset.film,F=(window.DF_FILMS||{})[id];if(!F||svg.dataset.dfOn)return;svg.dataset.dfOn='1';
   const els=opt.els||parts(svg),fps=24,len=F.len;
-  const cues=(F.cue||[]).map(c=>({ids:[].concat(c[0]),f0:c[1],n:Math.max(1,c[2]),how:c[3],amp:c[5]==null?.14:c[5],sp:SP[c[4]]||(c[3]==='pop'?SP.overshoot:SP.inout)}));
+  const cues=(F.cue||[]).map(c=>({ids:[].concat(c[0]),f0:c[1],n:Math.max(1,c[2]),how:c[3],amp:c[5]==null?.14:c[5],off:Array.isArray(c[5])?c[5]:[0,40],sp:SP[c[4]]||(c[3]==='pop'?SP.overshoot:SP.inout)}));
   /* what each element was, so the last frame can give it back */
+  const texty=new Set();cues.forEach(c=>{if(/^(type|words|count)$/.test(c.how))c.ids.forEach(i=>texty.add(els[i]));});
   const orig=new Map();cues.forEach(c=>c.ids.forEach(i=>{const el=els[i];if(!el||orig.has(el))return;
     let L=0;try{L=el.getTotalLength?el.getTotalLength():0;}catch(e){}
-    orig.set(el,{text:el.tagName.toLowerCase()==='text'?el.textContent:null,L,first:Infinity,g:['x','y','width','height'].map(a=>+el.getAttribute(a))});}));
+    orig.set(el,{text:texty.has(el)?el.textContent:null,L,first:Infinity,g:['x','y','width','height'].map(a=>+el.getAttribute(a))});}));
   cues.forEach(c=>{if(c.how==='pulse'||c.how==='dim')return;c.ids.forEach(i=>{const o=els[i]&&orig.get(els[i]);if(o)o.first=Math.min(o.first,c.f0);});});
   /* the cast sits on its own sheet above the diagram */
   const NS='http://www.w3.org/2000/svg',cast=document.createElementNS(NS,'g');cast.setAttribute('class','df-cast');cast.setAttribute('aria-hidden','true');svg.appendChild(cast);
@@ -64,7 +67,7 @@ function mount(svg,opt){opt=opt||{};
   /* controls and the subtitle */
   const fig=svg.closest('.figure')||svg.parentNode,bar=document.createElement('div');bar.className='df-bar';
   bar.innerHTML='<button type="button" class="df-b" data-a="play">Play</button><button type="button" class="df-b" data-a="prev" aria-label="Previous step">‹</button><button type="button" class="df-b" data-a="next" aria-label="Next step">›</button><span class="df-sub"></span><span class="df-note">drawn sequence, not a recorded run</span>';
-  (opt.anchor||svg.closest('button,a')||svg).insertAdjacentElement('afterend',bar);/* never inside a zoom button or link */
+  (opt.anchor||svg.closest('button,a,.df-frame')||svg).insertAdjacentElement('afterend',bar);/* never inside a zoom button or link */
   /* a flex row or grid would seat the controls beside the diagram; put them on their own line under it */
   {const ps=getComputedStyle(bar.parentNode);bar.style.flexBasis='100%';bar.style.gridColumn='1 / -1';
    if(ps.display.indexOf('flex')>-1&&ps.flexDirection.indexOf('row')===0){bar.parentNode.style.flexWrap='wrap';bar.parentNode.style.alignContent='center';}}
@@ -98,6 +101,8 @@ function mount(svg,opt){opt=opt||{};
         else if(c.how==='words'){const w=o.text.split(' ');typed(el,o.text,w.slice(0,Math.ceil(w.length*clamp(e))).join(' ').length);}
         else if(c.how==='count'){setText(el,o.text.replace(/\d+(?:\.\d+)?/g,m=>{const dp=(m.split('.')[1]||'').length;return (parseFloat(m)*clamp(e)).toFixed(dp);}));}
         else if(c.how==='fade'){st.opacity=String(clamp(e));}
+        else if(c.how==='enter'){st.transform='translate('+(c.off[0]*(1-e)).toFixed(1)+'px,'+(c.off[1]*(1-e)).toFixed(1)+'px)';}
+        else if(c.how==='grow'){st.transformOrigin='left center';st.transform='scaleX('+Math.max(0,e).toFixed(3)+')';}
         else if(c.how==='open'){const g=o.g,q=Math.max(0,e);el.setAttribute('x',g[0]+g[2]*(1-q)/2);el.setAttribute('y',g[1]+g[3]*(1-q)/2);el.setAttribute('width',g[2]*q);el.setAttribute('height',g[3]*q);}
         else if(c.how==='pulse'){st.transform='scale('+(1+c.amp*Math.sin(Math.PI*t)).toFixed(3)+')';}
         else if(c.how==='dim'){st.opacity=String(1-.7*Math.min(clamp(t*4),clamp((1-t)*4)));}

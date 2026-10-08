@@ -22,3 +22,7 @@ One hand-drawn shot per page, built the way a classical studio builds a shot, af
 To add a shot, write the action sentence first, then the keys, and play only the keys (› steps key to key) before adding breakdowns. Put a figure on the page with `<figure class="mp-shot" data-shot="name"></figure>`, followed by `shots.js` and then `cartoon.js`.
 
 People who prefer reduced motion get a still frame (the poster) and play only on request. Every shot has an `alt` description of the whole action.
+
+## Diagram films (`dfilm.js`, `films.js`)
+
+A diagram already on a page can become the film. `<svg data-film="id">` draws itself in, in the order its argument runs: boxes pop, arrows ink along their length, numbers count up, words type, and a small paper slip (the line of dialogue) travels the arrows, with an optional cast from `cartoon.js`. Nothing is added to the diagram's content: cues address the diagram's own elements by index, and the last frame is the original diagram (checked element for element). It plays once when half visible; Play, ‹ › step through its beats, and a subtitle reads the beat from the slide's own text. Reduced motion, print and no-JS show the original diagram. Each is labelled "drawn sequence, not a recorded run". First used on the nine diagrams of the Centaur Box deck.

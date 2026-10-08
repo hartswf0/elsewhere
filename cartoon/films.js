@@ -100,4 +100,115 @@ F.judge={len:140,
 F.chain={len:176,
   cue:[[0,0,18,'draw'],[1,12,14,'type'],[2,30,70,'words','linear'],[3,104,20,'words'],[0,128,14,'pulse','inout',.025],[4,136,30,'words']],
   beats:[[0,'From transcript to instrument:'],[30,'message, state, strategy, prompt, reply, judgment,'],[104,'each link a place to look.'],[136,'The point is traceability.']]};
+/* ---------- After the Scene: LEGOS (watson-hartsoe-site/after-the-scene-legos-essay__1_.html) ---------- */
+
+/* Figure 1 · Fluency survives even when the causal world does not. */
+F.fluent={len:190,
+  cue:[[0,0,14,'type'],[1,10,10,'pop'],[2,16,8,'pop'],[3,20,8,'pop'],[4,26,10,'draw'],[5,34,18,'words'],[6,50,10,'words'],
+    [7,66,14,'draw'],[8,78,6,'pop'],[9,70,10,'type'],
+    ...[[10,14,15,16],[11,17,18,19],[12,20,21,22],[13,23,24,25]].flatMap((c,k)=>[[c[0],96+14*k,8,'pop'],[c[1],100+14*k,6,'type'],[[c[2],c[3]],104+14*k,14,'words']]),
+    [[5,6],160,14,'pulse','inout',.04]],
+  slips:[{segs:[[56,66,[300,330],[430,275],'inout',-30],[66,80,{p:7},'inout']],hide:96},
+    ...[[840,112],[1120,112],[840,322],[1120,322]].map((q,k)=>({segs:[[92+14*k,104+14*k,[580,275],q,'inout',40]],hide:150}))],
+  beats:[[0,'One perfect scene: specific, fluent, convincing.'],[66,'Ask the model to continue,'],[92,'and each later scene breaks something the first one set up.'],
+    [158,'Fluency survives even when the causal world does not.']]};
+
+/* Figure 2 · Identity remains; narrative function changes with history and relation. */
+F.city={len:168,
+  cue:[[0,0,12,'type'],[1,10,12,'pop'],[2,18,14,'draw'],[3,28,8,'type'],
+    [4,44,16,'draw'],[7,58,8,'pop'],[8,62,6,'type'],[9,66,14,'words'],
+    [5,84,16,'draw'],[10,98,8,'pop'],[11,102,6,'type'],[12,106,14,'words'],
+    [6,124,14,'draw'],[13,136,8,'pop'],[14,140,6,'type'],[15,144,14,'words'],[[1,2,3],40,10,'pulse','inout',.04],[[1,2,3],80,10,'pulse','inout',.04],[[1,2,3],120,10,'pulse','inout',.04]],
+  slips:[{segs:[[44,60,{p:4},'inout']],hide:70},{segs:[[84,100,{p:5},'inout']],hide:110},{segs:[[124,138,{p:6},'inout']],hide:150}],
+  beats:[[0,'One city.'],[44,'At first, a place to live.'],[84,'After the flood, a force that traps.'],[124,'Years later, the thing to regain.'],
+    [150,'The identity remains. Its role in the story changes with history.']]};
+
+/* Figure 3 · A resolution can become the ground for another story rather than a final stop. */
+F.cycle={len:232,
+  cue:[[0,0,16,'type'],[1,14,8,'pop'],[2,18,8,'type'],
+    ...[0,1,2,3,4,5].flatMap(i=>[[13+i,30+24*i,14,'draw'],[19+i,44+24*i,6,'pop']].concat(i<5?[[3+2*i,42+24*i,8,'pop'],[4+2*i,46+24*i,8,'type']]:[])),
+    [[1,2],164,12,'pulse','inout',.08]],
+  slips:[{segs:[...[0,1,2,3,4,5].map(i=>[30+24*i,44+24*i,{p:13+i},'inout']),...[0,1,2,3,4,5].map(i=>[178+8*i,186+8*i,{p:13+i},'linear'])],hide:228}],
+  beats:[[0,'A place,'],[30,'an actor,'],[54,'a desire,'],[78,'something in the way,'],[102,'a change,'],[126,'a resolution.'],
+    [150,'The resolution settles into the ground another cycle grows from.'],[178,'The world does not end at resolution.']]};
+
+/* Figure 4 · Branches retain different causes, not just different endings. */
+F.branch={len:200,
+  cue:[[0,0,16,'type'],[1,14,8,'pop'],[16,16,8,'pop'],[17,18,8,'type'],[9,28,16,'draw'],[2,42,8,'pop'],[18,44,8,'pop'],[19,46,8,'type'],
+    [[10,11],60,18,'draw'],[[3,4],76,8,'pop'],[[20,21],80,14,'type'],
+    [[12,13,14,15],100,16,'draw'],[[5,6,7,8],114,8,'pop'],
+    [[22,27],124,8,'pop'],[[23,28],128,8,'type'],[[24,29],136,8,'words'],[[25,30],144,8,'words'],[[26,31],152,8,'words'],[[22,27],170,12,'pulse','inout',.03]],
+  slips:[{segs:[[28,44,{p:9},'inout'],[60,78,{p:10},'inout'],[100,116,{p:12},'inout']],hide:186},{segs:[[60,78,{p:11},'inout'],[100,116,{p:14},'inout']],hide:186},
+    {segs:[[100,116,{p:13},'inout']],hide:186},{segs:[[100,116,{p:15},'inout']],hide:186}],
+  beats:[[0,'A common past.'],[28,'A fork point.'],[60,'She opens the door. She burns the key.'],[100,'Each branch goes on with its own state,'],
+    [124,'and each remembers a different cause.'],[170,'The choice does not erase the other world.']]};
+
+/* ---------- The Adviser Leaves the Room (watson-hartsoe-site/the-adviser-leaves-the-room.html) ----------
+   A hard subject: no cast and no gags. The figures assemble in the order the argument runs, and nothing more. */
+
+/* Figure 0 · personhood during use, toolhood after harm */
+F.alibi={len:140,
+  cue:[[14,0,8,'type'],[15,6,12,'draw'],[1,14,8,'pop'],[4,18,6,'type'],[2,22,10,'pop'],[[5,6],28,12,'words'],[3,38,8,'pop'],[7,42,6,'type'],
+    [8,48,18,'draw'],[9,66,6,'pop'],[10,54,14,'type'],
+    [11,84,18,'draw'],[12,102,6,'pop'],[13,90,14,'type'],[17,106,12,'draw'],[16,118,6,'type'],[[2,5,6],124,12,'pulse','inout',.05]],
+  slips:[{segs:[[48,66,{p:8},'inout']],hide:76},{segs:[[84,102,{p:11},'inout']],hide:112}],
+  beats:[[0,'During use, the product says “I”.'],[48,'Authority moves from the firm, through the chatbot, to the user.'],[84,'After harm, the question is responsibility,'],
+    [106,'and the product becomes “it”.']]};
+
+/* Fig. C1 · same sentence, new relation */
+F.tessa={len:176,
+  cue:[[1,0,10,'type'],[2,6,14,'words'],[3,20,10,'pop'],[[4,5],24,8,'pop'],[6,28,8,'type'],[7,32,12,'type'],[0,40,16,'draw'],
+    [8,52,14,'draw'],[9,58,16,'type'],[[3,4,5,6,7],56,56,'dim'],
+    [19,70,14,'draw'],[20,84,6,'pop'],[10,74,6,'type'],[11,78,10,'pop'],[12,84,16,'words'],[13,98,8,'words'],[14,106,10,'type'],
+    [15,118,10,'pop'],[16,122,10,'words'],[17,130,10,'type'],[18,138,14,'type'],[17,148,10,'pulse','inout',.05],[21,154,18,'words']],
+  slips:[{segs:[[70,84,{p:19},'inout'],[84,92,[635,210],[660,190],'inout']],hide:100}],
+  beats:[[0,'An eating-disorder support service.'],[52,'The human helpline is withdrawn and automation expands.'],[70,'The chatbot gives generic diet guidance.'],
+    [118,'Same words, new relation: harmful reinforcement.'],[154,'Authority crossed the interface. Duty did not.']]};
+
+/* Fig. D1 · three lower-stakes role reversals */
+F.triptych={len:176,
+  cue:[[[0,1],0,14,'draw'],
+    [2,10,8,'type'],[3,16,8,'pop'],[4,20,10,'draw'],[5,28,8,'pop'],[6,32,10,'type'],[7,40,8,'type'],[8,46,10,'type'],
+    [9,56,8,'type'],[10,62,8,'pop'],[13,64,6,'pop'],[[11,12],68,12,'words'],[14,80,8,'pop'],[15,88,10,'type'],[16,96,10,'type'],
+    [17,106,8,'type'],[18,112,8,'pop'],[19,118,6,'type'],[20,124,8,'words'],[21,132,8,'words'],[[22,23],140,8,'fade'],[24,146,6,'type'],[25,152,20,'words']],
+  beats:[[0,'Three lower-stakes failures.'],[10,'An official clerk gives incorrect legal guidance.'],[56,'A delivery bot turns on its own company.'],
+    [106,'A study assistant produces abusive language.'],[150,'“Just words” changes meaning with the role, audience, and likelihood of reliance.']]};
+
+/* Fig. E1 · the loop, and where it can be interrupted */
+F.loop={len:204,
+  cue:[[0,0,20,'draw'],[1,8,10,'pop'],[2,14,10,'type'],[3,22,10,'type'],[4,30,10,'type'],[5,40,8,'pop'],[[6,7],44,8,'type'],
+    ...[0,1,2,3,4].flatMap(i=>[[20+i,52+22*i,14,'draw']].concat(i<4?[[[8,11,14,17][i],64+22*i,8,'pop'],[[[9,10],[12,13],[15,16],[18,19]][i],68+22*i,8,'type']]:[])),
+    [25,154,8,'fade'],[[5,6,7],152,10,'pulse','inout',.06],[26,166,10,'pop'],[27,172,16,'type'],[28,186,10,'draw']],
+  slips:[{segs:[...[0,1,2,3,4].map(i=>[52+22*i,66+22*i,{p:20+i},'inout']),...[0,1,2,3,4].map(i=>[160+6*i,166+6*i,{p:20+i},'linear'])],hide:192}],
+  beats:[[0,'A private world: continuity, memory, an apparent witness.'],[40,'A vulnerable state.'],[52,'An agreeable response,'],[74,'narrative elaboration,'],
+    [96,'apparent confirmation,'],[118,'disclosure, and return.'],[160,'Tuning can strengthen the loop, or interrupt it: challenge, pause, human care.']]};
+
+/* Fig. F1 · the evidentiary stage must remain visible */
+F.threshold={len:172,
+  cue:[[0,0,10,'pop'],[1,4,8,'fade'],[2,8,6,'pop'],[3,14,8,'pop'],[4,18,10,'type'],[5,30,8,'pop'],[[6,7],34,14,'type'],[8,50,8,'pop'],[9,54,8,'fade'],[10,62,12,'type'],
+    [11,76,26,'draw','linear'],...[0,1,2,3,4,5].flatMap(k=>[[12+2*k,80+8*k,8,'pop'],[13+2*k,82+8*k,8,'type']]),[[22,23],134,14,'pulse','inout',.25],[24,146,22,'words']],
+  beats:[[0,'A conversation, abstracted; harmful detail removed.'],[76,'Then a legal sequence: report, complaint, motion, discovery, settlement, verdict.'],
+    [132,'Each stage means something different.'],[146,'A tragic sequence is not yet a judicial finding of causation.']]};
+
+/* Fig. S1 · the switchboard */
+F.switch={len:178,
+  cue:[[0,0,16,'words'],...[0,1,2,3,4,5].flatMap(k=>[[1+5*k,14+16*k,8,'pop'],[2+5*k,16+16*k,8,'type'],[3+5*k,20+16*k,12,'words'],[[4+5*k,5+5*k],26+16*k,8,'pop'],[4+5*k,32+16*k,8,'pulse','inout',.2]]),
+    [31,112,12,'draw'],[32,124,6,'pop'],[33,128,10,'pop'],[34,134,8,'type'],[35,142,24,'words']],
+  beats:[[0,'When harm appears, which circuit is thrown?'],[14,'Personhood.'],[30,'Authority.'],[46,'Personalization.'],[62,'The reasonable user.'],
+    [78,'The human in the loop.'],[94,'The ecosystem.'],[124,'Corrective principle: answer for the relation you controlled.']]};
+/* ---------- Nushi at GDC 2023 (nushi.html) ----------
+   The booth wiring diagram is an image, so it is lit station by station in the order the signal travels.
+   Coordinates are on a 1000-wide copy of the image. Steps quoted from the page's own list. */
+F.booth={len:244,w:1000,h:1079,
+  regions:[[636,396,148,96],[686,292,48,120],[243,224,526,120],[526,284,256,364],[310,508,200,140],[322,288,86,334],[268,0,474,190],
+    [0,98,424,270],[298,148,614,74],[876,196,36,300],[792,478,208,172],[636,196,156,174],[0,388,192,290],[286,288,226,200],[0,50,184,76],[248,598,524,481]],
+  cue:[[0,10,12,'open'],[1,30,10,'open'],[2,42,14,'open'],[3,64,16,'open'],[[4,5],96,14,'open'],[6,114,14,'open'],[7,136,14,'open'],
+    [[8,9],160,14,'open'],[10,170,12,'open'],[11,160,14,'open'],[12,190,12,'open'],[[13,14],206,12,'open'],[15,214,16,'open']],
+  slips:[{segs:[[22,32,[712,440],[712,412],'inout'],[32,42,[712,412],[712,312],'inout'],[48,62,[712,312],[590,312],'inout'],[64,80,[590,312],[580,600],'inout',-20],
+    [96,108,[580,600],[440,578],'inout'],[114,128,[440,578],[313,168],'inout',60],[136,150,[313,168],[96,230],'inout',40]],hide:154},
+    {segs:[[160,166,[346,168],[346,212],'inout'],[166,180,[346,212],[895,212],'inout'],[180,190,[895,212],[895,488],'inout']],hide:200}],
+  beats:[[0,'The booth, wired.'],[10,'Capture: the pilot (operator 3) drives Nushi; its eye camera is one input to the switcher.'],
+    [64,'Transform: on the Photo Mosh station (operator 2), the camera feed is restyled.'],[96,'Switch: at ATEM control (operator 1),'],
+    [136,'button 1 puts Nushi Vision on TV 1,'],[160,'button 2 the walls.io social wall,'],[190,'and TV 2 always shows the QR code to x.la/gdc.'],
+    [206,'The switcher also records to a drive and a field monitor.']]};
 })();

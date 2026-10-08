@@ -26,3 +26,7 @@ People who prefer reduced motion get a still frame (the poster) and play only on
 ## Diagram films (`dfilm.js`, `films.js`)
 
 A diagram already on a page can become the film. `<svg data-film="id">` draws itself in, in the order its argument runs: boxes pop, arrows ink along their length, numbers count up, words type, and a small paper slip (the line of dialogue) travels the arrows, with an optional cast from `cartoon.js`. Nothing is added to the diagram's content: cues address the diagram's own elements by index, and the last frame is the original diagram (checked element for element). It plays once when half visible; Play, ‹ › step through its beats, and a subtitle reads the beat from the slide's own text. Reduced motion, print and no-JS show the original diagram. Each is labelled "drawn sequence, not a recorded run". First used on the nine diagrams of the Centaur Box deck.
+
+Image diagrams: `<img data-film="id">` with `w`, `h` and `regions` in the film. A raster cannot be taken apart, so a veil the colour of the page dims it and each region opens a hole, station by station, while the slip follows the signal; the last frame removes the veil. Used for the Nushi booth wiring diagram.
+
+Films so far: the Centaur Box deck (9), After the Scene: LEGOS (4), The Adviser Leaves the Room (6, with no cast or gags given the subject), and the Nushi booth (1). On those pages the separate cartoon gave way to the films. Every cartoon that remains carries the label "Illustration · a drawn cartoon of the idea, not footage of the work."

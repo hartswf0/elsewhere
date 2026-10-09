@@ -127,7 +127,10 @@ tr.now td{background:#ffe7c9}
 .demo figcaption{font:500 .78rem/1.4 var(--sans);color:var(--muted);margin-top:.35rem}
 .demo .ans{font:500 .9rem/1.45 var(--sans);margin:.2rem 0}
 .demo .ans b{display:inline-block;min-width:6.5rem;font-size:.72rem;letter-spacing:.1em;color:var(--blue)}
-.end{height:72vh}
+.end{height:auto;padding:4vh 0 30vh}.copyend{margin:0}.copyend a{font:600 .8rem/1 var(--sans);color:var(--ink);margin-left:.8rem}
+.bar button.copy{background:var(--ink);color:var(--paper)}
+.bar button:focus-visible,.bar a:focus-visible,.copyend button:focus-visible{outline:3px solid var(--warm);outline-offset:2px}
+.copyend .copy{min-height:44px;padding:0 1.1rem;border:1.5px solid var(--ink);border-radius:999px;background:var(--ink);color:var(--paper);font:700 .76rem/1 var(--sans);letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 @media (max-width:820px){main{margin:0 auto}.sec{margin-bottom:38vh;padding:18px 18px 8px}.bar .at{display:none}}
 @media print{#world,.bar,.demo{display:none}.sec{margin:0 0 1rem;box-shadow:none}}
@@ -138,15 +141,16 @@ tr.now td{background:#ffe7c9}
 <defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e6eef0"/><stop offset=".42" stop-color="#f3e3c7"/><stop offset=".72" stop-color="#f0c59a"/><stop offset="1" stop-color="#a893bf"/></linearGradient></defs>
 <g data-plane="6"><rect x="-500" y="-200" width="2000" height="2200" fill="url(#sky)"/></g>
 </svg>
-<nav class="bar" aria-label="Page"><a href="index.html">← elsewhere</a><button type="button" id="planesBtn" aria-pressed="false">Show planes</button><span class="at" id="at" aria-hidden="true">frame 000</span></nav>
+<nav class="bar" aria-label="Page"><a href="index.html#work">← elsewhere</a><button type="button" id="planesBtn" aria-pressed="false">Show planes</button><button type="button" class="copy" data-copy>Copy prompt</button><span class="at" id="at" aria-hidden="true">frame 000</span><span class="vh" role="status" id="copied" aria-live="polite"></span></nav>
+<textarea id="prompt-src" hidden readonly>@@RAW@@</textarea>
 <main id="top">
 @@BODY@@
-<div class="end" aria-hidden="true"></div>
+<div class="end"><p class="copyend"><button type="button" class="copy" data-copy>Copy the whole prompt</button> <a href="index.html#work">Back to the work</a></p></div>
 </main>
 <script src="cartoon/cartoon.js" defer></script>
 <script src="studio.js" defer></script>
 </body>
 </html>
-'''.replace('@@BODY@@', body)
+'''.replace('@@BODY@@', body).replace('@@RAW@@', html.escape(SRC, quote=False))
 open('studio.html', 'w', encoding='utf-8').write(PAGE)
 print('studio.html', len(PAGE), 'sections', len(blocks))

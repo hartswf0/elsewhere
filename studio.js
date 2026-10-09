@@ -279,6 +279,17 @@ function mountDemos() {
 }
 function parallaxGauge() { document.querySelectorAll('.demo[data-demo="parallax"]').forEach(el => el._live && el._live()); }
 
+/* Copy the prompt, exactly as written (the {{slots}} stay as they are, so it can be pasted into any agent). */
+function copyPrompt(btn) {
+  const text = document.getElementById('prompt-src').value, msg = document.getElementById('copied');
+  const done = ok => { if (msg) msg.textContent = ok ? 'Prompt copied' : 'Copy failed: select the text in the page instead';
+    document.querySelectorAll('[data-copy]').forEach(b => { b.textContent = ok ? 'Copied' : 'Copy failed'; });
+    setTimeout(() => { document.querySelectorAll('[data-copy]').forEach(b => { b.textContent = b.classList.contains('copy') && b.closest('.copyend') ? 'Copy the whole prompt' : 'Copy prompt'; }); if (msg) msg.textContent = ''; }, 2200); };
+  const fallback = () => { const ta = document.createElement('textarea'); ta.value = text; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select(); let ok = false; try { ok = document.execCommand('copy'); } catch (e) { ok = false; } ta.remove(); done(ok); };
+  if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(() => done(true), fallback); else fallback();
+}
+document.querySelectorAll('[data-copy]').forEach(b => b.addEventListener('click', () => copyPrompt(b)));
 function loop(ts) { tNow = ts || 0; frame(); requestAnimationFrame(loop); }
 function boot() { if (!window.MP) return setTimeout(boot, 40); placeDesk(); mountDemos(); if (RM) { frame(true); addEventListener('scroll', () => frame(true), { passive: true }); } else requestAnimationFrame(loop); }
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
